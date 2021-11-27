@@ -1,10 +1,22 @@
 import Controlador from "../../../../../components/Controlador"
+import {
+  AuthAction,
+  useAuthUser,
+  withAuthUser,
+  withAuthUserTokenSSR,
+} from 'next-firebase-auth'
 
-export default function ModuloNivel1({}){
-
+const modulo=({})=>{
+  const auth = useAuthUser()
+  if(!auth) return <Loader texto="Cargando Usuario"/>
     return(
-      <Controlador pathComponente={"${router.query.componente}/${router.query.accion}"} />
+      <Controlador auth={auth} pathComponente={"${router.query.componente}/${router.query.accion}"} />
     )
 
 }
- 
+export const getServerSideProps = withAuthUserTokenSSR()()
+export default withAuthUser({
+  
+  whenUnauthedBeforeInit: AuthAction.REDIRECT_TO_LOGIN,
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+})(modulo)

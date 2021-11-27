@@ -3,19 +3,21 @@ import { Grid } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
-
+import React from 'react';
 import Fetch from '../helpers/Fetcher';
 
-export default function _FormGenerico({datos,urlAcepta,valoresIniciales,modelo,mutateIndex,esNuevo,mutateRegistro,children}) {
+export default function _FormGenerico({callbackSuccess,auth,dataCuenta,datos,urlAcepta,valoresIniciales,modelo,mutateIndex,esNuevo,mutateRegistro,children}) {
 
   const router=useRouter();
   const [load,setLoad]=useState();
 
   const clickForm=async (values)=>{
     setLoad(true)
+    console.log(values)
     const res=await Fetch(urlAcepta,"POST",values)
     if(mutateIndex)mutateIndex()
     if(mutateRegistro)mutateRegistro()
+    if(callbackSuccess)callbackSuccess(values)
     router.back({ shallow: true })
   }
   return (
@@ -29,20 +31,24 @@ export default function _FormGenerico({datos,urlAcepta,valoresIniciales,modelo,m
      >
         
          {({handleSubmit,values,errors,setFieldValue,validateForm})=>{
-           console.log(values)
+           
            return ( 
-          
+            <Grid sx={{my:3}} md={12} item xs={9}> 
             <Form onSubmit={handleSubmit} >
                {!esNuevo && <input name="id" type="hidden" value={router.query.idItem}/>}
-                {children}
-                <Grid sx={{my:3}} md={12} item xs={9}> 
+              
+                {React.cloneElement(
+      children,
+      {values: values}
+    )}
                     <LoadingButton loading={load} color="primary" variant="contained" fullWidth type="submit">
                         ACEPTAR
                     </LoadingButton>
                     
-                </Grid>
+               
                 
             </Form>
+            </Grid>
              )
          } }
     </Formik>

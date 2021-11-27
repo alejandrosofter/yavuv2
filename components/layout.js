@@ -5,7 +5,6 @@ import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -16,19 +15,25 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Head from 'next/head'
-import Link from 'next/link'
-import { CircularProgress, Collapse, Fab, Icon, SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
+
+import {  Icon, SpeedDial} from '@mui/material';
 
 import { useRouter } from 'next/router';
 import Image  from 'next/image'
 import Stack from '@mui/material/Stack';
 import Dialogo from './forms/dialogo';
-import {  signOut } from "next-auth/client"
 import { useState } from 'react';
 import MenuModulos from './menuModulos';
-import { getLinkUrl } from '../helpers/Strings';
-const drawerWidth = 240;
 
+import MenuUsuario from "./menuUsuario"
+import MenuAccionesSpeed from './menuAccionesSpeed';
+import ModulosBase from "./modulosBase"
+const drawerWidth = 240;
+const estiloBarra = {
+  customizeToolbar: {
+    minHeight: 36
+  }
+};
 const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
 
   '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
@@ -84,8 +89,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }));
-const fetcher = (...args) => fetch(...args).then(res => res.json())
-export default function Layout({children,titulo,acciones,icono,modulo,data}) {
+
+export default function Layout({dataCuenta,children,titulo,acciones,icono,modulo,data,auth}) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   
@@ -114,7 +119,7 @@ export default function Layout({children,titulo,acciones,icono,modulo,data}) {
         </Head> 
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar variant="dense">
           
           <IconButton
             color="inherit"
@@ -127,51 +132,21 @@ export default function Layout({children,titulo,acciones,icono,modulo,data}) {
           </IconButton>
           <Box
                 sx={{
+                  flexGrow: 1,
                 display: 'flex',
                 flexDirection: 'row',
-                p: 1,
-                m: 1,
+                p: 0,
+                m: 0,
                 }}
             >
-                <Box >
+                <Box sx={{ flexGrow: 1 }}>
                 <Stack sx={{ alignContent: 'center'}} direction="row" spacing={2}>
-                <Typography sx={{ color: '#fff', textTransform: "uppercase", pt:2, fontWeight: 'bolder' }} variant="h5" color="#fff"><Icon className={icono}/> {titulo}</Typography>
-                <StyledSpeedDial
-                ariaLabel="Acciones del modulo"
-                  icon={<SpeedDialIcon />}
-                  FabProps={{
-                    color: 'secondary',
-                    size: 'small',
-                  }}
-                  direction="right"
-                >
-                {acciones && acciones.map(item=>{
-                  if(!item.esRegistro)return (
-                    
-                      <SpeedDialAction
-                      ariaLabel="Acciones del item"
-                        key={item.nombre}
-                        icon={
-                        <Link passHref href={getLinkUrl(item.url,modulo,data)}>
-                          <i className={item.icono}/>
-                        </Link>}
-                        tooltipTitle={item.label}
-                        
-                        FabProps={{
-                          color: 'secondary',
-                          size: 'small',
-                        }}
-                      />
-                  )
-                }
-                  )}
-
-                </StyledSpeedDial>
-               
+                <Typography sx={{ color: '#fff', textTransform: "uppercase", pt:0, fontWeight: 'bolder' }} variant="h5" color="#fff"><Icon className={icono}/> {titulo}</Typography>
+                
                 </Stack>
                 </Box>
             </Box>
-          
+            <ModulosBase auth={auth}/>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -193,42 +168,19 @@ export default function Layout({children,titulo,acciones,icono,modulo,data}) {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
-        <MenuModulos/>
-            
-      
-        {/* <Collapse in={openConsultas} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-            {
-                data && data.map(item=>
-                    <Link href={"/consultas/"+item._id}>
-                        <ListItem button sx={{ pl: 4 }}>
-                            <ListItemIcon>
-                            
-                            </ListItemIcon>
-                            <ListItemText primary={item._id}/>
-                        </ListItem>
-                    </Link>
-                )
-            }
-          
-        </List>
-      </Collapse> */}
-        <Divider />
-        <ListItem onClick={clickSalir} button key="salir">
-              <ListItemIcon>
-                <Icon  className="fas fa-sign-out-alt"/>
-              </ListItemIcon>
-              <ListItemText primary="Salir"/>
-        </ListItem>
-        <Divider />
-     <Dialogo open={dialogSalir} icon="fas fa-sign-out-alt" setOpen={setdialogSalir} titulo="LOGOUT" detalle="Deseas salir del sistema?" callbackAcepta={()=>{
-       signOut()
-     }} />
+        <MenuModulos dataCuenta={dataCuenta} auth={auth}/>
+        
       </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-        {children}
-      </Main>
+      
+        
+        <Main  open={open}>
+          <DrawerHeader />
+          <Stack  direction="row" spacing={0}>
+          <MenuAccionesSpeed modulo={modulo} acciones={modulo?modulo.acciones:[]} data={data}/>
+          {children}
+          </Stack> 
+        </Main>
+      
     </Box>
   );
 }

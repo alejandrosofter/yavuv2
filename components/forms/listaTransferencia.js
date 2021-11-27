@@ -19,7 +19,7 @@ export default function ListaTransferencia({items,campoLabel,campoId,campo,label
     var auxLeft=[]
     var auxRight=[]
     items.map(item=>{
-        if(valores.indexOf(item[campoId])== -1) auxLeft.push(item)
+        if(valores&&valores.indexOf(item[campoId])== -1) auxLeft.push(item)
         else auxRight.push(item)
     })
     setLeft(auxLeft)

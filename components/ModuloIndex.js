@@ -4,7 +4,7 @@ import useSWR from "swr";
 import Loader from './loader';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
-export default function ModuloIndexCard({modulo,dataUsuario,vistaItem,url}) {
+export default function ModuloIndexCard({modulo,vistaItem,url}) {
 
     const {data:dataIndex,mutate} = useSWR(url,fetcher);
     
@@ -13,7 +13,7 @@ export default function ModuloIndexCard({modulo,dataUsuario,vistaItem,url}) {
       
         <Grid spacing={3} rowSpacing={2}  container>
             {dataIndex && dataIndex.map(data=>{
-            const AuxVistaCard=vistaItem({data,dataUsuario,mutate,modulo})
+            const AuxVistaCard=vistaItem({data,mutate,modulo})
             return (
             
             <Grid key={`grid_${data.id}`} item >

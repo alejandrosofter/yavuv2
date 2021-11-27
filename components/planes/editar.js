@@ -1,5 +1,5 @@
 import EditarGenerico from "../EditarGenerico"
-import ModeloPlanes from "../../modelos/ModeloPlanes"
+import ModeloPlanes, { valoresIniciales } from "../../modelos/ModeloPlanes"
 import _FormGenerico from "../_formGenerico"
 import _formPlanes from "./_form"
 import { Field } from "formik"
@@ -18,11 +18,11 @@ export default function Modulo({modulo,dataUsuario}) {
     const router=useRouter();
     const urlAcepta=`/api/planes/${router.query.idItem}`
     const urlModulos=`/api/modulos/` 
-
+    
     const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos, fetcher)
     if(!dataModulos)return <CircularProgress />
       return (
-      <EditarGenerico urlAcepta={urlAcepta} modulo={modulo} modelo={ModeloPlanes} dataUsuario={dataUsuario} >
+      <EditarGenerico urlAcepta={urlAcepta} modulo={modulo} valoresIniciales={valoresIniciales} modelo={ModeloPlanes} dataUsuario={dataUsuario} >
          
         
                 <Grid sx={{pt:3}} md={12} container rowSpacing={2} spacing={2}>

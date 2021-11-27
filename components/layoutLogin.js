@@ -41,8 +41,8 @@ export default function LayoutLogin({children,titulo}) {
   }}
 >
   <Image alt="Logo YAVU"
-      width={150}
-      height={200} src="images/logoYavu.png"/>
+      width={200}
+      height={50} src="/images/logoYavu.png"/>
   {children}
   
 </Box>

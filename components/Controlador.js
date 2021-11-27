@@ -1,5 +1,4 @@
 import { Backdrop, CircularProgress, Typography } from '@mui/material';
-import { useSession } from 'next-auth/client';
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -7,17 +6,22 @@ import useSWR from 'swr';
 import Layout from './layout'
 import Loader from "./loader"
 const fetcher = (...args) => fetch(...args).then(res => res.json())
- 
-export default function Controlador({pathComponente}){
-  const [session, loading] = useSession()
-  
+
+const cargarClick=(idMod)=>{
+  fetch(`/api/mod/click/${idMod}`)
+}
+export default function Controlador({pathComponente,auth}){
   const router = useRouter()
-  const {data:modulo,mutate} = useSWR(`/api/modulos/${router.query.id}`,fetcher);
-  const {data:dataUsuario} = useSWR(`/api/usuarios/modulo/${router.query.id}`,fetcher);
-  if(!modulo)return <Loader texto="Cargando modulo"/>
-  if(!dataUsuario)return <Loader texto="Cargando usuario"/>
-  const url=eval("`"+pathComponente+"`")
   
+  const urlMod=`/api/mod/modulo/${router.query.id}`
+ 
+  const {data:modulo,mutate} = useSWR(urlMod,fetcher);
+  
+  const {data:dataCuenta} = useSWR(`/api/cuentas/${auth.id}`,fetcher);
+  if(!modulo)return <Loader texto="Cargando modulo"/>
+  if(!dataCuenta)return <Loader texto="Cargando cuenta"/>
+  const url=eval("`"+pathComponente+"`")
+  cargarClick(router.query.id)
     const Componente = dynamic(
         () => import(`./${url}`),
         { loading: ({error,timedOut,isLoading}) => {
@@ -28,15 +32,13 @@ export default function Controlador({pathComponente}){
           
         }}
       )
-    if (session) {
+
     return(
-      <Layout icono={modulo.icono} modulo={modulo} titulo={modulo.label} acciones={dataUsuario.acciones}>
-        <Componente session={session} dataUsuario={dataUsuario} modulo={modulo}/>
+      <Layout auth={auth} icono={modulo.icono} dataCuenta={dataCuenta} modulo={modulo} titulo={modulo.label} >
+        <Componente auth={auth} dataCuenta={dataCuenta}  modulo={modulo}/>
         
         </Layout>
     )
-    }else{
-      return <Loader texto="Cargando sesion"/>
-    }
+   
 
 }

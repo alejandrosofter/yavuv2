@@ -1,19 +1,19 @@
-import {findOne,update,nuevo,findOneField} from "../config/firebase";
-import { getSession } from "next-auth/client"
+import {findOne,update,nuevo,findAll,findOneField} from "../config/firebase";
+
 
 async function getIdUsuario(accessToken){
     const sesionDb=await findOneField("sessions",{campo:"accessToken",valor:accessToken})
     return sesionDb.userId
 }
-export default async function handlerApiABM({req, res,coleccion}) {
-    const session = await getSession({ req })
-    var data=req.body
-    if(session){
+export default async function handlerApiABM({req, res,coleccion,campoId}) {
+ 
+   
+   
         switch (req.method) {
             case 'POST':
                 var sal={}
                
-                data.idUsuario=await getIdUsuario(session.accessToken)
+                // data.idUsuario=await getIdUsuario(session.accessToken)
 
                 if(req.body.id)sal=await update(coleccion,req.body) 
                     else sal=await nuevo(coleccion,req.body) 
@@ -22,10 +22,19 @@ export default async function handlerApiABM({req, res,coleccion}) {
             break;
             case 'GET':
                 const { id } = req.query
-                const datos=await findOne(coleccion,id)
-        
-                if(!datos) return {}
-                else {}
+                let salida
+                
+                if(id){
+                    if(!campoId) salida=await findOne(coleccion,id)
+                    else salida=await findOneField(coleccion,{campo:campoId?campoId:"id",valor:id})
+                  
+                }
+                else {
+                    console.log("buisca todos")
+                    salida=await findAll(coleccion)
+                }
+                
+                return salida
             break;
             case 'DELETE':
                 console.log('QUITO ELEMENTO');
@@ -33,7 +42,7 @@ export default async function handlerApiABM({req, res,coleccion}) {
             default:
               console.log(`No se que hacer con este metod ${req.method}.`);
           }
-    }
+    
     return null
     
     

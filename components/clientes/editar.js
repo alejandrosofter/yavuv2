@@ -18,7 +18,8 @@ export default function Modulo({modulo,dataUsuario}) {
     const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos, fetcher)
     if(!dataModulos)return <Loader texto="Cargando MODULO" />
       return (
-      <EditarGenerico urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} modelo={ModeloClientes} dataUsuario={dataUsuario} >
+      <EditarGenerico urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} 
+      modelo={ModeloClientes} dataUsuario={dataUsuario} >
          
         
                 <Grid sx={{pt:3}} md={12} container rowSpacing={2} spacing={2}>

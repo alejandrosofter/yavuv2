@@ -11,7 +11,7 @@ export default function VistaItemCard({data,mutate,dataUsuario,modulo}){
                         <Icon className={data.icono}/> {data.detalle}
                     </Typography>
                 }
-                action={<BotonAcciones mutate={mutate} data={data} modulo={modulo}  acciones={dataUsuario.acciones} /> } />
+                action={<BotonAcciones mutate={mutate} data={data} modulo={modulo} /> } />
                 
                 <CardContent>
                     <Typography variant="h5" color="initial">

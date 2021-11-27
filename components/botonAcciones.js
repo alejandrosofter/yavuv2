@@ -20,7 +20,7 @@ import { getLinkUrl } from '../helpers/Strings';
 import Dialogo from './forms/dialogo';
 import Fetcher from "../helpers/Fetcher"
 import DialogContenido from './forms/dialogContenido';
-export default function BotonAcciones({acciones,data,modulo,mutate}){
+export default function BotonAcciones({data,modulo,mutate,color}){
     //ACCIONES {nombreAccion, color, icono,url}
     const [anchorEl, setAnchorEl] = useState(null);
     const [dialog, setdialog] = useState(false);
@@ -38,15 +38,14 @@ export default function BotonAcciones({acciones,data,modulo,mutate}){
     }
     const getItemAccion=(nombreAccion)=>{
         let salida=null;
-        acciones.map(item=>{
+        modulo.acciones.map(item=>{
             if(item.nombre==nombreAccion)salida= item
         })
         return salida
     }
     const clickAceptaMenu=async e=>{
         const res= await Fetcher(dataMenuSeleccion.url,"POST",data)
-        mutate()
-        console.log(res)
+        if(mutate)mutate()
         if(res){
             setRtaServer(JSON.stringify(res))
             setOpenRta(true)
@@ -73,7 +72,7 @@ export default function BotonAcciones({acciones,data,modulo,mutate}){
         // else itemAccion.funcion(itemAccion)
         
     }
- 
+
 return (
     <>
     <Dialogo open={dialog} icon="fas fa-exclamation-triangle" setOpen={setdialog} 
@@ -81,20 +80,22 @@ return (
              <DialogContenido titulo="Rta Server" open={openRta} setOpen={setOpenRta}>
                  {rtaServer}
              </DialogContenido>
-    <IconButton aria-expanded={open ? 'true' : undefined} onClick={clickMenu}>
+    <IconButton sx={{color:color?color:""}} aria-expanded={open ? 'true' : undefined} onClick={clickMenu}>
         <MoreVertIcon/>
      </IconButton>
      <Menu anchorEl={anchorEl} onClose={handleClose} TransitionComponent={Fade} open={open}>
         
         {
-                acciones && acciones.map(item=>{
+                modulo.acciones && modulo.acciones.map(item=>{
                     if(item.esRegistro)return (
                         <Link passHref href={getLinkUrl(item.url,modulo,data,item.esFuncion)}>
                         <MenuItem  data-my-value={item.nombre} onClick={clickAccion}>
                             <ListItemIcon>
                                 <Icon sx={{color:item.color}} fontSize="small" className={item.icono}/>
                             </ListItemIcon>
-                            <ListItemText><Typography color={item.color?item.color:""} >{item.label}</Typography> </ListItemText>
+                            <ListItemText>
+                                <Typography color={item.color?item.color:""} >{item.label}</Typography>
+                            </ListItemText>
                         </MenuItem>
                     </Link>
                     )

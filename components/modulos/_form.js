@@ -66,6 +66,7 @@ export default function _FormModulos({datos,modulo,esNuevo,mutateRegistro}) {
                     <Grid item xs={4}><Input label="Label" campo="label"/></Grid>
                     <Grid item xs={6}><Input label="Detalle" campo="detalle"/></Grid>
                     <Grid item xs={1}><CheckboxForm label="Activo" campo="activo"/></Grid>
+                    <Grid item xs={1}><CheckboxForm label="Es Base?" campo="esBase"/></Grid>
                     
                 </Grid>
             </TabPanel>

@@ -6,6 +6,7 @@ export default function ModeloModulos(){
         detalle: yup.string(),
         icono: yup.string(),
         id: yup.string(),
+        esBase: yup.boolean(),
         createdOn: yup.date().default(function () {
             return new Date();
           }),
@@ -14,6 +15,7 @@ export default function ModeloModulos(){
               nombre: yup.string().required("Es requerido para buscar el componente el las librerias"),
               label: yup.string().required("Es requerido"),
               icono: yup.string(),
+              
               descripcion: yup.string(),
 
             }) )
