@@ -29,6 +29,20 @@ export function getArrayData(querySnapshot)
 });
 return salida
 }
+export function getModsArrayData(querySnapshot)
+{
+  var salida=[];
+  if(querySnapshot)
+  querySnapshot.forEach((doc) => {
+    
+    var dataAux=doc.data()
+    
+    dataAux.id=doc.id;
+    salida=salida.concat(dataAux.mods);
+    
+});
+return salida
+}
 export async function nuevo(coleccion,data){
   return await Firestore().collection(coleccion).add(data)
 }
@@ -48,6 +62,13 @@ export async function findIn(coleccion,campo,arrIn)
     query.where(campo,"==",w)
   })
   return getArrayData(await query.get())
+}
+export async function findModsInvitados(email)
+{
+  
+  const query=await Firestore().collection("usuariosInvitados").where("email","==",email).where("activo","==",true).get();
+  
+  return getModsArrayData(query)
 }
 export async function findMods(coleccion,idUsuario,soloBase)
 {

@@ -23,10 +23,18 @@ export default function ModeloModulos(){
       });
 }
 export function valoresIniciales(){
-    return {
-        nombre: "",
-        detalle: "",
-        icono: "",
-        acciones: [],
-    }
+  return {
+      nombre: "",
+      detalle: "",
+      icono: "",
+      acciones: [],
+  }
+}
+export function valoresInicialesItems(){
+  return {
+      nombre: "",
+      label: "",
+      icono: "",
+      descripcion: "",
+  }
 }

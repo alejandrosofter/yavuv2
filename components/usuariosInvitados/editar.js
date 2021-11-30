@@ -16,7 +16,7 @@ import _formUsuarioInvitado from "./_form"
 import ModeloUsuariosInvitados from "../../modelos/ModeloUsuariosInvitados"
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
-export default function Modulo({modulo,dataUsuario}) {
+export default function Modulo({modulo,auth}) {
     const router=useRouter();
     
     const urlModulos=`/api/modulos/` 
@@ -26,10 +26,10 @@ export default function Modulo({modulo,dataUsuario}) {
     const urlAcepta=`/api/${modulo.nombre}/${router.query.idItem}`
       return (
       <EditarGenerico urlAcepta={urlAcepta} modulo={modulo} valoresIniciales={valoresIniciales} 
-      modelo={ModeloUsuariosInvitados} dataUsuario={dataUsuario} >
+      modelo={ModeloUsuariosInvitados}  >
          
         
-               <_formUsuarioInvitado modelo={ModeloUsuariosInvitados} />
+               <_formUsuarioInvitado auth={auth} modelo={ModeloUsuariosInvitados} />
        
       </EditarGenerico>
       )

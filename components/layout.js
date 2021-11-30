@@ -28,6 +28,7 @@ import MenuModulos from './menuModulos';
 import MenuUsuario from "./menuUsuario"
 import MenuAccionesSpeed from './menuAccionesSpeed';
 import ModulosBase from "./modulosBase"
+import MenuModulosInvitado from './menuModulosInvitado';
 const drawerWidth = 240;
 const estiloBarra = {
   customizeToolbar: {
@@ -169,6 +170,7 @@ export default function Layout({dataCuenta,children,titulo,acciones,icono,modulo
           </IconButton>
         </DrawerHeader>
         <MenuModulos dataCuenta={dataCuenta} auth={auth}/>
+        <MenuModulosInvitado dataCuenta={dataCuenta} auth={auth}/>
         
       </Drawer>
       

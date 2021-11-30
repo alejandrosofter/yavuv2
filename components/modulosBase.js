@@ -13,7 +13,7 @@ export default function ModulosBase({auth}){
     return(
         <Stack direction="row">
         {modulos && modulos.map(data=>
-            <ModuloBase auth={auth} modulo={data}/>
+            <ModuloBase key={data.id} auth={auth} modulo={data}/>
         )
         }
         </Stack>

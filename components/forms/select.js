@@ -6,14 +6,17 @@ import Loader from "../loader";
 
 
 const SelectFormik = ({label,campo,lista,campoLabel,campoId}) => {
-console.log(lista)
+
   return (
 <FormControl fullWidth>
   <InputLabel id={`label_${campo}`}>{`${label}`}</InputLabel>
+  <Field type="hidden" name={`label_${campo}`} id={`label_${campo}`} />
   <Field label={label} name={campo} id={campo} >
     {(props) =>{
-        const handleChange = (event) => {
-            props.form.setFieldValue(campo,event.target.value);
+        const handleChange = (event,p) => {
+          props.form.setFieldValue(campo,event.target.value);
+          props.form.setFieldValue(`label_${campo}`,p.props.children);
+           console.log(event.target.value,campo,props)
         };
     return( 
     <Select

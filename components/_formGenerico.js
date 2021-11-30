@@ -39,7 +39,7 @@ export default function _FormGenerico({callbackSuccess,auth,dataCuenta,datos,url
               
                 {React.cloneElement(
       children,
-      {values: values}
+      {values: values,setFieldValue:setFieldValue}
     )}
                     <LoadingButton loading={load} color="primary" variant="contained" fullWidth type="submit">
                         ACEPTAR

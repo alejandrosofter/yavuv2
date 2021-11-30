@@ -4,14 +4,14 @@ import { useState } from 'react';
 import { LoadingButton, TabContext, TabList, TabPanel } from '@mui/lab';
 import { Grid, Tab,Icon } from '@mui/material';
 import Input from "../forms/input"
-import ModeloModulos from '../../modelos/ModeloModulos';
+import ModeloModulos,{valoresInicialesItems} from '../../modelos/ModeloModulos';
 import {valoresIniciales} from '../../modelos/ModeloModulos';
-
-import _accionesModulos from './_acciones';
-
+import { ColorInput, ColorPalette } from 'material-ui-color';
 import Fetch from '../../helpers/Fetcher';
 import useSWR,{mutate} from 'swr'
 import CheckboxForm from '../forms/checkbox';
+import ItemsModulo from '../forms/itemsModulo';
+import _FormItemAccion from './_formItemAccion';
 const fetcher = (url) => fetch(url).then((res) => res.json())
 export default function _FormModulos({datos,modulo,esNuevo,mutateRegistro}) {
 
@@ -36,7 +36,7 @@ export default function _FormModulos({datos,modulo,esNuevo,mutateRegistro}) {
   }
   return (
 <TabContext value={tabDatos}>
-     
+<Grid sx={{my:3}} md={12} item xs={9}> 
     <Formik
        initialValues={datos?datos:valoresIniciales(esNuevo)}
        validationSchema={ModeloModulos()}
@@ -71,12 +71,35 @@ export default function _FormModulos({datos,modulo,esNuevo,mutateRegistro}) {
                 </Grid>
             </TabPanel>
             <TabPanel value="acciones">
-              
-            <Grid direction="row" spacing={2}>  
-              <_accionesModulos newItem={{nombre:"",accion:""}} campo="acciones" data={values.acciones}/>
-              
+            <Grid item xs={12}>
+            <ItemsModulo
+                   setFieldValue={setFieldValue} 
+                   campo="acciones" data={values.acciones} 
+                   modelo={ModeloModulos().fields.acciones.innerType}
+                   nombreModulo="ACCIONES" 
+                   fullWidth={true} maxWidth={"md"}
+                   textoEditar={`Puedes cambiar las acciones de esta accion:`}
+                   textoAgregar={`Ingrese los datos de la accion`}
+                   valoresIniciales={valoresInicialesItems()} 
+                   form={<_FormItemAccion />} 
+                   dataModulo={[]} columnas={[
+                        { field: 'nombre',headerName: 'Nombre', editable: false, width: 100,  },
+                        
+                        { field: 'label',headerName: 'Label', editable: false, width: 80,  },
+                        { field: 'icono',headerName: 'Icono', width: 80,  
+                        renderCell: (params) => {
+                          return <Icon className={params.formattedValue}/>}  },
+                        { field: 'descripcion',headerName: 'Descripcion', editable: false, width: 180,  },
+                        { field: 'url',headerName: 'Url', editable: false, width: 280,  },
+                        { field: 'color',headerName: 'Color', editable: false, width: 80 },
+                        { field: 'esregistro',headerName: 'Es Registro?', width: 60,  
+                        valueFormatter: ({ value }) => value?"SI":"NO" },
+                        { field: 'esFuncion',headerName: 'Es Funcion?', width: 60,  
+                        valueFormatter: ({ value }) => value?"SI":"NO" },
+                        
+                        ]} 
+                         />
             </Grid>
-            
             </TabPanel>
     
             <Grid sx={{my:3}} item xs={9}> 
@@ -91,6 +114,7 @@ export default function _FormModulos({datos,modulo,esNuevo,mutateRegistro}) {
         </Form>
          )}
     </Formik>
+    </Grid>
    </TabContext>
    
   )

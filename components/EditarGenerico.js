@@ -10,7 +10,7 @@ export default function EditarGenerico({callbackSuccess,auth,dataCuenta,modulo,u
     
     
       const url=`/api/${modulo.nombre}/${idItem?idItem:router.query.idItem}` 
-      console.log(url)
+
       const { data, mutate,isValidating } = useSWR(url, fetcher)
       if(!data)return <Loader/>
    
