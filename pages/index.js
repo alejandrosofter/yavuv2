@@ -16,8 +16,6 @@ const fetcher = (url) => fetch(url).then((res) => res.json())
 const Home=()=> {
 
   const auth = useAuthUser()
-  if(!auth) return <Loader texto="Cargando usuario"/>
-
   const url=`/api/cuentas/${auth.id}` 
   const { data, mutate } = useSWR(url, fetcher)
   if(!data)return <Loader texto="Cargando usuario"/>

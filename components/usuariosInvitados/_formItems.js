@@ -1,9 +1,9 @@
 import { Grid } from "@material-ui/core";
-import Input from "../../forms/input";
-import Select from "../../forms/select"
-import SwitchFormik from "../../forms/switch";
+import Input from "../forms/input"
+import Select from "../forms/select"
+import SwitchFormik from "../forms/switch";
 import Button from '@mui/material/Button';
-import CheckboxForm from "../../forms/checkbox";
+import CheckboxForm from "../forms/checkbox";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import { Formik,Form } from "formik";

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-
+import Link from 'next/link';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { Avatar, Icon, Stack } from '@mui/material';
@@ -52,7 +52,7 @@ if(auth && dataCuenta)
           onClose={handleClose}
         >
           <MenuItem>
-          <Link href={`/cuentas/editar/${dataCuenta.id}`}>
+          <Link passHref href={`/cuentas/editar/${dataCuenta.id}`}>
             <Stack sx={{ alignContent: 'center'}} direction="row" spacing={2}> <Icon  className="fas fa-user"/> <div>Perfil</div></Stack>
           </Link>
           </MenuItem>

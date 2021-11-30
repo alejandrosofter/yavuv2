@@ -3,11 +3,11 @@ import { Grid, Tab } from "@mui/material"
 import Input from "../forms/input"
 import SwitchFormik from "../forms/switch"
 import { useState } from "react";
-import _itemsUSuariosInvitados from './items/_items';
+
 import useSWR from 'swr';
 import ItemsModulo from '../forms/itemsModulo';
 import Select from "../forms/select"
-import _FormItemsUsuarios from "./items/_form"
+import _FormItemsUsuarios from "./_formItems"
 
 export default function _formUsuarioInvitado({values,modelo,setFieldValue,auth}){
     const [tabDatos, setTabDatos] = useState('datos');

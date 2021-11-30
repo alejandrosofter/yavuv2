@@ -9,7 +9,7 @@ import {
 } from 'next-firebase-auth'
 import { useEffect } from "react";
 
-const salir=({})=>{
+const Salir=({})=>{
   const auth = useAuthUser()
   useEffect(() => {
     auth.signOut()
@@ -25,4 +25,4 @@ export default withAuthUser({
   
   whenUnauthedBeforeInit: AuthAction.REDIRECT_TO_LOGIN,
   whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-})(salir)
+})(Salir)

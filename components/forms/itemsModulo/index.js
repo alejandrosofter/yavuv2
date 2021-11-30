@@ -29,19 +29,21 @@ export default function ItemsModulo({fullWidth,maxWidth,campo,data,modelo,valore
           <GridActionsCellItem
             icon={<EditIcon />}
             label="Edit"
+            key="accion_editar"
             onClick={handleEditClick(data)}
             color="inherit"
           />,
           <GridActionsCellItem
             icon={<DeleteIcon />}
             label="Delete"
+            key="accion_quitar"
             onClick={handleDeleteClick(data)}
             color="inherit"
           />,
         ];
       }})
       setCols(aux)
-  }, [])
+  }, [handleDeleteClick,columnas])
   const [cols,setCols]=useState([])
  const [editarVisible,setEditarVisible]=useState(false)
  const [quitarVisible,setQuitarVisible]=useState(false)

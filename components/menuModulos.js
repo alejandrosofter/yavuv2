@@ -8,7 +8,7 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 
 export default function MenuModulos({auth,dataCuenta}){
-    if(!dataCuenta)return <>no hay</>
+  
     const {data} = useSWR(`/api/planes/getPlan/${dataCuenta.plan}/${auth.id}/`,fetcher);
     
     if(!data)return <Loader texto="Cargando menu"/>

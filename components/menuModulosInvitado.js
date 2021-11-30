@@ -9,8 +9,9 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 
 export default function MenuModulosInvitado({auth,dataCuenta}){
-    if(!dataCuenta)return <>no hay</>
     const {data} = useSWR(`/api/usuariosInvitados/getInvitaciones/${auth.id}/`,fetcher);
+    if(!dataCuenta)return <>no hay</>
+   
     
     if(!data)return <Loader texto="Cargando menu"/>
     return(

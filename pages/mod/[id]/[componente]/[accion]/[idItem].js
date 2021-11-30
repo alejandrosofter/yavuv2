@@ -5,8 +5,9 @@ import {
   withAuthUser,
   withAuthUserTokenSSR,
 } from 'next-firebase-auth'
+import Loader from "../../../../../components/loader"
 
-const modulo=({})=>{
+const Modulo=({})=>{
   const auth = useAuthUser()
   if(!auth) return <Loader texto="Cargando Usuario"/>
     return(
@@ -19,4 +20,4 @@ export default withAuthUser({
   
   whenUnauthedBeforeInit: AuthAction.REDIRECT_TO_LOGIN,
   whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-})(modulo)
+})(Modulo)
