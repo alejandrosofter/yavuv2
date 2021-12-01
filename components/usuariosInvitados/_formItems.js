@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import Grid from '@mui/material/Grid';
 import Input from "../forms/input"
 import Select from "../forms/select"
 import SwitchFormik from "../forms/switch";

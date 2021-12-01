@@ -3,7 +3,8 @@ import useSWR from 'swr';
 import Link from 'next/link';
 import Loader from './loader';
 import { useEffect } from 'react';
-import { ListSubheader } from '@material-ui/core';
+import ListSubheader from '@mui/material/ListSubheader';
+
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 

@@ -10,7 +10,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 import randomId from "random-id"
-import { Icon } from "@material-ui/core";
+import Icon from '@mui/material/Icon';
+
 
 export default function ItemsModulo_agregar({fullWidth,maxWidth,textoAgregar,clickAceptar,nombreModulo,valoresIniciales,modelo,form,dataModulo})
 {
