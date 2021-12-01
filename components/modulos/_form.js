@@ -6,7 +6,7 @@ import { Grid, Tab,Icon } from '@mui/material';
 import Input from "../forms/input"
 import ModeloModulos,{valoresInicialesItems} from '../../modelos/ModeloModulos';
 import {valoresIniciales} from '../../modelos/ModeloModulos';
-import { ColorInput, ColorPalette } from 'material-ui-color';
+
 import Fetch from '../../helpers/Fetcher';
 import useSWR,{mutate} from 'swr'
 import CheckboxForm from '../forms/checkbox';

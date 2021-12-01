@@ -24,7 +24,17 @@ export default function ItemsModulo({fullWidth,maxWidth,campo,data,modelo,valore
       width: 100,
       getActions: (data) => {
         
-
+        const handleEditClick = (data) => (event) => {
+          event.stopPropagation();
+          setDataSelecciona(data.row)
+          setEditarVisible(true)
+        };
+      
+        const handleDeleteClick = (data) => (event) => {
+          event.stopPropagation();
+          setDataSelecciona(data.row)
+          setQuitarVisible(true)
+        };
         return [
           <GridActionsCellItem
             icon={<EditIcon />}
@@ -43,23 +53,12 @@ export default function ItemsModulo({fullWidth,maxWidth,campo,data,modelo,valore
         ];
       }})
       setCols(aux)
-  }, [handleDeleteClick,columnas])
+  }, [columnas,data])
   const [cols,setCols]=useState([])
  const [editarVisible,setEditarVisible]=useState(false)
  const [quitarVisible,setQuitarVisible]=useState(false)
  const [dataSelecciona,setDataSelecciona]=useState({})
-  const handleEditClick = (data) => (event) => {
-    event.stopPropagation();
-    setDataSelecciona(data.row)
-    setEditarVisible(true)
-  };
-
-  const handleDeleteClick = (data) => (event) => {
-    event.stopPropagation();
-    setDataSelecciona(data.row)
-    setQuitarVisible(true)
-    console.log(quitarVisible)
-  };
+ 
   const clickEliminar=()=>{
     const nuevoArray=getDataEliminar(data,dataSelecciona.id)
     setFieldValue(campo,nuevoArray)
