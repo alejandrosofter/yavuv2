@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 
 import { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
-import { Icon } from "@material-ui/core";
+import Icon from '@mui/material/Icon';
 import { Stack } from "@mui/material";
 import ItemsModulo_agregar from "./agregar";
 import ItemsModulo_editar from "./editar";
