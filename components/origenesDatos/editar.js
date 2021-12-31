@@ -6,12 +6,12 @@ import Input from "../forms/input"
 import { useRouter } from "next/router"
 import SwitchFormik from "../forms/switch"
 
-export default function Modulo({modulo,dataUsuario}) {
+export default function Modulo({modulo,token,dataUsuario}) {
     const router=useRouter();
     const urlAcepta=`/api/origenesDatos/${router.query.idItem}`
     
       return (
-      <EditarGenerico urlAcepta={urlAcepta} modulo={modulo} modelo={ModeloOrigenesDatos} dataUsuario={dataUsuario} >
+      <EditarGenerico token={token} urlAcepta={urlAcepta} modulo={modulo} modelo={ModeloOrigenesDatos} dataUsuario={dataUsuario} >
          
         
                 <Grid sx={{pt:3}} md={12} container rowSpacing={2} spacing={2}>

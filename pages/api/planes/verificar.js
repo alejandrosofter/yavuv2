@@ -1,4 +1,6 @@
-import { findOne,findWhere,findMods,nuevo, update } from "../../../../../config/firebase"
+import { findOne,findOneField,findWhere,findMods,nuevo, update } from "../../../config/firebase"
+import Ensesion from "../../../helpers/EnSesion";
+
 async function getModulos(plan,idUsuario){
         var sal=[]
         
@@ -72,25 +74,37 @@ async function getModulos(plan,idUsuario){
             await bajarMod(item.id)
         })
     }
+    const ejecuta=async ({user})=>{
+        var salida=[]
+            const idUsuario=user.id
+            const cuenta=await findOneField("cuentas",{campo:"idUsuario",valor:idUsuario})
+            const plan=await findOne("planes",cuenta.plan)
+            
+            if(plan){
+                const modsUsuario=await findMods("mods",idUsuario)
+                bajarMods(modsUsuario)
+                plan.modulos.map(async idModulo=>{
+                   
+                    if(!estaCargado(idModulo,idUsuario,modsUsuario)) await cargarMod(idModulo,idUsuario)
+                    const idMod=getIdMod(idModulo,idUsuario,modsUsuario)
+                    if(estaBaja(idMod,modsUsuario)){
+                        if(idMod)await subirMod(idMod)
+                    }
+                        // else await bajarMod(getIdMod(idModulo,idUsuario,modsUsuario))
+                })
+            }
+            
+            return salida
+    }
 export default async function handler(req, res) {
-var salida=[]
-    const {idPlan,idUsuario}=req.query
-        const plan=await findOne("planes",idPlan)
-        console.log(plan,idUsuario)
-        if(plan){
-            const modsUsuario=await findMods("mods",idUsuario)
-            bajarMods(modsUsuario)
-            plan.modulos.map(async idModulo=>{
-               
-                if(!estaCargado(idModulo,idUsuario,modsUsuario)) await cargarMod(idModulo,idUsuario)
-                const idMod=getIdMod(idModulo,idUsuario,modsUsuario)
-                if(estaBaja(idMod,modsUsuario)){
-                    if(idMod)await subirMod(idMod)
-                }
-                    // else await bajarMod(getIdMod(idModulo,idUsuario,modsUsuario))
-            })
-        }
-        
-        res.status(200).json(salida)
+    const { id } = req.query
+    const data=req.body
     
+    
+    const [salida,codigoSalida]=await Ensesion({req,res,ejecuta}).catch(err=>{
+        throw err
+    })
+    
+    res.status(codigoSalida).json(salida)
+  
 }

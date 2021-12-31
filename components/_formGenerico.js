@@ -6,19 +6,20 @@ import { useState } from 'react';
 import React from 'react';
 import Fetch from '../helpers/Fetcher';
 
-export default function _FormGenerico({callbackSuccess,auth,dataCuenta,datos,urlAcepta,valoresIniciales,modelo,mutateIndex,esNuevo,mutateRegistro,children}) {
+export default function _FormGenerico({callbackSuccess,token,auth,dataCuenta,datos,urlAcepta,valoresIniciales,modelo,mutateIndex,esNuevo,mutateRegistro,children}) {
 
   const router=useRouter();
   const [load,setLoad]=useState();
 
   const clickForm=async (values)=>{
     setLoad(true)
-    console.log(values)
-    const res=await Fetch(urlAcepta,"POST",values)
+    const res=await Fetch(urlAcepta,"POST",values,token)
+    setLoad(false)
     if(mutateIndex)mutateIndex()
     if(mutateRegistro)mutateRegistro()
-    if(callbackSuccess)callbackSuccess(values)
-    router.back({ shallow: true })
+    if(callbackSuccess){
+      callbackSuccess(values)
+    }else  router.back({ shallow: true })
   }
   return (
     <Formik
@@ -31,7 +32,7 @@ export default function _FormGenerico({callbackSuccess,auth,dataCuenta,datos,url
      >
         
          {({handleSubmit,values,errors,setFieldValue,validateForm})=>{
-           
+      
            return ( 
             <Grid sx={{my:3}} md={12} item xs={9}> 
             <Form onSubmit={handleSubmit} >

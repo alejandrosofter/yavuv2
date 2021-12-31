@@ -11,8 +11,23 @@ export default function ModeloOrigenesDatos(){
         createdOn: yup.date().default(function () {
             return new Date();
           }),
+        relaciones: yup.array().of(
+            yup.object().shape({
+              desdeCampo: yup.string().required(),
+              hastaCampo: yup.string().required(),
+              funcionCorreccion: yup.string(),
+
+            }) )
         
       });
+}
+export function valoresInicialesRelaciones()
+{
+    return {
+        desdeCampo: "",
+        hastaCampo: "",
+        funcionCorreccion: ""
+    }
 }
 export function valoresIniciales(){
     return {

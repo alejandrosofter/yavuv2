@@ -1,19 +1,16 @@
 import NuevaCuenta from "./nuevo"
 import EditarCuenta from "./editar"
-import useSWR from "swr"
-import Loader from "../loader"
+import Typography from '@mui/material/Typography';
+
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
-export default function ModuloCuenta({modulo,dataUsuario,auth,dataCuenta}) {
+export default function ModuloCuenta({modulo,token,dataUsuario,idUsuario,auth,dataCuenta}) {
      
       const dataInicial=()=>({idUsuario:auth.id,nombre:auth.displayName,email:auth.email,telefono:auth.phoneNumber})
       
       return (
             <div>
-                  {dataCuenta.nombre && <EditarCuenta auth={auth} dataCuenta={dataCuenta} modulo={modulo} dataUsuario={dataUsuario} idUsuario={auth.id} /> }
-                  {!dataCuenta.nombre &&  <NuevaCuenta valoresIniciales={dataInicial} 
-                  idUsuario={auth.id} dataUsuario={dataUsuario} modulo={modulo} />
-                  }
+                  <Typography sx={{ fontWeight: 'bold' }} variant="h4">Hola {dataCuenta.nombre}!</Typography>
             </div>
       )
 

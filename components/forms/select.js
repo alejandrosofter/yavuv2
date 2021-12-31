@@ -26,8 +26,11 @@ const SelectFormik = ({label,campo,lista,campoLabel,campoId}) => {
     label={`${label}`}
     onChange={handleChange}>
 
-      {lista && lista.map(item=>
-          <MenuItem key={`item_${item[campoId]}`} value={item[campoId]}>{`${item[campoLabel]}`}</MenuItem>
+      {lista && lista.map(item=>{
+        const lab=(typeof campoLabel=="string")?item[campoLabel]:campoLabel(item)
+        return(<MenuItem key={`item_${item[campoId]}`} value={item[campoId]}>{`${lab}`}</MenuItem>)
+      }
+          
       )}
     
   </Select>

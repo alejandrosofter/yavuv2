@@ -64,9 +64,11 @@ export default function _FormModulos({datos,modulo,esNuevo,mutateRegistro}) {
                     <Grid item  xs={1}><Icon sx={{mt:3}} fontSize="large" className={values.icono}/></Grid>
                     
                     <Grid item xs={4}><Input label="Label" campo="label"/></Grid>
-                    <Grid item xs={6}><Input label="Detalle" campo="detalle"/></Grid>
-                    <Grid item xs={1}><CheckboxForm label="Activo" campo="activo"/></Grid>
-                    <Grid item xs={1}><CheckboxForm label="Es Base?" campo="esBase"/></Grid>
+                    <Grid item xs={3}><Input label="Coleccion" campo="coleccion"/></Grid>
+                    <Grid item xs={7}><Input label="Detalle" campo="detalle"/></Grid>
+                    <Grid item xs={6}><Input label="Campos Modulo" campo="camposModulo"/></Grid>
+                    <Grid item xs={2}><CheckboxForm label="Activo" campo="activo"/></Grid>
+                    <Grid item xs={2}><CheckboxForm label="Es Base?" campo="esBase"/></Grid>
                     
                 </Grid>
             </TabPanel>
@@ -92,7 +94,8 @@ export default function _FormModulos({datos,modulo,esNuevo,mutateRegistro}) {
                         { field: 'descripcion',headerName: 'Descripcion', editable: false, width: 180,  },
                         { field: 'url',headerName: 'Url', editable: false, width: 280,  },
                         { field: 'color',headerName: 'Color', editable: false, width: 80 },
-                        { field: 'esregistro',headerName: 'Es Registro?', width: 60,  
+                        { field: 'method',headerName: 'Metodo', editable: false, width: 80 },
+                        { field: 'esRegistro',headerName: 'Es Registro?', width: 60,  
                         valueFormatter: ({ value }) => value?"SI":"NO" },
                         { field: 'esFuncion',headerName: 'Es Funcion?', width: 60,  
                         valueFormatter: ({ value }) => value?"SI":"NO" },

@@ -28,6 +28,7 @@ export default function _FormItemAccion({dataModulo,modelo,clickAceptar,valoresI
             <Grid item md={6}><Input campo='nombre' label="Nombre" /></Grid>
             <Grid item md={6}><Input campo='label' label="Label" /></Grid>
             <Grid item md={3}><Input campo='icono' label="Icono" /></Grid>
+            <Grid item md={3}><Input campo='method' label="Metodo" /></Grid>
             <Grid item md={6}><Input campo='descripcion' label="Descripcion" /></Grid>
             <Grid item md={6}><Input campo='url' label="Url" /></Grid>
             <Grid item md={6}><Input campo='color' label="Color" /></Grid>

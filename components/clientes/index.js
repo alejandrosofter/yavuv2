@@ -1,10 +1,10 @@
 import ModuloIndexCard from "../ModuloIndex";
 import VistaItemCard from "./_vistaItemCard";
 
-export default function Modulo({modulo,dataUsuario}) {
+export default function Modulo({modulo,token,dataUsuario}) {
  
       return (
-      <ModuloIndexCard  vistaItem={VistaItemCard} url={`/api/${modulo.nombre}`} modulo={modulo}  />
+      <ModuloIndexCard token={token} vistaItem={VistaItemCard} url={`/api/${modulo.nombre}`} modulo={modulo}  />
  
       )
 

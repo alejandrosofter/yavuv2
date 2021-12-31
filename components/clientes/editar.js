@@ -8,17 +8,16 @@ import { useRouter } from "next/router"
 import useSWR from "swr"
 import ListaTransferencia from "../forms/listaTransferencia"
 import Loader from "../loader"
-const fetcher = (url) => fetch(url).then((res) => res.json())
 
-export default function Modulo({modulo,dataUsuario}) {
+export default function Modulo({modulo,token,dataUsuario}) {
     const router=useRouter();
     const urlAcepta=`/api/clientes/${router.query.idItem}`
     const urlModulos=`/api/modulos/` 
   
-    const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos, fetcher)
+    const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos)
     if(!dataModulos)return <Loader texto="Cargando MODULO" />
       return (
-      <EditarGenerico urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} 
+      <EditarGenerico token={token} urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} 
       modelo={ModeloClientes} dataUsuario={dataUsuario} >
          
         

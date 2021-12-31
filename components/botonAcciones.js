@@ -20,7 +20,7 @@ import { getLinkUrl } from '../helpers/Strings';
 import Dialogo from './forms/dialogo';
 import Fetcher from "../helpers/Fetcher"
 import DialogContenido from './forms/dialogContenido';
-export default function BotonAcciones({data,modulo,mutate,color}){
+export default function BotonAcciones({token,data,modulo,mutate,color}){
     //ACCIONES {nombreAccion, color, icono,url}
     const [anchorEl, setAnchorEl] = useState(null);
     const [dialog, setdialog] = useState(false);
@@ -44,7 +44,10 @@ export default function BotonAcciones({data,modulo,mutate,color}){
         return salida
     }
     const clickAceptaMenu=async e=>{
-        const res= await Fetcher(dataMenuSeleccion.url,"POST",data)
+        const url=eval("`"+dataMenuSeleccion.url+"`")
+        const method=dataMenuSeleccion.method?dataMenuSeleccion.method:"POST"
+
+        const res= await Fetcher(url,method,data,token)
         if(mutate)mutate()
         if(res){
             setRtaServer(JSON.stringify(res))

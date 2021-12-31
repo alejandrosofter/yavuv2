@@ -1,13 +1,12 @@
-import {findOneField,findAll} from "../../../config/firebase";
-import {mfindAll} from "../../../config/mongodb";
+import {countCollection, findAll} from "../../../config/firebase";
+import handlerApiABM from "../../../helpers/handlerApiABM";
 export default async function handler(req, res) {
     const { id } = req.query
-    const data=req.body
-    const dataConexion=await findOneField("origenesDatos",{campo:"esMongo",valor:true})
-    
-    var arrDatos=[]
-    if(dataConexion) arrDatos=(await mfindAll(dataConexion,"socios",{},5))
-    else arrDatos=await findAll("socios")
-    if(!arrDatos) res.status(200).json({})
-    else res.status(200).json(arrDatos)
+    const coleccion="socios"
+    const buscaPorUsuario=true
+    const limite=10
+    const [salida,codigoSalida]=await handlerApiABM({coleccion,req,res,limite})
+  //   const canti=await countCollection(coleccion)
+  // console.log(canti)
+    res.status(codigoSalida).json(salida)
 }

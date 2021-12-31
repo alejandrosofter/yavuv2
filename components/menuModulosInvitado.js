@@ -9,12 +9,10 @@ import ListSubheader from '@mui/material/ListSubheader';
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 
-export default function MenuModulosInvitado({auth,dataCuenta}){
-    const {data} = useSWR(`/api/usuariosInvitados/getInvitaciones/${auth.id}/`,fetcher);
-    if(!dataCuenta)return <>no hay</>
-   
-    
-    if(!data)return <Loader texto="Cargando menu"/>
+export default function MenuModulosInvitado({}){
+    const {data} = useSWR(`/api/usuariosInvitados/getInvitaciones/`);
+  
+    if(!data)return "Cargando Menu invitaciones..."
     return(
         <div>
             

@@ -5,15 +5,13 @@ import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Head from 'next/head'
 
 import {  Icon, SpeedDial} from '@mui/material';
@@ -29,23 +27,10 @@ import MenuUsuario from "./menuUsuario"
 import MenuAccionesSpeed from './menuAccionesSpeed';
 import ModulosBase from "./modulosBase"
 import MenuModulosInvitado from './menuModulosInvitado';
+import MenuAccionesBarra from './menuAccionesBarra';
 const drawerWidth = 240;
-const estiloBarra = {
-  customizeToolbar: {
-    minHeight: 36
-  }
-};
-const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
 
-  '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-  '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
-    top: theme.spacing(2),
-    left: theme.spacing(2),
-  },
-}));
+
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
@@ -91,7 +76,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function Layout({dataCuenta,children,titulo,acciones,icono,modulo,data,auth}) {
+export default function Layout({children,titulo,acciones,icono,modulo,data,auth}) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   
@@ -142,8 +127,11 @@ export default function Layout({dataCuenta,children,titulo,acciones,icono,modulo
             >
                 <Box sx={{ flexGrow: 1 }}>
                 <Stack sx={{ alignContent: 'center'}} direction="row" spacing={2}>
-                <Typography sx={{ color: '#fff', textTransform: "uppercase", pt:0, fontWeight: 'bolder' }} variant="h5" color="#fff"><Icon className={icono}/> {titulo}</Typography>
+               
+                  <Typography variant="titulo" sx={{ mt:"auto",mb:"auto", textTransform: "uppercase",  
+                  fontWeight: 'bolder' }}  variant="h5" ><Icon className={icono}/> {titulo}</Typography>
                 
+                <MenuAccionesBarra modulo={modulo} acciones={modulo?modulo.acciones:[]} data={data}/>
                 </Stack>
                 </Box>
             </Box>
@@ -169,8 +157,8 @@ export default function Layout({dataCuenta,children,titulo,acciones,icono,modulo
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
-        <MenuModulos dataCuenta={dataCuenta} auth={auth}/>
-        <MenuModulosInvitado dataCuenta={dataCuenta} auth={auth}/>
+        <MenuModulos />
+        <MenuModulosInvitado />
         
       </Drawer>
       
@@ -178,7 +166,6 @@ export default function Layout({dataCuenta,children,titulo,acciones,icono,modulo
         <Main  open={open}>
           <DrawerHeader />
           <Stack  direction="row" spacing={0}>
-          <MenuAccionesSpeed modulo={modulo} acciones={modulo?modulo.acciones:[]} data={data}/>
           {children}
           </Stack> 
         </Main>

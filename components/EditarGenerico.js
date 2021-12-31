@@ -5,17 +5,18 @@ import _FormGenerico from "./_formGenerico";
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
-export default function EditarGenerico({callbackSuccess,auth,dataCuenta,modulo,urlAcepta,modelo,valoresIniciales,mutateIndex,esNuevo,children,idItem}){
+export default function EditarGenerico({urlRegistro,token, callbackSuccess,auth,dataCuenta,modulo,urlAcepta,modelo,valoresIniciales,mutateIndex,esNuevo,children,idItem}){
     const router=useRouter();
     
     
-      const url=`/api/${modulo.nombre}/${idItem?idItem:router.query.idItem}` 
-
-      const { data, mutate,isValidating } = useSWR(url, fetcher)
-      if(!data)return <Loader/>
-   
+        const url=modulo?(`/api/${modulo.nombre}/${idItem?idItem:router.query.idItem}` ):urlRegistro
+console.log(url)
+      const { data, mutate,isValidating } = useSWR(url)
+      if(!data)return "Cargando data registro..."
+ 
     return(
-      <_FormGenerico callbackSuccess={callbackSuccess} auth={auth} dataCuenta={dataCuenta} urlAcepta={urlAcepta} esNuevo={esNuevo} idItem={idItem} mutateRegistro={mutate} mutateIndex={mutateIndex} 
+      <_FormGenerico token={token} callbackSuccess={callbackSuccess} auth={auth} dataCuenta={dataCuenta} 
+      urlAcepta={urlAcepta} esNuevo={esNuevo} idItem={idItem} mutateRegistro={mutate} mutateIndex={mutateIndex} 
       datos={data} modelo={modelo} modulo={modulo} valoresIniciales={valoresIniciales} >
           {children}
       </_FormGenerico>

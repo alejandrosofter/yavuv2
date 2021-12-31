@@ -6,28 +6,27 @@ import { useRouter } from "next/router"
 import useSWR from "swr"
 import Loader from "../loader"
 import SelectFormik from "../forms/select"
-const fetcher = (url) => fetch(url).then((res) => res.json())
+import Fetch from "../../helpers/Fetcher"
 
-export default function EditarCuenta({modulo,dataUsuario,idUsuario,auth,dataCuenta}) {
+export default function EditarCuenta({modulo,dataUsuario,auth,token}) {
     const router=useRouter();
-    const urlAcepta=`/api/cuentas/${idUsuario}`
+    const urlAcepta=`/api/cuentas/micuenta`
     const urlModulos=`/api/modulos/` 
     const urlPlanes=`/api/planes/` 
-    console.log(auth,dataCuenta)
     function verificacionModulos(values){
         const idPlan=values.plan
         const idUsuario=eval("auth.id")
-        const url=`/api/planes/verificar/${idPlan}/${idUsuario}`
-        console.log(url) 
-        fetch(url)
+        const url=`/api/planes/verificar/`
+        Fetch(url,null,null,token)
     }
-    const { data:dataModulos } = useSWR(urlModulos, fetcher)
-    const { data:dataPlanes} = useSWR(urlPlanes, fetcher)
+    const { data:dataModulos } = useSWR(urlModulos)
+    const { data:dataPlanes} = useSWR(urlPlanes)
     if(!dataModulos)return <Loader texto="Cargando MODULO" />
     if(!dataPlanes)return <Loader texto="Cargando PLANES" />
       return (
-      <EditarGenerico callbackSuccess={verificacionModulos} urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} idItem={idUsuario}
-       modulo={modulo} esNuevo={false} modelo={ModeloCuentas} dataUsuario={dataUsuario} >
+      <EditarGenerico urlRegistro="/api/cuentas/micuenta" callbackSuccess={verificacionModulos} 
+      urlAcepta={urlAcepta} valoresIniciales={valoresIniciales}
+       modulo={modulo} token={token} esNuevo={false} modelo={ModeloCuentas} dataUsuario={dataUsuario} >
          
         
          <Grid sx={{pt:3}} md={12} container rowSpacing={2} spacing={2}>

@@ -1,9 +1,19 @@
-import {findAll} from "../../../config/firebase";
+import Firestore from "../../../config/firebase";
+import {getArrayData,findAll} from "../../../config/firebase";
+import Ensesion from "../../../helpers/EnSesion";
 export default async function handler(req, res) {
     const { id } = req.query
     const data=req.body
-   const arrDatos=await findAll("clientes")
-  
-    if(!arrDatos) res.status(200).json({})
-    else res.status(200).json(arrDatos)
+   
+    const ejecuta=async ({user})=>{
+       
+        return await findAll("clientes",user)
+    }
+    const [salida,codigoSalida]=await Ensesion({req,res,ejecuta}).catch(err=>{
+        throw err
+    })
+
+    res.status(codigoSalida).json(salida)
+    
+   
 }

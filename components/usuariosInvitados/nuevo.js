@@ -9,7 +9,7 @@ import ModeloUsuariosInvitados,{valoresIniciales} from "../../modelos/ModeloUsua
 import _formUsuarioInvitado from "./_form"
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
-export default function Modulo({modulo,dataUsuario}) {
+export default function Modulo({modulo,dataUsuario,auth}) {
     const router=useRouter();
     
     
@@ -20,7 +20,7 @@ export default function Modulo({modulo,dataUsuario}) {
     const urlAcepta=`/api/${modulo.nombre}/${router.query.idItem}`
       return (
       <NuevoGenerico urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} modelo={ModeloUsuariosInvitados} esNuevo={true} dataUsuario={dataUsuario} >
-         <_formUsuarioInvitado modelo={ModeloUsuariosInvitados} />
+         <_formUsuarioInvitado auth={auth} modelo={ModeloUsuariosInvitados} />
       </NuevoGenerico>
       )
 

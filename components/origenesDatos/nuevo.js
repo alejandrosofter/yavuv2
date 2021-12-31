@@ -11,17 +11,17 @@ import MultiSelect from "../forms/multiSelect"
 import { useRouter } from "next/router"
 import useSWR from "swr"
 import SwitchFormik from "../forms/switch"
-const fetcher = (url) => fetch(url).then((res) => res.json())
+import NuevoGenerico from "../NuevoGenerico"
 
-export default function Modulo({modulo,dataUsuario}) {
+export default function Modulo({modulo,token,dataUsuario}) {
     const router=useRouter();
     const urlAcepta=`/api/origenesDatos/${router.query.idItem}`
     const urlModulos=`/api/modulos/` 
 
-    const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos, fetcher)
+    const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos)
     if(!dataModulos)return <CircularProgress />
       return (
-      <EditarGenerico urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} 
+      <NuevoGenerico token={token} urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} 
       modelo={ModeloOrigenesDatos} esNuevo={true} dataUsuario={dataUsuario} >
          
         
@@ -39,7 +39,7 @@ export default function Modulo({modulo,dataUsuario}) {
                 </Grid>
           
        
-      </EditarGenerico>
+      </NuevoGenerico>
       )
 
 }

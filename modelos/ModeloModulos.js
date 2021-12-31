@@ -5,6 +5,8 @@ export default function ModeloModulos(){
         nombre: yup.string().required(),
         detalle: yup.string(),
         icono: yup.string(),
+        coleccion: yup.string(),
+        camposModulo: yup.string(),
         id: yup.string(),
         esBase: yup.boolean(),
         createdOn: yup.date().default(function () {

@@ -2,7 +2,7 @@ import { Card, CardHeader, Icon,Typography} from '@mui/material';
 import BotonAcciones from '../botonAcciones'
 import { CardContent } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
-export default function VistaItemCard({data,mutate,modulo}){
+export default function VistaItemCard({data,token,mutate,modulo}){
     return (
         <Card sx={{ minWidth: 275 }}>
                 <CardHeader
@@ -12,7 +12,7 @@ export default function VistaItemCard({data,mutate,modulo}){
                     {data.name}
                     </>
                 }
-                action={<BotonAcciones mutate={mutate} data={data} modulo={modulo}  /> } />
+                action={<BotonAcciones token={token} mutate={mutate} data={data} modulo={modulo}  /> } />
                 
                 <CardContent>
                     <Typography variant="h7" color="initial">

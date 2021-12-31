@@ -4,12 +4,9 @@ import Link from 'next/link';
 import Loader from './loader';
 import { useEffect } from 'react';
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
-
-
-export default function MenuModulos({auth,dataCuenta}){
+export default function MenuModulos({}){
   
-    const {data} = useSWR(`/api/planes/getPlan/${dataCuenta.plan}/${auth.id}/`,fetcher);
+    const {data} = useSWR(`/api/planes/getplan/`);
     
     if(!data)return <Loader texto="Cargando menu"/>
     return(

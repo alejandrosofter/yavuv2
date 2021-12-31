@@ -1,49 +1,58 @@
-import {findOne,update,nuevo,findAll,findOneField} from "../config/firebase";
+import {findOne,update,nuevo,findAll,findOneField,remove} from "../config/firebase";
+import Ensesion from "./EnSesion";
 
 
-async function getIdUsuario(accessToken){
-    const sesionDb=await findOneField("sessions",{campo:"accessToken",valor:accessToken})
-    return sesionDb.userId
-}
-export default async function handlerApiABM({req, res,coleccion,campoId}) {
- 
-   
-   
+export default async function handlerApiABM({id,req, res,coleccion,campoId,sinUsuario,buscaPorUsuario,limite}) {
+  
+    let ejecuta
         switch (req.method) {
             case 'POST':
-                var sal={}
-               
-                // data.idUsuario=await getIdUsuario(session.accessToken)
+                ejecuta=async ({user})=>{
+                    var sal={}
+                    let data=req.body
+                    
 
-                if(req.body.id)sal=await update(coleccion,req.body) 
-                    else sal=await nuevo(coleccion,req.body) 
-                if(!sal)return {}
-                    else return sal
+                    if(req.body.id)sal=await update(coleccion,data) 
+                        else {
+                            if(user)data.idUsuario=user.id
+                            sal=await nuevo(coleccion,data) 
+                            
+                        }
+                        
+                    if(!sal)return {}
+                        else return sal
+                }
             break;
             case 'GET':
-                const { id } = req.query
-                let salida
-                
-                if(id){
-                    if(!campoId) salida=await findOne(coleccion,id)
-                    else salida=await findOneField(coleccion,{campo:campoId?campoId:"id",valor:id})
-                  
-                }
-                else {
-                    console.log("buisca todos")
-                    salida=await findAll(coleccion)
-                }
-                
-                return salida
+                ejecuta=async ({user})=>{
+                    let salida
+                    if(id){
+                        if(buscaPorUsuario)id=user.id
+                        if(!campoId) salida=await findOne(coleccion,id)
+                        else salida=await findOneField(coleccion,{campo:campoId?campoId:"id",valor:id})
+                    
+                    }
+                    else {
+                        salida=await findAll(coleccion,user,sinUsuario,limite)
+                    }
+                    
+                    return salida
+            }
             break;
             case 'DELETE':
-                console.log('QUITO ELEMENTO');
+                ejecuta=async ({user})=>{
+                    
+                    remove(coleccion,{id:id})
+                }
             break;
             default:
               console.log(`No se que hacer con este metod ${req.method}.`);
           }
     
-    return null
+        return await Ensesion({req,res,ejecuta}).catch(err=>{
+            console.log(req.headers.authorization);
+            throw err
+        })
     
     
 }

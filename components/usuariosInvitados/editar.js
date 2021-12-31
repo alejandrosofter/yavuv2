@@ -16,16 +16,16 @@ import _formUsuarioInvitado from "./_form"
 import ModeloUsuariosInvitados from "../../modelos/ModeloUsuariosInvitados"
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
-export default function Modulo({modulo,auth}) {
+export default function Modulo({modulo,auth,token}) {
     const router=useRouter();
     
     const urlModulos=`/api/modulos/` 
     
-    const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos, fetcher)
+    const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos)
     if(!dataModulos)return <CircularProgress />
     const urlAcepta=`/api/${modulo.nombre}/${router.query.idItem}`
       return (
-      <EditarGenerico urlAcepta={urlAcepta} modulo={modulo} valoresIniciales={valoresIniciales} 
+      <EditarGenerico token={token} urlAcepta={urlAcepta} modulo={modulo} valoresIniciales={valoresIniciales} 
       modelo={ModeloUsuariosInvitados}  >
          
         
