@@ -6,7 +6,7 @@ import { useState } from 'react';
 import React from 'react';
 import Fetch from '../helpers/Fetcher';
 
-export default function _FormGenerico({callbackSuccess,token,auth,dataCuenta,datos,urlAcepta,valoresIniciales,modelo,mutateIndex,esNuevo,mutateRegistro,children}) {
+export default function _FormGenerico({callbackSuccess,token,datos,urlAcepta,valoresIniciales,modelo,mutateIndex,esNuevo,mutateRegistro,children}) {
 
   const router=useRouter();
   const [load,setLoad]=useState();
@@ -20,21 +20,25 @@ export default function _FormGenerico({callbackSuccess,token,auth,dataCuenta,dat
     if(callbackSuccess){
       callbackSuccess(values)
     }else  router.back({ shallow: true })
+    
   }
+  const valores=datos?datos:(valoresIniciales?valoresIniciales(esNuevo):null)
+  console.log(valores)
   return (
     <Formik
-       initialValues={datos?datos:valoresIniciales(esNuevo)}
+       initialValues={valores}
        validationSchema={modelo()}
        onSubmit={clickForm}
        validateOnChange={true}
         validateOnBlur={true}
        validateOnMount={true}
+       enableReinitialize={true}
      >
         
          {({handleSubmit,values,errors,setFieldValue,validateForm})=>{
-      
+      console.log(errors)
            return ( 
-            <Grid sx={{my:3}} md={12} item xs={9}> 
+            <Grid sx={{my:0}} md={12} item xs={9}> 
             <Form onSubmit={handleSubmit} >
                {!esNuevo && <input name="id" type="hidden" value={router.query.idItem}/>}
               

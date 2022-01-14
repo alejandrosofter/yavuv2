@@ -17,6 +17,11 @@ export function renderCellExpand(params) {
     <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
   );
 }
+export function renderCellExpandData(params,fnRender) {
+  return (
+    <GridCellExpand value={fnRender(params.row) || ''} width={params.colDef.computedWidth} />
+  );
+}
 
 renderCellExpand.propTypes = {
   /**

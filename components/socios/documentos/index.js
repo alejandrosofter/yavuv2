@@ -6,14 +6,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SecurityIcon from '@mui/icons-material/Security';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
-import SubColeccionColeccion from "../forms/subColeccion/_subColeccion";
+import SubColeccionColeccion from "../../forms/subColeccion/_subColeccion";
+import { ModeloDocumentos,valoresInicialesDocumentacion } from "../../../modelos/ModeloSocios"
 export default function DocumentacionSocio({data,token})
 {
     const campo="documentacion"
     const labelCampo="DOCUMENTACION"
     const icono="fas fa-image"
-    const pathFormulario="socios/_formDocumentos"
-
+    const pathFormulario="socios/documentos/_formDocumentos"
+    const urlAcepta=`/api/socios/abmItem?subColeccion=${campo}`
     const accionesExtra=(params)=>{
 
       return(
@@ -62,7 +63,7 @@ export default function DocumentacionSocio({data,token})
     ]
     return(
         <SubColeccionColeccion  accionesExtra={accionesExtra} token={token} 
-        urlAcepta={`/api/socios/abmItem?subColeccion=${campo}`}   titulo={labelCampo} 
+        urlAcepta={urlAcepta}   titulo={labelCampo} modelo={ModeloDocumentos} valoresIniciales={valoresInicialesDocumentacion}
         pathFormulario={pathFormulario} columns={cols} 
         registro={data} campo={campo} icono={icono}/>
         

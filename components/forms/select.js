@@ -5,7 +5,7 @@ import { CircularProgress,FormControl,InputLabel, MenuItem, OutlinedInput, Selec
 import Loader from "../loader";
 
 
-const SelectFormik = ({label,campo,lista,campoLabel,campoId}) => {
+const SelectFormik = ({label,campo,lista,campoLabel,campoId,callbackchange}) => {
 
   return (
 <FormControl fullWidth>
@@ -16,7 +16,7 @@ const SelectFormik = ({label,campo,lista,campoLabel,campoId}) => {
         const handleChange = (event,p) => {
           props.form.setFieldValue(campo,event.target.value);
           props.form.setFieldValue(`label_${campo}`,p.props.children);
-           console.log(event.target.value,campo,props)
+          if(callbackchange)callbackchange(event.target.value)
         };
     return( 
     <Select

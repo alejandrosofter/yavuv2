@@ -1,50 +1,35 @@
 import Controlador from "../components/Controlador"
 import Loader from "../components/loader"
-import  useSWR, { SWRConfig } from 'swr'
-import {
-  AuthAction,
-  useAuthUser,
-  withAuthUser,
-  withAuthUserTokenSSR,
-} from 'next-firebase-auth'
 
 import Layout from "../components/layout"
 import Typography from '@mui/material/Typography';
 import InicioHome from "../components/inicio"
-const Modulo=({token})=>{
-  
-  const auth = useAuthUser()
+import { callAuthToken } from "../helpers/auth";
 
-  if(!auth) return <Loader texto="Cargando Usuario"/>
- 
+import { useAuthUser,withAuthUser} from 'next-firebase-auth'
+import {useContext} from "react"
+import Contexto,{ContextoUsuario} from "../context/userContext"
+import {InitUser} from "../hooks/useUser"
+import Fetch from "../helpers/Fetcher"
+import SwrComponente from "../helpers/swrComponente";
+
+export function Modulo({tokenServer,modulo}){
+
+
     return(
-      <SWRConfig
-      value={{
-        refreshInterval: 5000,
-        fetcher: (url) => fetch(url,{ headers: { 'Content-Type': 'application/json', Authorization: `${token}`}}).then(res => res.json())
-      }}
-    >
-     <Layout token={token} auth={auth} icono={"fas fa-chart-line"}  titulo={"DASHBOARD"} >
-     <InicioHome token={token}/>
-        </Layout>
+        <SwrComponente token={tokenServer} >
+            <Layout titulo={"DASHBOARD"} icono={"fas fa-stats"}>
+                <InicioHome/>
+            </Layout>
+        </SwrComponente>
+     
+
       
-    </SWRConfig>
+  
       
     )
 
 }
 
-export const getServerSideProps = withAuthUserTokenSSR()(async ({ AuthUser }) => {
-  const token = await AuthUser.getIdToken()
-
-  return {
-    props: {
-      token: token
-    }
-  }
-})
-export default withAuthUser({
-  
-  whenUnauthedBeforeInit: AuthAction.REDIRECT_TO_LOGIN,
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-})(Modulo)
+export const getServerSideProps = callAuthToken()
+export default withAuthUser()(Modulo)

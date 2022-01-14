@@ -3,7 +3,7 @@ import Ensesion from "./EnSesion";
 
 
 export default async function handlerApiABM({id,req, res,coleccion,campoId,sinUsuario,buscaPorUsuario,limite}) {
-  
+    
     let ejecuta
         switch (req.method) {
             case 'POST':
@@ -41,7 +41,7 @@ export default async function handlerApiABM({id,req, res,coleccion,campoId,sinUs
             break;
             case 'DELETE':
                 ejecuta=async ({user})=>{
-                    
+                   
                     remove(coleccion,{id:id})
                 }
             break;

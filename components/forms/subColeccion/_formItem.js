@@ -6,7 +6,7 @@ import { useState } from 'react';
 import React from 'react';
 import Fetch from "../../../helpers/Fetcher"
 
-export default function _FormItem({registro,callbackSuccess,token,datos,urlAcepta,valoresIniciales,modelo,mutateIndex,esNuevo,mutateRegistro,children}) {
+export default function _FormItem({registro,dataInicial,callbackSuccess,token,datos,urlAcepta,valoresIniciales,modelo,mutateIndex,esNuevo,mutateRegistro,children}) {
 
   const router=useRouter();
   const [load,setLoad]=useState();
@@ -20,12 +20,12 @@ export default function _FormItem({registro,callbackSuccess,token,datos,urlAcept
     if(mutateIndex)mutateIndex()
     if(mutateRegistro)mutateRegistro()
     if(callbackSuccess)callbackSuccess(values)
-    console.log("done")
+
     // router.back({ shallow: true })
   }
   return (
     <Formik
-       initialValues={datos?datos:valoresIniciales()}
+       initialValues={datos?datos:valoresIniciales({dataInicial})}
        validationSchema={modelo}
        onSubmit={clickForm}
        validateOnChange={true}

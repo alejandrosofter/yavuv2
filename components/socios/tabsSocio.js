@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { useState } from 'react';
-import { Typography ,Icon,Grid,Badge} from '@mui/material';
-import CambiosEstadoSocio from './_cambiosEstado';
-import MovimientosCuentaSocio from './_movimientosCuenta';
-import ActividadesSocio from './_actividades';
-import DocumentacionSocio from './_documentos';
-import TarjetasSocio from './_tarjetas';
+import { Typography ,Icon,Stack,Badge} from '@mui/material';
+import CambiosEstadoSocio from './cambiosEstado';
+import MovimientosCuentaSocio from './movimientosCuenta';
+import ActividadesSocio from './actividades';
+import DocumentacionSocio from './documentos';
+import TarjetasSocio from './tarjetas';
 
 function BadgeIcono({icono,cantidad}){
 
@@ -49,42 +49,42 @@ TabPanel.propTypes = {
       'aria-controls': `simple-tabpanel-${index}`,
     };
   }
-export default function TabsSocio({dataSocio,token}){
+export default function TabsSocio({dataSocio,mod,token}){
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
     return(
-        <Box sx={{ width: '100%' }}>
+        <Stack direction="row" spacing={2} sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+              <Tabs orientation="vertical" value={value} onChange={handleChange} aria-label="basic tabs example">
               <Tab label={<BadgeIcono cantidad={dataSocio.movimientosCuenta.length} icono="fas fa-file-invoice-dollar"/>}{...a11yProps(0)} /> 
-                <Tab label={<Icon className="fas fa-info"/>}{...a11yProps(1)} /> 
+              
                 <Tab label={<BadgeIcono cantidad={dataSocio.actividades.length}  icono="fas fa-dumbbell"/>}{...a11yProps(2)} /> 
                 <Tab label={<BadgeIcono cantidad={dataSocio.cambiosEstado.length}  icono="fas fa-heart"/>} {...a11yProps(3)} />
                 <Tab label={<BadgeIcono cantidad={dataSocio.tarjetas.length}  icono="fas fa-credit-card"/>} {...a11yProps(4)} />
                 <Tab label={<BadgeIcono cantidad={dataSocio.documentacion.length}  icono="fas fa-image"/>}{...a11yProps(5)} />
               </Tabs>
             </Box>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider',width: '100%' }}>
             <TabPanel value={value} index={0}>
-            <MovimientosCuentaSocio data={dataSocio} token={token}/>
+            <MovimientosCuentaSocio mod={mod} data={dataSocio} token={token}/>
             </TabPanel>
+            
             <TabPanel value={value} index={1}>
-              infoSocio
-            </TabPanel>
-            <TabPanel value={value} index={2}>
             <ActividadesSocio data={dataSocio} token={token}/>
             </TabPanel>
-            <TabPanel value={value} index={3}>
+            <TabPanel value={value} index={2}>
              <CambiosEstadoSocio data={dataSocio} token={token}/>
             </TabPanel>
-            <TabPanel value={value} index={4}>
+            <TabPanel value={value} index={3}>
             <TarjetasSocio data={dataSocio} token={token}/>
             </TabPanel>
-            <TabPanel value={value} index={5}>
+            <TabPanel value={value} index={4}>
             <DocumentacionSocio data={dataSocio} token={token}/>
             </TabPanel>
-          </Box>
+            </Box>
+          </Stack>
     )
 }

@@ -5,7 +5,7 @@ export default async function Ensesion({req,res,ejecuta}){
     let codigoSalida=200
     try {
         const user=await verifyIdToken(req.headers.authorization)
-       
+        
         if(ejecuta)salida= await ejecuta({user})
     } catch (error) {
         salida={error:"No encuentro usuario"}

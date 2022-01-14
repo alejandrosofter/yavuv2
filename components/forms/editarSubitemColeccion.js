@@ -35,7 +35,7 @@ export default function FormSubitemColeccion({registro,callbackSuccess,token,dat
      >
         
          {({handleSubmit,values,errors,setFieldValue,validateForm})=>{
-           console.log(errors)
+          
            return ( 
             <Grid sx={{my:3}} md={12} item xs={9}> 
             <Form onSubmit={handleSubmit} >

@@ -14,14 +14,17 @@ import dynamic from 'next/dynamic'
 import { useEffect } from "react";
 import Dialogo from "../dialogo"
 import Fetch from '../../../helpers/Fetcher'
-export default function SubColeccionColeccion({sortModel,campoId,titulo,accionesExtra,icono,registro,campo,columns,pathFormulario,token,urlAcepta}) {
+import FormItem from './_formItem';
+export default function SubColeccionColeccion({sortModel,maxWidth,fullWidth,mod,callbackSuccess,titulo,accionesExtra,icono,registro,campo,columns,pathFormulario,token,urlAcepta,modelo,valoresIniciales}) {
   const [mostrarNuevo,setMostrarNuevo]=useState(false)
   const [mostrarEditar,setMostrarEditar]=useState(false)
   const [openDialogQuita,setOpenDialogQuita]=useState(false)
   const [seleccionGrid,setSeleccionGrid]=useState()
   const [columnas,setColumnas]=useState()
-  
+
+
   useEffect(() => {
+
    const aux=columns
   const acciones=(params)=>{
    let arr=[
@@ -60,7 +63,7 @@ showInMenu
     }
    )
     setColumnas(aux)
-  },[accionesExtra])
+  },[])
 
   const clickAgregar=e=>{
     setMostrarNuevo(true);
@@ -71,7 +74,7 @@ showInMenu
       setMostrarEditar(true)
     },
     [],
-  );
+  )
   const callbackElimina = async ()=> {
       const res=await Fetch(urlAcepta,"DELETE",seleccionGrid,token)
       setOpenDialogQuita(false)
@@ -87,9 +90,10 @@ showInMenu
 const handleClose = () => {
   setMostrarNuevo(false);
 };
-const callbackSuccess=(vals) => {
+const callbackSuccess_=(vals) => {
   setMostrarNuevo(false);
-  console.log(vals)
+  if(callbackSuccess)callbackSuccess(vals)
+
 }
 ///////////////////////
 const handleCloseEditar = () => {
@@ -97,7 +101,7 @@ const handleCloseEditar = () => {
 };
 const callbackSuccessEditar=(vals) => {
   setMostrarEditar(false);
-  
+  if(callbackSuccess)callbackSuccess(vals)
 }
 const ComponenteForm = dynamic(
   () => import(`../../${pathFormulario}`),
@@ -112,18 +116,18 @@ const fnRows=()=>{
   //ALGUNOS CAMPOS VIENEN STRING y con el _ID que para datagrid tiene que ser id
  
   if(Array.isArray(registro[campo]))
-    return registro[campo].map(item=>{item.id=item[campoId?campoId:"id"]; return item})
+    return registro[campo].map(item=>{item.id=item.id?item.id:item._id; return item})
   return []
 }
       return (
         <Grid item flex={1}>
         <Stack direction="row" spacing={3}>
-        <Button  color="primary" variant="outlined" size="small" onClick={clickAgregar}><Icon className={"fas fa-plus"}></Icon> AGREGAR</Button>
+        
             <Stack flex={1}  direction="row" spacing={1} >
               <Typography  variant="h5"> {titulo}</Typography>
               <Icon className={icono}/>
             </Stack>
-            
+            <Button  color="primary" variant="outlined" size="small" onClick={clickAgregar}><Icon className={"fas fa-plus"}></Icon> AGREGAR</Button>
         </Stack>
         <div style={{ height: 400, width: '100%' }}>
           {columnas && 
@@ -135,19 +139,25 @@ const fnRows=()=>{
       />
           }
       </div>
-      <Dialog open={mostrarNuevo} onClose={handleClose}>
+      <Dialog  fullWidth={fullWidth}
+        maxWidth={maxWidth} open={mostrarNuevo} onClose={handleClose}>
         <DialogTitle>NUEVO</DialogTitle>
         <DialogContent>
-          <ComponenteForm callbackSuccess={callbackSuccess} registro={registro} token={token} urlAcepta={urlAcepta}/>
-         
+        <FormItem registro={registro} mod={mod} datos={seleccionGrid} token={token} urlAcepta={urlAcepta}  callbackSuccess={callbackSuccess_}
+                token={token} modelo={modelo()} valoresIniciales={valoresIniciales}>
+          <ComponenteForm mod={mod}/>
+          </FormItem>
         </DialogContent>
         
       </Dialog>
-      <Dialog open={mostrarEditar} onClose={handleCloseEditar}>
+      <Dialog fullWidth={fullWidth}
+        maxWidth={maxWidth} open={mostrarEditar} onClose={handleCloseEditar}>
         <DialogTitle>EDITAR</DialogTitle>
         <DialogContent>
-          <ComponenteForm  datos={seleccionGrid} registro={registro} callbackSuccess={callbackSuccessEditar} token={token} urlAcepta={urlAcepta}/>
-         
+        <FormItem registro={registro} mod={mod} datos={seleccionGrid} token={token} urlAcepta={urlAcepta}  callbackSuccess={callbackSuccessEditar}
+                token={token} modelo={modelo()} valoresIniciales={valoresIniciales}>
+                <ComponenteForm mod={mod}/>
+          </FormItem>
         </DialogContent>
         
       </Dialog>

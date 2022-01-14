@@ -25,7 +25,9 @@ export default async function handlerApiABMbyUser({req, res,coleccion}) {
                 ejecuta=async ({user})=>{
                     let salida
                 
-                       return await findOneField(coleccion,{campo:"idUsuario",valor:user.id})
+                       const res= await findOneField(coleccion,{campo:"idUsuario",valor:user.id})
+                       
+                       return res
                    
                     
             }
@@ -41,7 +43,7 @@ export default async function handlerApiABMbyUser({req, res,coleccion}) {
           }
     
         return await Ensesion({req,res,ejecuta}).catch(err=>{
-            console.log(req.headers.authorization);
+            
             throw err
         })
     

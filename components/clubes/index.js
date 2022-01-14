@@ -7,12 +7,14 @@ import NuevoClub from './nuevo';
 import ClubesActividades from './actividades';
 import ClubesProfesores from './profesores';
 import EditarClub from './editarClub';
+import UseUser from '../../hooks/useUser';
 
-export default function Modulo({modulo,token,auth}) {
+export default function Modulo({modulo,auth,token}) {
     const url="/api/clubes/miclub"
     const router=useRouter();
+    
     const { data } = useSWR(url)
-    console.log(auth)
+   
     if(!data)return "Cargando data..."
     if(data.esNuevo)return(
         <Grid container>
@@ -23,7 +25,7 @@ export default function Modulo({modulo,token,auth}) {
                 <Typography  variant="body1">
                 Por favor completa la informacion completa de tu club para continuar!
                 </Typography>
-                <NuevoClub modulo={modulo} token={token} auth={auth} />
+                <NuevoClub modulo={modulo} token={token}  />
                 </Grid>
             
             </Grid>

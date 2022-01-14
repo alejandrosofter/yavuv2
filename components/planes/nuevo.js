@@ -12,14 +12,13 @@ import MultiSelect from "../forms/multiSelect"
 import { useRouter } from "next/router"
 import useSWR from "swr"
 import ListaTransferencia from "../forms/listaTransferencia"
-const fetcher = (url) => fetch(url).then((res) => res.json())
 
 export default function Modulo({modulo,dataUsuario}) {
     const router=useRouter();
     const urlAcepta=`/api/planes/${router.query.idItem}`
     const urlModulos=`/api/modulos/` 
 
-    const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos, fetcher)
+    const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos)
     if(!dataModulos)return <CircularProgress />
       return (
       <EditarGenerico urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} modelo={ModeloPlanes} esNuevo={true} dataUsuario={dataUsuario} >

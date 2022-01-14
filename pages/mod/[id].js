@@ -1,41 +1,18 @@
 import Controlador from "../../components/Controlador";
-import Loader from "../../components/loader"
-import  { SWRConfig } from 'swr'
-import {
-  AuthAction,
-  useAuthUser,
-  withAuthUser,
-  withAuthUserTokenSSR,
-} from 'next-firebase-auth'
+import {withAuthUser} from 'next-firebase-auth'
+import { callAuthToken } from "../../helpers/auth";
+import { ContextoMods } from "../../context/modsContext";
 
-const Modulo=({token})=>{
-  const auth = useAuthUser()
-  if(!auth) return <Loader texto="Cargando Usuario"/>
+
+const Modulo=({tokenServer,modulo,mod})=>{
+
     return(
-      <SWRConfig
-      value={{
-        refreshInterval: 5000,
-        fetcher: (url) => fetch(url,{ headers: { 'Content-Type': 'application/json', Authorization: `${token}`}}).then(res => res.json())
-      }}
-    >
-      <Controlador token={token} auth={auth} pathComponente={"${modulo.nombre}"} />
-    </SWRConfig>
-      
+   
+        <Controlador pathComponente="${modulo.nombre}" tokenServer={tokenServer} modulo={modulo} mod={mod}/>
+ 
     )
 
 }
 
-export const getServerSideProps = withAuthUserTokenSSR()(async ({ AuthUser }) => {
-  const token = await AuthUser.getIdToken()
-
-  return {
-    props: {
-      token: token
-    }
-  }
-})
-export default withAuthUser({
-  
-  whenUnauthedBeforeInit: AuthAction.REDIRECT_TO_LOGIN,
-  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
-})(Modulo)
+export const getServerSideProps = callAuthToken()
+export default withAuthUser()(Modulo)

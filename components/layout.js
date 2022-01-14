@@ -28,6 +28,7 @@ import MenuAccionesSpeed from './menuAccionesSpeed';
 import ModulosBase from "./modulosBase"
 import MenuModulosInvitado from './menuModulosInvitado';
 import MenuAccionesBarra from './menuAccionesBarra';
+import useUser from "../hooks/useUser"
 const drawerWidth = 240;
 
 
@@ -76,7 +77,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function Layout({children,titulo,acciones,icono,modulo,data,auth}) {
+export default function Layout({children,titulo,icono,modulo}) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   
@@ -131,11 +132,11 @@ export default function Layout({children,titulo,acciones,icono,modulo,data,auth}
                   <Typography variant="titulo" sx={{ mt:"auto",mb:"auto", textTransform: "uppercase",  
                   fontWeight: 'bolder' }}  variant="h5" ><Icon className={icono}/> {titulo}</Typography>
                 
-                <MenuAccionesBarra modulo={modulo} acciones={modulo?modulo.acciones:[]} data={data}/>
+                <MenuAccionesBarra modulo={modulo} acciones={modulo?modulo.acciones:[]} />
                 </Stack>
                 </Box>
             </Box>
-            <ModulosBase auth={auth}/>
+            <ModulosBase />
         </Toolbar>
       </AppBar>
       <Drawer

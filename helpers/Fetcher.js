@@ -1,5 +1,5 @@
 export default async function Fetch(url,method,data,token){
- 
+    
     const requestOptions = {
         method:method?method:"get",
         headers: { 'Content-Type': 'application/json', Authorization: `${token}` },

@@ -1,6 +1,16 @@
 import initAuth from '../config/initAuth' // the module you created above
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
+import Contexto,{ContextoUsuario} from "../context/userContext"
+import UseUser from "../hooks/useUser"
+
+import {
+  AuthAction,
+  useAuthUser,
+  withAuthUser,
+  withAuthUserTokenSSR,
+} from 'next-firebase-auth'
+import { useContext } from 'react';
 const theme = createTheme({
   palette: {
     type: 'light',
@@ -43,8 +53,13 @@ const theme = createTheme({
 });
 initAuth()
 
-function MyApp({ Component, pageProps }) {
-  return <ThemeProvider theme={theme}> <Component {...pageProps} /> </ThemeProvider>;
+export default function MyApp({ Component, pageProps }) {
+
+  return (
+  
+    <ThemeProvider theme={theme}> <Component {...pageProps} /> </ThemeProvider>
+
+  )
 }
 
-export default MyApp
+

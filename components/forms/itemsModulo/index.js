@@ -8,13 +8,13 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
-import { Stack } from "@mui/material";
+import { Stack,Typography } from "@mui/material";
 import ItemsModulo_agregar from "./agregar";
 import ItemsModulo_editar from "./editar";
 import ItemsModulo_eliminar from "./eliminar";
 import randomId from "random-id"
-export default function ItemsModulo({fullWidth,datosExternos,maxWidth,campo,data,modelo,valoresIniciales,setFieldValue,columnas,dataModulo,form,nombreModulo,textoEditar,textoAgregar}){
-  
+export default function ItemsModulo({fullWidth,datosExternos,icono,titulo,maxWidth,campo,data,modelo,valoresIniciales,setFieldValue,columnas,dataModulo,form,nombreModulo,textoEditar,textoAgregar}){
+
   useEffect(() => {
     let aux=columnas
     aux.push({
@@ -27,12 +27,14 @@ export default function ItemsModulo({fullWidth,datosExternos,maxWidth,campo,data
         const handleEditClick = (data) => (event) => {
           event.stopPropagation();
           setDataSelecciona(data.row)
+          console.log(dataSelecciona)
           setEditarVisible(true)
         };
       
         const handleDeleteClick = (data) => (event) => {
           event.stopPropagation();
           setDataSelecciona(data.row)
+          console.log(dataSelecciona)
           setQuitarVisible(true)
         };
         return [
@@ -107,14 +109,17 @@ export default function ItemsModulo({fullWidth,datosExternos,maxWidth,campo,data
             }
             return(
             <div style={{ height: 400,}}>
-                <Stack direction="row">
+                <Stack spacing={1} direction="row">
+                
                   <ItemsModulo_agregar fullWidth={fullWidth} maxWidth={maxWidth} textoAgregar={textoAgregar} nombreModulo={nombreModulo} valoresIniciales={valoresIniciales} dataModulo={dataModulo} modelo={modelo} clickAceptar={clickAceptar} form={form}/>
-                  <Button variant="text" onClick={clickVaciar}><Icon className="fas fa-trash"/> Vaciar</Button>
+                  <Button size="small" variant="outlined" onClick={clickVaciar}><Icon className="fas fa-trash"/> Vaciar</Button>
+                  <Stack  direction="row" spacing={1} >
+                    <Typography  variant="h5"> {titulo}</Typography>
+                    <Icon className={icono}/>
+                  </Stack>
                 </Stack>
                 
-             <DataGrid rowHeight={25} components={{
-          
-        }}
+             <DataGrid rowHeight={25} 
         columns={cols}
         rows={data}
       />

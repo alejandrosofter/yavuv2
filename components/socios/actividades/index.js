@@ -6,13 +6,19 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SecurityIcon from '@mui/icons-material/Security';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
-import SubColeccionColeccion from "../forms/subColeccion/_subColeccion";
+import SubColeccionColeccion from "../../forms/subColeccion/_subColeccion";
+import ImpresionDialog from "../../forms/impresion"
+import ImpresionActividadSocio from "./impresion"
+import {ModeloActividades,valoresInicialesActividades}from "../../../modelos/ModeloSocios"
 export default function ActividadesSocio({data,token})
 {
     const campo="actividades"
     const labelCampo="ACTIVIDADES"
     const icono="fas fa-dumbbell"
-    const pathFormulario="socios/_formActividades"
+    const pathFormulario="socios/actividades/_formActividades"
+    const urlAcepta=`/api/socios/abmItem?subColeccion=${campo}`
+    const [datosClick,setDatosClick]=useState()
+    const [openImpresion,setOpenImpresion]=useState()
 
     const accionesExtra=(params)=>{
 
@@ -33,7 +39,8 @@ export default function ActividadesSocio({data,token})
 
     const clickImprimir = useCallback(
       (data) => () => {
-        console.log(data)
+        setDatosClick(data)
+        setOpenImpresion(new Date().getTime()) //uso esto para que cambie valor y abra el dialog.. si no cambia no abre
       },
       [],
     )
@@ -52,32 +59,32 @@ export default function ActividadesSocio({data,token})
             )
             }
           },
+          
           {
-            field: 'estaBaja',
-            headerName: 'Baja',
-            width: 90,
-          },
-          {
-            field: 'tieneImporteEspecial',
-            headerName: '$ especial',
-            width: 80,
-          },
-          {
-            field: 'idActividad',
+            field: 'label_idActividad',
             headerName: 'Actividad',
             width: 180,
           },
           {
-            field: 'tieneVto',
-            headerName: 'Vto?',
+            field: 'label_idSubActividad',
+            headerName: 'Sub-Actividad',
+            width: 380,
+          },
+          {
+            field: 'estado',
+            headerName: 'Estado',
             width: 90,
           },
     ]
     return(
-        <SubColeccionColeccion sortModel={[{ field: 'fechaInicio',  sort: 'desc', }]} campoId="_id" accionesExtra={accionesExtra} token={token} 
-        urlAcepta={`/api/socios/abmItem?subColeccion=${campo}`}   titulo={labelCampo} 
+      <div>
+        <SubColeccionColeccion sortModel={[{ field: 'fechaInicio',  sort: 'desc', }]} campoId="id" accionesExtra={accionesExtra} token={token} 
+        urlAcepta={urlAcepta}   titulo={labelCampo} modelo={ModeloActividades} valoresIniciales={valoresInicialesActividades}
         pathFormulario={pathFormulario} columns={cols} 
         registro={data} campo={campo} icono={icono}/>
+        <ImpresionDialog titulo="IMPRESION DE INGRESO A ACTIVIDAD" abrir={openImpresion}
+           datos={datosClick} ComponenteItem={ImpresionActividadSocio} />
+        </div>
         
     )
                   

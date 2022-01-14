@@ -43,15 +43,17 @@ export default async function handler(req, res) {
     var modulos=[]
 
         const { id} = req.query
-     
-        const user=await Firebase().getUser(id)
-        if(user){
-            const mods=await findMods("mods",id,true)
-            const cuenta=await findOne("cuenta",id)
-            const modulosBase=await findByField("modulos",{campo:"esBase",valor:true})
-            verificarModulos(mods,modulosBase,id)
-            modulos=await getModulos(id)
-        }else console.log("No existe el usuario")
+        if(id){
+            const user=await Firebase().getUser(id)
+            if(user){
+                const mods=await findMods("mods",id,true)
+                const cuenta=await findOne("cuenta",id)
+                const modulosBase=await findByField("modulos",{campo:"esBase",valor:true})
+                verificarModulos(mods,modulosBase,id)
+                modulos=await getModulos(id)
+            }else console.log("No existe el usuario")
+        }
+        
         
         
 

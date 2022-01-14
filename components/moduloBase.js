@@ -6,8 +6,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { Avatar, Icon, Stack } from '@mui/material';
 import BotonAcciones from './botonAcciones';
-export default function ModuloBase({auth,modulo}){
-
+import UseUser from "../hooks/useUser"
+import { useAuthUser} from 'next-firebase-auth'
+export default function ModuloBase({modulo}){
+  const auth=useAuthUser()
   const [anchorEl, setAnchorEl] = React.useState(null);
   // const token=await auth.getIdToken()
 

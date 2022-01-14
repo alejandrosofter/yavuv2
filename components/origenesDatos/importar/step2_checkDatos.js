@@ -25,7 +25,7 @@ export default function Step2_checkDatos({stepValido,nroStep,seleccionDesde,sele
         const url=`/api/origenesDatos/importarDatos`
         let cantidadRegistros=10
         let nPagina=0
-        const cantidadPaginas=Math.floor(checkImportacion.cantidadDatos/cantidadRegistros)
+        const cantidadPaginas=Math.ceil(checkImportacion.cantidadDatos/cantidadRegistros)
         setImportando(true)
         setContadorUpdate(0)
           setContadorCreate(0)

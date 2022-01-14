@@ -4,7 +4,7 @@ import useSWR from "swr";
 import dynamic from 'next/dynamic'
 
 export default function ModuloABM({token,modulo,pathItem}) {
-    console.log(modulo)
+
     const url=`/api/moduloABM?coleccion=${modulo.coleccion}`
     const {data:dataIndex,mutate,error} = useSWR(url);
     if(error) return <div>Error con el logueo del token, puedes desloguear y volver a intenarlo</div>

@@ -37,7 +37,7 @@ export default function ItemsModulo_agregar({fullWidth,maxWidth,textoAgregar,cli
             <div>
      
      
-<Button variant="text" onClick={handleClickOpen}><Icon className="fas fa-plus"/> Agregar</Button>
+<Button size="small" variant="outlined" onClick={handleClickOpen}><Icon className="fas fa-plus"/> Agregar</Button>
       <Dialog fullWidth={fullWidth}
         maxWidth={maxWidth}  open={open} onClose={handleClose}>
         <DialogTitle>{`NUEVO ${nombreModulo}`}</DialogTitle>

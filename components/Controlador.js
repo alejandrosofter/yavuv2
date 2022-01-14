@@ -4,26 +4,24 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import useSWR from 'swr';
 import Layout from './layout'
-import Loader from "./loader"
-const fetcher = (...args) => fetch(...args).then(res => res.json())
-
+import UseModulo from "../hooks/useModulo"
+import SwrComponente from '../helpers/swrComponente';
+import { InitUser } from "../hooks/useUser";
+import UseMod from "../hooks/useModulo"
+import { ContextoMods } from '../context/modsContext';
+import { ContextoUsuario } from '../context/userContext';
 const cargarClick=(idMod)=>{
   fetch(`/api/mod/click/${idMod}`)
 }
-export default function Controlador({pathComponente,auth,token}){
-  const router = useRouter()
-  const {data:dataCuenta} = useSWR(`/api/cuentas/micuenta`);
-  const {data:modulo,mutate} = useSWR(() =>{
-    const url=router.query.id?`/api/mod/modulo/${router.query.id}`:``
-
-    return url
-  });
+export default function Controlador({modulo,mod,tokenServer,pathComponente}){
   
+  const router=useRouter()
   
-  if(!modulo)return "Cargando modulo..."
-  if(!dataCuenta)return "Cargando cuenta..."
-
+  if(modulo)modulo=JSON.parse(modulo)
+  if(mod)mod=JSON.parse(mod)
+  
   const url=eval("`"+pathComponente+"`")
+
   cargarClick(router.query.id)
     const Componente = dynamic(
         () => import(`./${url}`),
@@ -37,10 +35,15 @@ export default function Controlador({pathComponente,auth,token}){
       )
 
     return(
-      <Layout token={token} auth={auth} icono={modulo.icono} dataCuenta={dataCuenta} modulo={modulo} titulo={modulo.label} >
-        <Componente token={token}  auth={auth} dataCuenta={dataCuenta}  modulo={modulo}/>
-        
-        </Layout>
+      <ContextoUsuario tokenServer={tokenServer} >
+        <ContextoMods mod_={mod} modulo_={modulo}>
+          <SwrComponente token={tokenServer} >
+              <Layout icono={modulo.icono} titulo={modulo.label} modulo={modulo} mod={mod}> 
+                  <Componente token={tokenServer} modulo={modulo} mod={mod}/> 
+              </Layout>
+          </SwrComponente>
+        </ContextoMods>
+      </ContextoUsuario>
     )
    
 

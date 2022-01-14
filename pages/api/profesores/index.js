@@ -1,0 +1,18 @@
+import Firestore from "../../../config/firebase";
+import {getArrayData,findAll} from "../../../config/firebase";
+import Ensesion from "../../../helpers/EnSesion";
+export default async function handler(req, res) {
+    const { id } = req.query
+    const data=req.body
+    const coleccion="profesores"
+    const ejecuta=async ({user})=>{
+       
+        return await findAll(coleccion,user,true)
+    }
+    const [salida,codigoSalida]=await Ensesion({req,res,ejecuta}).catch(err=>{
+        throw err
+    })
+
+    res.status(codigoSalida).json(salida)
+    
+}

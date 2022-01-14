@@ -14,3 +14,13 @@ export function getItemArray({data,valor,campoId})
 
 
 }
+export function getIndexItemArray({data,valor,campoId})
+{
+    if(!campoId)campoId="id"
+    const i=data.map(x => x[campoId]).indexOf(valor)
+  
+    if(i>=0)return data[i]
+    return null
+
+
+}

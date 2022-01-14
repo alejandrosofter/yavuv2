@@ -1,18 +1,69 @@
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
-    //     <TabContext value={tabDatos}>
-           
-    //     <TabList onChange={cambiaTab} key="accionesModulo" aria-label="Acciones Modulo">
-    //         <Tab label="Datos" value="datos" />
-    //     </TabList>
-    //     <TabPanel value="datos">
-    //         <Grid sx={{pt:3}} md={12} container rowSpacing={2} spacing={2}>
-                
-    //         <Grid item md={7}><Input label="Nombre "  campo="nombre"/></Grid>
-    //         <Grid item md={3}><Input label="Icono " campo="icono"/></Grid>
-    //         <Grid item md={7}><Input label="Detalle " campo="detalle"/></Grid>
-                
-    //         </Grid>
-    //     </TabPanel>
+ function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+export default function TabsFormik({vistas,children,label}) {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange} aria-label={`tab_${label}`}>
+        {vistas.map(vista=>(
+            <Tab label={vista.label} {...a11yProps(vista.nro)} />
+        ))}
+        
+          
+        </Tabs>
+      </Box>
       
-
-    // </TabContext>
+      
+      {vistas.map(vista=>(
+            <TabPanel value={value} index={vista.nro}>
+           {vista.vista}
+          </TabPanel>
+        ))}
+      
+    </Box>
+  );
+}

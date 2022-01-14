@@ -2,7 +2,7 @@ import { init } from 'next-firebase-auth'
 import FirebaseAdminConfig from './_firebaseAdminConf'
 import FirestoreConfig from './_firestoreConfig'
 const initAuth = () => {
-  init({
+  const res=init({
     authPageURL: '/auth',
     appPageURL: '/',
     loginAPIEndpoint: '/api/login', // required
@@ -27,6 +27,7 @@ const initAuth = () => {
       signed: true,
     },
   })
+  console.log(res)
 }
 
 export default initAuth

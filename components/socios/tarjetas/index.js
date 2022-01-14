@@ -6,14 +6,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SecurityIcon from '@mui/icons-material/Security';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
-import SubColeccionColeccion from "../forms/subColeccion/_subColeccion";
+import SubColeccionColeccion from "../../forms/subColeccion/_subColeccion";
+import { ModeloTarjetas,valoresInicialesTarjetas } from "../../../modelos/ModeloSocios"
 export default function TarjetasSocio({data,token})
 {
     const campo="tarjetas"
     const labelCampo="TARJETAS"
     const icono="fas fa-credit-card"
-    const pathFormulario="socios/_formTarjetas"
-
+    const pathFormulario="socios/tarjetas/_formTarjetas"
+    const urlAcepta=`/api/socios/abmItem?subColeccion=${campo}`
     const accionesExtra=(params)=>{
 
       return(
@@ -61,7 +62,7 @@ export default function TarjetasSocio({data,token})
     ]
     return(
         <SubColeccionColeccion  sortModel={[{ field: 'fecha',  sort: 'desc', }]} accionesExtra={accionesExtra} token={token} 
-        urlAcepta={`/api/socios/abmItem?subColeccion=${campo}`}   titulo={labelCampo} 
+        urlAcepta={urlAcepta}   titulo={labelCampo} modelo={ModeloTarjetas} valoresIniciales={valoresInicialesTarjetas}
         pathFormulario={pathFormulario} columns={cols} 
         registro={data} campo={campo} icono={icono}/>
         

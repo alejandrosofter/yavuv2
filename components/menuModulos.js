@@ -1,4 +1,4 @@
-import { Icon, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { CircularProgress, Icon, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import useSWR from 'swr';
 import Link from 'next/link';
 import Loader from './loader';
@@ -8,7 +8,7 @@ export default function MenuModulos({}){
   
     const {data} = useSWR(`/api/planes/getplan/`);
     
-    if(!data)return <Loader texto="Cargando menu"/>
+    if(!data)return <CircularProgress color="inherit" />
     return(
         
         <List component="div" disablePadding>
