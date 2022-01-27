@@ -51,7 +51,7 @@ export default function TabsFormik({vistas,children,label}) {
   
         <Tabs  value={value} onChange={handleChange} aria-label={`tab_${label}`}>
         {vistas.map(vista=>(
-            <Tab label={vista.label} {...a11yProps(vista.nro)} />
+            <Tab key={vista.nro} label={vista.label} {...a11yProps(vista.nro)} />
         ))}
         
           
@@ -60,8 +60,8 @@ export default function TabsFormik({vistas,children,label}) {
       
       
       {vistas.map(vista=>(
-            <TabPanel  value={value} index={vista.nro}>
-           <Grid item md={12}>{vista.vista}</Grid>
+            <TabPanel key={`vista_${vista.nro}`} value={value} index={vista.nro}>
+           <Grid item  md={12}>{vista.vista}</Grid>
           </TabPanel>
         ))}
       

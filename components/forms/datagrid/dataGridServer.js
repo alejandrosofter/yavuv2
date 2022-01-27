@@ -32,13 +32,7 @@ console.log(datos)
   const [dialog, setdialog] = useState(false);
   const [accionSeleccion, setAcccionSeleccion] = useState();
   const [data, setData] = useState();
-  const clickMenu=({accion,params})=>{
-    setData(params.row)
-    setAcccionSeleccion(accion)
-    if(accion.esFuncion){
-      setdialog(true)
-    }else  router.push(getLinkUrl(accion.url,modulo,params.row), undefined, { shallow: true })
-  }
+  
   const clickAceptaMenu=async e=>{
     const url=eval("`"+accionSeleccion.url+"`")
     console.log(url)
@@ -55,7 +49,13 @@ console.log(datos)
 }
 
   useEffect(() => {
-
+    const clickMenu=({accion,params})=>{
+      setData(params.row)
+      setAcccionSeleccion(accion)
+      if(accion.esFuncion){
+        setdialog(true)
+      }else  router.push(getLinkUrl(accion.url,modulo,params.row), undefined, { shallow: true })
+    }
     const aux=columns
    const actions=(params)=>{
      let arr=[]
@@ -82,7 +82,7 @@ acciones.map(accion=>{
      }
     )
      setColumnas(aux)
-   },[])
+   },[acciones,columns,modulo,router])
   
    const cambiaPagina=(page) => {
     

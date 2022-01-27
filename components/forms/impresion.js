@@ -10,7 +10,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
-import ImpresionMovimientoCuenta from "../socios/movimientosCuenta/impresion"
+
 import Slide from '@mui/material/Slide';
 import * as React from 'react';
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -20,7 +20,7 @@ export default function ImpresionDialog({datos,ComponenteItem,abrir,titulo}){
     const [open, setOpen] = React.useState(false);
     React.useEffect(() => {
       if(datos) setOpen(true)
-    },[abrir])
+    },[abrir,datos])
   
     // const ComponenteItem = dynamic(
     //   () => import(`./${pathForm}`),

@@ -5,13 +5,13 @@ import {  Formik, Form} from 'formik';
 import { useEffect } from "react";
 export default function ItemsRelaciones({datosExternos}){
     
-    const clickForm=async (values)=>{
-        // setLoad(true)
-        // const res=await Fetch(`/api/modulos/${values.id}`,"POST",values)
-
-        // router.back({ shallow: true })
-      }
-
+    const [valores,setValores]=useState()
+      useEffect(() => {
+        const aux=valores.relaciones?valores.relaciones:[]
+ 
+        aux.push(datosExternos)
+        setFieldValue(aux)
+    }, [datosExternos,valores])
     return(
         <Formik
        initialValues={valoresIniciales()}
@@ -23,12 +23,7 @@ export default function ItemsRelaciones({datosExternos}){
      >
         
          {({handleSubmit,values,errors,setFieldValue,validateForm})=>{
-        useEffect(() => {
-            const aux=values.relaciones?values.relaciones:[]
-     
-            aux.push(datosExternos)
-            setFieldValue(aux)
-        }, [datosExternos])
+        setValores(values)
          return ( 
           
         <Form onSubmit={handleSubmit} >

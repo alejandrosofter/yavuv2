@@ -94,11 +94,11 @@ export default class FileUpload2Formik extends Component {
                 {this.state.filesUrls &&this.state.filesUrls.map(file=>{
                     
                     return(
-                        <Stack>
+                        <Stack key={`itera_${file.urlRef}`}>
                             <Image onClick={clickImagen} data-id={file.urlRef} className={classes.imagen} key={file.urlRef}
                             alt="Imagen" src={file.downloadThum} width={80}
                         height={80}/>
-                            <Button onClick={clickQuitar} data-id={file.urlRef}  variant="outlined"><Icon sx={{fontSize:10}} className="fas fa-trash"/></Button>
+                            <Button onClick={clickQuitar} data-id={file.urlRef} key={`boton_${file.urlRef}`} variant="outlined"><Icon sx={{fontSize:10}} className="fas fa-trash"/></Button>
                         </Stack>
                     )
                 }

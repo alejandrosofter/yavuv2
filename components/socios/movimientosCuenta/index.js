@@ -32,6 +32,7 @@ const acciones=[{
       return(
         [
           <GridActionsCellItem
+          key={params.row.id}
           icon={<Icon fontSize="10" className="fas fa-print"/>}
           label="imprimir"
           onClick={clickImprimir(params.row)}

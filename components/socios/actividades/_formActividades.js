@@ -15,7 +15,7 @@ export default function FormActividadesSocio({values,registro,setFieldValue})
     useEffect(() => {
     
         if(values.idActividad)setValorSubActividades(values.idActividad)
-    },[])
+    },[values.idActividad,setValorSubActividades])
     const [subActividades,setSubActividades]=useState([])
     const [periodos,setPeriodos]=useState([])
     const { data:actividades } = useSWR(`/api/actividades`)

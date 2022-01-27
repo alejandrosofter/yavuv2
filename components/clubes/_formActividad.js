@@ -19,10 +19,13 @@ export default function FormClubActividad({token,datos,urlAcepta,callbackSuccess
         return `${item.nombre} ${item.apellido} `
     }
     const [profesores,setProfesores]=useState([])
-   useEffect(async () => {
-    const aux=await Fetch("/api/clubes/getProfesores","GET",null,token);
-    setProfesores(aux)
-   },[])
+   useEffect(() => {
+       const fn=async ()=>{
+        return await Fetch("/api/clubes/getProfesores","GET",null,token);
+       }
+    const profes=fn()
+    setProfesores(profes)
+   },[token])
     return(
         <Grid  md={12} container rowSpacing={2} spacing={2}>
                 <_FormItem datos={datos} callbackSuccess={callbackSuccess} urlAcepta={urlAcepta} 

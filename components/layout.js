@@ -99,7 +99,7 @@ export default function Layout({children,titulo,icono,modulo}) {
   }
   return (
     <Box sx={{ display: 'flex' }}>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossOrigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
         
         <Head>
             <title>{titulo}</title>
@@ -129,7 +129,7 @@ export default function Layout({children,titulo,icono,modulo}) {
                 <Box sx={{ flexGrow: 1 }}>
                 <Stack sx={{ alignContent: 'center'}} direction="row" spacing={2}>
                
-                  <Typography variant="titulo" sx={{ mt:"auto",mb:"auto", textTransform: "uppercase",  
+                  <Typography  sx={{ mt:"auto",mb:"auto", textTransform: "uppercase",  
                   fontWeight: 'bolder' }}  variant="h5" ><Icon className={icono}/> {titulo}</Typography>
                 
                 <MenuAccionesBarra modulo={modulo} acciones={modulo?modulo.acciones:[]} />

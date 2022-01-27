@@ -12,10 +12,10 @@ import TitulosFormularios from "../forms/tituloFormularios";
 export default function FormSocios({setFieldValue,values,tipoSocios,titulo,subTitulo,icono})
 {
 useEffect(()=>{
-    console.log(tipoSocios)
+
     const seleccion=tipoSocios[tipoSocios.map(item=>item.nombre).indexOf(values.tipoSocio)]
     if(seleccion) setFieldValue("tipoSocio",seleccion.id)
-},[])
+},[setFieldValue,tipoSocios,values])
 const cambiaTipoSocio=(valor)=>{
 
 const seleccion=tipoSocios[tipoSocios.map(item=>item.id).indexOf(valor)]

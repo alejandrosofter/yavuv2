@@ -62,7 +62,7 @@ export default class FileUploadFormik extends Component {
                 </Button>
                 <Stack direction="row" spacing={1}>
                     {this.state.filesUrls &&this.state.filesUrls.map(file=>
-                        <Image alt="Picture of the author" src={file.downloadURL} width={80}
+                        <Image key={file.downloadURL} alt="Picture of the author" src={file.downloadURL} width={80}
                         height={80}/>
 
                     )}

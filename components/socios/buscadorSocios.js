@@ -37,7 +37,7 @@ const editarSocio=(e)=>{
                     
                     </Stack>
                   </Badge>
-                  <Link href={`/mod/${router.query.id}/socios/editar/${socioSeleccion.id}`}>
+                  <Link passHref href={`/mod/${router.query.id}/socios/editar/${socioSeleccion.id}`}>
                     <Button variant="outlined" size="small" onClick={editarSocio}><Icon className="fas fa-pencil"/></Button>
                   </Link>
                   

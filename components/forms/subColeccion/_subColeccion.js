@@ -29,6 +29,7 @@ export default function SubColeccionColeccion({sortModel,maxWidth,fullWidth,mod,
   const acciones=(params)=>{
    let arr=[
     <GridActionsCellItem
+    key={params.row.id}
     icon={<Icon sx={{color:'red'}} fontSize="10" className="fas fa-trash"/>}
     label={<Typography color="red" >Quitar</Typography>}
     onClick={clickQuitar(params.row)}
@@ -36,6 +37,7 @@ export default function SubColeccionColeccion({sortModel,maxWidth,fullWidth,mod,
     />,
     
     <GridActionsCellItem
+    key={params.row.id}
 icon={<Icon fontSize="10" className="fas fa-pencil"/>}
 label="Modificar"
 onClick={clickEditar(params.row)}
@@ -63,7 +65,7 @@ showInMenu
     }
    )
     setColumnas(aux)
-  },[])
+  },[accionesExtra,clickEditar,clickQuitar,columns])
 
   const clickAgregar=e=>{
     setMostrarNuevo(true);
@@ -86,7 +88,7 @@ showInMenu
       setSeleccionGrid({id,idRegistroPadre:registro.id})
       setOpenDialogQuita(true)
     },
-    [],
+    [registro.id],
   )
 const handleClose = () => {
   setMostrarNuevo(false);
@@ -144,8 +146,8 @@ const fnRows=()=>{
         maxWidth={maxWidth} open={mostrarNuevo} onClose={handleClose}>
         <DialogTitle><Icon className="fas fa-plus"/> NUEVO</DialogTitle>
         <DialogContent>
-        <FormItem registro={registro} mod={mod} datos={seleccionGrid} token={token} urlAcepta={urlAcepta}  callbackSuccess={callbackSuccess_}
-                token={token} modelo={modelo()} valoresIniciales={valoresIniciales}>
+        <FormItem registro={registro} mod={mod} datos={seleccionGrid} token={token} urlAcepta={urlAcepta} 
+         callbackSuccess={callbackSuccess_}  modelo={modelo()} valoresIniciales={valoresIniciales}>
           <ComponenteForm mod={mod}/>
           </FormItem>
         </DialogContent>
@@ -156,7 +158,7 @@ const fnRows=()=>{
         <DialogTitle><Icon className="fas fa-pencil"/> EDITAR</DialogTitle>
         <DialogContent>
         <FormItem registro={registro} mod={mod} datos={seleccionGrid} token={token} urlAcepta={urlAcepta}  callbackSuccess={callbackSuccessEditar}
-                token={token} modelo={modelo()} valoresIniciales={valoresIniciales}>
+                modelo={modelo()} valoresIniciales={valoresIniciales}>
                 <ComponenteForm mod={mod}/>
           </FormItem>
         </DialogContent>

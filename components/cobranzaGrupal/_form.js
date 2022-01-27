@@ -26,7 +26,7 @@ export default function FormCobranzaGrupal({setFieldValue,values,titulo,subTitul
         setItemsConceptos(getItemsConceptos(values.modDeuda,modsDeuda))
         // cambiaConcepto(values.concepto)
         
-    },[modsDeuda])
+    },[modsDeuda,values.modDeuda])
     if(!modsDeuda)return "carga mods"
 
     

@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SecurityIcon from '@mui/icons-material/Security';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
-import ExtraAccionesActividades from "./_accionesExtraActividades"
+
 import SubColeccionColeccion from "../forms/subColeccion/_subColeccion";
 export default function ClubesActividades({data,token})
 {
@@ -16,6 +16,7 @@ export default function ClubesActividades({data,token})
       return(
         [
           <GridActionsCellItem
+          key={0}
     icon={<Icon fontSize="10" className="fas fa-print"/>}
     label="imprimir"
     onClick={clickImprimir(params.row)}

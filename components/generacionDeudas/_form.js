@@ -26,7 +26,7 @@ export default function FormGeneracionDeudas({setFieldValue,values,titulo,subTit
         setItemsConceptos(getItemsConceptos(values.modDeuda,modsDeuda))
         // cambiaConcepto(values.concepto)
         
-    },[modsDeuda])
+    },[modsDeuda,values.modDeuda])
     if(!modsDeuda)return "carga mods"
 
     

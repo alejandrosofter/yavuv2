@@ -16,7 +16,7 @@ export default function FormItemConfigSocios({values}){
             <Grid item md={6}><Input campo='detalle' label="Detalle" /></Grid>
             <Grid item md={5}><SelectEstaticFormik label="Tipo de Calculo Deuda" campo="tipoCalculoDeuda" items={["CUOTA SOCIAL","ACTIVIDADES"]}/></Grid>
             <Grid item md={3}><SwitchFormik callbackChange={cambiaGeneraDeuda} campo='generaDeuda' label="Genera Deuda" /></Grid>
-            <Grid sx={{p:2}} 	sx={{ display: visibleConfig,p:2 }} container spacing={2}>
+            <Grid 	sx={{ display: visibleConfig,p:2 }} container spacing={2}>
                 <Grid item md={8}><Input campo='aplicaDeudaConjunto' label="Aplica a ..." /></Grid>
                 <Grid item md={6}><Input campo='desglosaCampo' label="Desglosa Por..." /></Grid>
                 <Grid item md={12}><Input campo='calculoImporte' label="Calculo Importe" /></Grid>

@@ -14,8 +14,11 @@ export default function Modulo({modulo,mod,token}) {
     const [openVaciar,setOpenVaciar]=useState(false)
     const [deuda,setDeuda]=useState()
     const [loading,setLoading]=useState(false)
-    useEffect(async ()=>{
-      setDeuda(await Fetch(`/api/generacionDeudas/${router.query.idItem}`,null,null,token))
+    useEffect(()=>{
+      const deuda=async ()=>{
+        return  Fetch(`/api/generacionDeudas/${router.query.idItem}`,null,null,token)
+      }
+      setDeuda(deuda())
   
     },[loading])
     

@@ -72,7 +72,7 @@ export default function SelectorOrigenData({setDatosTodos,setDatoSeleccion,setOb
                 onChange={handleChangeModulo}
             >
                 {dataModulo && dataModulo.map(item=>
-                    <MenuItem value={item[campoDataModulo]}>{item[labelDataModulo]}</MenuItem>
+                    <MenuItem key={item[campoDataModulo]} value={item[campoDataModulo]}>{item[labelDataModulo]}</MenuItem>
                 )}
                 
             </Select>

@@ -20,6 +20,7 @@ export default function DocumentacionSocio({data,token,mod})
       return(
         [
           <GridActionsCellItem
+          key={params.row}
           icon={<Icon fontSize="10" className="fas fa-print"/>}
           label="imprimir"
           onClick={clickImprimir(params.row)}

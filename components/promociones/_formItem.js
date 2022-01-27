@@ -20,7 +20,7 @@ export default function FormularioItemPromocion({modsDeuda,values}){
         setItemsConceptos(getItemsConceptos(values.modDeuda,modsDeuda))
         // cambiaConcepto(values.concepto)
         
-    },[modsDeuda])
+    },[modsDeuda,values.modDeuda])
     
     const cambiaMod=id=>{
         setItemsConceptos(getItemsConceptos(id,modsDeuda))
