@@ -12,7 +12,6 @@ import _FormItem from "../forms/subColeccion/_formItem";
 import ModeloClubes, { ModeloClubesActividades,valoresInicialesActividades } from "../../modelos/ModeloClubes";
 import SelectFormik from "../forms/select";
 import Fetch from "../../helpers/Fetcher"
-import FileUploadFormik from "../forms/fileUpload";
 export default function FormClubActividad({token,datos,urlAcepta,callbackSuccess})
 {
     const muestraProfesor=(item)=>{

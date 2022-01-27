@@ -1,7 +1,6 @@
 import {  Grid } from "@mui/material"
 import Input from "../forms/input"
-import FileUploadFormik from "../forms/fileUpload";
-import FileUpload2Formik from "../forms/fileUpload2";
+
 import FileUpload3Formik from "../forms/fileUpload3Formik";
 
 export default function FormClub({auth})
