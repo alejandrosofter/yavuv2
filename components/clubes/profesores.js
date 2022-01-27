@@ -24,12 +24,7 @@ export default function ClubesProfesores({data,token})
      
     
 
-    // const clickImprimir = useCallback(
-    //   (data) => () => {
-    //     console.log(data)
-    //   },
-    //   [],
-    // )
+
      
     const colsProfes = [
         {

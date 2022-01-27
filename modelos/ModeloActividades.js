@@ -43,3 +43,21 @@ export function valoresIniciales(){
         acciones: [],
     }
 }
+///////////////////////////////
+export function valoresInicialesPeriodos()
+{
+    return {
+        nombrePeriodo: "",
+        estado: "",
+    }
+}
+export function ModeloPeriodos()
+{
+    return yup.object().shape({
+        nombrePeriodo: yup.string().required(),
+        estado: yup.string()
+       
+        
+      });
+}
+///////////////////////////

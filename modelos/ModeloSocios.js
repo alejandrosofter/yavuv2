@@ -19,6 +19,22 @@ export function valoresIniciales(){
         fechaNacimiento: "",
     }
 }
+export  function ModeloFamiliares(){
+    return yup.object().shape({
+        relacion: yup.string().required(),
+        socio: yup.string(),
+        createdOn: yup.date().default(function () {
+            return new Date();
+          }),
+      });
+}
+export function valoresInicialesFamiliares(){
+    return {
+        relacion: "",
+        fecha: {seconds:new Date().getTime()/1000,nanoseconds:0},
+        socio: "",
+    }
+}
 export function valoresInicialesCambioEstado(){
     return {
         estado: "",
@@ -28,7 +44,7 @@ export function valoresInicialesCambioEstado(){
 export function ModeloItemMovimientoCuenta(){
     return yup.object().shape({
         detalle: yup.string().required(),
-        tipoItem: yup.string().required(),
+        tipo: yup.string().required(),
         importe: yup.string().required(),
      
       }) 
@@ -54,9 +70,27 @@ export  function ModeloDocumentos(){
             }) 
       
 }
+export function valoresInicialesPromocion(){
+    return {
+        fechaVto: {seconds:new Date().getTime()/1000,nanoseconds:0},
+        fechaInicio: {seconds:new Date().getTime()/1000,nanoseconds:0},
+        detalle:"",
+        estado:"ACTIVO"
+    }
+}
+export  function ModeloPromociones(){
+    return yup.object().shape({
+            //   fechaVto: yup.string().required(),
+              detalle: yup.string(),
+              idPromocion: yup.string(),
+              estado: yup.string()
+           
+            }) 
+      
+}
 export function valoresInicialesTarjetas(){
     return {
-        fecha:"",
+        fecha:{seconds:new Date().getTime()/1000,nanoseconds:0},
         detalle: "",
     }
 }
@@ -98,7 +132,7 @@ export function valoresInicialesActividades(){
         tieneImporteEspecial:false, 
         tieneVto:false,
         idActividad:"",
-        fechaInicio:""
+        fechaInicio:{seconds:new Date().getTime()/1000,nanoseconds:0},
     }
 }
 export  function ModeloActividades(){
@@ -107,19 +141,20 @@ export  function ModeloActividades(){
         estaBaja: yup.boolean(),
         tieneImporteEspecial: yup.boolean(),
         tieneVto: yup.boolean(),
-                idActividad:yup.string(),
+        idActividad:yup.string().required(),
+        idSubActividad:yup.string().required(),
+        idPeriodo:yup.string().required(),
 
             }) 
       
 }
 ////////////////////////////
 export function valoresInicialesMovimiento({dataInicial}){
-    const fe={seconds:new Date().getTime()/1000,nanoseconds:0}
     return {
         
         importeAcredita:0,
         importeDebita:0,
-        fecha:fe,
+        fecha:{seconds:new Date().getTime()/1000,nanoseconds:0},
         nroRecivo:dataInicial?dataInicial.nroRecivo:"",
 
 
@@ -128,9 +163,10 @@ export function valoresInicialesMovimiento({dataInicial}){
 export  function ModeloMovimientoCuenta(){
     return yup.object().shape({
         //    fecha: yup.string(),
-        importeAcredita:yup.number(),
-        importeDebita:yup.number(),
-        nroRecivo:yup.string()
+        // importeAcredita:yup.number(),
+        // importeDebita:yup.number(),
+        // nroRecivo:yup.string()
+        estado:yup.string()
 
             }) 
       

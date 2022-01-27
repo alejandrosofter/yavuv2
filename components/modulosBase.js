@@ -9,7 +9,7 @@ export default function ModulosBase({}){
     const url=`/api/modulos/getBase?id=${auth.id}`
   
     const {data:modulos,mutate} = useSWR(url);
-    console.log(url,modulos)
+   
     if(!modulos) return <CircularProgress color="inherit" />
     
     return(

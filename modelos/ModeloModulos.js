@@ -12,17 +12,19 @@ export default function ModeloModulos(){
         createdOn: yup.date().default(function () {
             return new Date();
           }),
-          acciones: yup.array().of(
-            yup.object().shape({
-              nombre: yup.string().required("Es requerido para buscar el componente el las librerias"),
-              label: yup.string().required("Es requerido"),
-              icono: yup.string(),
-              
-              descripcion: yup.string(),
-
-            }) )
+          
         
       });
+}
+export function ModeloAcciones(){
+  return  yup.object().shape({
+    nombre: yup.string().required("Es requerido para buscar el componente el las librerias"),
+    label: yup.string().required("Es requerido"),
+    icono: yup.string(),
+    
+    descripcion: yup.string(),
+
+  })
 }
 export function valoresIniciales(){
   return {

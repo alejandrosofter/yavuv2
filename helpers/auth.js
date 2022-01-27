@@ -10,10 +10,14 @@ export function callAuthToken(){
       let mod,modulo;
       if(esMod){
         mod=await findOne("mods",props.params.id)
-        modulo=await findOne("modulos",mod.idModulo)
-        modulo.idMod=props.params.id
+        
+        if(mod){
+         
+          modulo=await findOne("modulos",mod.idModulo)
+          modulo.idMod=props.params.id
+        }
+         
       }
- 
         const token = await AuthUser.getIdToken()
         return {
           props: {

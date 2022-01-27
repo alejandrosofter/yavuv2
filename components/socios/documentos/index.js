@@ -8,7 +8,7 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
 import SubColeccionColeccion from "../../forms/subColeccion/_subColeccion";
 import { ModeloDocumentos,valoresInicialesDocumentacion } from "../../../modelos/ModeloSocios"
-export default function DocumentacionSocio({data,token})
+export default function DocumentacionSocio({data,token,mod})
 {
     const campo="documentacion"
     const labelCampo="DOCUMENTACION"
@@ -34,7 +34,7 @@ export default function DocumentacionSocio({data,token})
 
     const clickImprimir = useCallback(
       (data) => () => {
-        console.log(data)
+    
       },
       [],
     )
@@ -43,26 +43,26 @@ export default function DocumentacionSocio({data,token})
        
           {
             field: 'fechaVto',
-            headerName: 'Fecha',
+            headerName: 'Fecha Vto',
             width: 280,
             renderCell: (params) => {
               console.log(params.value)
-               const d=new Date(params.value.seconds * 1000);
+               if(!params.value||params.value=="")return "-"
         
               return( //en params.row tengo los otros datos
-                <i>{`${moment(d).format('DD/MM/YY')}`}</i>
+                <i>{`${moment(new Date(params.value.seconds * 1000)).format('DD/MM/YY')}`}</i>
             )
             }
           },
           {
-            field: 'tipo',
-            headerName: 'TIPO',
+            field: 'label_tipo',
+            headerName: 'Tipo Documento',
             width: 180,
           },
           
     ]
     return(
-        <SubColeccionColeccion  accionesExtra={accionesExtra} token={token} 
+        <SubColeccionColeccion mod={mod} accionesExtra={accionesExtra} token={token} 
         urlAcepta={urlAcepta}   titulo={labelCampo} modelo={ModeloDocumentos} valoresIniciales={valoresInicialesDocumentacion}
         pathFormulario={pathFormulario} columns={cols} 
         registro={data} campo={campo} icono={icono}/>

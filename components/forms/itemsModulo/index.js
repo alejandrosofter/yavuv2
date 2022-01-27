@@ -13,7 +13,7 @@ import ItemsModulo_agregar from "./agregar";
 import ItemsModulo_editar from "./editar";
 import ItemsModulo_eliminar from "./eliminar";
 import randomId from "random-id"
-export default function ItemsModulo({fullWidth,datosExternos,icono,titulo,maxWidth,campo,data,modelo,valoresIniciales,setFieldValue,columnas,dataModulo,form,nombreModulo,textoEditar,textoAgregar}){
+export default function ItemsModulo({fullWidth,icono,titulo,maxWidth,campo,data,modelo,valoresIniciales,setFieldValue,columnas,dataModulo,form,nombreModulo,textoEditar,textoAgregar}){
 
   useEffect(() => {
     let aux=columnas
@@ -27,14 +27,14 @@ export default function ItemsModulo({fullWidth,datosExternos,icono,titulo,maxWid
         const handleEditClick = (data) => (event) => {
           event.stopPropagation();
           setDataSelecciona(data.row)
-          console.log(dataSelecciona)
+          
           setEditarVisible(true)
         };
       
         const handleDeleteClick = (data) => (event) => {
           event.stopPropagation();
           setDataSelecciona(data.row)
-          console.log(dataSelecciona)
+         
           setQuitarVisible(true)
         };
         return [
@@ -101,6 +101,7 @@ export default function ItemsModulo({fullWidth,datosExternos,icono,titulo,maxWid
         <FieldArray name={campo}>
         {(props) =>{
              const clickAceptar=(valores)=>{
+         
                agregarData(valores)
                  
             }

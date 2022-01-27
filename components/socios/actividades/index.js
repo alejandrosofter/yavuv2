@@ -10,13 +10,14 @@ import SubColeccionColeccion from "../../forms/subColeccion/_subColeccion";
 import ImpresionDialog from "../../forms/impresion"
 import ImpresionActividadSocio from "./impresion"
 import {ModeloActividades,valoresInicialesActividades}from "../../../modelos/ModeloSocios"
+import { getFechaString } from "../../../helpers/dates";
 export default function ActividadesSocio({data,token})
 {
     const campo="actividades"
     const labelCampo="ACTIVIDADES"
     const icono="fas fa-dumbbell"
     const pathFormulario="socios/actividades/_formActividades"
-    const urlAcepta=`/api/socios/abmItem?subColeccion=${campo}`
+    const urlAcepta=`/api/socios/abmItem?subColeccion=${campo}&idRegistroPadre=${data.id}&label=${data.apellido} ${data.nombre}`
     const [datosClick,setDatosClick]=useState()
     const [openImpresion,setOpenImpresion]=useState()
 
@@ -51,13 +52,7 @@ export default function ActividadesSocio({data,token})
             field: 'fechaInicio',
             headerName: 'Fecha',
             width: 90,
-            renderCell: (params) => {
-              const d=new Date(params.value.seconds * 1000);
-              
-              return( //en params.row tengo los otros datos
-                <i>{`${moment(d).format('DD/MM/YY')}`}</i>
-            )
-            }
+            renderCell: (params) => getFechaString(params.value)
           },
           
           {
@@ -68,7 +63,12 @@ export default function ActividadesSocio({data,token})
           {
             field: 'label_idSubActividad',
             headerName: 'Sub-Actividad',
-            width: 380,
+            width: 180,
+          },
+          {
+            field: 'label_idPeriodo',
+            headerName: 'Periodo',
+            width: 150,
           },
           {
             field: 'estado',

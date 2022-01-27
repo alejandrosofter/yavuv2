@@ -1,13 +1,7 @@
 import * as React from 'react';
-import { Stack,Box ,InputAdornment,Icon,Grid} from '@mui/material';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import TextField from '@mui/material/TextField';
+import { Stack,} from '@mui/material';
+
 import algoliasearch from 'algoliasearch/lite';
-import Autocomplete from '@mui/material/Autocomplete';
 import AutoCompleteAsync from "../forms/autocompleteAsync"
 const client = algoliasearch('YEIGHXO1BF', '0e2670dbc0a23a0a5da70aef369d176b');
 const index = client.initIndex('socios');
@@ -51,7 +45,7 @@ const labelItems=(option)=>`${option.nombre} ${option.apellido} ${option.nroSoci
     return(
         <Stack sx={6} direction="row" spacing={1}>
            
-            <AutoCompleteAsync icono="fas fa-search" label="BUSCADOR DE SOCIOS" fnCambia={cambia} fnClick={fnClick} 
+            <AutoCompleteAsync icono="fas fa-user"  label="BUSCADOR DE SOCIOS" fnCambia={cambia} fnClick={fnClick} 
             loading={loading} datos={datos} labelItems={labelItems} />
           
          

@@ -13,7 +13,6 @@ import ItemsModulo from "../forms/itemsModulo";
 
 
 const DataGridFormikItems = ({label,campo,columns,icono,Modelo,FormularioItem,mod}) => {
-    const [itemsGrid,setItemsGrid]=useState([])
 
   return (
 <FormControl fullWidth>
@@ -28,7 +27,7 @@ const DataGridFormikItems = ({label,campo,columns,icono,Modelo,FormularioItem,mo
                    setFieldValue={props.form.setFieldValue} 
                    titulo={label} icono={icono}
                    campo={campo} data={props.form.values[campo]?props.form.values[campo]:{}} 
-                   modelo={Modelo().innerType}
+                   modelo={Modelo}
                    nombreModulo={label}
                    fullWidth={true} maxWidth={"md"}
                    textoEditar={`Puedes cambiar las acciones de esta accion:`}

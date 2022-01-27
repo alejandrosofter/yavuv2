@@ -14,7 +14,6 @@ export default async function handler(req, res) {
         
         if(!data.id && !data._id){ //ES NUEVO
             data.id=randomId(20)
-            console.log(data)
             registroPrincipal[subColeccion]=(data)
             await update(coleccion,registroPrincipal)
         }
@@ -38,6 +37,6 @@ export default async function handler(req, res) {
     const [salida,codigoSalida]=await Ensesion({req,res,ejecuta}).catch(err=>{
         throw err
     })
-    
+
     res.status(codigoSalida).json(salida)
 }

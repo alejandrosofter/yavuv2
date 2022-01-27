@@ -27,7 +27,7 @@ const initAuth = () => {
       signed: true,
     },
   })
-  console.log(res)
+
 }
 
 export default initAuth

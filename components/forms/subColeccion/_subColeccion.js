@@ -78,6 +78,7 @@ showInMenu
   const callbackElimina = async ()=> {
       const res=await Fetch(urlAcepta,"DELETE",seleccionGrid,token)
       setOpenDialogQuita(false)
+      setSeleccionGrid(null)
     }
   
   const clickQuitar = useCallback(
@@ -127,7 +128,7 @@ const fnRows=()=>{
               <Typography  variant="h5"> {titulo}</Typography>
               <Icon className={icono}/>
             </Stack>
-            <Button  color="primary" variant="outlined" size="small" onClick={clickAgregar}><Icon className={"fas fa-plus"}></Icon> AGREGAR</Button>
+            <Button  color="secondary" variant="outlined" size="small" onClick={clickAgregar}><Icon className={"fas fa-plus"}></Icon> AGREGAR</Button>
         </Stack>
         <div style={{ height: 400, width: '100%' }}>
           {columnas && 
@@ -141,7 +142,7 @@ const fnRows=()=>{
       </div>
       <Dialog  fullWidth={fullWidth}
         maxWidth={maxWidth} open={mostrarNuevo} onClose={handleClose}>
-        <DialogTitle>NUEVO</DialogTitle>
+        <DialogTitle><Icon className="fas fa-plus"/> NUEVO</DialogTitle>
         <DialogContent>
         <FormItem registro={registro} mod={mod} datos={seleccionGrid} token={token} urlAcepta={urlAcepta}  callbackSuccess={callbackSuccess_}
                 token={token} modelo={modelo()} valoresIniciales={valoresIniciales}>
@@ -152,7 +153,7 @@ const fnRows=()=>{
       </Dialog>
       <Dialog fullWidth={fullWidth}
         maxWidth={maxWidth} open={mostrarEditar} onClose={handleCloseEditar}>
-        <DialogTitle>EDITAR</DialogTitle>
+        <DialogTitle><Icon className="fas fa-pencil"/> EDITAR</DialogTitle>
         <DialogContent>
         <FormItem registro={registro} mod={mod} datos={seleccionGrid} token={token} urlAcepta={urlAcepta}  callbackSuccess={callbackSuccessEditar}
                 token={token} modelo={modelo()} valoresIniciales={valoresIniciales}>

@@ -6,7 +6,7 @@ import { FormControl,FormControlLabel, Switch } from "@mui/material";
 const setValoresIniciales=valor=>{
 
 }
-const SwitchFormik = ({label,campo}) => {
+const SwitchFormik = ({label,campo,callbackChange}) => {
   return (
 <FormControl fullWidth>
   
@@ -15,6 +15,7 @@ const SwitchFormik = ({label,campo}) => {
         
         const handleChange = (event) => {
             props.form.setFieldValue(campo,event.target.checked);
+            if(callbackChange)callbackChange(event.target.checked)
         };
        
     return( 

@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         let miClub=await findOneField("clubes",{campo:"idUsuario",valor:user.id})
         if(!data.id){ //ES NUEVO
             data.id=randomId(20)
-            console.log(data)
+         
             miClub[subColeccion].push(data)
             await update("clubes",miClub)
         }
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
             const i=miClub[subColeccion].map(item=>item.id).indexOf(data.id)
             miClub[subColeccion].splice(i,1)
             miClub[subColeccion]=miClub[subColeccion]
-            console.log(i,miClub)
+        
             await update("clubes",miClub)
         }
         

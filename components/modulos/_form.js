@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { LoadingButton, TabContext, TabList, TabPanel } from '@mui/lab';
 import { Grid, Tab,Icon } from '@mui/material';
 import Input from "../forms/input"
-import ModeloModulos,{valoresInicialesItems} from '../../modelos/ModeloModulos';
+import ModeloModulos,{ModeloAcciones,valoresInicialesItems} from '../../modelos/ModeloModulos';
 import {valoresIniciales} from '../../modelos/ModeloModulos';
 
 import Fetch from '../../helpers/Fetcher';
@@ -12,8 +12,8 @@ import useSWR,{mutate} from 'swr'
 import CheckboxForm from '../forms/checkbox';
 import ItemsModulo from '../forms/itemsModulo';
 import _FormItemAccion from './_formItemAccion';
-const fetcher = (url) => fetch(url).then((res) => res.json())
-export default function _FormModulos({datos,modulo,esNuevo,mutateRegistro}) {
+
+export default function _FormModulos({datos,modulo,mod,esNuevo,mutateRegistro}) {
 
   const router=useRouter();
   const [load,setLoad]=useState();
@@ -66,7 +66,9 @@ export default function _FormModulos({datos,modulo,esNuevo,mutateRegistro}) {
                     <Grid item xs={4}><Input label="Label" campo="label"/></Grid>
                     <Grid item xs={3}><Input label="Coleccion" campo="coleccion"/></Grid>
                     <Grid item xs={7}><Input label="Detalle" campo="detalle"/></Grid>
-                    <Grid item xs={6}><Input label="Campos Modulo" campo="camposModulo"/></Grid>
+                    <Grid item xs={3}><CheckboxForm label="Genera Deuda" campo="generaDeuda"/></Grid>
+                    <Grid item xs={3}><Input label="Coleccion Deuda" campo="coleccionDeuda"/></Grid>
+                    <Grid item xs={3}><Input label="Campo Clave (coleccion)" campo="idCampoClave"/></Grid>
                     <Grid item xs={2}><CheckboxForm label="Activo" campo="activo"/></Grid>
                     <Grid item xs={2}><CheckboxForm label="Es Base?" campo="esBase"/></Grid>
                     
@@ -77,12 +79,12 @@ export default function _FormModulos({datos,modulo,esNuevo,mutateRegistro}) {
             <ItemsModulo
                    setFieldValue={setFieldValue} 
                    campo="acciones" data={values.acciones} 
-                   modelo={ModeloModulos().fields.acciones.innerType}
+                   modelo={ModeloAcciones}
                    nombreModulo="ACCIONES" 
                    fullWidth={true} maxWidth={"md"}
                    textoEditar={`Puedes cambiar las acciones de esta accion:`}
                    textoAgregar={`Ingrese los datos de la accion`}
-                   valoresIniciales={valoresInicialesItems()} 
+                   valoresIniciales={valoresInicialesItems} 
                    form={<_FormItemAccion />} 
                    dataModulo={[]} columnas={[
                         { field: 'nombre',headerName: 'Nombre', editable: false, width: 100,  },

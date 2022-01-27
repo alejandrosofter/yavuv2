@@ -55,11 +55,16 @@ export default function CambiosEstadoSocio({data,token})
         )
         }
       },
-        {
-            field: 'estado',
-            headerName: 'Estado',
-            width: 180,
-          },
+      {
+        field: 'estado',
+        headerName: 'Estado',
+        width: 180,
+      },
+      {
+        field: 'detalle',
+        headerName: 'Detalle',
+        width: 380,
+      },
           
     ]
     return(

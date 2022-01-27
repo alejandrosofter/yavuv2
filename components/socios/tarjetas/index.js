@@ -34,7 +34,7 @@ export default function TarjetasSocio({data,token})
 
     const clickImprimir = useCallback(
       (data) => () => {
-        console.log(data)
+      
       },
       [],
     )

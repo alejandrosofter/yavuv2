@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     const data=req.body
     const ejecuta=async ({user})=>{
         // findAll
-        console.log(data)
+ 
         return {}
     }
     const [salida,codigoSalida]=await Ensesion({req,res,ejecuta}).catch(err=>{

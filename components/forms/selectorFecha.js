@@ -30,7 +30,7 @@ const SelectFecha = ({label,campo}) => {
            label={label}
            inputVariant="outlined"
            inputFormat="dd/MM/yyyy"
-           value={new Date(props.form.values[campo].seconds * 1000)}
+           value={(props.form.values[campo])?new Date(props.form.values[campo].seconds * 1000):new Date()}
            onChange={handleChange}
            KeyboardButtonProps={{
              "aria-label": "change date"

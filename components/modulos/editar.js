@@ -7,13 +7,12 @@ import { useRouter } from "next/router";
 import { Icon } from "@mui/material";
 import { useEffect } from "react";
 import useSWR from "swr";
-const fetcher = (url) => fetch(url).then((res) => res.json())
 
 export default function EditarModulo({modulo}){
     const router=useRouter();
     const url="/api/modulos/"+router.query.idItem 
 
-    const { data, mutate,isValidating } = useSWR(url, fetcher)
+    const { data, mutate,isValidating } = useSWR(url)
 
     return(
       <>

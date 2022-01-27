@@ -46,7 +46,7 @@ export default class FileUpload2Formik extends Component {
                 this.setState({filesUrls: auxArr})
               }
               const clickImagen=(e)=>{
-                console.log(e.dataset)
+                
             }
             const clickQuitar=async (e)=>{
                 const elem=e.target.attributes.getNamedItem('data-id')
@@ -80,7 +80,7 @@ export default class FileUpload2Formik extends Component {
                     const downloadThum=await Storage().ref(getUrlThum(file)).getDownloadURL()
                     let auxUrls=this.state.filesUrls
                     auxUrls.push({downloadURL,urlRef,downloadThum})
-                    console.log(auxUrls)
+                  
                     this.setState({filesUrls:auxUrls})
                 }
                 props.form.setFieldValue(this.props.campo,this.state.filesUrls)

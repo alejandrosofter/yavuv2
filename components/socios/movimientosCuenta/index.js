@@ -11,20 +11,22 @@ import ImpresionDialog from "../../forms/impresion"
 import { ModeloMovimientoCuenta,valoresInicialesMovimiento } from "../../../modelos/ModeloSocios"
 import ImpresionMovimientoCuenta from "./impresion"
 import { useRouter } from "next/router";
+import DataGridServer from "../../forms/datagrid/dataGridServer";
 
-export default function MovimientosCuentaSocio({mod,data,token})
+export default function MovimientosCuentaSocio({mod,modulo,data,token})
 {
+    const url=`/api/socios_deuda/${data.id}`
   const router=useRouter();
-    const campo="movimientosCuenta"
-    const idMod=router.query.id
-    const labelCampo="MOVIMIENTOS CUENTA"
-    const icono="fas fa-file-invoice-dollar"
-    const pathForm="socios/movimientosCuenta/_formMovimientoCuenta" 
-    const urlAcepta=`/api/socios/abmItem?subColeccion=${campo}&idMod=${idMod}`
-    const [datosClick,setDatosClick]=useState()
-    const [openImpresion,setOpenImpresion]=useState()
-   
-    
+const acciones=[{
+    "icono": "fas fa-trash",
+    "label": "Quitar",
+    "esFuncion": true,
+    "method":"DELETE",
+    "url": url+ '?id=${data.id}',
+    "esRegistro": true,
+    "color": "red"
+}]
+  
     const accionesExtra=(params)=>{
 
       return(
@@ -73,47 +75,49 @@ export default function MovimientosCuentaSocio({mod,data,token})
        
 
           {
-            field: 'fecha',
-            headerName: 'Fecha',
+            field: 'fechaVto',
+            headerName: 'Vto.',
             width: 90,
             type: 'date',
-            valueGetter: (params) =>{
-              const d=new Date(params.value.seconds * 1000);
-          
-              return moment(d).format('DD/MM/YY')
-            },
-            
-            // renderCell: (params) => {
-            //   const d=new Date(params.value.seconds * 1000);
-              
-            //   return( //en params.row tengo los otros datos
-            //     <i>{`${moment(d).format('DD/MM/YY')}`}</i>
-            // )
-            // }
+            valueGetter: (params) =>moment(new Date(params.value.seconds * 1000)).format('DD/MM/YY')
           },
           {
-            field: 'detalle',
-            headerName: 'Detalle',
-            width: 350,
-            renderCell:(params) =>renderCellExpandData(params,fnRender) 
+            field: 'label_concepto',
+            headerName: 'Concepto',
+            width: 230,
+            renderCell:(params) =>params.value
+          },
+          {
+            field: 'estado',
+            headerName: 'Estado',
+            width: 90,
+            // renderCell:(params) =>renderCellExpandData(params,fnRender) 
           },
           {
             field: 'importe',
+            headerName: '$ Importe',
+            width: 90,
+            renderCell: (params) =>formatMoney(params.value)
+          },
+          {
+            field: 'importeBonificacion',
+            headerName: '$ BONIF.',
+            width: 90,
+            renderCell: (params) =>formatMoney(params.value?params.value:0)
+          },
+          {
+            field: 'total',
             headerName: '$ TOTAL',
             width: 90,
-            renderCell: (params) =>renderImporte(params.row)
+            renderCell: (params) =>{
+                const importe=(params.row.importe?params.row.importe:0)-(params.row.importeBonificacion?params.row.importeBonificacion:0)
+                return formatMoney(importe)
+            }
           },
     ]
     return(
       <div>
-          <SubColeccionColeccion fullWidth={true} maxWidth="lg" mod={mod} sortModel={[{ field: 'fecha',  sort: 'desc', }]} 
-          campoId="_id" accionesExtra={accionesExtra} token={token} 
-          modelo={ModeloMovimientoCuenta} valoresIniciales={valoresInicialesMovimiento}
-          urlAcepta={urlAcepta}   titulo={`${labelCampo}`}
-          pathFormulario={pathForm} columns={cols} 
-          registro={data} campo={campo} icono={`${icono}`}/>
-          <ImpresionDialog titulo="IMPRESION DE MOVIMIENTO DE CUENTA" abrir={openImpresion}
-           datos={datosClick} ComponenteItem={ImpresionMovimientoCuenta} />
+          <DataGridServer url={url} modulo={modulo} acciones={acciones} token={token} columns={cols}/>
         </div>
     )
                   

@@ -23,7 +23,7 @@ export default function SelectorOrigenData({setDatosTodos,setDatoSeleccion,setOb
     
     const { data:dataModulo} = useSWR(urlModulos)
     const clickItem=(e,p)=>{
-        console.log(e.target.outerText.trim())
+        
         setDatoSeleccion(e.target.outerText)
         if(e.target.outerText.trim()=="root"){
 

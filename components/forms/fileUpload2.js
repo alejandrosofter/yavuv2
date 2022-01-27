@@ -26,7 +26,7 @@ export default class FileUpload2Formik extends Component {
   
   // receives array of files that are done uploading when submit button is clicked
   const handleSubmit = (files, allFiles) => {
-    console.log(files.map(f => f.meta))
+   
     // allFiles.forEach(f => f.remove())
   }
         return (

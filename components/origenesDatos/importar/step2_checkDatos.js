@@ -55,9 +55,7 @@ export default function Step2_checkDatos({stepValido,nroStep,seleccionDesde,sele
       }
       
       useEffect(() => {
-        console.log(textoRegistros)
-        console.log(seleccionDesde)
-        console.log(seleccionHasta)
+    
       }, [textoRegistros,seleccionDesde,seleccionHasta])
     return(
         <Stack>

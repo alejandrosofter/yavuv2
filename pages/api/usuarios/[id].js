@@ -3,7 +3,7 @@ export default async function handler(req, res) {
 
     if(req.method=="POST"){ //ES NUEVO o UPDATE ELEMENTO
         var sal={}
-        console.log(req.body)
+    
         if(req.body.id)sal=await update("users",req.body) //new
         else sal=await nuevo("users",req.body) //MODIFICO
         if(!sal)res.status(200).json({})

@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import useSWR from "swr"
 import NuevoGenerico from "../../NuevoGenerico"
 
-export default function NuevoABM({titulo,subTitulo,icono,modulo,token,coleccion,modelo,ComponenteForm,valoresIniciales}) {
+export default function NuevoABM({titulo,mod,subTitulo,icono,modulo,token,coleccion,modelo,ComponenteForm,valoresIniciales}) {
     const router=useRouter();
     const urlAcepta=`/api/moduloABM?coleccion=${coleccion}`
     const urlModulos=`/api/modulos/` 
@@ -16,7 +16,7 @@ export default function NuevoABM({titulo,subTitulo,icono,modulo,token,coleccion,
       <NuevoGenerico token={token} urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} 
       modelo={modelo} >
          
-                  <ComponenteForm titulo={titulo} subTitulo={subTitulo} icono={icono}/>
+                  <ComponenteForm mod={mod} titulo={titulo} subTitulo={subTitulo} icono={icono}/>
           
        
       </NuevoGenerico>

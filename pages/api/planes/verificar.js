@@ -55,7 +55,7 @@ async function getModulos(plan,idUsuario){
     async function subirMod(idMod)
     {
         const obj={id:idMod,estado:true}
-        console.log("subir ")
+ 
         console.log(obj)
         await update("mods",obj)
     }

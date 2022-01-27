@@ -22,7 +22,7 @@ export default function ConfigSocio({modulo,token,dataUsuario,idUsuario,auth,dat
 
     const { data:datos, mutate,isValidating } = useSWR(url)
      const callbackSuccess=e=>{
-        console.log("clik acep")
+  
      }
      const valoresIniciales=()=>{
          return {nombre:"",tipo:""}
@@ -45,13 +45,13 @@ auth={auth} idUsuario={idUsuario} dataCuenta={dataCuenta} >
         {label:"GRAL",nro:0,vista:
         <Grid spacing={1} container md={12} >
             <Grid item md={2}><Input label="Edad Adherente"  campo="edadAdherente"/></Grid>
-            <Grid item md={2}><Input label="Nro Proximo Recivo"  campo="proximoRecivo"/></Grid>
-            <Grid item md={2}><Input label="$ Adherente"  campo="importeCuotaSocialAdherente"/></Grid>
-            <Grid item md={2}><Input label="$ Participante"  campo="importeCuotaSocialParticipante"/></Grid>
+            <Grid item md={2}><Input label="$ Adherente"  campo="importeAdherente"/></Grid>
+            <Grid item md={2}><Input label="$ Participante"  campo="importParticipante"/></Grid>
+            <Grid item md={2}><Input label="$ Activo"  campo="importeActivo"/></Grid>
         </Grid>},
-        {label:"Tipos Movimientos",nro:1,vista:
+        {label:"Conceptos",nro:1,vista:
         <Grid item md={12}>
-        <DataGridFormikItems label="Tipo Items" Modelo={ModeloConfig} FormularioItem={FormItemConfigSocios}  campo="itemsTipos" columns={[
+        <DataGridFormikItems label="Conceptos" Modelo={ModeloConfig} FormularioItem={FormItemConfigSocios}  campo="itemsTipos" columns={[
     { field: 'detalle', headerName: 'Detalle',width: 450,  editable: true },
     ]}/>
             </Grid>

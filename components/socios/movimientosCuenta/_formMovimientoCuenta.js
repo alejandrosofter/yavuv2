@@ -11,21 +11,19 @@ import { useRouter } from "next/router";
 import DataGridFormikItems from "../../forms/dataGridFormik";
 import {ModeloItemMovimientoCuenta} from "../../../modelos/ModeloSocios"
 import FormItemMovimientoCuenta from "./_formItemMovimiento"
+import SelectStaticFormik from "../../forms/selectEstaticFormik"
 export default function FormMovimientoCuentaSocio({mod})
 {
     
-    console.log(mod)
-
+    
     let dataInicial={fecha:new Date(),nroRecivo:""}
     if(mod) dataInicial.nroRecivo=mod.config.proximoRecivo
     return(
         <Grid  md={12} container rowSpacing={2} spacing={2}>
                
-                        <Grid item md={1}><Input label="Nro Recivo "  campo="nroRecivo"/></Grid>
                         <Grid item md={2}><SelectFecha label="Fecha " campo="fecha"/></Grid>
+                        <Grid item md={5}><SelectStaticFormik label="Estado " campo="estado" items={["PENDIENTE","CANCELADO"]}/></Grid>
                         
-                        <Grid item md={1}><Input label="$ Debita "  campo="importeDebita"/></Grid>
-                        <Grid item md={1}><Input label="$ Acredita "  campo="importeAcredita"/></Grid>
                         <Grid item md={12}>
                             <DataGridFormikItems mod={mod} label="Tipo Items" Modelo={ModeloItemMovimientoCuenta} 
                             FormularioItem={FormItemMovimientoCuenta}  campo="itemsTipos" columns={[

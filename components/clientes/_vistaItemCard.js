@@ -3,7 +3,7 @@ import BotonAcciones from '../botonAcciones'
 import { CardContent } from "@mui/material";
 import Avatar from '@mui/material/Avatar';
 export default function VistaItemCard({data,token,mutate,dataUsuario,modulo}){
-    console.log(data)
+ 
     return (
         <Card sx={{ minWidth: 375 }}>
                 <CardHeader

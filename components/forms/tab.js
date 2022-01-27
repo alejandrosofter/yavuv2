@@ -4,6 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 
  function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,24 +47,24 @@ export default function TabsFormik({vistas,children,label}) {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label={`tab_${label}`}>
+    <Grid item xs={12}>
+  
+        <Tabs  value={value} onChange={handleChange} aria-label={`tab_${label}`}>
         {vistas.map(vista=>(
             <Tab label={vista.label} {...a11yProps(vista.nro)} />
         ))}
         
           
         </Tabs>
-      </Box>
+ 
       
       
       {vistas.map(vista=>(
-            <TabPanel value={value} index={vista.nro}>
-           {vista.vista}
+            <TabPanel  value={value} index={vista.nro}>
+           <Grid item md={12}>{vista.vista}</Grid>
           </TabPanel>
         ))}
       
-    </Box>
+    </Grid>
   );
 }

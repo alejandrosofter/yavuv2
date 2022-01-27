@@ -45,7 +45,7 @@ export default function Step1_selectRegistro({setCompleted,setDatosSeleccionDesd
       let cad=""
       if(registroDesde=="root")
         datosRegistros.map(item=>{
-          console.log(item)
+        
           cad=`${cad} ['${item.key}','${item.key}'] `
         })
       else cad=(`${textoRegistros} ['${registroDesde}','${registroHasta}'] `)

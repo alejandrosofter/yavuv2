@@ -11,18 +11,7 @@ import { Icon } from "@mui/material";
 export default function _FormItemAccion({dataModulo,modelo,clickAceptar,valoresIniciales}){
   
     return(
-        <Formik enableReinitialize={true}
-       initialValues={valoresIniciales}
-       validationSchema={modelo}
-       onSubmit={async (values) => {
-        clickAceptar(values)
-      }}
-       validateOnChange={true}
-        validateOnBlur={true}
-       validateOnMount={true}
-     >
-         
-         <Form>
+       
          <Grid container spacing={2}>
 
             <Grid item md={6}><Input campo='nombre' label="Nombre" /></Grid>
@@ -36,9 +25,6 @@ export default function _FormItemAccion({dataModulo,modelo,clickAceptar,valoresI
             <Grid item md={3}><SwitchFormik label="Es Funcion? " campo="esFuncion"/></Grid>
             
           </Grid>
-          <DialogActions>  <Button type="submit"><Icon className="fas fa-check"/> ACEPTAR</Button> </DialogActions>
-            </Form>
-            </Formik>
        
     )
 }

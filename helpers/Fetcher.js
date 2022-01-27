@@ -6,7 +6,12 @@ export default async function Fetch(url,method,data,token){
        
     };
     if(data)requestOptions.body= JSON.stringify(data)
-    
-    const res= await fetch(url, requestOptions);
+    let res={}
+    try{
+        res= await fetch(url, requestOptions);
+    }catch(err){
+        console.log(err)
+    }
+   
     return await res.json();
 }

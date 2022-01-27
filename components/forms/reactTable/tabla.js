@@ -46,7 +46,7 @@ const TablaMui=({ columns, data })=> {
   }
   
   export default function TablaBasica({cols,filas}) {
-      console.log(filas)
+  
       
     const columns = React.useMemo(
       () => cols,

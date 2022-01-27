@@ -15,6 +15,6 @@ export default async function handler(req, res) {
     const [salida,codigoSalida]=await Ensesion({req,res,ejecuta}).catch(err=>{
         throw err
     })
-    console.log(salida)
+ 
     res.status(codigoSalida).json(salida)
 }

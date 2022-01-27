@@ -10,7 +10,7 @@ export default function EditarGenerico({urlRegistro,token, callbackSuccess,auth,
 
       const { data, mutate,isValidating } = useSWR(url)
       if(!data)return "Cargando data registro..."
-    console.log(data)
+   
     return(
       <_FormGenerico token={token} callbackSuccess={callbackSuccess} auth={auth} dataCuenta={dataCuenta} 
       urlAcepta={urlAcepta} esNuevo={esNuevo} idItem={idItem} mutateRegistro={mutate} mutateIndex={mutateIndex} 

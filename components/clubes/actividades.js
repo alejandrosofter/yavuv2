@@ -30,7 +30,7 @@ export default function ClubesActividades({data,token})
 
     const clickImprimir = useCallback(
       (data) => () => {
-        console.log(data)
+       
       },
       [],
     )

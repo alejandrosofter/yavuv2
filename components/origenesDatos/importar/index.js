@@ -38,7 +38,7 @@ export default function ImportarOrginDatos({modulo,token,dataUsuario}) {
   };
 
   const handleNext = () => {
-    console.log(stepValido)
+    
     if(stepValido[activeStep]){
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
@@ -57,14 +57,14 @@ export default function ImportarOrginDatos({modulo,token,dataUsuario}) {
   };
 
   const handleComplete = () => {
-    console.log(stepValido)
+
     if(stepValido[activeStep]){
         const newCompleted = completed;
         newCompleted[activeStep] = true;
         setCompleted(newCompleted);
         handleNext();
     }else{
-        console.log(stepValido)
+  
         const newCompleted = completed;
         newCompleted[activeStep] = false;
         setCompleted(newCompleted);

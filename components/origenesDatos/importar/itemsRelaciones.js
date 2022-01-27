@@ -8,7 +8,7 @@ export default function ItemsRelaciones({datosExternos}){
     const clickForm=async (values)=>{
         // setLoad(true)
         // const res=await Fetch(`/api/modulos/${values.id}`,"POST",values)
-        console.log("click form")
+
         // router.back({ shallow: true })
       }
 
@@ -25,7 +25,7 @@ export default function ItemsRelaciones({datosExternos}){
          {({handleSubmit,values,errors,setFieldValue,validateForm})=>{
         useEffect(() => {
             const aux=values.relaciones?values.relaciones:[]
-            console.log(datosExternos)
+     
             aux.push(datosExternos)
             setFieldValue(aux)
         }, [datosExternos])

@@ -1,10 +1,11 @@
-import {findOne,update,nuevo,findAll,findOneField,remove} from "../config/firebase";
+import {findOne,cantidadColeccion2,update,nuevo,findAll2,findOneField,remove} from "../config/firebase";
 import Ensesion from "./EnSesion";
 
 
-export default async function handlerApiABM({id,req, res,coleccion,campoId,sinUsuario,buscaPorUsuario,limite}) {
+export default async function handlerApiABM({orderBy,wheres,callbackCreate,pageSize,page,id,req, res,coleccion,campoId,sinUsuario,buscaPorUsuario,limite}) {
     
     let ejecuta
+ 
         switch (req.method) {
             case 'POST':
                 ejecuta=async ({user})=>{
@@ -14,9 +15,10 @@ export default async function handlerApiABM({id,req, res,coleccion,campoId,sinUs
 
                     if(req.body.id)sal=await update(coleccion,data) 
                         else {
+               
                             if(user)data.idUsuario=user.id
                             sal=await nuevo(coleccion,data) 
-                            
+                            if(callbackCreate)await callbackCreate(sal)
                         }
                         
                     if(!sal)return {}
@@ -33,7 +35,10 @@ export default async function handlerApiABM({id,req, res,coleccion,campoId,sinUs
                     
                     }
                     else {
-                        salida=await findAll(coleccion,user,sinUsuario,limite)
+                        const datos=await findAll2({orderBy,wheres,coleccion,user:sinUsuario?null:user,sinUsuario,limite,page,pageSize})
+                        const cantidadRegistros=await cantidadColeccion2({coleccion,user,sinUsuario,limite})
+                        salida=(!page&&pageSize)?datos:{datos,cantidadRegistros}
+                        
                     }
                     
                     return salida
@@ -41,7 +46,7 @@ export default async function handlerApiABM({id,req, res,coleccion,campoId,sinUs
             break;
             case 'DELETE':
                 ejecuta=async ({user})=>{
-                   
+             
                     remove(coleccion,{id:id})
                 }
             break;
@@ -50,7 +55,7 @@ export default async function handlerApiABM({id,req, res,coleccion,campoId,sinUs
           }
     
         return await Ensesion({req,res,ejecuta}).catch(err=>{
-            console.log(req.headers.authorization);
+           
             throw err
         })
     

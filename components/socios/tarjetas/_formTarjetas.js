@@ -11,7 +11,7 @@ export default function FormTarjetasSocio({})
     
     
     return(
-        <Grid  md={12} container rowSpacing={2} spacing={2}>
+        <Grid  md={12} sx={{ml:1}} container rowSpacing={2} spacing={2}>
               
                     <Grid spacing={2} container>
                         <Grid item md={6}><SelectFecha label="Fecha " campo="fecha"/></Grid>

@@ -9,7 +9,7 @@ export default function MenuAccionesSpeed({acciones,modulo,data})
     {
       if(!acciones) return<></>
       if(acciones.length==0) return<></>
-      console.log(data)
+   
         return <Box sx={{ height: 0,pt:0  }}>
         <SpeedDial
           ariaLabel="Acciones"

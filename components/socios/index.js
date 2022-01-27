@@ -7,7 +7,7 @@ export default function Modulo({modulo,mod,token}) {
       return (
       <Stack flex={1} spacing={2}>
             <Grid flex={1}>
-                  <BuscadorSocios mod={mod} token={token} />
+                  <BuscadorSocios modulo={modulo} mod={mod} token={token} />
             </Grid>
       </Stack>
       )

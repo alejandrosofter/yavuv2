@@ -14,6 +14,7 @@ const SelectFormik = ({label,campo,lista,campoLabel,campoId,callbackchange}) => 
   <Field label={label} name={campo} id={campo} >
     {(props) =>{
         const handleChange = (event,p) => {
+        
           props.form.setFieldValue(campo,event.target.value);
           props.form.setFieldValue(`label_${campo}`,p.props.children);
           if(callbackchange)callbackchange(event.target.value)
@@ -26,7 +27,7 @@ const SelectFormik = ({label,campo,lista,campoLabel,campoId,callbackchange}) => 
     label={`${label}`}
     onChange={handleChange}>
 
-      {lista && lista.map(item=>{
+      {lista && Array.isArray(lista) && lista.map(item=>{
         const lab=(typeof campoLabel=="string")?item[campoLabel]:campoLabel(item)
         return(<MenuItem key={`item_${item[campoId]}`} value={item[campoId]}>{`${lab}`}</MenuItem>)
       }

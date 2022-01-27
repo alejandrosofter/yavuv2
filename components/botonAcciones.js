@@ -63,7 +63,7 @@ export default function BotonAcciones({token,data,modulo,mutate,color}){
         const itemAccion=getItemAccion(myValue);
         setdataMenuSeleccion(itemAccion)
         const funcAcepta=(e)=>{
-            console.log("acepto",itemAccion)
+            
         }
         if(itemAccion.esFuncion){
             e.preventDefault()

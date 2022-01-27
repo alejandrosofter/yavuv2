@@ -23,7 +23,7 @@ export default function _FormGenerico({callbackSuccess,token,datos,urlAcepta,val
     
   }
   const valores=datos?datos:(valoresIniciales?valoresIniciales(esNuevo):null)
-  console.log(valores)
+
   return (
     <Formik
        initialValues={valores}
@@ -36,7 +36,7 @@ export default function _FormGenerico({callbackSuccess,token,datos,urlAcepta,val
      >
         
          {({handleSubmit,values,errors,setFieldValue,validateForm})=>{
-      console.log(errors)
+
            return ( 
             <Grid sx={{my:0}} md={12} item xs={9}> 
             <Form onSubmit={handleSubmit} >
@@ -44,7 +44,7 @@ export default function _FormGenerico({callbackSuccess,token,datos,urlAcepta,val
               
                 {React.cloneElement(
       children,
-      {values: values,setFieldValue:setFieldValue}
+      {values: values,errors,setFieldValue:setFieldValue}
     )}
                     <LoadingButton loading={load} color="primary" variant="contained" fullWidth type="submit">
                         ACEPTAR

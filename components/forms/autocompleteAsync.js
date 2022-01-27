@@ -11,13 +11,13 @@ import match from 'autosuggest-highlight/match';
 export default function AutoCompleteAsync({datos,label,loading,fnCambia,fnClick,icono,labelItems}) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
-console.log(datos)
+
   React.useEffect(() => {
     let active = true;
 
    
     setOptions([...datos]);
-    console.log(options)
+ 
     return () => {
       active = false;
     };
@@ -79,11 +79,10 @@ console.log(datos)
           {...params}
           label={label}
           onChange={fnCambia}
-          InputProps={{
-            startAdornment: <InputAdornment position="start"><Icon className={icono}/></InputAdornment>,
-          }}
+          
           InputProps={{
             ...params.InputProps,
+            startAdornment: <InputAdornment position="start"><Icon className={icono}/></InputAdornment>,
             endAdornment: (
               <React.Fragment>
                 {loading ? <CircularProgress color="inherit" size={20} /> : null}

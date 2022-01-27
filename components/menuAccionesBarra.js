@@ -5,7 +5,7 @@ import { Box } from '@mui/system';
 import Typography from '@mui/material/Typography';
 export default function MenuAccionesBarra({acciones,modulo,data})
     {
-      console.log(modulo)
+     
       if(!acciones) return<></>
       if(acciones.length==0) return<></>
     
