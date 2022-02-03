@@ -49,7 +49,7 @@ export default function ItemsModulo_agregar({fullWidth,maxWidth,textoAgregar,cli
         <DialogTitle>{`NUEVO ${nombreModulo}`}</DialogTitle>
         <DialogContent>
         <DialogContentText  sx={{pb:3}}>
-        {`${textoAgregar}`}
+        {`${textoAgregar?textoAgregar:''}`}
           </DialogContentText>
           <Formik
        initialValues={valoresIniciales}

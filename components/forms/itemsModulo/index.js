@@ -4,7 +4,8 @@ import { DataGrid, GridActionsCellItem, GridToolbar } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 
-
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
 import { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import Icon from '@mui/material/Icon';
@@ -13,7 +14,7 @@ import ItemsModulo_agregar from "./agregar";
 import ItemsModulo_editar from "./editar";
 import ItemsModulo_eliminar from "./eliminar";
 import randomId from "random-id"
-export default function ItemsModulo({fullWidth,icono,titulo,maxWidth,campo,data,modelo,valoresIniciales,setFieldValue,columnas,dataModulo,form,nombreModulo,textoEditar,textoAgregar}){
+export default function ItemsModulo({fnCambia,dataExtra,fnAddData,fullWidth,icono,titulo,maxWidth,campo,data,modelo,valoresIniciales,setFieldValue,columnas,dataModulo,form,nombreModulo,textoEditar,textoAgregar}){
 
   useEffect(() => {
     let aux=columnas
@@ -60,17 +61,20 @@ export default function ItemsModulo({fullWidth,icono,titulo,maxWidth,campo,data,
  const [editarVisible,setEditarVisible]=useState(false)
  const [quitarVisible,setQuitarVisible]=useState(false)
  const [dataSelecciona,setDataSelecciona]=useState({})
- 
+
   const clickEliminar=()=>{
     const nuevoArray=getDataEliminar(data,dataSelecciona.id)
     setFieldValue(campo,nuevoArray)
+    
     setQuitarVisible(false)
+    if(fnCambia)fnCambia(nuevoArray)
   }
   const closeEliminar=()=>{
     setQuitarVisible(false)
   }
   const clickVaciar=()=>{
     setFieldValue(campo,[])
+    if(fnCambia)fnCambia([])
   }
   const setData=(data,newData)=>{
   
@@ -95,23 +99,41 @@ export default function ItemsModulo({fullWidth,icono,titulo,maxWidth,campo,data,
     const nuevoArray=setData(data,newData)
     setFieldValue(campo,nuevoArray)
     setEditarVisible(false)
+    if(fnCambia)fnCambia(nuevoArray)
   }
     return(
         
         <FieldArray name={campo}>
         {(props) =>{
+          
+            
+            const clickTraer=(valores)=>{
+             
+              if(fnAddData)fnAddData(props)
+                
+           }
              const clickAceptar=(valores)=>{
          
                agregarData(valores)
                  
             }
             const agregarData=(valores)=>{
-              if(valores) props.push(valores)
+              if(valores){
+                const nuevoArray=[...data?data:[],valores]
+                setFieldValue(campo,nuevoArray)
+                setEditarVisible(false)
+                if(fnCambia)fnCambia(nuevoArray)
+              }
+         
             }
             return(
             <div style={{ height: 400,}}>
                 <Stack spacing={1} direction="row">
-                
+                {fnAddData  && dataExtra.length>0 && <IconButton onClick={clickTraer}>
+  <Badge badgeContent={dataExtra?dataExtra.length:0} color="secondary">
+  <Icon className="fas fa-arrow-down"/> 
+  </Badge>
+</IconButton>}
                   <ItemsModulo_agregar fullWidth={fullWidth} maxWidth={maxWidth} textoAgregar={textoAgregar} nombreModulo={nombreModulo} valoresIniciales={valoresIniciales} dataModulo={dataModulo} modelo={modelo} clickAceptar={clickAceptar} form={form}/>
                   <Button size="small" variant="outlined" onClick={clickVaciar}><Icon className="fas fa-trash"/> Vaciar</Button>
                   <Stack  direction="row" spacing={1} >

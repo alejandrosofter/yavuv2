@@ -29,14 +29,16 @@ export default function AutoCompleteAsync({datos,label,loading,fnCambia,fnClick,
     }
   }, [open]);
   const cambiaSeleccion=(item,e)=>{
+    if(fnClick)fnClick(item,e)
   setOpen(false)
-    fnClick(item,e)
+  console.log("item",item)
+    
   }
   return (
     <Autocomplete
    fullWidth
       open={open}
-      
+     
       onOpen={() => {
         setOpen(true);
       }}
@@ -79,10 +81,11 @@ export default function AutoCompleteAsync({datos,label,loading,fnCambia,fnClick,
           {...params}
           label={label}
           onChange={fnCambia}
-          
+         
           InputProps={{
             ...params.InputProps,
             startAdornment: <InputAdornment position="start"><Icon className={icono}/></InputAdornment>,
+            
             endAdornment: (
               <React.Fragment>
                 {loading ? <CircularProgress color="inherit" size={20} /> : null}

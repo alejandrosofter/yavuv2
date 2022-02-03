@@ -1,10 +1,11 @@
-import {findAll, findOne} from "../../../config/firebase";
 import handlerApiABM from "../../../helpers/handlerApiABM";
 export default async function handler(req, res) {
-    const { id } = req.query
+    const {  id,campoId,sinUsuario,buscaPorUsuario,limite } = req.query
     const coleccion="usuariosInvitados"
-    
-    const [salida,codigoSalida]=await handlerApiABM({coleccion,req,res})
+    const callbackCreate=async (item)=>{
+
+    }
+    const [salida,codigoSalida]=await handlerApiABM({callbackCreate,id,coleccion,req, res,campoId,sinUsuario,buscaPorUsuario,limite})
 
     res.status(codigoSalida).json(salida)
 }

@@ -1,3 +1,5 @@
+import moment from "moment"
+
 export function getEdad(fechaNacimiento) {
     let hoy = new Date()
     const fecha='seconds' in fechaNacimiento?new Date(fechaNacimiento.seconds*1000):fechaNacimiento
@@ -11,3 +13,9 @@ export function getEdad(fechaNacimiento) {
     }
     return edad
   }
+export function formatDate(fecha)
+{
+  if("seconds" in fecha) return moment(new Date(fecha.seconds * 1000)).format('DD/MM/YY')
+  if(fecha instanceof Date) return moment(fecha).format('DD/MM/YY')
+  return "-"
+}

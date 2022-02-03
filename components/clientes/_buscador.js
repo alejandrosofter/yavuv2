@@ -4,7 +4,7 @@ import { Stack,} from '@mui/material';
 import algoliasearch from 'algoliasearch/lite';
 import AutoCompleteAsync from "../forms/autocompleteAsync"
 const client = algoliasearch('YEIGHXO1BF', '0e2670dbc0a23a0a5da70aef369d176b');
-const index = client.initIndex('socios');
+const index = client.initIndex('clientes');
 
 export default function BuscadorSociosInput({setSocioSeleccion,callBackCambia}){
     const [datos, setDatos] = React.useState([]);
@@ -41,12 +41,12 @@ export default function BuscadorSociosInput({setSocioSeleccion,callBackCambia}){
     if(setSocioSeleccion)setSocioSeleccion(item)
     if(callBackCambia)callBackCambia(item)
   }
-const labelItems=(option)=>`${option.nombre} ${option.apellido} ${option.nroSocio} (${option.dni})`
+const labelItems=(option)=>`${option.nombre} ${option.apellido} (${option.dni})`
   
     return(
         <Stack sx={6} direction="row" spacing={1}>
            
-            <AutoCompleteAsync icono="fas fa-user"  label="BUSCADOR DE SOCIOS" fnCambia={cambia} fnClick={fnClick} 
+            <AutoCompleteAsync icono="fas fa-user"  label="BUSCADOR DE CLIENTES" fnCambia={cambia} fnClick={fnClick} 
             loading={loading} datos={datos} labelItems={labelItems} />
           
          

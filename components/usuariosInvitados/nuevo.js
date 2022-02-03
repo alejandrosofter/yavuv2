@@ -7,20 +7,14 @@ import NuevoGenerico from "../NuevoGenerico"
 import ModeloUsuariosInvitados,{valoresIniciales} from "../../modelos/ModeloUsuariosInvitados"
 
 import _formUsuarioInvitado from "./_form"
-const fetcher = (url) => fetch(url).then((res) => res.json())
 
-export default function Modulo({modulo,dataUsuario,auth}) {
+export default function Modulo({modulo,token}) {
     const router=useRouter();
     
-    
-    const urlModulos=`/api/modulos/` 
-    
-    const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos, fetcher)
-    if(!dataModulos)return <CircularProgress />
     const urlAcepta=`/api/${modulo.nombre}/${router.query.idItem}`
       return (
-      <NuevoGenerico urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} modelo={ModeloUsuariosInvitados} esNuevo={true} dataUsuario={dataUsuario} >
-         <_formUsuarioInvitado auth={auth} modelo={ModeloUsuariosInvitados} />
+      <NuevoGenerico  token={token} urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} modelo={ModeloUsuariosInvitados} >
+         <_formUsuarioInvitado token={token} titulo="Nuevo" subTitulo="Invitado"  modelo={ModeloUsuariosInvitados} />
       </NuevoGenerico>
       )
 

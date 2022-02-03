@@ -4,23 +4,31 @@ export default function ModeloUsuariosInvitados(){
     return yup.object().shape({
         email: yup.string().required(),
         estado: yup.boolean(),
-          mods: yup.array().of(
-            yup.object().shape(ModeloMods()) )
+          // mods: yup.array().of(
+          //   yup.object().shape(ModeloMods()) )
         
       });
 }
-function ModeloMods(){
-return {
-              idMod: yup.string().required("Es requerido "),
-            //   data: yup.string().required("Es requerido"),
-             esUnicoRegistro: yup.boolean()
-
-            }
+export function ModeloMods(){
+  return yup.object().shape({
+    idMod: yup.string().required("Es requerido "),
+     esUnicoRegistro: yup.boolean()
+    
+  });
 }
+
 export function valoresIniciales(){
     return {
         email: "",
         estado: "",
         mods: [],
     }
+}
+
+export function valoresInicialesItems()
+{
+  return {
+        mod: "",
+        estado: ""
+  }
 }

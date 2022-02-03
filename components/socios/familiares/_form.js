@@ -16,7 +16,7 @@ export default function FormPromocionesSocio({values,setFieldValue})
             setFieldValue("socio",socioSeleccion.id)
             setFieldValue("label_socio",`${socioSeleccion.apellido} ${socioSeleccion.nombre}`)
         }
-    },[socioSeleccion])
+    },[socioSeleccion,setFieldValue])
     return(
         
                     <Grid  md={12} container rowSpacing={2} spacing={2}>

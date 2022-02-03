@@ -36,7 +36,7 @@ export default function ItemsModulo_editar({fullWidth,maxWidth,textoEditar,nombr
                 <DialogTitle>{`EDITAR ${nombreModulo}`}</DialogTitle>
                 <DialogContent>
                 <DialogContentText  sx={{pb:3}}>
-                {` ${textoEditar}`}
+                {` ${textoEditar?textoEditar:''}`}
                 </DialogContentText>
                 <Formik
        initialValues={valoresIniciales}

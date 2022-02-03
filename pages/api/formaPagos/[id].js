@@ -1,7 +1,7 @@
 import handlerApiABM from "../../../helpers/handlerApiABM";
 export default async function handler(req, res) {
     const {  id,campoId,sinUsuario,buscaPorUsuario,limite } = req.query
-    const coleccion="clientes"
+    const coleccion="formaPagos"
     const callbackCreate=async (item)=>{
 
     }

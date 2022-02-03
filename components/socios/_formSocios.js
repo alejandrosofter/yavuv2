@@ -3,6 +3,8 @@ import { useState,useEffect } from "react"
 import Input from "../forms/input"
 
 import SwitchFormik from "../forms/switch";
+
+import SelectAlgoliaFormik from "../forms/selectAlgoliaFormik";
 import SelectFecha from "../forms/selectorFecha";
 import SelectEstaticFormik from "../forms/selectEstaticFormik";
 import SelectFormik from "../forms/select";
@@ -44,6 +46,7 @@ setFieldValue("nroSocio",seleccion.proximoNro)
                         
                         <Grid item md={2}><SelectEstaticFormik items={["Soltero/a","Casado/a","Otros"]}  label="Estado Civil" campo="estadoCivil" /></Grid>
                         <Grid item md={2}><SelectEstaticFormik items={["Femenino","Masculino"]}  label="Sexo" campo="sexo" /></Grid>
+                        <Grid item md={5}><SelectAlgoliaFormik coleccionAlgolia="clientes" label="Cliente" campo="cliente"/></Grid>
             </Grid>
         </Stack>
     )

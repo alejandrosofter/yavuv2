@@ -5,37 +5,46 @@ import TitulosFormularios from '../forms/tituloFormularios';
 import DataGridServer from '../forms/datagrid/dataGridServer';
 import {formatMoney} from "../../helpers/numbers"
 export default function Modulo({modulo,mod,token}) {
-  const url="/api/usuariosInvitados"
-  const fnLabelMods=(items)=>items.map(item=>item.label_idMod).join()
-
-  
+  const url="/api/cobros"
 const columns=[
 
   {
-    field: 'email', 
-    headerName: 'Email',
-    width: 250,
+    field: 'fecha', 
+    headerName: 'Fecha',
+    width: 100,
     
   },
   {
-      field: 'mods', 
-      headerName: 'Mods',
-      renderCell: (params) => { return fnLabelMods(params.value)}  ,
-      width: 400,
-    },
-  {
-    field: 'activo', 
-    headerName: 'Estado',
-    renderCell: (params) => params.value?"ACTIVO":"INACTIVO",
-    width: 100,
+    field: 'label_cliente', 
+    headerName: 'Cliente',
+    width: 250,
   },
-  
+  {
+    field: 'detalle', 
+    headerName: 'Detalle',
+    width: 300,
+  },
+  {
+    field: 'importe', 
+    headerName: '$importe',
+    width: 150,
+  },
+  {
+    field: 'importeBonificado', 
+    headerName: '$ Bonif.',
+    width: 150,
+  },
+  {
+    field: 'importeTotal', 
+    headerName: '$ Total.',
+    width: 150,
+  },
           
   
 ]
       return (
       <Grid container spacing={1}>
-          <TitulosFormularios titulo="USUARIOS" subTitulo="invitados" icono="fas fa-users"/>
+          <TitulosFormularios titulo="COBROS" subTitulo="generales" icono="fas fa-money-check-alt"/>
        <Grid item md={12}> <DataGridServer pageSize={10} url={url} modulo={modulo} acciones={modulo.acciones} token={token} columns={columns}/></Grid>
       </Grid    >
       )
