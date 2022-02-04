@@ -55,8 +55,9 @@ export default async function handlerApiABM({orderBy,wheres,callbackCreate,pageS
           }
     
         return await Ensesion({req,res,ejecuta}).catch(err=>{
-           
-            throw err
+           console.error(err)
+           return [{error:err.toString()},200]
+            // throw err
         })
     
     
