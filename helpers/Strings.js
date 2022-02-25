@@ -1,9 +1,14 @@
 export function getLinkUrl(link,modulo,data,esFuncion)
 {
-    // if(!data)return "#"
-    if(esFuncion)return "#"
-    if(!link)return "#"
-    return eval("`"+link+"`")
+    try{
+if(esFuncion)return "#"
+if(!link)return "#"
+return eval("`"+link+"`")
+    }catch(err){
+        console.error("erro creacion link menu",modulo)
+        return ""
+    }
+    
     
 }
 export function getStringField({obj,field,upper}){

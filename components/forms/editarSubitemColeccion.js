@@ -5,18 +5,18 @@ import { useRouter } from 'next/router'
 import { useState } from 'react';
 import React from 'react';
 import Fetch from '../../helpers/Fetcher'
+import { useDocument } from '@nandorojo/swr-firestore';
 
-export default function FormSubitemColeccion({registro,callbackSuccess,token,datos,urlAcepta,valoresIniciales,modelo,mutateIndex,esNuevo,mutateRegistro,children}) {
+export default function FormSubitemColeccion({registro,coleccion,campo,callbackSuccess,datos,mod,valoresIniciales,modelo,children}) {
 
   const router=useRouter();
   const [load,setLoad]=useState();
-
+  const { data, update, error } = useDocument(`${coleccion}/${registro.id}`, { listen: true})
   const clickForm=async (values)=>{
     setLoad(true)
     
     if(registro)values.idRegistroPadre=registro.id
-    
-    const res=await Fetch(urlAcepta,"POST",values,token)
+    update({[campo]:values})
     setLoad(false)
     if(mutateIndex)mutateIndex()
     if(mutateRegistro)mutateRegistro()
@@ -24,6 +24,7 @@ export default function FormSubitemColeccion({registro,callbackSuccess,token,dat
     
     // router.back({ shallow: true })
   }
+  if(error)return "Error en conectar con la data..."
   return (
     <Formik
        initialValues={datos?datos:valoresIniciales()}
@@ -40,7 +41,7 @@ export default function FormSubitemColeccion({registro,callbackSuccess,token,dat
             <Grid sx={{my:3}} md={12} item xs={9}> 
             <Form onSubmit={handleSubmit} >
             
-                {React.cloneElement( children, {values: values,setFieldValue:setFieldValue} )}
+                {React.cloneElement( children, {mod:mod,values: values,setFieldValue:setFieldValue} )}
                 
                     <LoadingButton sx={{mt:2}} loading={load} color="primary" variant="contained" fullWidth type="submit">
                         ACEPTAR

@@ -1,46 +1,13 @@
-import EditarGenerico from "../EditarGenerico"
-import ModeloPlanes,{valoresIniciales} from "../../modelos/ModeloPlanes"
-import _FormGenerico from "../_formGenerico"
-import _formPlanes from "./_form"
-import { Field } from "formik"
-import { TabContext, TabList, TabPanel } from "@mui/lab"
-import { CircularProgress, Grid, MenuItem, Tab } from "@mui/material"
-import { useState } from "react"
-import Input from "../forms/input"
-import { Select } from 'formik-mui';
-import MultiSelect from "../forms/multiSelect"
-import { useRouter } from "next/router"
-import useSWR from "swr"
-import ListaTransferencia from "../forms/listaTransferencia"
+import Modelo,{valoresIniciales} from "../../modelos/ModeloPlanes"
+import NuevoGenerico from "../NuevoGenerico"
+import Form from "./_form"
 
-export default function Modulo({modulo,dataUsuario}) {
-    const router=useRouter();
-    const urlAcepta=`/api/planes/${router.query.idItem}`
-    const urlModulos=`/api/modulos/` 
+export default function Modulo({mod}) {
 
-    const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos)
-    if(!dataModulos)return <CircularProgress />
       return (
-      <EditarGenerico urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} modelo={ModeloPlanes} esNuevo={true} dataUsuario={dataUsuario} >
-         
-        
-                <Grid sx={{pt:3}} md={12} container rowSpacing={2} spacing={2}>
-                
-                    <Grid item md={7}><Input label="Nombre "  campo="nombre"/></Grid>
-                    <Grid item md={3}><Input label="Icono " campo="icono"/></Grid>
-                    <Grid item md={4}><Input label="Detalle " campo="detalle"/></Grid>
-                    <Grid item md={7}>
-                    <ListaTransferencia label="Modulos" campoId={"id"} campoLabel={"label"} items={dataModulos} campo="modulos"/>
-                  
-
-                    
-                    </Grid>
-                        
-                </Grid>
-          
-       
-      </EditarGenerico>
+      <NuevoGenerico valoresIniciales={valoresIniciales} mod={mod} modelo={Modelo}>
+          <Form  titulo="NUEVA" subTitulo={mod.label} icono={mod.icono} />
+      </NuevoGenerico>
       )
 
 }
-Modulo.auth = true

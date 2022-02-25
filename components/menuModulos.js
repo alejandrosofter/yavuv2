@@ -1,20 +1,23 @@
-import { CircularProgress, Icon, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import useSWR from 'swr';
+import {  Icon, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+
 import Link from 'next/link';
-import Loader from './loader';
-import { useEffect } from 'react';
+import { useCollection,fuego } from '@nandorojo/swr-firestore'
 
 export default function MenuModulos({}){
-  
-    const {data} = useSWR(`/api/planes/getplan/`);
-    
-    if(!data)return <CircularProgress color="inherit" />
+
+const { data, update, error } = useCollection("mods",{
+        where:["idUsuario","==",fuego.auth().currentUser?fuego.auth().currentUser.uid:null],
+        orderBy:["fechaClick","desc"],listen:true 
+    })
+   
+    if(!data)return "Buscando..."
+console.log(data)
     return(
         
         <List component="div" disablePadding>
         {data && data.map(items=>(
 
-<Link passHref  key={`link_${items.idMod}`}  href={"/mod/"+items.idMod}>
+<Link passHref  key={`link_${items.id}`}  href={"/mod/"+items.id}>
             <ListItem button>
                 
                 <ListItemIcon>

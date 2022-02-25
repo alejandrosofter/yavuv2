@@ -1,10 +1,17 @@
-import moment from 'moment';
-import Stack from '@mui/material/Stack';
-import { Grid } from "@mui/material";
-import TitulosFormularios from '../forms/tituloFormularios';
-import DataGridServer from '../forms/datagrid/dataGridServer';
-import {formatMoney} from "../../helpers/numbers"
+import DataGridFirebase from '../forms/datagrid/dataGridFirebase';
+import firebase from "firebase/app"
+
+
+import FirestoreConfig from "../../config/_firestoreConfig";
+import { useEffect } from 'react';
+
+
 export default function Modulo({modulo,mod,token}) {
+ const busca=async()=>{
+  const data = firebase.firestore().collection("formaPagos").get()
+
+   
+ }
   const url="/api/clientes"
 const columns=[
 
@@ -23,10 +30,9 @@ const columns=[
   
 ]
       return (
-      <Grid container spacing={1}>
-          <TitulosFormularios titulo="CLIENTES" subTitulo="generales" icono="fas fa-users"/>
-       <Grid item md={12}> <DataGridServer pageSize={10} url={url} modulo={modulo} acciones={modulo.acciones} token={token} columns={columns}/></Grid>
-      </Grid    >
+        <DataGridFirebase coleccion={mod.coleccion} titulo={mod.label} subTitulo="generales" icono={mod.icono}
+        limit={10} mod={mod} acciones={mod.acciones} orderBy="apellido"
+       columns={columns} />
       )
 
 }

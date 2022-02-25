@@ -4,16 +4,15 @@ import moment from 'moment';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import { ModeloCambioEstado,valoresInicialesCambioEstado } from "../../../modelos/ModeloSocios";
 import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
-import SubColeccionColeccion from "../../forms/subColeccion/_subColeccion";
+import SubColeccionColeccion from "../../forms/subColeccion/";
 import ImpresionDialog from "../../forms/impresion"
 import ImpresionCambiosEstadoSocio from "./impresion"
-export default function CambiosEstadoSocio({data,token})
+export default function CambiosEstadoSocio({data,mod})
 {
     const campo="cambiosEstado"
     const labelCampo="CAMBIOS DE ESTADO"
     const icono="fas fa-heart"
     const pathFormulario="socios/cambiosEstado/_formCambiosEstado"
-    const urlAcepta=`/api/socios/abmItem?subColeccion=${campo}`
     const [datosClick,setDatosClick]=useState()
     const [openImpresion,setOpenImpresion]=useState()
     const accionesExtra=(params)=>{
@@ -71,9 +70,10 @@ export default function CambiosEstadoSocio({data,token})
     return(
       <div>
         <SubColeccionColeccion sortModel={[{ field: 'fecha',  sort: 'desc', }]} 
-          accionesExtra={accionesExtra} token={token} 
-        urlAcepta={urlAcepta}   titulo={labelCampo}
-        pathFormulario={pathFormulario} columns={cols} modelo={ModeloCambioEstado} valoresIniciales={valoresInicialesCambioEstado}
+          accionesExtra={accionesExtra} 
+          coleccion={mod.coleccion}   titulo={labelCampo}
+        pathFormulario={pathFormulario} columns={cols} 
+        modelo={ModeloCambioEstado} valoresIniciales={valoresInicialesCambioEstado}
         registro={data} campo={campo} icono={icono}/>
         <ImpresionDialog titulo="IMPRESION DE ESTADO" abrir={openImpresion}
         datos={datosClick} ComponenteItem={ImpresionCambiosEstadoSocio} />

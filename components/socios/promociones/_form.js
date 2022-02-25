@@ -1,7 +1,7 @@
 import {  Grid } from "@mui/material"
 import { useState ,useEffect } from "react"
 import Input from "../../forms/input"
-import SwitchFormik from "../../forms/switch"
+import { useDocument } from '@nandorojo/swr-firestore'
 
 import SelectFecha from "../../forms/selectorFecha";
 import _FormItem from "../../forms/subColeccion/_formItem"
@@ -10,14 +10,13 @@ import useSWR from "swr";
 import SelectFormik from "../../forms/select";
 import { getIndexItemArray } from "../../../helpers/arrays";
 import SelectEstaticFormik from "../../forms/selectEstaticFormik";
+import { fuego } from '@nandorojo/swr-firestore'
 export default function FormPromocionesSocio({values,setFieldValue})
 {
-    useEffect(() => {
-    
-       
-    },[])
-
-    const { data:promociones } = useSWR(`/api/promociones`)
+    console.log(fuego.auth().currentUser)
+    const {  data:promociones } = useDocument(`promociones`, { listen: true,
+    where:["idUsuario","==",fuego.auth().currentUser.uid]
+    })
     if(!promociones)return "Cargando Promos..."
   
     return(
@@ -31,7 +30,7 @@ export default function FormPromocionesSocio({values,setFieldValue})
                   
                         <Grid item md={12}><Input label="Detalle "  campo="detalle"/></Grid>
                        
-                    </Grid>
+                    </Grid> 
            
     )
 } 

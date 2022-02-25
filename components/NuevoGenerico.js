@@ -1,12 +1,15 @@
-import { useRouter } from "next/router";
+import TitulosFormularios from "./forms/tituloFormularios";
 import _FormGenerico from "./_formGenerico";
-
-export default function NuevoGenerico({token,modulo,urlAcepta,modelo,valoresIniciales,mutateIndex,children}){
-
+import { useCollection } from '@nandorojo/swr-firestore'
+import { Grid } from "@mui/material";
+export default function NuevoGenerico({mod,modelo,valoresIniciales,children}){
+  const { add, error } = useCollection(mod.coleccion)
     return(
-      <_FormGenerico token={token} urlAcepta={urlAcepta} mutateIndex={mutateIndex} 
-     modelo={modelo} modulo={modulo} valoresIniciales={valoresIniciales} >
-          {children}
-      </_FormGenerico>
+      <Grid container>
+        <TitulosFormularios titulo={"NUEVO"} subTitulo={mod.label} icono={mod.icono}/>
+        <_FormGenerico fnUpdate={add} modelo={modelo} mod={mod} valoresIniciales={valoresIniciales} >
+              {children}
+        </_FormGenerico>
+      </Grid>
     )
 }

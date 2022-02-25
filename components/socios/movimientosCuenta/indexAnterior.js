@@ -4,7 +4,7 @@ import moment from 'moment';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 
 import { Icon } from '@mui/material';
-import SubColeccionColeccion from "../../forms/subColeccion/_subColeccion";
+import SubColeccionColeccion from "../../forms/subColeccion/";
 import {renderCellExpandData} from "../../forms/datagrid/renderCellExpand";
 import {formatMoney} from "../../../helpers/numbers"
 import ImpresionDialog from "../../forms/impresion"

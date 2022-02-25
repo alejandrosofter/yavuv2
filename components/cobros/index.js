@@ -1,9 +1,4 @@
-import moment from 'moment';
-import Stack from '@mui/material/Stack';
-import { Grid } from "@mui/material";
-import TitulosFormularios from '../forms/tituloFormularios';
-import DataGridServer from '../forms/datagrid/dataGridServer';
-import {formatMoney} from "../../helpers/numbers"
+import DataGridFirebase from '../forms/datagrid/dataGridFirebase';
 export default function Modulo({modulo,mod,token}) {
   const url="/api/cobros"
 const columns=[
@@ -43,10 +38,10 @@ const columns=[
   
 ]
       return (
-      <Grid container spacing={1}>
-          <TitulosFormularios titulo="COBROS" subTitulo="generales" icono="fas fa-money-check-alt"/>
-       <Grid item md={12}> <DataGridServer pageSize={10} url={url} modulo={modulo} acciones={modulo.acciones} token={token} columns={columns}/></Grid>
-      </Grid    >
+        <DataGridFirebase titulo={mod.label} subTitulo=" generales"
+        icono="fas fa-funnel-dollar" limit={10} mod={mod} acciones={mod.acciones} 
+        orderBy="fecha"
+       columns={columns} />
       )
 
 }

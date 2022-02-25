@@ -1,16 +1,17 @@
 import initAuth from '../config/initAuth' // the module you created above
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
-import Contexto,{ContextoUsuario} from "../context/userContext"
-import UseUser from "../hooks/useUser"
-
 import {
-  AuthAction,
-  useAuthUser,
   withAuthUser,
+  useAuthUser,
   withAuthUserTokenSSR,
 } from 'next-firebase-auth'
-import { useContext } from 'react';
+import 'firebase/firestore'
+import 'firebase/auth'
+import config from "../config/_firestoreConfig"
+import  Fuego  from '../config/fuego'
+import {  FuegoProvider } from '@nandorojo/swr-firestore'
+import {ErrorBoundary} from 'react-error-boundary'
+import SnackbarFirebase from "../helpers/snackBarFirebase"
 const theme = createTheme({
   palette: {
     type: 'light',
@@ -53,13 +54,26 @@ const theme = createTheme({
 });
 initAuth()
 
-export default function MyApp({ Component, pageProps }) {
-
+const App=({ Component, pageProps }) =>{
+  const fuego = new Fuego(config())
+  const auth=useAuthUser()
   return (
-  
-    <ThemeProvider theme={theme}> <Component {...pageProps} /> </ThemeProvider>
+    <ErrorBoundary 
+    FallbackComponent={SnackbarFirebase}
+    onError={(error, errorInfo) => console.log({ error, errorInfo })}
+    onReset={() => {
+      // reset the state of your app
+    }}
+ >
+        <FuegoProvider fuego={fuego}>
+          <ThemeProvider theme={theme}> <Component {...pageProps} auth={auth} /> </ThemeProvider>
+        </FuegoProvider>
+    </ErrorBoundary>
+
 
   )
 }
 
+export const getServerSideProps = withAuthUserTokenSSR()()
 
+export default withAuthUser()(App)

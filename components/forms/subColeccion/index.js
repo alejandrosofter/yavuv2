@@ -1,27 +1,31 @@
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { Button,IconButton, Grid,Icon,Box } from '@mui/material';
+import { Button, Grid,Icon } from '@mui/material';
 import { useState,useCallback } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Loader from "../../loader";
+
 import dynamic from 'next/dynamic'
 import { useEffect } from "react";
 import Dialogo from "../dialogo"
-import Fetch from '../../../helpers/Fetcher'
+
+import { useDocument } from '@nandorojo/swr-firestore'
+
 import FormItem from './_formItem';
-export default function SubColeccionColeccion({sortModel,maxWidth,fullWidth,mod,callbackSuccess,titulo,accionesExtra,icono,registro,campo,columns,pathFormulario,token,urlAcepta,modelo,valoresIniciales}) {
+import { getIndexItemArray } from '../../../helpers/arrays';
+export default function Modulo({sortModel,maxWidth,fullWidth,mod,callbackSuccess,titulo,
+    accionesExtra,icono,registro,campo,columns,auth,
+    pathFormulario,modelo,valoresIniciales,coleccion}) {
   const [mostrarNuevo,setMostrarNuevo]=useState(false)
   const [mostrarEditar,setMostrarEditar]=useState(false)
   const [openDialogQuita,setOpenDialogQuita]=useState(false)
   const [seleccionGrid,setSeleccionGrid]=useState()
   const [columnas,setColumnas]=useState()
 
+  const {  update } = useDocument(`${coleccion}/${registro.id}`, { listen: true})
 
   useEffect(() => {
 
@@ -78,14 +82,21 @@ showInMenu
     [],
   )
   const callbackElimina = async ()=> {
-      const res=await Fetch(urlAcepta,"DELETE",seleccionGrid,token)
+      // const res=await Fetch(urlAcepta,"DELETE",seleccionGrid,token)
+      
+      const i=getIndexItemArray({data:registro[campo],valor:seleccionGrid.id,campoId:"id"})
+      let listaAux=registro[campo]
+      listaAux.splice(i,1)
+      console.log(listaAux)
+      update({[campo]:listaAux})
+      console.log(seleccionGrid,registro,i)
       setOpenDialogQuita(false)
       setSeleccionGrid(null)
     }
   
   const clickQuitar = useCallback(
-    (id) => () => {
-      setSeleccionGrid({id,idRegistroPadre:registro.id})
+    (data) => () => {
+      setSeleccionGrid(data)
       setOpenDialogQuita(true)
     },
     [registro.id],
@@ -146,9 +157,9 @@ const fnRows=()=>{
         maxWidth={maxWidth} open={mostrarNuevo} onClose={handleClose}>
         <DialogTitle><Icon className="fas fa-plus"/> NUEVO</DialogTitle>
         <DialogContent>
-        <FormItem registro={registro} mod={mod} datos={seleccionGrid} token={token} urlAcepta={urlAcepta} 
-         callbackSuccess={callbackSuccess_}  modelo={modelo()} valoresIniciales={valoresIniciales}>
-          <ComponenteForm mod={mod}/>
+        <FormItem registro={registro}  mod={mod} datos={seleccionGrid} coleccion={coleccion} campo={campo}
+         callbackSuccess={callbackSuccess_} esNuevo={true}  modelo={modelo()} valoresIniciales={valoresIniciales}>
+          <ComponenteForm auth={auth} mod={mod}/>
           </FormItem>
         </DialogContent>
         
@@ -157,9 +168,10 @@ const fnRows=()=>{
         maxWidth={maxWidth} open={mostrarEditar} onClose={handleCloseEditar}>
         <DialogTitle><Icon className="fas fa-pencil"/> EDITAR</DialogTitle>
         <DialogContent>
-        <FormItem registro={registro} mod={mod} datos={seleccionGrid} token={token} urlAcepta={urlAcepta}  callbackSuccess={callbackSuccessEditar}
+        <FormItem registro={registro} mod={mod} datos={seleccionGrid} 
+        coleccion={coleccion} campo={campo} callbackSuccess={callbackSuccessEditar}
                 modelo={modelo()} valoresIniciales={valoresIniciales}>
-                <ComponenteForm mod={mod}/>
+                <ComponenteForm auth={auth}  mod={mod}/>
           </FormItem>
         </DialogContent>
         

@@ -12,6 +12,7 @@ import ItemsModulo from "../forms/itemsModulo";
 import { formatMoney } from "../../helpers/numbers";
 import TabsFormik,{TabPanel} from "../forms/tab";
 import { renderCellExpandData } from "../forms/datagrid/renderCellExpand";
+import { useCollection } from '@nandorojo/swr-firestore'
 const fnRender=(row)=>{
     let salida=""
     
@@ -25,13 +26,12 @@ const fnRender=(row)=>{
     return salida
 }
 export default function FormActividad({titulo,subTitulo,icono,mod,setFieldValue,values}){
-    const { data:profesores } = useSWR(`/api/profesores`)
+    const { data:profesores } = useCollection(`profesores`)
     if(!profesores)return "Buscando profesores..."
     return(
-        <Grid >
-            <Stack>
-                <Titulo titulo={titulo} subTitulo={subTitulo} icono={icono}/>
-                    <Grid sx={{pt:1,pb:1}} md={12} container rowSpacing={2} spacing={2}>
+     
+          
+                    <Grid container rowSpacing={2} spacing={2}>
                         <Grid item md={2}><Input label="Nombre Actividad"  campo="nombreActividad"/></Grid>
                         
                         <Grid item md={2}><SelectEstaticFormik items={["ACTIVA","RECESO","SUSPENDIDA"]}  label="ESTADO" campo="estado"/></Grid>
@@ -86,7 +86,7 @@ export default function FormActividad({titulo,subTitulo,icono,mod,setFieldValue,
         
             
                     </Grid>
-            </Stack>                  
-        </Grid>
+                             
+     
     )
 }

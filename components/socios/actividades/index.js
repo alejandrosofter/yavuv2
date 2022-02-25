@@ -6,12 +6,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SecurityIcon from '@mui/icons-material/Security';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
-import SubColeccionColeccion from "../../forms/subColeccion/_subColeccion";
+import SubColeccionColeccion from "../../forms/subColeccion/";
 import ImpresionDialog from "../../forms/impresion"
 import ImpresionActividadSocio from "./impresion"
 import {ModeloActividades,valoresInicialesActividades}from "../../../modelos/ModeloSocios"
 import { getFechaString } from "../../../helpers/dates";
-export default function ActividadesSocio({data,token})
+export default function ActividadesSocio({data,mod})
 {
     const campo="actividades"
     const labelCampo="ACTIVIDADES"
@@ -79,8 +79,10 @@ export default function ActividadesSocio({data,token})
     ]
     return(
       <div>
-        <SubColeccionColeccion sortModel={[{ field: 'fechaInicio',  sort: 'desc', }]} campoId="id" accionesExtra={accionesExtra} token={token} 
-        urlAcepta={urlAcepta}   titulo={labelCampo} modelo={ModeloActividades} valoresIniciales={valoresInicialesActividades}
+        <SubColeccionColeccion sortModel={[{ field: 'fechaInicio',  sort: 'desc', }]} 
+        campoId="id" accionesExtra={accionesExtra} coleccion={mod.coleccion}
+        urlAcepta={urlAcepta}   titulo={labelCampo} modelo={ModeloActividades} 
+        valoresIniciales={valoresInicialesActividades}
         pathFormulario={pathFormulario} columns={cols} 
         registro={data} campo={campo} icono={icono}/>
         <ImpresionDialog titulo="IMPRESION DE INGRESO A ACTIVIDAD" abrir={openImpresion}

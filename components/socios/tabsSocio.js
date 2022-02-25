@@ -55,7 +55,7 @@ TabPanel.propTypes = {
       'aria-controls': `simple-tabpanel-${index}`,
     };
   }
-export default function TabsSocio({dataSocio,mod,modulo,token}){
+export default function TabsSocio({dataSocio,mod,auth}){
     const [value, setValue] = useState(0);
    
     const handleChange = (event, newValue) => {
@@ -65,7 +65,7 @@ export default function TabsSocio({dataSocio,mod,modulo,token}){
         <Stack direction="row" spacing={2} sx={{ }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs orientation="vertical" value={value} onChange={handleChange} aria-label="basic tabs example">
-              <Tab icon={<Icon className="fas fa-file-invoice-dollar" />} iconPosition="top" label={<BadgeIcono label="Cuenta" cantidad={dataSocio.movimientosCuenta.length} icono="fas fa-file-invoice-dollar"/>}{...a11yProps(0)} /> 
+              <Tab icon={<Icon className="fas fa-file-invoice-dollar" />} iconPosition="top" label={<BadgeIcono label="Cuenta" cantidad={dataSocio.movimientosCuenta?dataSocio.movimientosCuenta.length:0} icono="fas fa-file-invoice-dollar"/>}{...a11yProps(0)} /> 
               
                 <Tab  icon={<Icon className="fas fa-dumbbell" />} iconPosition="top" label={<BadgeIcono label="Actividades" cantidad={dataSocio.actividades?dataSocio.actividades.length:0}  icono="fas fa-dumbbell"/>}{...a11yProps(2)} /> 
                 <Tab icon={<Icon className="fas fa-heart" />} iconPosition="top" label={<BadgeIcono label="Estados" cantidad={dataSocio.cambiosEstado?dataSocio.cambiosEstado.length:0}  icono="fas fa-heart"/>} {...a11yProps(3)} />
@@ -77,26 +77,26 @@ export default function TabsSocio({dataSocio,mod,modulo,token}){
             </Box>
             <Box sx={{ borderBottom: 1, borderColor: 'divider',width: '100%' }}>
             <TabPanel value={value} index={0}>
-            <MovimientosCuentaSocio modulo={modulo} mod={mod} data={dataSocio} token={token}/>
+            <MovimientosCuentaSocio mod={mod} data={dataSocio} />
             </TabPanel>
             
             <TabPanel value={value} index={1}>
-            <ActividadesSocio data={dataSocio} token={token}/>
+            <ActividadesSocio mod={mod}  data={dataSocio} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-             <CambiosEstadoSocio data={dataSocio} token={token}/>
+             <CambiosEstadoSocio mod={mod}  data={dataSocio} />
             </TabPanel>
             <TabPanel value={value} index={3}>
-            <TarjetasSocio data={dataSocio} token={token}/>
+            <TarjetasSocio mod={mod}  data={dataSocio} />
             </TabPanel>
             <TabPanel value={value} index={4}>
-            <DocumentacionSocio mod={mod}  data={dataSocio} token={token}/>
+            <DocumentacionSocio mod={mod}  data={dataSocio} />
             </TabPanel>
             <TabPanel value={value} index={5}>
-            <FamiliaresSocio mod={mod}  data={dataSocio} token={token}/>
+            <FamiliaresSocio mod={mod}  data={dataSocio} />
             </TabPanel>
             <TabPanel value={value} index={6}>
-            <PromocionesSocio mod={mod}  data={dataSocio} token={token}/>
+            <PromocionesSocio mod={mod} auth={auth} data={dataSocio} />
             </TabPanel>
             </Box>
           </Stack>

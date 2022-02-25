@@ -57,6 +57,13 @@ export default function ItemsModulo({fnCambia,dataExtra,fnAddData,fullWidth,icon
       }})
       setCols(aux)
   }, [columnas,data])
+  useEffect(()=>{
+    console.log(data)
+    if(data.length===0){
+      setFieldValue(campo,[])
+      console.log("no existe, se setea []")
+    }
+  },[])
   const [cols,setCols]=useState([])
  const [editarVisible,setEditarVisible]=useState(false)
  const [quitarVisible,setQuitarVisible]=useState(false)
@@ -119,7 +126,9 @@ export default function ItemsModulo({fnCambia,dataExtra,fnAddData,fullWidth,icon
             }
             const agregarData=(valores)=>{
               if(valores){
+                console.log(valores,campo)
                 const nuevoArray=[...data?data:[],valores]
+                
                 setFieldValue(campo,nuevoArray)
                 setEditarVisible(false)
                 if(fnCambia)fnCambia(nuevoArray)
@@ -127,7 +136,7 @@ export default function ItemsModulo({fnCambia,dataExtra,fnAddData,fullWidth,icon
          
             }
             return(
-            <div style={{ height: 400,}}>
+            <div style={{ height: 400}}>
                 <Stack spacing={1} direction="row">
                 {fnAddData  && dataExtra.length>0 && <IconButton onClick={clickTraer}>
   <Badge badgeContent={dataExtra?dataExtra.length:0} color="secondary">

@@ -6,9 +6,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SecurityIcon from '@mui/icons-material/Security';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
-import SubColeccionColeccion from "../../forms/subColeccion/_subColeccion";
+import SubColeccionColeccion from "../../forms/subColeccion/";
 import { ModeloFamiliares,valoresInicialesFamiliares} from "../../../modelos/ModeloSocios"
-export default function PromocionesSocios({data,token,mod})
+export default function PromocionesSocios({data,mod})
 {
     const campo="familiares"
     const labelCampo="FAMILIARES"
@@ -69,8 +69,10 @@ export default function PromocionesSocios({data,token,mod})
           
     ]
     return(
-        <SubColeccionColeccion mod={mod} accionesExtra={accionesExtra} token={token} 
-        urlAcepta={urlAcepta}   titulo={labelCampo} modelo={ModeloFamiliares} valoresIniciales={valoresInicialesFamiliares}
+        <SubColeccionColeccion mod={mod}  coleccion={mod.coleccion}
+        accionesExtra={accionesExtra}
+        urlAcepta={urlAcepta}   titulo={labelCampo} modelo={ModeloFamiliares} 
+        valoresIniciales={valoresInicialesFamiliares}
         pathFormulario={pathFormulario} columns={cols} 
         registro={data} campo={campo} icono={icono}/>
         

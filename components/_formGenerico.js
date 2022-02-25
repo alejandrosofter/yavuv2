@@ -1,28 +1,34 @@
 import { LoadingButton } from '@mui/lab';
-import { Grid } from '@mui/material';
+import { Alert, Grid } from '@mui/material';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
 import React from 'react';
-import Fetch from '../helpers/Fetcher';
-
-export default function _FormGenerico({callbackSuccess,token,datos,urlAcepta,valoresIniciales,modelo,mutateIndex,esNuevo,mutateRegistro,children}) {
+import ErrorsForm from "../components/forms/errorForms"
+import {esVacio} from "../helpers/objectos"
+export default function _FormGenerico({callbackSuccess,fnUpdate,datos,valoresIniciales,modelo,children,mod}) {
 
   const router=useRouter();
   const [load,setLoad]=useState();
 
   const clickForm=async (values)=>{
     setLoad(true)
-    const res=await Fetch(urlAcepta,"POST",values,token)
-    setLoad(false)
-    if(mutateIndex)mutateIndex()
-    if(mutateRegistro)mutateRegistro()
-    if(callbackSuccess){
-      callbackSuccess(values)
-    }else  router.back({ shallow: true })
+    if(fnUpdate)fnUpdate(values).then(() => {
+
+      if(callbackSuccess){
+        callbackSuccess(values)
+      }else  router.back({ shallow: true })
+  })
+  .catch((error) => {
+      setLoad(false)
+      throw new Error(error);
+  })
+    
+   
+    
     
   }
-  const valores=datos?datos:(valoresIniciales?valoresIniciales(esNuevo):null)
+  const valores=datos?datos:(valoresIniciales?valoresIniciales():null)
 
   return (
     <Formik
@@ -36,20 +42,20 @@ export default function _FormGenerico({callbackSuccess,token,datos,urlAcepta,val
      >
         
          {({handleSubmit,values,errors,setFieldValue,validateForm})=>{
-
+// console.log(errors)
            return ( 
             <Grid sx={{my:0}} md={12} item xs={9}> 
             <Form onSubmit={handleSubmit} >
-               {!esNuevo && <input name="id" type="hidden" value={router.query.idItem}/>}
-              
+             
                 {React.cloneElement(
       children,
-      {values: values,errors,setFieldValue:setFieldValue}
+      {values: values,errors,setFieldValue:setFieldValue,mod:mod}
     )}
-                    <LoadingButton loading={load} color="primary" variant="contained" fullWidth type="submit">
+<ErrorsForm errors={errors}/>
+                    <LoadingButton disabled={!esVacio(errors)} sx={{mt:3}} loading={load} color="primary" variant="contained" fullWidth type="submit">
                         ACEPTAR
                     </LoadingButton>
-                    
+                   
                
                 
             </Form>

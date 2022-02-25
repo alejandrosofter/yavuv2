@@ -1,13 +1,4 @@
-import { useState,useCallback } from "react";
-
-import moment from 'moment';
-import { GridActionsCellItem } from '@mui/x-data-grid';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SecurityIcon from '@mui/icons-material/Security';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
-
-import SubColeccionColeccion from "../forms/subColeccion/_subColeccion";
+import SubColeccionColeccion from "../forms/subColeccion/";
 export default function ClubesProfesores({data,token})
 {
     const campo="profesores"

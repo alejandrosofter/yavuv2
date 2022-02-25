@@ -1,15 +1,17 @@
-import ModeloActividades, { valoresIniciales } from "../../modelos/ModeloActividades"
-import NuevoABM from "../forms/moduloABM/nuevoABM"
-import FormActividad from "./_form"
-export default function Modulo({modulo,mod,token}) {
+import Modelo, { valoresIniciales } from "../../modelos/ModeloActividades"
+import { useRouter } from "next/router"
+import NuevoGenerico from "../NuevoGenerico"
+import Form from "./_form"
 
-    const urlAcepta=`/api/moduloABM/`
-    const urlModulos=`/api/modulos/` 
-    const coleccion=`actividades` 
+export default function Modulo({mod}) {
 
       return (
-      <NuevoABM mod={mod} ComponenteForm={FormActividad} titulo="Nueva" subTitulo="Actividad" icono="fas fa-plus" coleccion={coleccion} token={token} urlAcepta={urlAcepta} 
-      valoresIniciales={valoresIniciales} modelo={ModeloActividades} modulo={modulo}/>
+      <NuevoGenerico valoresIniciales={valoresIniciales} mod={mod} 
+      modelo={Modelo}   >
+         
+            <Form  titulo="NUEVA" subTitulo="Actividad" icono="fas fa-plus" />
+       
+      </NuevoGenerico>
       )
 
 }

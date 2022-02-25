@@ -1,23 +1,19 @@
-import Layout from "../layout";
-import _FormModulos from "./_form";
-import ModeloModulos from "../../modelos/ModeloModulos";
-import { valoresIniciales } from "../../modelos/ModeloModulos";
+import Modelo,{valoresIniciales} from "../../modelos/ModeloModulos"
+import { useRouter } from "next/router"
 
-import { useRouter } from "next/router";
-import { Icon } from "@mui/material";
-import { useEffect } from "react";
-import useSWR from "swr";
+import EditarGenerico from "../EditarGenerico"
 
-export default function EditarModulo({modulo}){
-    const router=useRouter();
-    const url="/api/modulos/"+router.query.idItem 
+import Form from "./_form"
 
-    const { data, mutate,isValidating } = useSWR(url)
+export default function Modulo({mod}) {
 
-    return(
-      <>
-           {data && <_FormModulos mutateRegistro={mutate} modulo={modulo} datos={data}/> }
-     </>
-    )
+    
+      return (
+      <EditarGenerico mod={mod}  modelo={Modelo}   >
+         
+            <Form titulo="Editar" subTitulo="Modulo" icono="fas fa-pencil" />
+       
+      </EditarGenerico>
+      ) 
+
 }
-EditarModulo.auth = true

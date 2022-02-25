@@ -9,9 +9,9 @@ import { getLinkUrl } from '../../../helpers/Strings';
 import Dialogo from '../dialogo';
 import DialogContenido from '../dialogContenido';
 import Fetcher from "../../../helpers/Fetcher"
-import useSWR from 'swr';
 
-export default function DataGridServer({pageSize,columns,url,token,acciones,modulo}) {
+import { useCollection } from '@nandorojo/swr-firestore'
+export default function DataGridServer({pageSize,columns,coleccion,token,acciones,modulo}) {
 
   const router= useRouter()
   const [rowsState, setRowsState] = useState({
@@ -19,7 +19,8 @@ export default function DataGridServer({pageSize,columns,url,token,acciones,modu
     pageSize: pageSize?pageSize:5,
     loading: false,
   })
-  const { data:datos } = useSWR(() => `${url}?pageSize=${rowsState.pageSize}&page=${rowsState.page}`)
+  const { data:datos, update, error } = useCollection(coleccion)
+
   
 console.log(datos)
   
@@ -95,7 +96,7 @@ acciones.map(accion=>{
    }
   return (
     <div style={{ height: 500, width: '100%' }}>
-    <DataGrid
+     <DataGrid
     columns={columnas}
     pagination
     rows={datos?datos.datos:[]}

@@ -33,12 +33,13 @@ export function valoresInicialesFamiliares(){
         relacion: "",
         fecha: {seconds:new Date().getTime()/1000,nanoseconds:0},
         socio: "",
+        label_socio:""
     }
 }
 export function valoresInicialesCambioEstado(){
     return {
         estado: "",
-        fecha: "",
+        fecha: {seconds:new Date().getTime()/1000,nanoseconds:0},
     }
 }
 export function ModeloItemMovimientoCuenta(){

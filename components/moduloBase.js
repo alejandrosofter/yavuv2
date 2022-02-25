@@ -11,7 +11,6 @@ import { useAuthUser} from 'next-firebase-auth'
 export default function ModuloBase({modulo}){
   const auth=useAuthUser()
   const [anchorEl, setAnchorEl] = React.useState(null);
-  // const token=await auth.getIdToken()
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);

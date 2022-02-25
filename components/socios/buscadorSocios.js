@@ -9,18 +9,25 @@ import  {useEffect} from "react"
 import BuscadorSociosInput from './_buscador';
 import Link from 'next/link'
 import { useRouter } from 'next/router';
+import { useDocument } from '@nandorojo/swr-firestore';
 
-export default function BuscadorSocios({mod,modulo,token}) {
+export default function BuscadorSocios({mod,modulo,auth}) {
   const router=useRouter();
 const editarSocio=(e)=>{
 
 }
   const [socioSeleccion, setSocioSeleccion] = React.useState(JSON.parse(localStorage.getItem("socioSeleccion")));
-  const url=`/api/socios/${socioSeleccion?socioSeleccion.id:''}/`
-  const { data:dataSocio } = useSWR(socioSeleccion?url:null)
+  
+  const { data:dataSocio } = useDocument(`socios/${socioSeleccion.objectID}`)
   useEffect(() => {
+   
     localStorage.setItem("socioSeleccion",JSON.stringify(socioSeleccion))
 }, [socioSeleccion])
+if(!dataSocio){
+  return(
+    <BuscadorSociosInput setSocioSeleccion={setSocioSeleccion}  />
+  )
+}
   return (
     <Stack direction="row" spacing={1} >
       <Grid item xs={9}>
@@ -37,12 +44,12 @@ const editarSocio=(e)=>{
                     
                     </Stack>
                   </Badge>
-                  <Link passHref href={`/mod/${router.query.id}/socios/editar/${socioSeleccion.id}`}>
+                  <Link passHref href={`/mod/${router.query.id}/editar/${dataSocio.id}`}>
                     <Button variant="outlined" size="small" onClick={editarSocio}><Icon className="fas fa-pencil"/></Button>
                   </Link>
                   
               </Stack>
-              <TabsSocio modulo={modulo} mod={mod} token={token} dataSocio={dataSocio} />
+              <TabsSocio auth={auth} mod={mod} dataSocio={dataSocio} />
               </Stack>
           </Grid>
         </Grid>

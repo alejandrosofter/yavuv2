@@ -11,13 +11,15 @@ import SelectFormik from "../forms/select";
 import TitulosFormularios from "../forms/tituloFormularios";
 
 
-export default function FormSocios({setFieldValue,values,tipoSocios,titulo,subTitulo,icono})
+export default function FormSocios({setFieldValue,values,mod})
 {
+    const tipoSocios=mod.config?.itemsTipoSocios?mod.config.itemsTipoSocios:[]
+   
 useEffect(()=>{
 
     const seleccion=tipoSocios[tipoSocios.map(item=>item.nombre).indexOf(values.tipoSocio)]
     if(seleccion) setFieldValue("tipoSocio",seleccion.id)
-},[setFieldValue,tipoSocios,values])
+},[setFieldValue,values])
 const cambiaTipoSocio=(valor)=>{
 
 const seleccion=tipoSocios[tipoSocios.map(item=>item.id).indexOf(valor)]
@@ -25,8 +27,7 @@ setFieldValue("nroSocio",seleccion.proximoNro)
 
 }
     return(
-        <Stack>
-             <TitulosFormularios titulo={titulo} subTitulo={subTitulo} icono={icono}/>
+       
             <Grid sx={{pt:1,mb:2}} md={12} container rowSpacing={2} spacing={2}>
                         <Grid item md={2}><SelectFormik callbackchange={cambiaTipoSocio} lista={tipoSocios} campoId="id" campoLabel={"nombre"} label="Tipo Socio " campo="tipoSocio"/></Grid>
                       
@@ -48,6 +49,6 @@ setFieldValue("nroSocio",seleccion.proximoNro)
                         <Grid item md={2}><SelectEstaticFormik items={["Femenino","Masculino"]}  label="Sexo" campo="sexo" /></Grid>
                         <Grid item md={5}><SelectAlgoliaFormik coleccionAlgolia="clientes" label="Cliente" campo="cliente"/></Grid>
             </Grid>
-        </Stack>
+ 
     )
 } 

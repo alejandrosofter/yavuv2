@@ -20,7 +20,7 @@ export function getIndexItemArray({data,valor,campoId})
         campoId=(campoId)?campoId:"id"
         const i=data.map(x => x[campoId]).indexOf(valor)
     
-        if(i>=0)return data[i]
+        if(i>=0)return i
         return null  
     }
     return null

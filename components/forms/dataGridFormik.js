@@ -1,13 +1,8 @@
 import React, { useState,useEffect } from "react";
 import { Field } from "formik";
 
-import { FormControl,InputLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
+import { FormControl} from "@mui/material";
 
-import { DataGrid } from '@mui/x-data-grid';
-import { Button,Icon,Stack,Typography} from "@mui/material"
-import {
-  randomId
-} from '@mui/x-data-grid-generator';
 
 import ItemsModulo from "../forms/itemsModulo";
 
@@ -26,7 +21,7 @@ const DataGridFormikItems = ({label,campo,columns,icono,Modelo,FormularioItem,mo
               <ItemsModulo
                    setFieldValue={props.form.setFieldValue} 
                    titulo={label} icono={icono}
-                   campo={campo} data={props.form.values[campo]?props.form.values[campo]:{}} 
+                   campo={campo} data={props.form.values[campo]?props.form.values[campo]:[]} 
                    modelo={Modelo}
                    nombreModulo={label}
                    fullWidth={true} maxWidth={"md"}

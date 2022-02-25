@@ -1,18 +1,28 @@
 import Controlador from "../../components/Controlador";
-import {withAuthUser} from 'next-firebase-auth'
-import { callAuthToken } from "../../helpers/auth";
-import { ContextoMods } from "../../context/modsContext";
-
-
-const Modulo=({tokenServer,modulo,mod})=>{
-
-    return(
-   
-        <Controlador pathComponente="${modulo.nombre}" tokenServer={tokenServer} modulo={modulo} mod={mod}/>
+import { useRouter } from 'next/router'
+import { getModuloMod } from "../../helpers/mods";
+import { updateField } from "../../config/db";
+import { useEffect } from "react";
+export default function Modulo({auth}){
+  const router =useRouter()
+  const mod=getModuloMod({id:router.query.id})
+  useEffect(()=>{
+    updateField({coleccion:"mods",id:router.query.id,registro:{fechaClick:new Date()}})
  
-    )
+  },[router.query.id])
+  if(!mod)return "Cargando Mod..."
+        return(
+            <Controlador mod={mod} url={`${mod.nombre}`}/>
+        )
 
 }
+// export async function getServerSideProps(context) {
+//   const coleccion="mods"
+//   const id=context.params.id
+//   const registro={fechaClick:new Date()}
+//   // updateField({coleccion,id,registro}) //para ordenar su menu
 
-export const getServerSideProps = callAuthToken()
-export default withAuthUser()(Modulo)
+//   return {
+//     props: {}, 
+//   }
+// }

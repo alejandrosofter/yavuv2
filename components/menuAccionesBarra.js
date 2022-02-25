@@ -1,21 +1,19 @@
 import {  Button, Icon, Stack } from '@mui/material';
 import Link from 'next/link'
+import randomId from 'random-id';
 import { getLinkUrl } from '../helpers/Strings';
-import { Box } from '@mui/system';
-import Typography from '@mui/material/Typography';
-export default function MenuAccionesBarra({acciones,modulo,data})
+
+export default function MenuAccionesBarra({mod})
     {
+     const acciones=mod?.acciones?mod.acciones:[]
      
-      if(!acciones) return<></>
-      if(acciones.length==0) return<></>
-    
         return <Stack direction="row" spacing={2}>
           
           {acciones && acciones.map(item=>{
              
               if(!item.esRegistro)return (
                 
-                <Link passHref href={getLinkUrl(item.url,modulo,data)}>
+                <Link key={randomId(2)} passHref href={getLinkUrl(item.url,mod,null)}>
                     
                     <Button sx={{color:"white"}}>
                        <Icon sx={{fontSize:15,mr:1}} className={item.icono}/> {item.label}

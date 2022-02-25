@@ -4,21 +4,36 @@ import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
 import React from 'react';
-import Fetch from "../../../helpers/Fetcher"
-
-export default function _FormItem({registro,dataInicial,callbackSuccess,token,datos,urlAcepta,valoresIniciales,modelo,mutateIndex,esNuevo,mutateRegistro,children}) {
+import { useDocument } from '@nandorojo/swr-firestore'
+import randomId from "random-id";
+import {getIndexItemArray} from "../../../helpers/arrays"
+export default function _FormItem({registro,campo,coleccion,dataInicial,esNuevo,callbackSuccess,datos,valoresIniciales,modelo,children}) {
 
   const router=useRouter();
   const [load,setLoad]=useState();
-
+  const {  update } = useDocument(`${coleccion}/${registro.id}`, { listen: true})
+  
   const clickForm=async (values)=>{
     setLoad(true)
     
     if(registro)values.idRegistroPadre=registro.id
-    // console.log(values)
-    const res=await Fetch(urlAcepta,"POST",values,token)
-    if(mutateIndex)mutateIndex()
-    if(mutateRegistro)mutateRegistro()
+    if(esNuevo){
+      const aux=registro[campo]?registro[campo]:[]
+      let auxRegistro=values
+      auxRegistro.id=randomId(20)
+     
+      aux.push(auxRegistro)
+      update({[campo]:aux})
+    }else{
+      //es update registro 
+      const aux=registro[campo]?registro[campo]:[]
+      let auxRegistro=registro
+      const i=getIndexItemArray({data:aux,valor:values.id,campoId:"id"})
+      auxRegistro[campo][i]=values
+      console.log(auxRegistro)
+      // update({[campo]:auxRegistro})
+    }
+    
     if(callbackSuccess)callbackSuccess(values)
 
     // router.back({ shallow: true })

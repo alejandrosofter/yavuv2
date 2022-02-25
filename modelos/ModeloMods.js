@@ -2,17 +2,19 @@ import * as yup from 'yup';
 
 export default function ModeloMods(){
     return yup.object().shape({
-        idModulo: yup.string(),
-        idUsuario: yup.string(),
-        createdOn: yup.date().default(function () {
-            return new Date();
-          }),
-          acciones: yup.array().of(
-            yup.object().shape({
-              nombre: yup.string().required("Es requerido para buscar el componente el las librerias"),
-              enabled: yup.boolean(),
+   
+        nombre: yup.string().required(),
 
-            }) )
+        label: yup.string().required(),
+      detalle: yup.string(),
+      icono: yup.string(),
+      coleccion: yup.string(),
+      camposModulo: yup.string(),
+
+      coleccionDeuda: yup.string(),
+      campoClave: yup.string(),
+      idUsuario: yup.string(),
+      esBase: yup.boolean(),
         
       });
 }

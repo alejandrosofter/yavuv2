@@ -15,7 +15,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Head from 'next/head'
 
 import {  Icon, SpeedDial} from '@mui/material';
-
+import Link from "next/link"
 import { useRouter } from 'next/router';
 import Image  from 'next/image'
 import Stack from '@mui/material/Stack';
@@ -23,12 +23,10 @@ import Dialogo from './forms/dialogo';
 import { useState } from 'react';
 import MenuModulos from './menuModulos';
 
-import MenuUsuario from "./menuUsuario"
-import MenuAccionesSpeed from './menuAccionesSpeed';
 import ModulosBase from "./modulosBase"
 import MenuModulosInvitado from './menuModulosInvitado';
 import MenuAccionesBarra from './menuAccionesBarra';
-import useUser from "../hooks/useUser"
+
 const drawerWidth = 240;
 
 
@@ -77,7 +75,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function Layout({children,titulo,icono,modulo}) {
+export default function Layout({children,mod}) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   
@@ -91,6 +89,9 @@ export default function Layout({children,titulo,icono,modulo}) {
   const handleClickConsultas = () => {
     setOpenConsultas(!openConsultas);
   };
+  const clickConfig=()=>{
+router.push(`/mod/${mod.id}/editar`, undefined, { shallow: true })
+  }
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -102,7 +103,7 @@ export default function Layout({children,titulo,icono,modulo}) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
         
         <Head>
-            <title>{titulo}</title>
+            <title>{mod?mod.label:"YAVU"}</title>
         </Head> 
       <CssBaseline />
       <AppBar position="fixed" open={open}>
@@ -130,9 +131,13 @@ export default function Layout({children,titulo,icono,modulo}) {
                 <Stack sx={{ alignContent: 'center'}} direction="row" spacing={2}>
                
                   <Typography  sx={{ mt:"auto",mb:"auto", textTransform: "uppercase",  
-                  fontWeight: 'bolder' }}  variant="h5" ><Icon className={icono}/> {titulo}</Typography>
-                
-                <MenuAccionesBarra modulo={modulo} acciones={modulo?modulo.acciones:[]} />
+                  fontWeight: 'bolder' }}  variant="h5" ><Icon className={mod?mod.icono:""}/> {mod?mod.label:""}</Typography>
+            
+                <IconButton color="inherit" onClick={clickConfig} >  
+                <Icon size="small" className="fas fa-cog"/> 
+                </IconButton>
+           
+                <MenuAccionesBarra mod={mod} acciones={mod?.acciones?mod.acciones:[]} />
                 </Stack>
                 </Box>
             </Box>

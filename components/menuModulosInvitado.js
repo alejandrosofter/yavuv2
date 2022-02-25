@@ -1,16 +1,18 @@
 import { Icon, List, ListItem, ListItemIcon, ListItemText, Tooltip } from '@mui/material';
-import useSWR from 'swr';
 import Link from 'next/link';
-
+import { useCollection, fuego} from '@nandorojo/swr-firestore'
 export default function MenuModulosInvitado({}){
-    const {data} = useSWR(`/api/usuariosInvitados/getInvitaciones/`);
+    const { data, update, error } = useCollection("usuariosInvitados",{
+        where:["idUsuario","==",fuego.auth().currentUser?fuego.auth().currentUser.uid:""]
+    })
   
     if(!data)return "Cargando Menu invitaciones..."
+
     return(
         <div>
             
             <List component="div" disablePadding>
-            {data && data.map(items=>(
+            {(data.mods?data.mods:[]).map(items=>(
              
                    
 

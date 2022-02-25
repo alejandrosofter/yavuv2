@@ -4,8 +4,9 @@ import { Grid } from "@mui/material";
 import TitulosFormularios from '../forms/tituloFormularios';
 import DataGridServer from '../forms/datagrid/dataGridServer';
 import {formatMoney} from "../../helpers/numbers"
-export default function Modulo({modulo,mod,token}) {
-  const url="/api/generacionDeudas"
+import DataGridFirebase from '../forms/datagrid/dataGridFirebase';
+export default function Modulo({mod}) {
+
 const columns=[
 
   {
@@ -72,10 +73,9 @@ const columns=[
           },
 ]
       return (
-      <Grid container spacing={1}>
-          <TitulosFormularios titulo="GENERACION" subTitulo="Deudas " icono="fas fa-funnel-dollar"/>
-       <Grid item md={12}> <DataGridServer url={url} modulo={modulo} acciones={modulo.acciones} token={token} columns={columns}/></Grid>
-      </Grid    >
+        <DataGridFirebase coleccion={mod.coleccion} titulo={mod.label} subTitulo="del club" icono="fas fa-funnel-dollar"
+        limit={10} mod={mod} acciones={mod.acciones} orderBy="nombreActividad"
+       columns={columns} />
       )
 
 }

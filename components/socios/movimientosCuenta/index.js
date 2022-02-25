@@ -1,15 +1,11 @@
-import { useState,useCallback } from "react";
+import { useCallback } from "react";
 
 import moment from 'moment';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 
 import { Icon } from '@mui/material';
-import SubColeccionColeccion from "../../forms/subColeccion/_subColeccion";
-import {renderCellExpandData} from "../../forms/datagrid/renderCellExpand";
+
 import {formatMoney} from "../../../helpers/numbers"
-import ImpresionDialog from "../../forms/impresion"
-import { ModeloMovimientoCuenta,valoresInicialesMovimiento } from "../../../modelos/ModeloSocios"
-import ImpresionMovimientoCuenta from "./impresion"
 import { useRouter } from "next/router";
 import DataGridServer from "../../forms/datagrid/dataGridServer";
 

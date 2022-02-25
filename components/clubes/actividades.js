@@ -6,7 +6,7 @@ import SecurityIcon from '@mui/icons-material/Security';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
 
-import SubColeccionColeccion from "../forms/subColeccion/_subColeccion";
+import SubColeccionColeccion from "../forms/subColeccion";
 export default function ClubesActividades({data,token})
 {
     const campo="actividades"

@@ -16,8 +16,7 @@ export default function FormGeneracionDeudas({setFieldValue,values,titulo,subTit
    
     return(
         <Stack>
-             <TitulosFormularios titulo={titulo} subTitulo={subTitulo} icono={icono}/>
-            <Grid sx={{pt:1,mb:2}} md={12} container rowSpacing={2} spacing={2}>
+           <Grid container rowSpacing={2} spacing={2}>
             <Grid item md={6}><Input label="Nombre" campo="nombreFormaPago"/></Grid>
                         <Grid item md={2}><SelectEstaticFormik items={["ACTIVO","INACTIVO"]}  label="ESTADO" campo="estado"/></Grid>
                        

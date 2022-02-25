@@ -229,6 +229,9 @@ export async function findOne(coleccion,id)
   return null
    
 }
+export function getUser(){
+  return firebase.auth().currenteUser
+}
 export function Timestamp()
 {
   return admin.firestore.Timestamp

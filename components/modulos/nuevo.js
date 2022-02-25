@@ -1,10 +1,17 @@
-import Layout from "../layout";
-import _FormModulos from "./_form";
-export default function nuevo({modulo,mod}){
+import Modelo, { valoresIniciales } from "../../modelos/ModeloModulos"
+import { useRouter } from "next/router"
+import NuevoGenerico from "../NuevoGenerico"
+import Form from "./_form"
 
-    return(
-        <>
-             <_FormModulos mod={mod} nuevo={true} modulo={modulo} />
-        </>
-    )
+export default function Modulo({mod}) {
+
+      return (
+      <NuevoGenerico valoresIniciales={valoresIniciales} mod={mod} 
+      modelo={Modelo}   >
+         
+            <Form  titulo="NUEVA" subTitulo="Actividad" icono="fas fa-plus" />
+       
+      </NuevoGenerico>
+      )
+
 }

@@ -91,7 +91,7 @@ return (
         {
                 modulo.acciones && modulo.acciones.map(item=>{
                     if(item.esRegistro)return (
-                        <Link passHref href={getLinkUrl(item.url,modulo,data,item.esFuncion)}>
+                        <Link passHref href={getLinkUrl(item.url,mod,data,item.esFuncion)}>
                         <MenuItem  data-my-value={item.nombre} onClick={clickAccion}>
                             <ListItemIcon>
                                 <Icon sx={{color:item.color}} fontSize="small" className={item.icono}/>

@@ -1,15 +1,14 @@
-import useSWR from "swr"
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import Loader from "../loader";
-export default function InicioHome({modulo,token,dataUsuario,idUsuario,auth,dataCuenta}){
-     
-    return(
-        <Stack>
-<Typography variant="h3" component="div" gutterBottom>
-       EDITAR MODULO
-      </Typography>
+import Modelo,{valoresIniciales} from "../../modelos/ModeloMods"
+import EditarGenerico from "../EditarGenerico"
 
-        </Stack>
-    )
+import Form from "../modulos/_form"
+import { useRouter } from "next/router";
+export default function Modulo({mod}) {
+    const router=useRouter()
+      return (
+      <EditarGenerico pathDocExterno={`mods/${router.query.id}`} mod={mod} modelo={Modelo}   >
+            <Form mod={mod} />
+       </EditarGenerico>
+      ) 
+
 }

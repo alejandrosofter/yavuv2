@@ -12,56 +12,30 @@ import useSWR,{mutate} from 'swr'
 import CheckboxForm from '../forms/checkbox';
 import ItemsModulo from '../forms/itemsModulo';
 import _FormItemAccion from './_formItemAccion';
+import TitulosFormularios from '../forms/tituloFormularios';
 
-export default function _FormModulos({datos,modulo,mod,esNuevo,mutateRegistro}) {
+export default function _FormModulos({values,setFieldValue}) {
 
-  const router=useRouter();
-  const [load,setLoad]=useState();
   const [tabDatos, setTabDatos] = useState('datos');
-  const [cantidadAcciones,setCantidadAcciones]=useState(0)
 
   const cambiaTab = (event, newValue) => {
     setTabDatos(newValue);
   };
-  const getCantidadAcciones=(values)=>{
-    if(values.acciones)return values.acciones.length
-    return 0
-  }
-  const clickForm=async (values)=>{
-    setLoad(true)
-    const res=await Fetch(`/api/modulos/${values.id}`,"POST",values)
-    mutate('/api/modulos')
-    if(mutateRegistro)mutateRegistro()
-    router.back({ shallow: true })
-  }
+console.log(values)
   return (
 <TabContext value={tabDatos}>
-<Grid sx={{my:3}} md={12} item xs={9}> 
-    <Formik
-       initialValues={datos?datos:valoresIniciales(esNuevo)}
-       validationSchema={ModeloModulos()}
-       onSubmit={clickForm}
-       validateOnChange={true}
-        validateOnBlur={true}
-       validateOnMount={true}
-     >
-        
-         {({handleSubmit,values,errors,setFieldValue,validateForm})=> ( 
-          
-        <Form onSubmit={handleSubmit} >
-           {setCantidadAcciones(getCantidadAcciones(values))}
+<Grid  md={12}  xs={9}> 
+
             <TabList onChange={cambiaTab} key="accionesModulo" aria-label="Acciones Modulo">
                 <Tab label="Datos" value="datos" />
-                <Tab label={`Acciones (${cantidadAcciones})`} value="acciones" />
+                <Tab label={`Acciones (${values?.acciones?values.acciones.length:0})`} value="acciones" />
               </TabList>
             <TabPanel value="datos">
                 <Grid sx={{pt:4}} container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 1 }}>
-                    {!esNuevo &&
-                    <input  campo="id" type="hidden"/>
-                    }
+                    
                     <Grid item xs={3}><Input label="Nombre " campo="nombre"/></Grid>
                     <Grid item xs={2}><Input label="Icono (awesome iconos)" campo="icono"/></Grid>
-                    <Grid item  xs={1}><Icon sx={{mt:3}} fontSize="large" className={values.icono}/></Grid>
+                    <Grid item  xs={1}><Icon sx={{mt:3}} fontSize="large" className={values?.icono}/></Grid>
                     
                     <Grid item xs={4}><Input label="Label" campo="label"/></Grid>
                     <Grid item xs={3}><Input label="Coleccion" campo="coleccion"/></Grid>
@@ -71,6 +45,7 @@ export default function _FormModulos({datos,modulo,mod,esNuevo,mutateRegistro}) 
                     <Grid item xs={3}><Input label="Campo Clave (coleccion)" campo="idCampoClave"/></Grid>
                     <Grid item xs={2}><CheckboxForm label="Activo" campo="activo"/></Grid>
                     <Grid item xs={2}><CheckboxForm label="Es Base?" campo="esBase"/></Grid>
+                    <Grid item xs={2}><CheckboxForm label="Es Inicial?" campo="esInicial"/></Grid>
                     
                 </Grid>
             </TabPanel>
@@ -78,7 +53,7 @@ export default function _FormModulos({datos,modulo,mod,esNuevo,mutateRegistro}) 
             <Grid item xs={12}>
             <ItemsModulo
                    setFieldValue={setFieldValue} 
-                   campo="acciones" data={values.acciones} 
+                   campo="acciones" data={values?.acciones} 
                    modelo={ModeloAcciones}
                    nombreModulo="ACCIONES" 
                    fullWidth={true} maxWidth={"md"}
@@ -107,18 +82,8 @@ export default function _FormModulos({datos,modulo,mod,esNuevo,mutateRegistro}) 
             </Grid>
             </TabPanel>
     
-            <Grid sx={{my:3}} item xs={9}> 
-           
+
             
-                <LoadingButton loading={load} color="primary" variant="contained" fullWidth type="submit">
-                    ACEPTAR
-                </LoadingButton>
-                
-            </Grid>
-            
-        </Form>
-         )}
-    </Formik>
     </Grid>
    </TabContext>
    

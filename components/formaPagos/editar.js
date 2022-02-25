@@ -1,21 +1,15 @@
 import Modelo,{valoresIniciales} from "../../modelos/ModeloFormaPago"
-import { useRouter } from "next/router"
-
 import EditarGenerico from "../EditarGenerico"
 
 import Form from "./_form"
 
-export default function Modulo({modulo,mod,token,dataUsuario}) {
-    const router=useRouter();
-    const urlAcepta=`/api/formaPagos/`
+export default function Modulo({mod}) {
+
     
       return (
-      <EditarGenerico token={token} urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} 
-      modelo={Modelo}  dataUsuario={dataUsuario} >
-         
-            <Form token={token} titulo="Editar" subTitulo="Forma Pago" icono="fas fa-pencil" />
-       
-      </EditarGenerico>
+      <EditarGenerico  mod={mod} modelo={Modelo}   >
+            <Form titulo="Editar" subTitulo={mod.label} icono="fas fa-pencil" />
+       </EditarGenerico>
       ) 
 
 }
