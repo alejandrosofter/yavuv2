@@ -3,21 +3,24 @@ import firebase from "firebase/app"
 
 import FirestoreConfig from "../../config/_firestoreConfig";
 import { useEffect, useState } from 'react';
-import { Typography ,Stack,Button} from '@mui/material';
+import { Typography ,Stack,Button,CircularProgress} from '@mui/material';
 
 export default function Modulo({mod}) {
   const [datos,setDatos]=useState()
   const [estadoCuenta,setEstadoCuenta]=useState()
   const [precio,setPrecio]=useState()
+  const [loading,setLoading]=useState(false)
   const mercado="BTCUSDT"
 useEffect(()=>{
 
 buscarData()
 },[])
 const buscarData=async ()=>{
-  buscarDatosApi(`/api/trading/`,setDatos)
-  buscarDatosApi(`/api/trading/estadoCuenta`,setEstadoCuenta)
-  buscarDatosApi(`/api/trading/precios`,setPrecio)
+  setLoading(true)
+  await buscarDatosApi(`/api/trading/`,setDatos)
+  await buscarDatosApi(`/api/trading/estadoCuenta`,setEstadoCuenta)
+  await buscarDatosApi(`/api/trading/precios`,setPrecio)
+  setLoading(false)
 }
 const buscarDatosApi=async (url,fn)=>{
   const data=await fetch(url)
@@ -30,12 +33,13 @@ const precioEntrada=Number(estadoCuenta.entrada)
 const diferencia= precioActual-precioEntrada
 return ((diferencia*100)/precioActual).toFixed(2)
 }
+if(loading ) return  <CircularProgress />
 if(!datos)return "Cargando..."
 if(!estadoCuenta)return "Cargando..."
 if(!precio)return "cargando precio"
+
       return(
         <Stack>
-          
           <Typography sx={{fontSize:25,fontWeight: 'bold'}}>ESTADO DE CUENTA</Typography>
           <Stack direction="row" spacing={2}> 
             
