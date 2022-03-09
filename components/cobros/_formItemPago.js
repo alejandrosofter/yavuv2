@@ -11,15 +11,15 @@ import SelectEstaticFormik from '../forms/selectEstaticFormik';
 import SelectFormik from "../forms/select"
 import Fetch from "../../helpers/Fetcher";
 import { useEffect, useState } from 'react';
-export default function FormularioItemPago({token}){
+export default function FormularioItemPago({}){
     const [formasPago,setFormasPago]=useState([])
 useEffect(()=>{
-    const buscar=async ()=>{
-        const data=await Fetch(`/api/formaPagos`,null,null,token)
-        if(data.datos) setFormasPago(data.datos) 
-        else setFormasPago([])
-        }
-        buscar()
+    // const buscar=async ()=>{
+    //     const data=await Fetch(`/api/formaPagos`,null,null,token)
+    //     if(data.datos) setFormasPago(data.datos) 
+    //     else setFormasPago([])
+    //     }
+    //     buscar()
 },[])
     return(
    

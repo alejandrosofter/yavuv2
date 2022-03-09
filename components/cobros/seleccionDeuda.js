@@ -9,15 +9,15 @@ import Fetch from '../../helpers/Fetcher';
 import Typography from '@mui/material/Typography';
 import {formatDate} from "../../helpers/fechas"
 import {formatMoney} from "../../helpers/numbers"
-export default function Modulo({socio,token,callbackAdd}){
+export default function Modulo({socio,callbackAdd}){
     const [deudaSocio,setDeudaSocio]=useState()
     useEffect(()=>{
-        const consulta=async ()=>{
-            const deuda=await Fetch(`/api/socios_deuda/${socio.id}?pendientes=true`,null,null,token)
-        setDeudaSocio(deuda)
-        }
-        consulta()
-    },[socio])
+        // const consulta=async ()=>{
+        //     const deuda=await Fetch(`/api/socios_deuda/${socio.id}?pendientes=true`,null,null,token)
+        // setDeudaSocio(deuda)
+        // }
+        // consulta()
+    },[])
 
 if(!deudaSocio)return "cargando deuda"
 const clickMenu=(deuda)=>{

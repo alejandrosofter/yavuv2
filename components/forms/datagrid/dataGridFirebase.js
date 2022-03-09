@@ -50,7 +50,7 @@ export default function DataGridFirebase({coleccion,titulo,subTitulo,icono,pageS
          }
         )
          setColumnas(aux)
-       },[acciones,columns,router])
+       },[acciones,columns,router,mod])
        const [filtro,setFiltro]=useState( {limit:limit,orderBy:orderBy,startAt:null,endAt:null,listen:true})
      
     const { data:datos, update, error } = useCollection(coleccionDb, filtro)
