@@ -7,25 +7,26 @@ import SelectFecha from "../forms/selectorFecha";
 import SelectEstaticFormik from "../forms/selectEstaticFormik";
 import SelectFormik from "../forms/select";
 import TitulosFormularios from "../forms/tituloFormularios";
-import useSWR from 'swr';
-import { getIndexItemArray } from "../../helpers/arrays";
+import { useCollection,fuego } from '@nandorojo/swr-firestore'
 
 import ItemsModulo from "../forms/itemsModulo";
 import {ModeloItems,valoresInicialesItems} from "../../modelos/ModeloPromociones"
 import FormItem from "./_formItem"
 export default function FormPromocionesGenerales({setFieldValue,errors,values,titulo,subTitulo,icono})
 {
-    const {data:modsDeuda}= useSWR(`/api/mod/getModGeneraDeuda`)
-console.log(errors)
+    const {data:modsDeuda}= useCollection(`mods`,
+    { where:[
+        ["generaDeuda","==",true],
+        ["idUsuario","==",fuego.auth().currentUser.uid],
+    ]})
     if(!modsDeuda)return "carga mods"
 
         
       
     
     return(
-        <Stack>
-             <TitulosFormularios titulo={titulo} subTitulo={subTitulo} icono={icono}/>
-            <Grid sx={{pt:1,mb:2}} md={12} container rowSpacing={2} spacing={2}>
+             
+            <Grid sx={{pt:1,mb:2}} container rowSpacing={2} spacing={2}>
             <Grid item md={5}><Input label="Nombre Promo"  campo="nombrePromocion"/></Grid>
                         
                         <Grid item md={2}><SelectEstaticFormik items={["ACTIVO","INACTIVO"]}  label="ESTADO" campo="estado"/></Grid>
@@ -55,6 +56,5 @@ console.log(errors)
                       
                        
             </Grid>
-        </Stack>
     )
 } 

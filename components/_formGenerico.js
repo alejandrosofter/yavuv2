@@ -1,8 +1,8 @@
 import { LoadingButton } from '@mui/lab';
 import { Alert, Grid } from '@mui/material';
-import { Form, Formik } from 'formik';
+import { Form, Formik,Field } from 'formik';
 import { useRouter } from 'next/router'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import React from 'react';
 import ErrorsForm from "../components/forms/errorForms"
 import {esVacio} from "../helpers/objectos"
@@ -42,7 +42,6 @@ export default function _FormGenerico({callbackSuccess,fnUpdate,datos,valoresIni
      >
         
          {({handleSubmit,values,errors,setFieldValue,validateForm})=>{
-// console.log(errors)
            return ( 
             <Grid sx={{my:0}} md={12} item xs={9}> 
             <Form onSubmit={handleSubmit} >
@@ -51,6 +50,7 @@ export default function _FormGenerico({callbackSuccess,fnUpdate,datos,valoresIni
       children,
       {values: values,errors,setFieldValue:setFieldValue,mod:mod}
     )}
+  
 <ErrorsForm errors={errors}/>
                     <LoadingButton disabled={!esVacio(errors)} sx={{mt:3}} loading={load} color="primary" variant="contained" fullWidth type="submit">
                         ACEPTAR

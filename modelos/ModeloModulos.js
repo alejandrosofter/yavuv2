@@ -31,6 +31,7 @@ export function valoresIniciales(){
       nombre: "",
       detalle: "",
       icono: "",
+      destinoDeuda:"",
       acciones: [],
   }
 }

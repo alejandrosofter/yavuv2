@@ -9,15 +9,15 @@ import Dialogo from '../dialogo';
 import DialogContenido from '../dialogContenido';
 import Fetcher from "../../../helpers/Fetcher"
 import {cantidadColeccion,getPrimeroPagina} from "../../../config/db"
-import { useCollection,fuego } from '@nandorojo/swr-firestore'
+import { useCollection,deleteDocument } from '@nandorojo/swr-firestore'
 
 import FormBuscador from '../inputBuscador';
 import TitulosFormularios from '../tituloFormularios';
-export default function DataGridFirebase({titulo,subTitulo,icono,pageSize,orderBy,limit,columns,acciones,mod}) {
-  const coleccion=mod.coleccion?mod.coleccion:""
+export default function DataGridFirebase({coleccion,titulo,subTitulo,icono,pageSize,orderBy,limit,columns,acciones,mod}) {
+  const coleccionDb=coleccion?coleccion:mod.coleccion
 
   useEffect(() => {
-        const clickMenu=({accion,modulo,params})=>{
+        const clickMenu=({accion,mod,params})=>{
           setData(params.row)
           setAcccionSeleccion(accion)
           if(accion.esFuncion){
@@ -32,7 +32,7 @@ export default function DataGridFirebase({titulo,subTitulo,icono,pageSize,orderB
         arr.push(<GridActionsCellItem
           icon={<Icon sx={{color:accion.color}} fontSize="10" className={accion.icono}/>}
           label={<Typography color={accion.color} >{accion.label}</Typography>}
-          onClick={clickMenu.bind(this, {accion,modulo:mod,params})}
+          onClick={clickMenu.bind(this, {accion,mod,params})}
           showInMenu
           />)
     })
@@ -51,9 +51,9 @@ export default function DataGridFirebase({titulo,subTitulo,icono,pageSize,orderB
         )
          setColumnas(aux)
        },[acciones,columns,router])
-       const [filtro,setFiltro]=useState( {limit:limit,orderBy:orderBy,startAt:null,endAt:null})
+       const [filtro,setFiltro]=useState( {limit:limit,orderBy:orderBy,startAt:null,endAt:null,listen:true})
      
-    const { data:datos, update, error } = useCollection(coleccion, filtro)
+    const { data:datos, update, error } = useCollection(coleccionDb, filtro)
     const router= useRouter()
     const [rowsState, setRowsState] = useState({
     page: 0,
@@ -62,8 +62,8 @@ export default function DataGridFirebase({titulo,subTitulo,icono,pageSize,orderB
   })
   useEffect(() => {
     const busca=async ()=>{
-      const cant=await cantidadColeccion({coleccion})
-      setCantidadPaginas(Math.floor(cant/limit))
+      // const cant=await cantidadColeccion({coleccion})
+      // setCantidadPaginas(Math.floor(cant/limit))
     }
     busca()
 
@@ -76,17 +76,20 @@ export default function DataGridFirebase({titulo,subTitulo,icono,pageSize,orderB
   const [rtaServer, setRtaServer] = useState("");
   const [openRta, setOpenRta] = useState(false);
   const [dialog, setdialog] = useState(false);
-  const [accionSeleccion, setAcccionSeleccion] = useState();
-  const [data, setData] = useState();
+  const [accionSeleccion, setAcccionSeleccion] = useState(null);
+  const [data, setData] = useState(null);
   const [cantidadPaginas, setCantidadPaginas] = useState(10);
   const [pagina, setPagina] = useState(0);
   
+  //FUNCIONES CALL DESDE INTERFAZ con EVAL
+  const quitar=async (id)=>{
+    deleteDocument(`${mod.coleccion}/${id}`)
+  }
+  //********************************/
   const clickAceptaMenu=async e=>{
-    const url=eval("`"+accionSeleccion.url+"`")
-    console.log(url)
-    const method=accionSeleccion.method?accionSeleccion.method:"POST"
+    const res=eval(accionSeleccion.method)
 
-    const res= await Fetcher(url,method,data,token)
+    
    
     if(res){
         setRtaServer(JSON.stringify(res))
@@ -110,16 +113,7 @@ export default function DataGridFirebase({titulo,subTitulo,icono,pageSize,orderB
 console.log(filtro)
  }
   
- function valuetext(value) {
-  return `Pagina ${value}`;
-}
-const cambiaPagina = (event, newValue) => {
-  if(newValue){
-    setPagina(newValue)
-    actualizaRegistros(newValue)
-  }
-  
-};
+
 const actualizaRegistros=async (pagina)=>{
   const primero=await getPrimeroPagina({coleccion,filtro,pagina})
   let aux={limit:limit,orderBy:orderBy,startAt:  tx,endAt:tx+'\uf8ff'}
@@ -138,6 +132,8 @@ const marks = [
 ];
 if(error)return "error consulta datos"
 if(!mod)return "Cargando mod..."
+if(!datos)return "cargando..."
+console.log(datos)
   return (
     <div style={{ height: screen.height-100, width: '100%' }}>
       <Stack direction="row"> 

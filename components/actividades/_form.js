@@ -25,7 +25,7 @@ const fnRender=(row)=>{
    
     return salida
 }
-export default function FormActividad({titulo,subTitulo,icono,mod,setFieldValue,values}){
+export default function FormActividad({mod,setFieldValue,values}){
     const { data:profesores } = useCollection(`profesores`)
     if(!profesores)return "Buscando profesores..."
     return(

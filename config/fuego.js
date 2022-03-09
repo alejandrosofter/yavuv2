@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-
+import 'firebase/storage';
 export default class Fuego {
   constructor(config) {
    

@@ -59,7 +59,7 @@ export default function ItemsModulo({fnCambia,dataExtra,fnAddData,fullWidth,icon
   }, [columnas,data])
   useEffect(()=>{
     console.log(data)
-    if(data.length===0){
+    if(data?.length===0){
       setFieldValue(campo,[])
       console.log("no existe, se setea []")
     }

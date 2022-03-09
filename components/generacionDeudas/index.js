@@ -58,11 +58,21 @@ const columns=[
     width: 90,
     renderCell: (params) =>params.value?params.value.idDeudas?params.value.idDeudas.length:0:0
   },    
+  
   {
     field: 'cantidadTotal',
-    headerName: 'Alcanzados...',
-    width: 120,
-    renderCell: (params) =>`${params.row.cantidadAlcanzada?params.row.cantidadAlcanzada:0}/${params.value?params.value:0}`
+    headerName: 'Deudas',
+    width: 100,
+ },   
+ {
+  field: 'totalProcesados',
+  headerName: 'Cant.',
+  width: 80,
+},   
+  {
+    field: 'porcentajeProcesado',
+    headerName: '%',
+    width: 80,
   },    
 
          
@@ -74,7 +84,7 @@ const columns=[
 ]
       return (
         <DataGridFirebase coleccion={mod.coleccion} titulo={mod.label} subTitulo="del club" icono="fas fa-funnel-dollar"
-        limit={10} mod={mod} acciones={mod.acciones} orderBy="nombreActividad"
+        limit={10} mod={mod} acciones={mod.acciones} orderBy="fecha"
        columns={columns} />
       )
 

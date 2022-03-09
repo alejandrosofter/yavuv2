@@ -11,7 +11,7 @@ const { data, update, error } = useCollection("mods",{
     })
    
     if(!data)return "Buscando..."
-console.log(data)
+
     return(
         
         <List component="div" disablePadding>

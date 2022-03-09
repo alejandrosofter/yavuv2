@@ -1,8 +1,7 @@
 import * as yup from 'yup';
-
+import { fuego } from '@nandorojo/swr-firestore'
 export default function ModeloGeneracionDeuda(){
     return yup.object().shape({
-        concepto: yup.string().required(),
         detalle: yup.string(),
         createdOn: yup.date().default(function () {
             return new Date();
@@ -44,6 +43,14 @@ export function valoresIniciales(){
         fechaVto: {seconds:new Date().getTime()/1000,nanoseconds:0},
         detalle: "",
         concepto: "",
-        estado:"PENDIENTE"
+        estado:"PENDIENTE",
+        conjunto:"",
+        calculoImporte:"",
+        idUsuario:fuego.auth().currentUser.uid,
+        conjunto:"",
+        fnDetalleExtra:"",
+        fnLabelElemento:"",
+
+
     }
 }

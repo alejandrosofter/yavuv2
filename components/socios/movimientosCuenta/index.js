@@ -1,28 +1,22 @@
-import { useCallback } from "react";
+import { useState,useCallback } from "react";
 
 import moment from 'moment';
 import { GridActionsCellItem } from '@mui/x-data-grid';
-
-import { Icon } from '@mui/material';
-
-import {formatMoney} from "../../../helpers/numbers"
-import { useRouter } from "next/router";
-import DataGridServer from "../../forms/datagrid/dataGridServer";
-
-export default function MovimientosCuentaSocio({mod,modulo,data,token})
+import { ModeloCambioEstado,valoresInicialesCambioEstado } from "../../../modelos/ModeloSocios";
+import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
+import SubColeccionColeccion from "../../forms/subColeccion/";
+import ImpresionDialog from "../../forms/impresion"
+import ImpresionCambiosEstadoSocio from "./impresion"
+import {getFechaString} from "../../../helpers/dates"
+import { formatMoney } from "../../../helpers/numbers";
+export default function CuentaSocio({data,mod})
 {
-    const url=`/api/socios_deuda/${data.id}`
-  const router=useRouter();
-const acciones=[{
-    "icono": "fas fa-trash",
-    "label": "Quitar",
-    "esFuncion": true,
-    "method":"DELETE",
-    "url": url+ '?id=${data.id}',
-    "esRegistro": true,
-    "color": "red"
-}]
-  
+    const campo="movimientosCuenta"
+    const labelCampo="CUENTA SOCIO"
+    const icono="fas fa-file-invoice-dollar"
+    const pathFormulario="socios/movimientosCuenta/_formMovimientoCuenta"
+    const [datosClick,setDatosClick]=useState()
+    const [openImpresion,setOpenImpresion]=useState()
     const accionesExtra=(params)=>{
 
       return(
@@ -39,83 +33,78 @@ const acciones=[{
       )
     }
      
-
     
-    const fnRender=(row)=>{
-      let sal=""
-      if(row.itemsTipos)
-        row.itemsTipos.map(item=>{
-          if(item.label_tipo) sal+=`${item.label_tipo} (${formatMoney(item.importe)})`
-        
-      })
-      if(sal=="")return "-"
-      return sal
-    }
-    const renderImporte=(row)=>{
-      let total=0
-      if(row.itemsTipos)
-      row.itemsTipos.map(item=>{
-        if(item.importe)total+=Number(item.importe)
-        
-      })
-      return formatMoney(total)
-    }
+
     const clickImprimir = useCallback(
       (data) => () => {
         setDatosClick(data)
         setOpenImpresion(new Date().getTime()) //uso esto para que cambie valor y abra el dialog.. si no cambia no abre
+      
       },
       [],
     )
      
     const cols = [
        
-
-          {
-            field: 'fechaVto',
-            headerName: 'Vto.',
-            width: 90,
-            type: 'date',
-            valueGetter: (params) =>moment(new Date(params.value.seconds * 1000)).format('DD/MM/YY')
-          },
-          {
-            field: 'label_concepto',
-            headerName: 'Concepto',
-            width: 230,
-            renderCell:(params) =>params.value
-          },
-          {
-            field: 'estado',
-            headerName: 'Estado',
-            width: 90,
-            // renderCell:(params) =>renderCellExpandData(params,fnRender) 
-          },
-          {
-            field: 'importe',
-            headerName: '$ Importe',
-            width: 90,
-            renderCell: (params) =>formatMoney(params.value)
-          },
-          {
-            field: 'importeBonificacion',
-            headerName: '$ BONIF.',
-            width: 90,
-            renderCell: (params) =>formatMoney(params.value?params.value:0)
-          },
-          {
-            field: 'total',
-            headerName: '$ TOTAL',
-            width: 90,
-            renderCell: (params) =>{
-                const importe=(params.row.importe?params.row.importe:0)-(params.row.importeBonificacion?params.row.importeBonificacion:0)
-                return formatMoney(importe)
-            }
-          },
-    ]
+      {
+        field: 'fecha',
+        headerName: 'fecha',
+        width: 90,
+        type: 'date',
+        valueGetter: (params) =>getFechaString(params.value)
+      },
+      {
+        field: 'fechaVto',
+        headerName: 'Vto.',
+        width: 90,
+        type: 'date',
+        valueGetter: (params) =>getFechaString(params.value)
+      },
+      {
+        field: 'detalleExtra',
+        headerName: 'Detalle',
+        width: 200,
+        renderCell:(params) =>params.value
+      },
+     
+      {
+        field: 'importe',
+        headerName: '$ Importe',
+        width: 90,
+        renderCell: (params) =>formatMoney(params.value)
+      },
+      {
+        field: 'importeBonificacion',
+        headerName: '$ BONIF.',
+        width: 90,
+        renderCell: (params) =>formatMoney(params.value?params.value:0)
+      },
+      {
+        field: 'total',
+        headerName: '$ TOTAL',
+        width: 90,
+        renderCell: (params) =>{
+            const importe=(params.row.importe?params.row.importe:0)-(params.row.importeBonificacion?params.row.importeBonificacion:0)
+            return formatMoney(importe)
+        }
+      },
+      {
+        field: 'estado',
+        headerName: 'Estado',
+        width: 90
+      },
+]
     return(
       <div>
-          <DataGridServer url={url} modulo={modulo} acciones={acciones} token={token} columns={cols}/>
-        </div>
+        <SubColeccionColeccion sortModel={[{ field: 'fecha',  sort: 'desc', }]} 
+          accionesExtra={accionesExtra} 
+          coleccion={mod.coleccion}   titulo={labelCampo}
+        pathFormulario={pathFormulario} columns={cols} 
+        modelo={ModeloCambioEstado} valoresIniciales={valoresInicialesCambioEstado}
+        registro={data} campo={campo} icono={icono}/>
+        <ImpresionDialog titulo="IMPRESION DE ESTADO" abrir={openImpresion}
+        datos={datosClick} ComponenteItem={ImpresionCambiosEstadoSocio} />
+     </div>
     )
                   
 }

@@ -21,20 +21,18 @@ export default function FormMovimientoCuentaSocio({mod})
     return(
         <Grid  md={12} container rowSpacing={2} spacing={2}>
                
-                        <Grid item md={2}><SelectFecha label="Fecha " campo="fecha"/></Grid>
-                        <Grid item md={5}><SelectStaticFormik label="Estado " campo="estado" items={["PENDIENTE","CANCELADO"]}/></Grid>
-                        
-                        <Grid item md={12}>
-                            <DataGridFormikItems mod={mod} label="Tipo Items" Modelo={ModeloItemMovimientoCuenta} 
-                            FormularioItem={FormItemMovimientoCuenta}  campo="itemsTipos" columns={[
-                                { field: 'label_tipo', headerName: 'Tipo',width: 250,  editable: true },
-                                { field: 'detalle', headerName: 'Detalle',width: 200,  editable: true },
-                                
-                                { field: 'importe', headerName: '$ Importe',width: 80,renderCell: (params) =>formatMoney(params.value),  editable: true },
-                            ]}/>
-                        </Grid>
-                        <Grid item md={12}><Input label="Detalle "  campo="detalle"/></Grid>
+               <Grid item md={4}><SelectFecha label="Fecha" campo="fecha"/></Grid>
+               <Grid item md={4}><SelectFecha label="Vto" campo="fechaVyo"/></Grid>
+                <Grid item md={4}><SelectStaticFormik label="Estado " campo="estado" items={["PENDIENTE","CANCELADO"]}/></Grid>
+                
+                <Grid item md={5}><Input label="Importe"  campo="importe"/></Grid>
+                <Grid item md={5}><Input label="Importe Bon."  campo="importeBonificado"/></Grid>
 
+                <Grid item md={12}><Input label="Detalle Bon."  campo="detalleBonificado"/></Grid>
+                <Grid item md={12}><Input label="Detalle" campo="detalleExtra"/></Grid>
+                <Grid item md={12}><Input label="Extra"  campo="detalle"/></Grid>
+                
+ 
                         
         </Grid>
     )

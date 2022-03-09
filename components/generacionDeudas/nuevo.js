@@ -1,23 +1,14 @@
 import Modelo,{valoresIniciales} from "../../modelos/ModeloGeneracionDeuda"
 
-import { CircularProgress, Grid, MenuItem, Tab } from "@mui/material"
-import { useState } from "react"
-import { useRouter } from "next/router"
-import useSWR from "swr"
 import NuevoGenerico from "../NuevoGenerico"
-
-import TitulosFormularios from "../forms/tituloFormularios"
 import FormGeneracionDeudas from "./_form"
 
-export default function Modulo({modulo,mod,token,dataUsuario}) {
-    const router=useRouter();
-    const urlAcepta=`/api/generacionDeudas/`
+export default function Modulo({mod}) {
     
       return (
-      <NuevoGenerico token={token} urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} 
-      modelo={Modelo}  dataUsuario={dataUsuario} >
+      <NuevoGenerico  valoresIniciales={valoresIniciales} mod={mod} modelo={Modelo}  >
          
-            <FormGeneracionDeudas token={token} titulo="NUEVA" subTitulo="Generacion de deuda" icono="fas fa-plus" />
+            <FormGeneracionDeudas titulo="NUEVA" subTitulo="Generacion de deuda" icono="fas fa-plus" />
        
       </NuevoGenerico>
       )

@@ -9,7 +9,8 @@ import SelectFecha from "../forms/selectorFecha";
 import SelectEstaticFormik from "../forms/selectEstaticFormik";
 import SelectFormik from "../forms/select";
 import TitulosFormularios from "../forms/tituloFormularios";
-
+import ImageFormik from "../forms/imageFormik";
+import { fuego } from '@nandorojo/swr-firestore'
 
 export default function FormSocios({setFieldValue,values,mod})
 {
@@ -28,7 +29,7 @@ setFieldValue("nroSocio",seleccion.proximoNro)
 }
     return(
        
-            <Grid sx={{pt:1,mb:2}} md={12} container rowSpacing={2} spacing={2}>
+            <Grid sx={{pt:1,mb:2}} container rowSpacing={2} spacing={2}>
                         <Grid item md={2}><SelectFormik callbackchange={cambiaTipoSocio} lista={tipoSocios} campoId="id" campoLabel={"nombre"} label="Tipo Socio " campo="tipoSocio"/></Grid>
                       
                         <Grid item md={1}><Input  label="Nro Socio" campo="nroSocio"/></Grid>
@@ -48,6 +49,7 @@ setFieldValue("nroSocio",seleccion.proximoNro)
                         <Grid item md={2}><SelectEstaticFormik items={["Soltero/a","Casado/a","Otros"]}  label="Estado Civil" campo="estadoCivil" /></Grid>
                         <Grid item md={2}><SelectEstaticFormik items={["Femenino","Masculino"]}  label="Sexo" campo="sexo" /></Grid>
                         <Grid item md={5}><SelectAlgoliaFormik coleccionAlgolia="clientes" label="Cliente" campo="cliente"/></Grid>
+                        <Grid item md={2}><ImageFormik folder={`users/${fuego.auth().currentUser?.uid}/socios`} label="Foto "  campo="foto"/></Grid>
             </Grid>
  
     )

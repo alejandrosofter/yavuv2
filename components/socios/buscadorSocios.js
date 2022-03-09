@@ -10,6 +10,7 @@ import BuscadorSociosInput from './_buscador';
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { useDocument } from '@nandorojo/swr-firestore';
+import MuestraImagen from '../forms/muestraImagen';
 
 export default function BuscadorSocios({mod,modulo,auth}) {
   const router=useRouter();
@@ -19,6 +20,7 @@ const editarSocio=(e)=>{
   const [socioSeleccion, setSocioSeleccion] = React.useState(JSON.parse(localStorage.getItem("socioSeleccion")));
   
   const { data:dataSocio } = useDocument(`socios/${socioSeleccion.objectID}`)
+
   useEffect(() => {
    
     localStorage.setItem("socioSeleccion",JSON.stringify(socioSeleccion))
@@ -38,7 +40,7 @@ if(!dataSocio){
               <Stack direction="row" spacing={2}>
                 <Badge color="secondary" badgeContent={dataSocio.estado==="ALTA"?0:dataSocio.estado} >
                     <Stack direction="row" sx={{pl:0}}  justifyContent="center" alignItems="center" spacing={2}>
-                      <Icon className="fas fa-user-circle" />
+                      <MuestraImagen w={70} h={70} pathImagen={dataSocio.foto}/>
                       <Typography sx={{fontWeight:"bold"}} variant="h3">{dataSocio.apellido}</Typography>
                       <Typography variant="h4">{dataSocio.nombre}</Typography>
                     

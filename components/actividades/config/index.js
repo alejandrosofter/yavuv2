@@ -6,28 +6,22 @@ import FormSubitemColeccion from "../../forms/editarSubitemColeccion";
 
 import { useRouter } from "next/router";
 import DataGridFormikItems from "../../forms/dataGridFormik";
-import FormItem from "./_formItems"
+import FormItem from "./_form"
 import {ModeloConfig,ModeloTipoConfig, ModeloTipoSocios} from "../../../modelos/ModeloSocios"
 import TabsFormik,{TabPanel} from "../../forms/tab";
 import TitulosFormularios from "../../forms/tituloFormularios";
-export default function ConfigActividadad({modulo,token,dataUsuario,idUsuario,auth,dataCuenta}){
-    const router=useRouter();
-    const url=`/api/mod/${router.query.id}`
-    const urlAcepta=`/api/mod/abmItem?subColeccion=config`
-    const subItem="config"
+export default function ConfigActividadad({mod}){
+    const campo="config"
+    const coleccion="mods"
+    const datos=mod[campo]?mod[campo]:{}
 
-    const { data:datos, mutate,isValidating } = useSWR(url)
-     const callbackSuccess=e=>{
-  
-     }
      const valoresIniciales=()=>{
          return {nombre:"",tipo:""}
      }
-     const getDatosSubItem=()=>{
-         if(datos[subItem])return datos[subItem]
-         return {}
+     const callbackSuccess=()=>{
+         
      }
-    if(!datos)return `Cargando ${url}... `
+
     
     return(
         <Grid container>
@@ -35,9 +29,10 @@ export default function ConfigActividadad({modulo,token,dataUsuario,idUsuario,au
                 <Typography variant="h4" component="div" gutterBottom>
                     <TitulosFormularios titulo="CONFIGURACION" subTitulo="de actividades" icono="fas fa-wrench"/>
                 </Typography>
-                <FormSubitemColeccion registro={datos} datos={getDatosSubItem()} urlAcepta={urlAcepta} callbackSuccess={callbackSuccess} 
-                token={token} modulo={modulo} valoresIniciales={valoresIniciales} dataUsuario={dataUsuario} 
-                auth={auth} idUsuario={idUsuario} dataCuenta={dataCuenta} >
+                <FormSubitemColeccion registro={mod} mod={mod} coleccion={coleccion} 
+                campo={campo} datos={datos} 
+                callbackSuccess={callbackSuccess} 
+                valoresIniciales={valoresIniciales}  >
                 <TabsFormik label="Configs" 
                     vistas={[
                         {label:"Conceptos",nro:0,vista:
