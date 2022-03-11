@@ -1,9 +1,3 @@
-import moment from 'moment';
-import Stack from '@mui/material/Stack';
-import { Grid } from "@mui/material";
-import TitulosFormularios from '../forms/tituloFormularios';
-import DataGridServer from '../forms/datagrid/dataGridServer';
-import {formatMoney} from "../../helpers/numbers"
 import DataGridFirebase from '../forms/datagrid/dataGridFirebase';
 export default function Modulo({mod}) {
 

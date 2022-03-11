@@ -6,6 +6,15 @@ export function getLabelColeccion({data,valor,campoId,campoLabel})
 
 
 }
+export function getItemObject({data,keyBusca})
+{
+    for(const key in data)
+      
+        if(key===keyBusca)return data[key]
+    
+        
+    return null
+}
 export function getItemArray({data,valor,campoId})
 {
     if(data){

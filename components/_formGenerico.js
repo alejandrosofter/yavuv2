@@ -6,11 +6,11 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import ErrorsForm from "../components/forms/errorForms"
 import {esVacio} from "../helpers/objectos"
+
 export default function _FormGenerico({callbackSuccess,fnUpdate,datos,valoresIniciales,modelo,children,mod}) {
 
   const router=useRouter();
   const [load,setLoad]=useState();
-
   const clickForm=async (values)=>{
     setLoad(true)
     if(fnUpdate)fnUpdate(values).then(() => {
@@ -42,10 +42,11 @@ export default function _FormGenerico({callbackSuccess,fnUpdate,datos,valoresIni
      >
         
          {({handleSubmit,values,errors,setFieldValue,validateForm})=>{
+          
+          //  setFieldValue("idUsaurio",fuego.auth().currentUser.uid)
            return ( 
             <Grid sx={{my:0}} md={12} item xs={9}> 
             <Form onSubmit={handleSubmit} >
-             
                 {React.cloneElement(
       children,
       {values: values,errors,setFieldValue:setFieldValue,mod:mod}

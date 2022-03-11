@@ -88,7 +88,7 @@ const columns=[
  
 ]
       return (
-        <DataGridFirebase coleccion={mod.coleccion} titulo={mod.label} subTitulo="BINANCE" icono="fas fa-dollar"
+        <DataGridFirebase allUsers={true} coleccion={mod.coleccion} titulo={mod.label} subTitulo="BINANCE" icono="fas fa-dollar"
         limit={20} mod={mod} acciones={mod.acciones} orderBy={['fecha', 'desc']}
        columns={columns} />
       )

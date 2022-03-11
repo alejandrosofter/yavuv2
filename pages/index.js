@@ -1,11 +1,10 @@
-import { useCollection } from "@nandorojo/swr-firestore";
+import { withAuthUserTokenSSR } from 'next-firebase-auth'
 import Controlador from "../components/Controlador";
-import getModModulo from "../helpers/mods"
-export default function Modulo({auth}){
-const mod=getModModulo({auth,esInicial:true})
-    if(!mod)return "Cargando mod.."
-        return(
-            <Controlador url={`${mod.nombre}`} mod={mod} />
-        )
+
+
+export default function Page(){
+        return( <Controlador  esInicial={true}/> )
 
 }
+
+export const getServerSideProps = withAuthUserTokenSSR()()

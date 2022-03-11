@@ -1,10 +1,6 @@
 import initAuth from '../config/initAuth' // the module you created above
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import {
-  withAuthUser,
-  useAuthUser,
-  withAuthUserTokenSSR,
-} from 'next-firebase-auth'
+
 import 'firebase/firestore'
 import 'firebase/auth'
 import config from "../config/_firestoreConfig"
@@ -54,9 +50,9 @@ const theme = createTheme({
 });
 initAuth()
 
-const App=({ Component, pageProps }) =>{
+export default function app({ Component, pageProps }) {
   const fuego = new Fuego(config())
-  const auth=useAuthUser()
+
   return (
     <ErrorBoundary 
     FallbackComponent={SnackbarFirebase}
@@ -66,14 +62,10 @@ const App=({ Component, pageProps }) =>{
     }}
  >
         <FuegoProvider fuego={fuego}>
-          <ThemeProvider theme={theme}> <Component {...pageProps} auth={auth} /> </ThemeProvider>
+          <ThemeProvider theme={theme}> <Component {...pageProps} /> </ThemeProvider>
         </FuegoProvider>
     </ErrorBoundary>
 
 
   )
 }
-
-export const getServerSideProps = withAuthUserTokenSSR()()
-
-export default withAuthUser()(App)

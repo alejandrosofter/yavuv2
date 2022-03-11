@@ -21,7 +21,7 @@ const columns=[
   
 ]
       return (
-        <DataGridFirebase coleccion={mod.coleccion} titulo={mod.label} subTitulo="generales" icono={mod.icono}
+        <DataGridFirebase allUsers={true} coleccion={mod.coleccion} titulo={mod.label} subTitulo="generales" icono={mod.icono}
         limit={10} mod={mod} acciones={mod.acciones} orderBy="nombre"
        columns={columns} />
       )

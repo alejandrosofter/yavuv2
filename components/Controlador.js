@@ -1,11 +1,29 @@
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router';
 import Layout from './layout'
 import EditarMod from './mod/editar';
-
-export default function Controlador({url,mod,esEdicion}){
+import getModModulo, { getModuloMod } from "../helpers/mods"
+import {
+  withAuthUser,
+  useAuthUser,
+  AuthAction,
+} from 'next-firebase-auth'
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { updateField } from '../config/db';
+const Controlador=({esInicial,url,moduloEditar})=>{
+  const auth = useAuthUser()
+  const router =useRouter()
+  const esEdicion=router.query.componente==="editar" && moduloEditar===true
+  console.log(moduloEditar)
+  const mod=esInicial?getModModulo({auth,esInicial:true}):getModuloMod({id:router.query.id})
+  useEffect(()=>{
+    updateField({coleccion:"mods",id:router.query.id,registro:{fechaClick:new Date()}})
+ 
+  },[router.query.id])
+  if(!mod)return "Cargando mod.."
+  const stringUrl=esInicial?"dashboard":eval(url)
   let Componente
-  if(url.includes("undefined")){
+  if(stringUrl.includes("undefined")){
     return (
     <Layout mod={mod}> 
          <div>Cargando Componente .. aguarde por favor</div>
@@ -14,7 +32,7 @@ export default function Controlador({url,mod,esEdicion}){
   }
   if(esEdicion)Componente= EditarMod //<---- ES EDICION DE MOD
     else Componente = dynamic(
-        () => import(`./${url}`),
+        () => import(`./${stringUrl}`),
         { loading: ({error,timedOut,isLoading}) => {
           if(isLoading)return "Cargando componente"
           
@@ -25,10 +43,21 @@ export default function Controlador({url,mod,esEdicion}){
       )
 
     return(
-              <Layout mod={mod}> 
-                  {mod && <Componente mod={mod}/>  }
+              <Layout auth={auth} mod={mod}> 
+                  {mod && <Componente auth={auth}  mod={mod}/>  }
               </Layout>
     )
    
 
 }
+
+
+export default withAuthUser(
+ {
+  // whenAuthed: AuthAction.REDIRECT_TO_APP,
+  // whenAuthedBeforeRedirect:AuthAction.REDIRECT_TO_APP,
+  // whenUnauthedBeforeInit: AuthAction.REDIRECT_TO_LOGIN,
+  whenUnauthedAfterInit: AuthAction.REDIRECT_TO_LOGIN,
+  // authPageURL: '/auth',
+ }
+)(Controlador)

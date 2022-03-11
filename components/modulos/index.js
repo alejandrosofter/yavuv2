@@ -24,7 +24,7 @@ export default function Modulo({mod}) {
           ]
 
       return (
-            <Dgrid titulo="MODULOS" subTitulo="generales" icono="fas fa-cube" 
+            <Dgrid allUsers={true}  titulo="MODULOS" subTitulo="generales" icono="fas fa-cube" 
             limit={50} mod={mod} acciones={mod.acciones} orderBy="label"
             columns={columns} coleccion={"modulos"}/>
       

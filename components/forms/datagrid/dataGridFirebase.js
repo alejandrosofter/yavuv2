@@ -9,13 +9,42 @@ import Dialogo from '../dialogo';
 import DialogContenido from '../dialogContenido';
 import Fetcher from "../../../helpers/Fetcher"
 import {cantidadColeccion,getPrimeroPagina} from "../../../config/db"
-import { useCollection,deleteDocument } from '@nandorojo/swr-firestore'
+import { useCollection,deleteDocument,fuego } from '@nandorojo/swr-firestore'
 
 import FormBuscador from '../inputBuscador';
 import TitulosFormularios from '../tituloFormularios';
-export default function DataGridFirebase({coleccion,titulo,subTitulo,icono,pageSize,orderBy,limit,columns,acciones,mod}) {
+export default function DataGridFirebase({allUsers,coleccion,titulo,subTitulo,icono,pageSize,orderBy,limit,columns,acciones,mod}) {
   const coleccionDb=coleccion?coleccion:mod.coleccion
+  const { data:datos, update, error } = useCollection(mod.coleccion, filtro)
+    const router= useRouter()
+    const [rowsState, setRowsState] = useState({
+    page: 0,
+    pageSize: pageSize?pageSize:5,
+    loading: false,
+  })
+  const pagesNextCursor = React.useRef({});
+  const [columnas,setColumnas]=useState([])
+  const [contadorTotalRegistros,setContadorTotalRegistros]=useState(0)
+  // const [rows, setRows] = React.useState([]);
+  
+  const [rtaServer, setRtaServer] = useState("");
+  const [openRta, setOpenRta] = useState(false);
+  const [dialog, setdialog] = useState(false);
+  const [accionSeleccion, setAcccionSeleccion] = useState(null);
+  const [data, setData] = useState(null);
+  const [cantidadPaginas, setCantidadPaginas] = useState(10);
+  const [pagina, setPagina] = useState(0)
+  const [filtro,setFiltro]=useState( {where:allUsers?[]:["idUsuario","==",fuego.auth().currentUser.uid],limit:limit,orderBy:orderBy,startAt:null,endAt:null,listen:true})
 
+
+useEffect(() => {
+  const busca=async ()=>{
+    // const cant=await cantidadColeccion({coleccion})
+    // setCantidadPaginas(Math.floor(cant/limit))
+  }
+  busca()
+
+},[])
   useEffect(() => {
         const clickMenu=({accion,mod,params})=>{
           setData(params.row)
@@ -51,35 +80,11 @@ export default function DataGridFirebase({coleccion,titulo,subTitulo,icono,pageS
         )
          setColumnas(aux)
        },[acciones,columns,router,mod])
-       const [filtro,setFiltro]=useState( {limit:limit,orderBy:orderBy,startAt:null,endAt:null,listen:true})
-     
-    const { data:datos, update, error } = useCollection(coleccionDb, filtro)
-    const router= useRouter()
-    const [rowsState, setRowsState] = useState({
-    page: 0,
-    pageSize: pageSize?pageSize:5,
-    loading: false,
-  })
-  useEffect(() => {
-    const busca=async ()=>{
-      // const cant=await cantidadColeccion({coleccion})
-      // setCantidadPaginas(Math.floor(cant/limit))
-    }
-    busca()
 
-  },[])
-  const pagesNextCursor = React.useRef({});
-  const [columnas,setColumnas]=useState([])
-  const [contadorTotalRegistros,setContadorTotalRegistros]=useState(0)
-  // const [rows, setRows] = React.useState([]);
+     
+    
   
-  const [rtaServer, setRtaServer] = useState("");
-  const [openRta, setOpenRta] = useState(false);
-  const [dialog, setdialog] = useState(false);
-  const [accionSeleccion, setAcccionSeleccion] = useState(null);
-  const [data, setData] = useState(null);
-  const [cantidadPaginas, setCantidadPaginas] = useState(10);
-  const [pagina, setPagina] = useState(0);
+  
   
   //FUNCIONES CALL DESDE INTERFAZ con EVAL
   const quitar=async (id)=>{
@@ -130,10 +135,11 @@ const marks = [
     label: 'Ultima',
   },
 ];
-if(error)return "error consulta datos"
+if(!fuego.auth().currentUser)return "Sin login"
+if(error)return `${error}`
 if(!mod)return "Cargando mod..."
 if(!datos)return "cargando..."
-console.log(datos)
+
   return (
     <div style={{ height: screen.height-100, width: '100%' }}>
       <Stack direction="row"> 

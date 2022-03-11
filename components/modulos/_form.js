@@ -24,7 +24,7 @@ export default function _FormModulos({values,setFieldValue}) {
 console.log(values)
   return (
 <TabContext value={tabDatos}>
-<Grid  md={12}  xs={9}> 
+<Grid  xs={9}> 
 
             <TabList onChange={cambiaTab} key="accionesModulo" aria-label="Acciones Modulo">
                 <Tab label="Datos" value="datos" />

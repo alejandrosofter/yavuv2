@@ -26,8 +26,11 @@ import MenuModulos from './menuModulos';
 import ModulosBase from "./modulosBase"
 import MenuModulosInvitado from './menuModulosInvitado';
 import MenuAccionesBarra from './menuAccionesBarra';
-
+import MenuCuenta from './menuCuenta';
+import { useAuthUser } from 'next-firebase-auth'; 
 const drawerWidth = 240;
+
+
 
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -75,14 +78,20 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function Layout({children,mod}) {
+export default function Layout({children,mod,auth}) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   
   const [dialogSalir, setdialogSalir] = useState(false);
   const [openConsultas, setOpenConsultas] = React.useState(true);
   const router= useRouter();
-
+  const accionesCuenta=[
+    {nombre:"Cuenta",label:"Cuenta",icono:"fas fa-user",url:"", color:""},
+    {nombre:"Salir",label:"Salir",icono:"fas fa-sign-out-alt",fn:(auth)=>{
+     
+      auth.signOut()
+    }, color:""},
+  ]
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -101,7 +110,8 @@ router.push(`/mod/${mod.id}/editar`, undefined, { shallow: true })
   return (
     <Box sx={{ display: 'flex' }}>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
-        
+
+
         <Head>
             <title>{mod?mod.label:"YAVU"}</title>
         </Head> 
@@ -141,7 +151,7 @@ router.push(`/mod/${mod.id}/editar`, undefined, { shallow: true })
                 </Stack>
                 </Box>
             </Box>
-            <ModulosBase />
+            <MenuCuenta acciones={accionesCuenta} auth={auth} />
         </Toolbar>
       </AppBar>
       <Drawer

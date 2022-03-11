@@ -35,7 +35,6 @@ const firebaseAuthConfig = {
   ],
   signInSuccessUrl: '/',
   credentialHelper: 'none',
-  defaultCountry: 'GB', //no anda esto.. lo saque de la guia oficial
   callbacks: {
     // https://github.com/firebase/firebaseui-web#signinsuccesswithauthresultauthresult-redirecturl
     signInSuccessWithAuthResult: () =>

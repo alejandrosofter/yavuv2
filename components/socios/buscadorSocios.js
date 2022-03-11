@@ -19,7 +19,7 @@ const editarSocio=(e)=>{
 }
   const [socioSeleccion, setSocioSeleccion] = React.useState(JSON.parse(localStorage.getItem("socioSeleccion")));
   
-  const { data:dataSocio } = useDocument(`socios/${socioSeleccion.objectID}`)
+  const { data:dataSocio } = useDocument(`socios/${socioSeleccion?.objectID}`)
 
   useEffect(() => {
    
