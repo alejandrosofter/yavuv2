@@ -24,7 +24,7 @@ export default function Tabla({data,cols}) {
         <TableBody>
           {data.map((row) => (
             <TableRow
-            key={`fila_${col.label}_${row[col.field]}`}
+            key={`fila_${row.id}`}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
                 {cols.map((col) => (

@@ -15,7 +15,9 @@ import FormBuscador from '../inputBuscador';
 import TitulosFormularios from '../tituloFormularios';
 export default function DataGridFirebase({allUsers,coleccion,titulo,subTitulo,icono,pageSize,orderBy,limit,columns,acciones,mod}) {
   const coleccionDb=coleccion?coleccion:mod.coleccion
-  const { data:datos, update, error } = useCollection(mod.coleccion, filtro)
+  const [filtro,setFiltro]=useState( {where:allUsers?[]:["idUsuario","==",fuego.auth().currentUser?.uid],limit:limit,orderBy:orderBy,startAt:null,endAt:null,listen:true})
+
+  const { data:datos, update, error } = useCollection(coleccionDb, filtro)
     const router= useRouter()
     const [rowsState, setRowsState] = useState({
     page: 0,
@@ -34,8 +36,7 @@ export default function DataGridFirebase({allUsers,coleccion,titulo,subTitulo,ic
   const [data, setData] = useState(null);
   const [cantidadPaginas, setCantidadPaginas] = useState(10);
   const [pagina, setPagina] = useState(0)
-  const [filtro,setFiltro]=useState( {where:allUsers?[]:["idUsuario","==",fuego.auth().currentUser.uid],limit:limit,orderBy:orderBy,startAt:null,endAt:null,listen:true})
-
+ 
 
 useEffect(() => {
   const busca=async ()=>{

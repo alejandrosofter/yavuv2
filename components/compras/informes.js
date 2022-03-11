@@ -6,6 +6,7 @@ import {getItemObject} from "../../helpers/arrays"
 import Filtro from "./_filter"
 import Tabla from "./_reporte"
 import {formatMoney} from "../../helpers/numbers"
+import {getFechaString} from "../../helpers/dates"
 export default ({mod})=>{
     const [filtro,setFiltro]=useState({})
     const {data}=useCollection(mod.coleccion,filtro)
@@ -26,7 +27,7 @@ export default ({mod})=>{
         
         const where=condiciones.map(item=>getWhere(item,valores) ).filter(n=>n)
         where.push(["idUsuario","==",fuego.auth().currentUser.uid])
-        console.log(where)
+  
         setFiltro({where})
     }
     
@@ -35,8 +36,8 @@ export default ({mod})=>{
             <TitulosFormularios titulo="INFORME" subTitulo="de compras" icono="fas fa-file-contract"/>
             <Filtro callbackBuscar={buscar}/>
             <Tabla data={data} cols={
-            [{label:"Fecha",field:"fecha",fn:()=>{
-                
+            [{label:"Fecha",field:"fecha",fn:(valor)=>{
+                return getFechaString(valor)
             }
             },
             {label:"Detalle",field:"detalle"},
