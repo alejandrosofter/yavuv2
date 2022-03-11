@@ -21,6 +21,7 @@ const videoConstraints = {
 
 
 const WebcamFormik = ({folder,label,campo,w,h,callbackchange}) => {
+
   const [loading,setLoading]=useState(false)
   const [openSacaFoto,setOpenSacaFoto]=useState(false)
   const [openEditar,setOpenEditar]=useState(false)
@@ -28,66 +29,10 @@ const WebcamFormik = ({folder,label,campo,w,h,callbackchange}) => {
   const [imageSource,setImageSource]=useState(false)
   const [imagenUrl,setImagenUrl]=useState()
   const [imagenCortada,setImagenCortada]=useState()
-  const [valorImagen,setValorImagen]=useState()
-  const [setFieldValue,setearFieldValue]=useState()
-  useEffect(()=>{
-    setImagenUrl(valorImagen)
-   },[valorImagen])
-  useEffect(()=>{
-      const upload=async()=>{
-        await subirImagenDb(imageSource)
-      }
-      if(imageSource)upload()
-    },[imageSource])
-  const webcamRef = React.useRef(null);
-  const subirImagenDb=async (imageBase64)=>{
-    const nombreImagen=new Date().getTime()
-    const rutaImagen=(`${folder}/${nombreImagen}`).replaceAll('//', '/')
-    const rutaImagenThum=(`${folder}/thumbs/${nombreImagen}_80x80`).replaceAll('//', '/')
-    var storageRef = fuego.storage().ref()
-    var folderSociosRef = storageRef.child(rutaImagen);
-    setLoading(true)
-    folderSociosRef.putString(imageBase64, 'data_url').then(async (snapshot) => {
-      setFieldValue(campo,rutaImagen);
-      setFieldValue(`${campo}_thum`,rutaImagenThum);
-      setImagenUrl(rutaImagen)
-      setLoading(false)
-      console.log("SUBI IMAGEN")
-      setOpenAdjuntar(false)
-      setOpenSacaFoto(false)
-    });
-    
-  }
-  const clickOpenSacaFoto=()=>{
-    setOpenSacaFoto(true)
-  }
-  const clickEditar=()=>{
-    
-    setOpenEditar(true)
-    setTimeout(() => {
-      
-    }, 500);
-    
-  } 
-  
-  const clickAdjuntar=()=>{
-    setOpenAdjuntar(true)
-  }
- 
-  const cambiaImagen=(img)=>{
-    setImageSource(img)
-   
-  }
-  const guardarImagenTemporal=()=>{
-
-    if(imagenCortada) setImageSource(imagenCortada)
-   
-  }
-  
-  const cambiaImagenTemporal=(img)=>{
-    setImagenCortada(img)
-   
-  }
+  const [setFieldValue,setValorValue]=useState()
+  const [valorFoto,setValorFoto]=useState()
+  const webcamRef = React.useRef(null)
+  let setearValores
   const capture = React.useCallback(
     async () => {
       const imageSrc = webcamRef.current.getScreenshot();
@@ -96,12 +41,80 @@ const WebcamFormik = ({folder,label,campo,w,h,callbackchange}) => {
     },
     [webcamRef]
   )
+  useEffect(()=>{
+    console.log(valorFoto)
+   setImagenUrl(valorFoto)
+  },[valorFoto])
+
+  useEffect(()=>{
+   const upload=async()=>{
+     
+     await subirImagenDb(imageSource)
+   }
+   if(imageSource)upload()
+ },[imageSource])
+
+
+ const subirImagenDb=async (imageBase64)=>{
+  const nombreImagen=new Date().getTime()
+  const rutaImagen=(`${folder}/${nombreImagen}`).replaceAll('//', '/')
+  const rutaImagenThum=(`${folder}/thumbs/${nombreImagen}_80x80`).replaceAll('//', '/')
+  var storageRef = fuego.storage().ref()
+  var folderSociosRef = storageRef.child(rutaImagen);
+  setLoading(true)
+  folderSociosRef.putString(imageBase64, 'data_url').then(async (snapshot) => {
+    
+    setearValores(rutaImagen,rutaImagenThum)
+    setImagenUrl(rutaImagen)
+    setLoading(false)
+    console.log("SUBI IMAGEN")
+    setOpenAdjuntar(false)
+    setOpenSacaFoto(false)
+  });
+  
+}
   return (
 <FormControl fullWidth>
-  <Field label={label} name={campo} id={campo} >
+  <Field  label={label} name={campo} id={campo} >
     {(props) =>{
-        setValorImagen(props.form.values[campo])
-        setearFieldValue(props.form.setFieldValue)
+    
+      setearValores=(rutaImagen,rutaImagenThum)=>{
+      props.form.setFieldValue(campo,rutaImagen)
+      props.form.setFieldValue(`${campo}_thum`,rutaImagenThum)
+      }
+      setValorFoto(props.form.values[campo])
+        const clickOpenSacaFoto=()=>{
+          setOpenSacaFoto(true)
+        }
+        const clickEditar=()=>{
+          
+          setOpenEditar(true)
+          setTimeout(() => {
+            
+          }, 500);
+          
+        } 
+        
+        const clickAdjuntar=()=>{
+          setOpenAdjuntar(true)
+        }
+       
+        const cambiaImagen=(img)=>{
+          setImageSource(img)
+         
+        }
+        const guardarImagenTemporal=()=>{
+ 
+          if(imagenCortada) setImageSource(imagenCortada)
+         
+        }
+        
+        const cambiaImagenTemporal=(img)=>{
+          setImagenCortada(img)
+         
+        }
+        
+    
     return( 
     <Stack spacing={1}>
       <DialogContenido titulo="SACA FOTO CON WEBCAM" open={openSacaFoto} setOpen={setOpenSacaFoto}>

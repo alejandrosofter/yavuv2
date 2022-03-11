@@ -59,7 +59,7 @@ const columns=[
 ]
       return (
   
-          <DataGridFirebase coleccion={coleccion} titulo={`ITEMS`} subTitulo="de la generacion de deuda" icono="fas fa-funnel-dollar"
+          <DataGridFirebase allUsers={true} coleccion={coleccion} titulo={`ITEMS`} subTitulo="de la generacion de deuda" icono="fas fa-funnel-dollar"
         limit={10} mod={mod} acciones={[]} orderBy="fecha"
        columns={columns} />
 

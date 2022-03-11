@@ -6,8 +6,8 @@ import SelectFecha from '../forms/selectorFecha';
 import { useCollection,fuego } from "@nandorojo/swr-firestore";
 
 export default ({callbackBuscar})=>{
-    const {data:centrosCosto}=useCollection("centroCostos",{where:["idUsuario","==",fuego.auth().currentUser.uid]})
-    const {data:proveedores}=useCollection("proveedores",{where:["idUsuario","==",fuego.auth().currentUser.uid]})
+    const {data:centrosCosto}=useCollection("centroCostos",{where:["idUsuario","==",fuego.auth().currentUser?.uid]})
+    const {data:proveedores}=useCollection("proveedores",{where:["idUsuario","==",fuego.auth().currentUser?.uid]})
     const estados=[{label:"PENDIENTE"},{label:"CANCELADO"}]
     const valoresIniciales={estado:"",idEntidad:"",idCentroCosto:""}
     return(
