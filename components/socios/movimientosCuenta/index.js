@@ -9,6 +9,57 @@ import ImpresionDialog from "../../forms/impresion"
 import ImpresionCambiosEstadoSocio from "./impresion"
 import {getFechaString} from "../../../helpers/dates"
 import { formatMoney } from "../../../helpers/numbers";
+
+export const cols = [
+       
+  {
+    field: 'fecha',
+    headerName: 'Fecha',
+    width: 85,
+    type: 'date',
+    valueGetter: (params) =>getFechaString(params.value)
+  },
+  {
+    field: 'fechaVto',
+    headerName: 'Vto.',
+    width: 85,
+    type: 'date',
+    valueGetter: (params) =>getFechaString(params.value)
+  },
+  {
+    field: 'detalleExtra',
+    headerName: 'Detalle',
+    width: 200,
+    renderCell:(params) =>params.value
+  },
+ 
+  {
+    field: 'importe',
+    headerName: '$ Importe',
+    width: 90,
+    renderCell: (params) =>formatMoney(params.value)
+  },
+  {
+    field: 'importeBonificacion',
+    headerName: '$ BONIF.',
+    width: 90,
+    renderCell: (params) =>formatMoney(params.value?params.value:0)
+  },
+  {
+    field: 'total',
+    headerName: '$ TOTAL',
+    width: 90,
+    renderCell: (params) =>{
+        const importe=(params.row.importe?params.row.importe:0)-(params.row.importeBonificacion?params.row.importeBonificacion:0)
+        return formatMoney(importe)
+    }
+  },
+  {
+    field: 'estado',
+    headerName: 'Estado',
+    width: 90
+  },
+]
 export default function CuentaSocio({data,mod})
 {
     const campo="movimientosCuenta"
@@ -44,56 +95,7 @@ export default function CuentaSocio({data,mod})
       [],
     )
      
-    const cols = [
-       
-      {
-        field: 'fecha',
-        headerName: 'fecha',
-        width: 90,
-        type: 'date',
-        valueGetter: (params) =>getFechaString(params.value)
-      },
-      {
-        field: 'fechaVto',
-        headerName: 'Vto.',
-        width: 90,
-        type: 'date',
-        valueGetter: (params) =>getFechaString(params.value)
-      },
-      {
-        field: 'detalleExtra',
-        headerName: 'Detalle',
-        width: 200,
-        renderCell:(params) =>params.value
-      },
-     
-      {
-        field: 'importe',
-        headerName: '$ Importe',
-        width: 90,
-        renderCell: (params) =>formatMoney(params.value)
-      },
-      {
-        field: 'importeBonificacion',
-        headerName: '$ BONIF.',
-        width: 90,
-        renderCell: (params) =>formatMoney(params.value?params.value:0)
-      },
-      {
-        field: 'total',
-        headerName: '$ TOTAL',
-        width: 90,
-        renderCell: (params) =>{
-            const importe=(params.row.importe?params.row.importe:0)-(params.row.importeBonificacion?params.row.importeBonificacion:0)
-            return formatMoney(importe)
-        }
-      },
-      {
-        field: 'estado',
-        headerName: 'Estado',
-        width: 90
-      },
-]
+   
     return(
       <div>
         <SubColeccionColeccion sortModel={[{ field: 'fecha',  sort: 'desc', }]} 

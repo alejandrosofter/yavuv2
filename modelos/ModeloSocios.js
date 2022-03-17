@@ -15,8 +15,20 @@ export function valoresIniciales(){
     return {
         apellido: "",
         nombre: "",
+        nroSocio:"",
         tipoSocio: "",
-        fechaNacimiento: "",
+        fechaNacimiento: new Date(),
+        dni:"",
+        edad:"",
+        categoriaSocio:"",
+        domicilio:"",
+        localidad:"",
+        telefono:"",
+        email:"",
+        estadoCivil:"Otros",
+        
+        estado:"ALTA",
+        label_idCliente:"seleccione..."
     }
 }
 export  function ModeloFamiliares(){
@@ -59,7 +71,7 @@ export  function ModeloCambioEstado(){
 }
 export function valoresInicialesDocumentacion(){
     return {
-        fechaVto: "",
+        fechaVto: new Date(),
         tipo: "",
     }
 }
@@ -111,6 +123,28 @@ export  function ModeloConfig(){
             }) 
       
 }
+export  function ModeloCategoriaSocio(){
+    return yup.object().shape({
+        //    fecha: yup.string(),
+        nombre: yup.string(),
+        idProducto: yup.string()
+           
+            }) 
+      
+}
+export function ModeloGeneracionDeuda(){
+    return yup.object().shape({
+        nombre: yup.string(),
+        fn: yup.string(),
+           
+            }) 
+}
+export function valoresCategoriaSocio(){
+    return {
+        nombre:"",
+        idProducto:"", 
+    }
+}
 export  function ModeloTipoSocios(){
     return yup.object().shape({
         //    fecha: yup.string(),
@@ -145,6 +179,70 @@ export  function ModeloActividades(){
         idActividad:yup.string().required(),
         idSubActividad:yup.string().required(),
         idPeriodo:yup.string().required(),
+
+            }) 
+      
+}
+////////////////////////////
+export function valoresDebitoAutomatico(){
+    return {
+     
+        estado:"",
+        fecha:new Date(),
+        concepto:"",
+        idCuentaEfectivo:"",
+        detalle:"",
+    }
+}
+export  function ModeloDebitoAutomatico(){
+    return yup.object().shape({
+        //    fecha: yup.string(),
+        estado: yup.string(),
+   
+        modDeuda:yup.string().required(),
+        concepto:yup.string().required(),
+        idCuentaEfectivo:yup.string().required(),
+        detalle:yup.string()
+
+            }) 
+      
+}
+////////////////////////////
+export function valoresMensualizado(){
+    return {
+     
+        estado:"",
+        fecha:new Date(),
+        concepto:"",
+    }
+}
+export  function ModeloMensualizado(){
+    return yup.object().shape({
+        //    fecha: yup.string(),
+        estado: yup.string(),
+        idProducto:yup.object(),
+        detalle:yup.string(),
+
+            }) 
+      
+}
+////////////////////////////
+export function valoresCobros(){
+    return {
+     
+        estado:"CANCELADO",
+        fecha:new Date(),
+        idFormaPago:"",
+        detalle:"",
+    }
+}
+export  function ModeloCobros(){
+    return yup.object().shape({
+        //    fecha: yup.string(),
+        estado: yup.string(),
+   
+        idFormaPago:yup.string().required(),
+        detalle:yup.string()
 
             }) 
       

@@ -1,27 +1,15 @@
-import ModeloSocios,{valoresIniciales} from "../../modelos/ModeloSocios"
-
-import { CircularProgress, Grid, MenuItem, Tab } from "@mui/material"
-import { useState } from "react"
-import { useRouter } from "next/router"
-import useSWR from "swr"
+import Modelo,{valoresIniciales} from "../../modelos/ModeloSocios"
 import NuevoGenerico from "../NuevoGenerico"
-import FormSocios from "./_formSocios"
-import TitulosFormularios from "../forms/tituloFormularios"
 
-export default function Modulo({modulo,mod,token,dataUsuario}) {
-    const router=useRouter();
-    const urlAcepta=`/api/socios/${router.query.idItem}`
-    const urlModulos=`/api/modulos/` 
+import Form from "./_formSocios"
+
+export default function Modulo({mod}) {
+
     
-    const { data:dataModulos, mutate,isValidating } = useSWR(urlModulos)
-    if(!dataModulos)return <CircularProgress />
       return (
-      <NuevoGenerico token={token} urlAcepta={urlAcepta} valoresIniciales={valoresIniciales} modulo={modulo} 
-      modelo={ModeloSocios}  dataUsuario={dataUsuario} >
-         
-            <FormSocios titulo="NUEVO" subTitulo="Socio" icono="fas fa-plus" tipoSocios={mod.config.itemsTipoSocios} />
-       
-      </NuevoGenerico>
-      )
+      <NuevoGenerico valoresIniciales={valoresIniciales} mod={mod} modelo={Modelo}   >
+            <Form titulo="Nuevo" mod={mod} subTitulo={mod.label} icono="fas fa-plus" />
+       </NuevoGenerico>
+      ) 
 
 }

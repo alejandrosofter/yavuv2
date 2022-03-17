@@ -8,21 +8,20 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-const SelectFecha = ({label,campo}) => {
-    const [value, setValue] = useState();
+import {getFechaFormik} from "../../helpers/dates"
 
+const SelectFecha = ({label,campo,callbackChange}) => {
+  
   return (
 <FormControl fullWidth>
 
   <Field label={label} name={campo} id={campo} >
     {(props) =>{
-       
-        const handleChange = (newValue) => {
-          
-          const nuevoValor={seconds:newValue.getTime()/1000,nanoseconds:0}
         
-            setValue(newValue.getTime()/1000);
+        const handleChange = (newValue) => {
+            const nuevoValor={seconds:newValue.getTime()/1000,nanoseconds:0}
             props.form.setFieldValue(campo,nuevoValor);
+         if(callbackChange)callbackChange(newValue)
           };
     return( 
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -30,7 +29,7 @@ const SelectFecha = ({label,campo}) => {
            label={label}
            inputVariant="outlined"
            inputFormat="dd/MM/yyyy"
-           value={(props.form.values[campo])?new Date(props.form.values[campo].seconds * 1000):""}
+           value={getFechaFormik(props.form.values?.[campo])}
            onChange={handleChange}
            KeyboardButtonProps={{
              "aria-label": "change date"

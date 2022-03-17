@@ -4,6 +4,7 @@ import Input from "../forms/input";
 import {useEffect, useState} from "react"
 import SelectFormik from "../forms/select";
 import { getItemArray }  from '../../helpers/arrays';
+import SelectProducto from '../productos/selectProducto';
 const getItemsConceptos=(id,arr)=>{
     const item=getItemArray({data:arr,valor:id,campoId:"id"})
  
@@ -40,8 +41,7 @@ export default function FormularioItemPromocion({modsDeuda,values}){
     return(
    
          <Grid container spacing={2}>
-            <Grid item md={3}><SelectFormik callbackchange={cambiaMod} label="Modulo Genera Deuda" lista={modsDeuda} campoId="id" campoLabel="nombre" campo="modDeuda"/></Grid>
-            <Grid item md={5}><SelectFormik callbackchange={cambiaConcepto} label="Concepto" lista={itemsConceptos} campoId="id" campoLabel="detalle" campo="concepto"/></Grid>
+            <Grid item md={5}><SelectProducto/></Grid>
             <Grid item md={3}><Input campo='importe' label="Aplica Importe..." /></Grid>  
             <Grid item md={3}><Input campo='porcentaje' label="Aplica %..." /></Grid>  
             <Grid item md={12}><Input campo='detalle' label="Detalle" /></Grid>

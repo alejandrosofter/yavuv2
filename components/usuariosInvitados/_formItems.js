@@ -4,17 +4,17 @@ import Select from "../forms/select"
 import SwitchFormik from "../forms/switch";
 
 import useSWR from 'swr';
+import { useCollection,fuego } from '@nandorojo/swr-firestore';
 
 
 export default function _FormItemsUsuarios({}){
-  const urlMods=`/api/mod/getMods/` 
+  const {data:mods}=useCollection("mods",{where:["idUsuario","==",fuego.auth().currentUser.uid]})
   
-  const { data:mods } = useSWR(urlMods)
   if(!mods)return "Cargando mods.."
 
     return(
             <Grid container>
-                <Grid item md={12}><Select label="Modulo " lista={mods} campoLabel="label" campoId="idMod" campo="idMod"/></Grid>
+                <Grid item md={12}><Select label="Modulo " lista={mods} campoLabel="label" campoId="id" campo="idMod"/></Grid>
                 <Grid item md={3}><SwitchFormik label="Habilitado " campo="habilitado"/></Grid>
             </Grid>
        

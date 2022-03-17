@@ -10,13 +10,17 @@ const columns=[
     width: 280,
   },
    
-
+  {
+    field: 'label_idCuentaEfectivo',
+    headerName: 'Destino',
+    width: 120,
+  },
          
-          {
-            field: 'estado',
-            headerName: 'Estado',
-            width: 120,
-          },
+  {
+    field: 'estado',
+    headerName: 'Estado',
+    width: 120,
+  },
 ]
       return (
       

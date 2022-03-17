@@ -8,6 +8,28 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
 import SubColeccionColeccion from "../../forms/subColeccion/";
 import { ModeloDocumentos,valoresInicialesDocumentacion } from "../../../modelos/ModeloSocios"
+export const cols = [
+       
+  {
+    field: 'fechaVto',
+    headerName: 'Fecha Vto',
+    width: 280,
+    renderCell: (params) => {
+      console.log(params.value)
+       if(!params.value||params.value=="")return "-"
+
+      return( //en params.row tengo los otros datos
+        <i>{`${moment(new Date(params.value.seconds * 1000)).format('DD/MM/YY')}`}</i>
+    )
+    }
+  },
+  {
+    field: 'label_tipo',
+    headerName: 'Tipo Documento',
+    width: 180,
+  },
+  
+]
 export default function DocumentacionSocio({data,mod})
 {
     const campo="documentacion"
@@ -40,28 +62,7 @@ export default function DocumentacionSocio({data,mod})
       [],
     )
      
-    const cols = [
-       
-          {
-            field: 'fechaVto',
-            headerName: 'Fecha Vto',
-            width: 280,
-            renderCell: (params) => {
-              console.log(params.value)
-               if(!params.value||params.value=="")return "-"
-        
-              return( //en params.row tengo los otros datos
-                <i>{`${moment(new Date(params.value.seconds * 1000)).format('DD/MM/YY')}`}</i>
-            )
-            }
-          },
-          {
-            field: 'label_tipo',
-            headerName: 'Tipo Documento',
-            width: 180,
-          },
-          
-    ]
+    
     return(
         <SubColeccionColeccion mod={mod}  coleccion={mod.coleccion}
         accionesExtra={accionesExtra} 

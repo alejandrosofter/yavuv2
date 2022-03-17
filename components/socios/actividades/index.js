@@ -11,6 +11,36 @@ import ImpresionDialog from "../../forms/impresion"
 import ImpresionActividadSocio from "./impresion"
 import {ModeloActividades,valoresInicialesActividades}from "../../../modelos/ModeloSocios"
 import { getFechaString } from "../../../helpers/dates";
+export const cols = [
+    
+      {
+        field: 'fechaInicio',
+        headerName: 'Fecha',
+        width: 90,
+        renderCell: (params) => getFechaString(params.value)
+      },
+      
+      {
+        field: 'label_idActividad',
+        headerName: 'Actividad',
+        width: 180,
+      },
+      {
+        field: 'label_idSubActividad',
+        headerName: 'Sub-Actividad',
+        width: 180,
+      },
+      {
+        field: 'label_idPeriodo',
+        headerName: 'Periodo',
+        width: 150,
+      },
+      {
+        field: 'estado',
+        headerName: 'Estado',
+        width: 90,
+      },
+]
 export default function ActividadesSocio({data,mod})
 {
     const campo="actividades"
@@ -47,36 +77,6 @@ export default function ActividadesSocio({data,mod})
       [],
     )
      
-    const cols = [
-        
-          {
-            field: 'fechaInicio',
-            headerName: 'Fecha',
-            width: 90,
-            renderCell: (params) => getFechaString(params.value)
-          },
-          
-          {
-            field: 'label_idActividad',
-            headerName: 'Actividad',
-            width: 180,
-          },
-          {
-            field: 'label_idSubActividad',
-            headerName: 'Sub-Actividad',
-            width: 180,
-          },
-          {
-            field: 'label_idPeriodo',
-            headerName: 'Periodo',
-            width: 150,
-          },
-          {
-            field: 'estado',
-            headerName: 'Estado',
-            width: 90,
-          },
-    ]
     return(
       <div>
         <SubColeccionColeccion sortModel={[{ field: 'fechaInicio',  sort: 'desc', }]} 

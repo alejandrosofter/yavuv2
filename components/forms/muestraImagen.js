@@ -25,12 +25,10 @@ export default function MuestraImagen({pathImagen,w,h}){
         })
       }
       return(
-          <Stack>
             <Avatar
             alt="Imagen Socio"
             src={imagenUrl}
             sx={{ width: w?w:100, height:h?h:100 }}
             />
-          </Stack>
       )
 }

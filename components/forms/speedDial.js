@@ -5,15 +5,15 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 
 
 
-export default function MenuRapido({label,direccion,actions,posX,posY}) {
+export default function MenuRapido({label,direccion,actions,icono}) {
   return (
 
       <SpeedDial
         FabProps={{ size: "small",color:"secondary" }}
         direction={direccion}
         ariaLabel={label?label:"manuRapido"}
-        sx={{ position: 'absolute', bottom: posX?posX:0, right: posY?posY:0 }}
-        icon={<SpeedDialIcon />}
+        // sx={{ position: 'absolute', bottom: posX?posX:0, right: posY?posY:0 }}
+        icon={icono?icono:<SpeedDialIcon />}
       >
         {actions.map((action) => (
           <SpeedDialAction

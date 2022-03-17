@@ -13,3 +13,12 @@ export function getFechaString(fecha,format)
         
             
 }
+
+export function getFechaFormik(fecha)
+{
+    if(!fecha)return new Date()
+    if(moment.isDate(fecha))return new Date(fecha)
+    if('seconds' in fecha)return new Date(fecha.seconds * 1000)
+    if('$date' in fecha)return new Date(fecha.$date)
+    return new Date()
+}

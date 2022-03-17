@@ -8,6 +8,37 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
 import SubColeccionColeccion from "../../forms/subColeccion/";
 import { ModeloTarjetas,valoresInicialesTarjetas } from "../../../modelos/ModeloSocios"
+export const cols = [
+        
+  {
+    field: 'fecha',
+    headerName: 'Fecha',
+    width: 120,
+    renderCell: (params) => {
+      const d=new Date(params.value.seconds * 1000);
+      
+      return( //en params.row tengo los otros datos
+        <i>{`${moment(d).format('DD/MM/YY')}`}</i>
+    )
+    }
+  },
+  {
+    field: 'label_tipo',
+    headerName: 'Tipo',
+    width: 110,
+  },
+  {
+    field: 'identificador',
+    headerName: 'ID unico',
+    width: 110,
+  },
+  {
+    field: 'detalle',
+    headerName: 'Detalle',
+    width: 180,
+  },
+  
+]
 export default function TarjetasSocio({data,mod})
 {
     const campo="tarjetas"
@@ -40,27 +71,7 @@ export default function TarjetasSocio({data,mod})
       [],
     )
      
-    const cols = [
-        
-          {
-            field: 'fecha',
-            headerName: 'Fecha',
-            width: 120,
-            renderCell: (params) => {
-              const d=new Date(params.value.seconds * 1000);
-              
-              return( //en params.row tengo los otros datos
-                <i>{`${moment(d).format('DD/MM/YY')}`}</i>
-            )
-            }
-          },
-          {
-            field: 'detalle',
-            headerName: 'Detalle',
-            width: 180,
-          },
-          
-    ]
+    
     return(
         <SubColeccionColeccion  sortModel={[{ field: 'fecha',  sort: 'desc', }]} 
         accionesExtra={accionesExtra} 

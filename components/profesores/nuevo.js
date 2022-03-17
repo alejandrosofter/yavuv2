@@ -1,15 +1,13 @@
-import Modelo, { valoresIniciales } from "../../modelos/ModeloProfesores"
-import NuevoABM from "../forms/moduloABM/nuevoABM"
-import FormActividad from "./_form"
-export default function Modulo({modulo,token}) {
+import Modelo,{valoresIniciales} from "../../modelos/ModeloProfesores"
+import NuevoGenerico from "../NuevoGenerico"
+import Form from "./_form"
 
-    const urlAcepta=`/api/moduloABM/`
-    const urlModulos=`/api/modulos/` 
-    const coleccion=`profesores` 
+export default function Modulo({mod}) {
 
       return (
-      <NuevoABM ComponenteForm={FormActividad} titulo="Nuevo" subTitulo="Profesor" icono="fas fa-plus" coleccion={coleccion} token={token} urlAcepta={urlAcepta} 
-      valoresIniciales={valoresIniciales} modelo={Modelo} modulo={modulo}/>
+      <NuevoGenerico valoresIniciales={valoresIniciales} mod={mod} modelo={Modelo}>
+          <Form  titulo="NUEVO" subTitulo={mod.label} icono={mod.icono} />
+      </NuevoGenerico>
       )
 
 }

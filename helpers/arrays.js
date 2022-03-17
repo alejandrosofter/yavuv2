@@ -57,7 +57,13 @@ export function getIndexItemArray({data,valor,campoId})
 {
     if(data){
         campoId=(campoId)?campoId:"id"
-        const i=data.map(x => x[campoId]).indexOf(valor)
+        const i=Array.isArray(valor)?
+            valor.map(item=>data.map(x => x[campoId]).indexOf(item)).reduce((prev,actual)=>{
+                if(prev>0)return prev;
+                if(actual>0)return actual;
+                return 0
+            })
+           :data.map(x => x[campoId]).indexOf(valor)
     
         if(i>=0)return i
         return null  

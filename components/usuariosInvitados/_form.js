@@ -14,7 +14,6 @@ export default function _formUsuarioInvitado({values,setFieldValue,titulo,subTit
       
     return(
                 <Grid container>
-                    <Titulo titulo={titulo} subTitulo={subTitulo} icono={icono}/>
                         <Grid item md={12}><Input label="Email "  campo="email"/></Grid>
                         <Grid item md={3}><SwitchFormik label="Activo " campo="activo"/></Grid>
                         <Grid item md={12}>

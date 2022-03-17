@@ -44,7 +44,7 @@ export default function FormPromocionesGenerales({setFieldValue,errors,values,ti
                    valoresIniciales={valoresInicialesItems()} 
                    form={<FormItem modsDeuda={modsDeuda} />} 
                    dataModulo={[]} columnas={[
-                        { field: 'label_concepto',headerName: 'Concepto', editable: false, width: 350,  },
+                        { field: 'label_idProducto',headerName: 'Aplica en...', editable: false, width: 350,  },
                         
                         { field: 'importe',headerName: 'Aplica $', width: 120,  },
                         { field: 'porcentaje',headerName: 'Aplica %', width: 120,  },

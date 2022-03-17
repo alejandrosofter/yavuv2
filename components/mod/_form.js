@@ -40,8 +40,7 @@ export default function FormMod({values,setFieldValue}) {
                     <Grid item xs={7}><Input label="Detalle" campo="detalle"/></Grid>
                     <Grid item xs={3}><CheckboxForm label="Genera Deuda" campo="generaDeuda"/></Grid>
                     
-                    <Grid item xs={3}><Input label="Fn Genera Deuda" campo="fnDeuda"/></Grid>
-                    <Grid item xs={3}><Input label="Destino Deuda" campo="destinoDeuda"/></Grid>
+               
                     <Grid item xs={2}><CheckboxForm label="Activo" campo="activo"/></Grid>
                     <Grid item xs={2}><CheckboxForm label="Es Base?" campo="esBase"/></Grid>
                     

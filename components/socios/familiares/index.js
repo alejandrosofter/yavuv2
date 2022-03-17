@@ -8,6 +8,35 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
 import SubColeccionColeccion from "../../forms/subColeccion/";
 import { ModeloFamiliares,valoresInicialesFamiliares} from "../../../modelos/ModeloSocios"
+
+export const cols = [
+   
+      {
+        field: 'fecha',
+        headerName: 'Fecha',
+        width: 280,
+        renderCell: (params) => {
+          
+         if(!params.value)return "-"
+    
+          return( //en params.row tengo los otros datos
+            <i>{`${moment(new Date(params.value.seconds * 1000)).format('DD/MM/YY')}`}</i>
+        )
+        }
+      },
+      {
+        field: 'label_socio',
+        headerName: 'Socio',
+        width: 250,
+      },
+      {
+        field: 'relacion',
+        headerName: 'Relacion',
+        width: 110,
+      },
+     
+      
+]
 export default function PromocionesSocios({data,mod})
 {
     const campo="familiares"
@@ -40,34 +69,6 @@ export default function PromocionesSocios({data,mod})
       [],
     )
      
-    const cols = [
-       
-          {
-            field: 'fecha',
-            headerName: 'Fecha',
-            width: 280,
-            renderCell: (params) => {
-              
-             if(!params.value)return "-"
-        
-              return( //en params.row tengo los otros datos
-                <i>{`${moment(new Date(params.value.seconds * 1000)).format('DD/MM/YY')}`}</i>
-            )
-            }
-          },
-          {
-            field: 'label_socio',
-            headerName: 'Socio',
-            width: 250,
-          },
-          {
-            field: 'relacion',
-            headerName: 'Relacion',
-            width: 110,
-          },
-         
-          
-    ]
     return(
         <SubColeccionColeccion mod={mod}  coleccion={mod.coleccion}
         accionesExtra={accionesExtra}

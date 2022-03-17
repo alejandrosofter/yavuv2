@@ -36,7 +36,7 @@ export default function AutoCompleteAsync({datos,label,loading,fnCambia,fnClick,
   }
   return (
     <Autocomplete
-   fullWidth
+   
       open={open}
      
       onOpen={() => {

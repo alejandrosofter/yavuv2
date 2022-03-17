@@ -7,7 +7,7 @@ export default function Modulo({mod}) {
 
     
       return (
-      <EditarGenerico  mod={mod} modelo={Modelo}   >
+      <EditarGenerico valoresIniciales={valoresIniciales}  mod={mod} modelo={Modelo}   >
             <Form titulo="Editar" mod={mod} subTitulo={mod.label} icono="fas fa-pencil" />
        </EditarGenerico>
       ) 

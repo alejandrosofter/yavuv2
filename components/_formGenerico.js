@@ -42,7 +42,7 @@ export default function _FormGenerico({callbackSuccess,fnUpdate,datos,valoresIni
      >
         
          {({handleSubmit,values,errors,setFieldValue,validateForm})=>{
-          
+          console.log(errors)
           //  setFieldValue("idUsaurio",fuego.auth().currentUser.uid)
            return ( 
             <Grid sx={{my:0}} md={12} item xs={9}> 

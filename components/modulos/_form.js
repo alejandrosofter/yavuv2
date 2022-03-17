@@ -41,11 +41,8 @@ console.log(values)
                     <Grid item xs={3}><Input label="Coleccion" campo="coleccion"/></Grid>
                     <Grid item xs={7}><Input label="Detalle" campo="detalle"/></Grid>
                     <Grid item xs={3}><CheckboxForm label="Genera Deuda" campo="generaDeuda"/></Grid>
-                    <Grid item xs={3}><Input label="Fn Genera Deuda" campo="fnDeuda"/></Grid>
-                    <Grid item xs={3}><Input label="Destino Deuda" campo="destinoDeuda"/></Grid>
+       
                     <Grid item xs={2}><CheckboxForm label="Activo" campo="activo"/></Grid>
-                    <Grid item xs={2}><CheckboxForm label="Es Base?" campo="esBase"/></Grid>
-                    <Grid item xs={2}><CheckboxForm label="Es Inicial?" campo="esInicial"/></Grid>
                     
                 </Grid>
             </TabPanel>
@@ -68,7 +65,7 @@ console.log(values)
                         { field: 'icono',headerName: 'Icono', width: 80,  
                         renderCell: (params) => {
                           return <Icon className={params.formattedValue}/>}  },
-                        { field: 'descripcion',headerName: 'Descripcion', editable: false, width: 180,  },
+                       
                         { field: 'url',headerName: 'Url', editable: false, width: 280,  },
                         { field: 'color',headerName: 'Color', editable: false, width: 80 },
                         { field: 'method',headerName: 'Metodo', editable: false, width: 80 },

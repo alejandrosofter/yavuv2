@@ -27,11 +27,11 @@ export default function _FormItem({registro,campo,coleccion,dataInicial,esNuevo,
     }else{
       //es update registro 
       const aux=registro[campo]?registro[campo]:[]
-      let auxRegistro=registro
+      
       const i=getIndexItemArray({data:aux,valor:values.id,campoId:"id"})
-      auxRegistro[campo][i]=values
-      console.log(auxRegistro)
-      // update({[campo]:auxRegistro})
+      aux[i]=values
+  
+      update({[campo]:aux})
     }
     
     if(callbackSuccess)callbackSuccess(values)

@@ -52,10 +52,9 @@ export default function FormActividad({mod,setFieldValue,values}){
                                 
                                 
                                 { field: 'label_profesor',headerName: 'Profesor', width: 280,  },
-                                { field: 'label_concepto',headerName: 'Concepto', width: 180,  },
+                                { field: 'label_idProducto',headerName: 'Producto Asociado', width: 180,  },
                                 { field: 'estado',headerName: 'Estado', width: 80,  },
-                                { field: 'importe',headerName: 'Importe', editable: false, width: 80,
-                                renderCell: (params) => { return formatMoney(params.value)}  },
+                           
                                 
                                 ]} 
                                 />

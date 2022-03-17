@@ -9,6 +9,32 @@ import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
 import SubColeccionColeccion from "../../forms/subColeccion/";
 import { ModeloPromociones,valoresInicialesPromocion } from "../../../modelos/ModeloSocios"
 import { getFechaString } from "../../../helpers/dates";
+export const cols = [
+   
+    {
+        field: 'fechaInicio',
+        headerName: 'Fecha ',
+        width: 110,
+        renderCell: (params) => getFechaString(params.value)
+      },
+      {
+        field: 'fechaVto',
+        headerName: 'Fecha Vto',
+        width: 110,
+        renderCell: (params) => getFechaString(params.value)
+      },
+      {
+        field: 'label_idPromocion',
+        headerName: 'Promocion',
+        width: 250,
+      },
+      {
+        field: 'estado',
+        headerName: 'Estado',
+        width: 100,
+      },
+      
+]
 export default function PromocionesSocios({data,mod,auth})
 {
     const campo="promociones"
@@ -40,32 +66,6 @@ export default function PromocionesSocios({data,mod,auth})
       [],
     )
      
-    const cols = [
-       
-        {
-            field: 'fechaInicio',
-            headerName: 'Fecha ',
-            width: 110,
-            renderCell: (params) => getFechaString(params.value)
-          },
-          {
-            field: 'fechaVto',
-            headerName: 'Fecha Vto',
-            width: 110,
-            renderCell: (params) => getFechaString(params.value)
-          },
-          {
-            field: 'label_idPromocion',
-            headerName: 'Promocion',
-            width: 250,
-          },
-          {
-            field: 'estado',
-            headerName: 'Estado',
-            width: 100,
-          },
-          
-    ]
     return(
         <SubColeccionColeccion mod={mod}  coleccion={mod.coleccion}
         accionesExtra={accionesExtra} auth={auth}

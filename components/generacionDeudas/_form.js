@@ -67,15 +67,10 @@ export default function FormGeneracionDeudas({setFieldValue,values,titulo,subTit
                         <Grid item md={2}><SelectEstaticFormik items={["PENDIENTE","PROCESADO","PROCESANDO","ENVIADO"]}  label="ESTADO" campo="estado"/></Grid>
                         <Grid item md={2}><SelectFecha label="Fecha" campo="fecha"/></Grid>
                         <Grid item md={2}><SelectFecha label="Fecha Vto" campo="fechaVto"/></Grid>
-                        <Grid item md={3}><SelectFormik callbackchange={cambiaMod} label="Modulo Genera Deuda" lista={modsDeuda} campoId="id" campoLabel="nombre" campo="modDeuda"/></Grid>
-                        <Grid item md={5}><SelectFormik callbackchange={cambiaConcepto} label="Concepto" lista={itemsConceptos} campoId="id" campoLabel="detalle" campo="concepto"/></Grid>
-                      
+                        <Grid item md={3}><SelectFormik  label="Modulo Genera Deuda" lista={modsDeuda} campoId="id" campoLabel="nombre" campo="modDeuda"/></Grid>
+                    
                         <Grid item md={6}><Input label="Detalle Agregado (opcional)" campo="detalle"/></Grid>
-                        <Grid item md={6}><Input label="Conjunto de Datos" campo="conjunto"/></Grid>
-                        <Grid item md={12}><Input label="Calculo Importe" campo="calculoImporte"/></Grid>
-                        <Grid item md={12}><Input label="Fn Detalle extra" campo="fnDetalleExtra"/></Grid>
-                        {/* <Input label="usuario" value={idUsuario} campo="idUsuario"/> */}
-                        <Grid item md={12}><Input label="Fn Label elemento" campo="fnLabelElemento"/></Grid>
+                        
                        
             </Grid>
   

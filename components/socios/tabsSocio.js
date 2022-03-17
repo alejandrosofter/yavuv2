@@ -11,7 +11,8 @@ import DocumentacionSocio from './documentos';
 import TarjetasSocio from './tarjetas';
 import FamiliaresSocio from './familiares';
 import PromocionesSocio from './promociones';
-
+import DebitosAutomaticosSocio from "./debitoAutomatico"
+import Mensualizado from "./mensualizado"
 function BadgeIcono({icono,cantidad,label}){
 
     return(
@@ -61,6 +62,7 @@ export default function TabsSocio({dataSocio,mod,auth}){
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
+    console.log(dataSocio)
     return(
         <Stack direction="row" spacing={2} sx={{ }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -69,10 +71,12 @@ export default function TabsSocio({dataSocio,mod,auth}){
               
                 <Tab  icon={<Icon className="fas fa-dumbbell" />} iconPosition="top" label={<BadgeIcono label="Actividades" cantidad={dataSocio.actividades?dataSocio.actividades.length:0}  icono="fas fa-dumbbell"/>}{...a11yProps(2)} /> 
                 <Tab icon={<Icon className="fas fa-heart" />} iconPosition="top" label={<BadgeIcono label="Estados" cantidad={dataSocio.cambiosEstado?dataSocio.cambiosEstado.length:0}  icono="fas fa-heart"/>} {...a11yProps(3)} />
-                <Tab icon={<Icon className="fas fa-credit-card" />} iconPosition="top" label={<BadgeIcono label="Carnets" cantidad={dataSocio.tarjetas?dataSocio.tarjetas.length:0}  icono="fas fa-credit-card"/>} {...a11yProps(4)} />
+                <Tab icon={<Icon className="fas fa-id-card" />} iconPosition="top" label={<BadgeIcono label="Credenciales" cantidad={dataSocio.tarjetas?dataSocio.tarjetas.length:0}  icono="fas fa-id-card"/>} {...a11yProps(4)} />
                 <Tab icon={<Icon className="fas fa-image" />} iconPosition="top" label={<BadgeIcono label="Documentos" cantidad={dataSocio.documentacion?dataSocio.documentacion.length:0}  icono="fas fa-image"/>}{...a11yProps(5)} />
-                <Tab icon={<Icon className="fas fa-home-user" />} iconPosition="top" label={<BadgeIcono label="Familiares" cantidad={dataSocio.familiares?dataSocio.familiares.length:0}  icono="fas fa-home-user"/>}{...a11yProps(5)} />
-                <Tab icon={<Icon className="fas fa-gift" />} iconPosition="top" label={<BadgeIcono label="Promociones" cantidad={dataSocio.promociones?dataSocio.promociones.length:0}  icono="fas fa-gift"/>}{...a11yProps(5)} />
+                <Tab icon={<Icon className="fas fa-home-user" />} iconPosition="top" label={<BadgeIcono label="Familiares" cantidad={dataSocio.familiares?dataSocio.familiares.length:0}  icono="fas fa-home-user"/>}{...a11yProps(6)} />
+                <Tab icon={<Icon className="fas fa-gift" />} iconPosition="top" label={<BadgeIcono label="Promociones" cantidad={dataSocio.promociones?dataSocio.promociones.length:0}  icono="fas fa-gift"/>}{...a11yProps(7)} />
+                <Tab icon={<Icon className="fas fa-credit-card" />} iconPosition="top" label={<BadgeIcono label="Debito Automatico" cantidad={dataSocio.debitoAutomatico?dataSocio.debitoAutomatico.length:0}  icono="fas fa-credit-card"/>}{...a11yProps(8)} />
+                <Tab icon={<Icon className="fas fa-calendar" />} iconPosition="top" label={<BadgeIcono label="Mensualizado" cantidad={dataSocio.mensualizado?dataSocio.mensualizado.length:0}  icono="fas fa-calendar"/>}{...a11yProps(9)} />
               </Tabs>
             </Box>
             <Box sx={{ borderBottom: 1, borderColor: 'divider',width: '100%' }}>
@@ -97,6 +101,12 @@ export default function TabsSocio({dataSocio,mod,auth}){
             </TabPanel>
             <TabPanel value={value} index={6}>
             <PromocionesSocio mod={mod} auth={auth} data={dataSocio} />
+            </TabPanel>
+            <TabPanel value={value} index={7}>
+            <DebitosAutomaticosSocio mod={mod}  data={dataSocio} />
+            </TabPanel>
+            <TabPanel value={value} index={8}>
+              <Mensualizado mod={mod}  data={dataSocio} />
             </TabPanel>
             </Box>
           </Stack>

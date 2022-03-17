@@ -1,15 +1,13 @@
-import Modelo, { valoresIniciales } from "../../modelos/ModeloProfesores"
-import EditarABM from "../forms/moduloABM/editarABM"
+import Modelo,{valoresIniciales} from "../../modelos/ModeloProfesores"
+import EditarGenerico from "../EditarGenerico"
 import Form from "./_form"
-export default function Modulo({modulo,token}) {
 
-    const urlAcepta=`/api/moduloABM/`
-    const urlModulos=`/api/modulos/` 
-    const coleccion=`profesores` 
+export default function Modulo({mod}) {
 
       return (
-      <EditarABM ComponenteForm={Form} titulo="Editar" subTitulo="Profesor" icono="fas fa-pencil" coleccion={coleccion} token={token} urlAcepta={urlAcepta} 
-      valoresIniciales={valoresIniciales} modelo={Modelo} modulo={modulo}/>
+      <EditarGenerico valoresIniciales={valoresIniciales} mod={mod} modelo={Modelo}>
+          <Form  titulo="EDITAR" subTitulo={mod.label} icono={mod.icono} />
+      </EditarGenerico>
       )
 
 }

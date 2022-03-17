@@ -15,6 +15,7 @@ import FormBuscador from '../inputBuscador';
 import TitulosFormularios from '../tituloFormularios';
 export default function DataGridFirebase({allUsers,coleccion,titulo,subTitulo,icono,pageSize,orderBy,limit,columns,acciones,mod}) {
   const coleccionDb=coleccion?coleccion:mod.coleccion
+
   const [filtro,setFiltro]=useState( {where:allUsers?[]:["idUsuario","==",fuego.auth().currentUser?.uid],limit:limit,orderBy:orderBy,startAt:null,endAt:null,listen:true})
 
   const { data:datos, update, error } = useCollection(coleccionDb, filtro)
@@ -24,6 +25,7 @@ export default function DataGridFirebase({allUsers,coleccion,titulo,subTitulo,ic
     pageSize: pageSize?pageSize:5,
     loading: false,
   })
+
   const pagesNextCursor = React.useRef({});
   const [columnas,setColumnas]=useState([])
   const [contadorTotalRegistros,setContadorTotalRegistros]=useState(0)

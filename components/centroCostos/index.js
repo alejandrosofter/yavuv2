@@ -7,7 +7,7 @@ const columns=[
 
   {
     field: 'nombreCentroCosto', 
-    headerName: 'centro de Costo',
+    headerName: 'Nombre CC',
     width:350,
     
   },
