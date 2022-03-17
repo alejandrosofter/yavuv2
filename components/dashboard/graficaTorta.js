@@ -1,38 +1,36 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
-import { getItemArrayKey } from "../../../helpers/arrays";
+import { getItemArrayKey } from "../../helpers/arrays";
 
 const suma=({arr,obj,campoSum})=>{
     const item=getItemArrayKey({data:arr,key:obj.valor})
-   
     if(item)
         return item.map(item=>item[campoSum]).reduce((partialSum, a) => partialSum + a, 0).toFixed(2);
     
     return 0
-    
 }
+
 export function PieChart({datos,campoSum,categorias,tipo,series,labels}){
     const campoLabel=campoLabel?campoLabel:"label"
     const categoriasLabel=categorias.map(item=>item[campoLabel])
     const data=categorias.map(cat=>suma({arr:datos,obj:cat,campoSum:campoSum}))
 
+      const dataLabel={}
     const estado = {
-        options: tipo==="donut"?{
-          labels,
+        options: {
           chart: {
             id: "basic-bar"
           },
-          xaxis: {
-            categories: categoriasLabel
-          }
-        }:{
-        
-          chart: {
-            id: "basic-bar"
+          dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+              return val.toFixed(2) + "%"
+            },
           },
           xaxis: {
             categories: categoriasLabel
-          }
+          },
+          labels
         },
         series: [
           {
@@ -50,7 +48,7 @@ export function PieChart({datos,campoSum,categorias,tipo,series,labels}){
           <div className="row">
             <div className="mixed-chart">
               <Chart
-            
+         
                 options={estado.options}
                 series={series?series:estado.series}
                 type={tipo?tipo:"bar"}
