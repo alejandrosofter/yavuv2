@@ -44,11 +44,12 @@ if(!dataSocio){
                     <MuestraImagen w={70} h={70} pathImagen={dataSocio.foto}/>
                       <ApellidoSocio >{dataSocio.apellido}</ApellidoSocio>
                       <NombreSocio >{dataSocio.nombre}</NombreSocio>
+                      
                       <Link passHref href={`/mod/${router.query.id}/editar/${dataSocio.id}`}>
                         <IconButton  fontSize="small" color="secondary" onClick={editarSocio}><Icon className="fas fa-pencil"/></IconButton>
                       </Link>
-                      <SubInfoSocio>{dataSocio.domicilio} | DNI:{dataSocio.dni} | {dataSocio.email}</SubInfoSocio>
-                 
+                      <SubInfoSocio>EN FLIA: {dataSocio.socioFlia?.label} |{dataSocio.domicilio} | DNI:{dataSocio.dni} | {dataSocio.email}</SubInfoSocio>
+                     
                   
               </ContainerTextoSocio>
             </Grid>

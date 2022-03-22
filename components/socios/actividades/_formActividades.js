@@ -14,10 +14,12 @@ export default function FormActividadesSocio({values,registro,setFieldValue})
     useEffect(() => {
     
         if(values.idActividad)setValorSubActividades(values.idActividad)
-    },[values.idActividad,setValorSubActividades])
+    },[values.idActividad,setValorSubActividades,actividades])
+    const { data:actividades } = useCollection(`actividades`)
+
     const [subActividades,setSubActividades]=useState([])
     const [periodos,setPeriodos]=useState([])
-    const { data:actividades } = useCollection(`actividades`)
+    
     const cambiaActividad=valor=>{
         setFieldValue("idSubActividad",null)
         setFieldValue("label_idSubActividad","")

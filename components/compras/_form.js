@@ -17,8 +17,8 @@ import { fuego, useCollection } from '@nandorojo/swr-firestore';
 export default function FormCompras({values,setFieldValue}) {
 
   const [tabDatos, setTabDatos] = useState('datos');
-  const {data:centrosCosto}=useCollection("centroCostos",{where:["idUsuario","==",fuego.auth().currentUser.uid]})
-  const {data:proveedores}=useCollection("proveedores",{where:["idUsuario","==",fuego.auth().currentUser.uid]})
+  const {data:centrosCosto}=useCollection("centroCostos",{where:["idUsuario","==",fuego.auth().currentUser?.uid]})
+  const {data:proveedores}=useCollection("proveedores",{where:["idUsuario","==",fuego.auth().currentUser?.uid]})
 
   const cambiaTab = (event, newValue) => {
     setTabDatos(newValue);

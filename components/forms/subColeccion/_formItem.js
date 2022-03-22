@@ -23,7 +23,7 @@ export default function _FormItem({registro,campo,coleccion,dataInicial,esNuevo,
       auxRegistro.id=randomId(20)
      
       aux.push(auxRegistro)
-      update({[campo]:aux})
+      await update({[campo]:aux})
     }else{
       //es update registro 
       const aux=registro[campo]?registro[campo]:[]
@@ -31,7 +31,7 @@ export default function _FormItem({registro,campo,coleccion,dataInicial,esNuevo,
       const i=getIndexItemArray({data:aux,valor:values.id,campoId:"id"})
       aux[i]=values
   
-      update({[campo]:aux})
+      await update({[campo]:aux})
     }
     
     if(callbackSuccess)callbackSuccess(values)

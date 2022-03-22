@@ -10,36 +10,46 @@ import ImpresionCambiosEstadoSocio from "./impresion"
 import {getFechaString} from "../../../helpers/dates"
 import { formatMoney } from "../../../helpers/numbers";
 import {getValorDb} from "../../../helpers/db"
+import Tooltip from '@mui/material/Tooltip';
 export const cols = [
-       
+  {
+    field: 'hijo',
+    headerName: '',
+    width: 30,
+    renderCell: (params) =>params.value?<Tooltip title={`${params.value.apellido} ${params.value.nombre}`}><Icon class="fas fa-users"/></Tooltip>:""
+  },    
   {
     field: 'fecha',
     headerName: 'Fecha',
     width: 85,
     type: 'date',
-    valueGetter: (params) =>getFechaString(params.value)
+    renderCell: (params) =>getFechaString(params.value)
   },
  
  
   {
     field: 'label_idProducto',
     headerName: 'Producto',
-    width: 260,
+    width: 200,
   },
   {
-    field: 'label_idPromocion',
-    headerName: 'Promocion',
-    width: 150,
-  },
-  {
-    field: 'idProducto_importe',
+    field: 'importe',
     headerName: '$ Importe',
     width: 110,
+    renderCell:params=>formatMoney(params.value)
   },
   {
-    field: 'importePromocion',
+    field: 'promoProducto',
+    headerName: 'Promocion',
+    width: 110,
+    valueGetter: (params) =>params.value?params.value.nombrePromocion:"-"
+  },
+  
+  {
+    field: 'importeBonifica',
     headerName: '$ Promo',
     width: 110,
+    renderCell:params=>formatMoney(params.value)
   },
 ]
 export default function CuentaSocio({data,mod})
@@ -79,7 +89,10 @@ export default function CuentaSocio({data,mod})
      
    
     return(
-      <div>
+     <div>
+        {data.modoFamiliar && <i>Este socio se encuentra en modo familiar.. en este estado no se puede generar deuda mensual a su cargo.. solamente se cargara en el mensual del socio <b>{data.socioFlia?.label}</b></i>}
+        {!data.modoFamiliar  && 
+          <div>
         <SubColeccionColeccion sortModel={[{ field: 'fecha',  sort: 'desc', }]} 
           accionesExtra={accionesExtra} 
           coleccion={mod.coleccion}   titulo={labelCampo}
@@ -87,8 +100,10 @@ export default function CuentaSocio({data,mod})
         modelo={ModeloMensualizado} valoresIniciales={valoresMensualizado}
         registro={data} campo={campo} icono={icono}/>
         <ImpresionDialog titulo="IMPRESION DE ESTADO" abrir={openImpresion}
-        datos={datosClick} ComponenteItem={ImpresionCambiosEstadoSocio} />
-     </div>
+        datos={datosClick} ComponenteItem={ImpresionCambiosEstadoSocio} /> 
+        </div> }
+    </div>
+    
     )
                   
 }

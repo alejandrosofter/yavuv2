@@ -127,7 +127,7 @@ export  function ModeloCategoriaSocio(){
     return yup.object().shape({
         //    fecha: yup.string(),
         nombre: yup.string(),
-        idProducto: yup.string()
+        idProducto: yup.object()
            
             }) 
       
@@ -138,6 +138,19 @@ export function ModeloGeneracionDeuda(){
         fn: yup.string(),
            
             }) 
+}
+export function ModeloMotivos(){
+    return yup.object().shape({
+        detalle: yup.string(),
+        estado: yup.string(),
+           
+            }) 
+}
+export function valoresInicialesMotivos(){
+    return {
+        detalle:"",
+        estado:"", 
+    }
 }
 export function valoresCategoriaSocio(){
     return {

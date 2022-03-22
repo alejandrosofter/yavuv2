@@ -3,7 +3,8 @@ import FormCategoriaSocios from "./_formCategoriaSocios"
 import FormTipoSocios from "./_formItemsTipoSocios"
 import FormTipoDocumentacionSocios from "./_formTipoDocumentacion"
 import FormGeneracionDeuda from "./_formGenerarDeuda"
-import {ModeloConfig,ModeloTipoConfig, ModeloTipoSocios,ModeloCategoriaSocio,ModeloGeneracionDeuda} from "../../../modelos/ModeloSocios"
+import FormMotivos from "./_formMotivos"
+import {ModeloConfig,ModeloTipoConfig, ModeloTipoSocios,ModeloCategoriaSocio,ModeloGeneracionDeuda,ModeloMotivos} from "../../../modelos/ModeloSocios"
 import TabsFormik,{TabPanel} from "../../forms/tab";
 import Grid from '@mui/material/Grid';
 import Input from "../../forms/input"
@@ -41,12 +42,19 @@ export default function FormConfig({}){
         <Grid item md={12}>
         <DataGridFormikItems label="Generar Deuda" Modelo={ModeloGeneracionDeuda} FormularioItem={FormGeneracionDeuda}  campo="itemsGeneracionDeuda" columns={[
     { field: 'nombre', headerName: 'Nombre',width: 130 },
-    { field: 'fnDeuda', headerName: 'Fn Deuda',width: 140 },
-    { field: 'origenDeuda', headerName: 'Origen',width: 200 },
-    { field: 'destinoDeuda', headerName: 'Destino',width: 200 },
+    { field: 'activo', headerName: 'Estado',width: 140 },
+    { field: 'destino', headerName: 'Destino...',width: 130 },
     ]}/>
             </Grid>
     },
+    {label:"Motivos Estados",nro:4,vista:
+    <Grid item md={12}>
+    <DataGridFormikItems label="Motivos Estados" Modelo={ModeloMotivos} FormularioItem={FormMotivos}  campo="itemsMotivosEstados" columns={[
+{ field: 'detalle', headerName: 'Detalle',width: 330 },
+{ field: 'estado', headerName: 'Asociado a ...',width: 130 },
+]}/>
+        </Grid>
+},
     ]}/>
     )
 }

@@ -12,11 +12,22 @@ const columns=[
         width:100,
         renderCell: (params) =>getFechaString(params.value?params.value:"")
       },
-      
+      {
+        field: 'label_idCentroCosto', 
+        headerName: 'CC',
+        width:200,
+        
+      },
+      {
+        field: 'label_idEntidad', 
+        headerName: 'Proveedor',
+        width:200,
+        
+      },
       {
         field: 'detalle', 
         headerName: 'Detalle',
-        width:400,
+        width:250,
         
       },
       {

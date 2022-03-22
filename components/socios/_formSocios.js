@@ -16,6 +16,8 @@ import DataInfoPhoto from "../forms/dataInfoPhoto"
 import { getModUsuario } from "../../helpers/db";
 import { getItemArray } from "../../helpers/arrays";
 import { getEdad } from "../../helpers/fechas";
+import SelectProducto from "../productos/selectProducto"
+import Tooltip from '@mui/material/Tooltip';
 export default function FormSocios({field,setFieldValue,values,mod})
 {
     mod=mod.nombre==="socios"?mod:getModUsuario("socios")
@@ -66,10 +68,11 @@ const agregarValoresImagen=(valores)=>{
                 <Grid item xs container sx={{ml:1}} md={9} spacing={2} >
                     <Grid md={1} item> <DataInfoPhoto fnCambia={agregarValoresImagen} /></Grid>
                         <Grid item md={2}><SelectFormik callbackchange={cambiaTipoSocio} lista={tipoSocios} campoId="id" campoLabel={"nombre"} label="Tipo Socio " campo={getFieldName(field,`tipoSocio`)}/></Grid>
-                      
+
                         <Grid item md={2}><Input  label="Nro Socio" campo={getFieldName(field,`nroSocio`)}/></Grid>
                         <Grid item md={2}><SwitchFormik label="Es Activo?" campo={getFieldName(field,`esActivo`)}/></Grid>
-                        <Grid item md={3}><SelectEstaticFormik items={["ALTA","BAJA","SUSPENDIDO"]}  label="ESTADO" campo={getFieldName(field,`estado`)}/></Grid>
+                        <Tooltip title="Al tildar modo familiar no se genera deuda mensual en este socio! .. solo en el socio en el cual se agrego a este socio"><Grid item md={2}><SwitchFormik label="Modo Familiar" campo={getFieldName(field,`modoFamiliar`)}/></Grid></Tooltip>
+                        <Grid item md={2}><SelectEstaticFormik items={["ALTA","BAJA","SUSPENDIDO"]}  label="ESTADO" campo={getFieldName(field,`estado`)}/></Grid>
                         
                         <Grid item md={4}><Input label="Nombre "  campo={getFieldName(field,`nombre`)} /></Grid>
                         <Grid item md={4}><Input label="Apellido " campo={getFieldName(field,`apellido`)} /></Grid>
@@ -85,6 +88,7 @@ const agregarValoresImagen=(valores)=>{
                         <Grid item md={3}><Input label="Localidad" campo={getFieldName(field,`localidad`)}/></Grid>
                         <Grid item md={2}><Input label="Telefono" campo={getFieldName(field,`telefonoMobil`)}/></Grid>
                         <Grid item md={3}><Input label="Email" campo={getFieldName(field,`email`)}/></Grid>
+                        <Grid item md={4}><SelectProducto label="Obligacion Mensual"/></Grid>
                         
                        
                        

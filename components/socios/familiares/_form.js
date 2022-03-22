@@ -11,16 +11,15 @@ export default function FormPromocionesSocio({values,setFieldValue})
 {
     const [socioSeleccion,setSocioSeleccion]=useState()
     useEffect(()=>{
-        console.log(socioSeleccion)
         if(socioSeleccion) {
-            setFieldValue("socio",socioSeleccion.id)
+            setFieldValue("socio",socioSeleccion.objectID)
             setFieldValue("label_socio",`${socioSeleccion.apellido} ${socioSeleccion.nombre}`)
         }
     },[socioSeleccion,setFieldValue])
     return(
         
                     <Grid  md={12} container rowSpacing={2} spacing={2}>
-                        
+                         
                         <Grid item sx={{flex:1}} md={4}><SelectFecha label="Fecha " campo="fecha"/></Grid>
                         <Grid item md={7}><Input label="Relacion"  campo="relacion"/></Grid>
                         <Grid item md={6}><BuscadorSociosInput setSocioSeleccion={setSocioSeleccion}  /></Grid>

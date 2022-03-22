@@ -4,7 +4,7 @@ export const SubInfoSocio=styled.div`
 padding-left:100px;
 padding-top:-150px;
 font-size:10px;
-width:200px;
+width:300px;
 color:#6e6e6e
 `
 export const ContainerTextoSocio=styled.div`

@@ -36,6 +36,6 @@ export function valoresIniciales(){
         estado:"PENDIENTE",
         idCentroCosto:"",
         idEntidad:"",
-        idUsuario:fuego.auth().currentUser.uid
+        idUsuario:fuego.auth().currentUser?.uid
     }
 }

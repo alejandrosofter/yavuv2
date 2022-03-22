@@ -76,13 +76,15 @@ export default function ActividadesSocio({data,mod})
       },
       [],
     )
-     
+    const cambiaItem=async (valor,tipo)=>{
+      await fetch(`/api/socios/checkMensualizado/${data.id}`)
+    }
     return(
       <div>
         <SubColeccionColeccion sortModel={[{ field: 'fechaInicio',  sort: 'desc', }]} 
         campoId="id" accionesExtra={accionesExtra} coleccion={mod.coleccion}
         urlAcepta={urlAcepta}   titulo={labelCampo} modelo={ModeloActividades} 
-        valoresIniciales={valoresInicialesActividades}
+        valoresIniciales={valoresInicialesActividades} callbackchange={cambiaItem}
         pathFormulario={pathFormulario} columns={cols} 
         registro={data} campo={campo} icono={icono}/>
         <ImpresionDialog titulo="IMPRESION DE INGRESO A ACTIVIDAD" abrir={openImpresion}

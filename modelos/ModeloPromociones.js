@@ -20,7 +20,7 @@ export function valoresIniciales(){
 }
 export  function ModeloItems(){
     return yup.object().shape({
-        concepto: yup.string().required(),
+        idProducto: yup.object().required(),
         detalle: yup.string(),
         importe: yup.string(),
         porcentaje: yup.string(),

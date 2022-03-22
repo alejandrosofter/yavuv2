@@ -17,7 +17,7 @@ export default function DataGridFirebase({allUsers,coleccion,titulo,subTitulo,ic
   const coleccionDb=coleccion?coleccion:mod.coleccion
 
   const [filtro,setFiltro]=useState( {where:allUsers?[]:["idUsuario","==",fuego.auth().currentUser?.uid],limit:limit,orderBy:orderBy,startAt:null,endAt:null,listen:true})
-
+console.log(filtro)
   const { data:datos, update, error } = useCollection(coleccionDb, filtro)
     const router= useRouter()
     const [rowsState, setRowsState] = useState({

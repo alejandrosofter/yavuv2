@@ -62,7 +62,6 @@ export default function TabsSocio({dataSocio,mod,auth}){
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
-    console.log(dataSocio)
     return(
         <Stack direction="row" spacing={2} sx={{ }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

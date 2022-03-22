@@ -35,6 +35,7 @@ export const cols = [
       },
       
 ]
+
 export default function PromocionesSocios({data,mod,auth})
 {
     const campo="promociones"
@@ -65,10 +66,12 @@ export default function PromocionesSocios({data,mod,auth})
       },
       [],
     )
-     
+    const cambiaItem=async (valor,tipo)=>{
+      await fetch(`/api/socios/checkMensualizado/${data.id}`)
+    }
     return(
         <SubColeccionColeccion mod={mod}  coleccion={mod.coleccion}
-        accionesExtra={accionesExtra} auth={auth}
+        accionesExtra={accionesExtra} auth={auth}  callbackchange={cambiaItem}
          titulo={labelCampo} modelo={ModeloPromociones} 
         valoresIniciales={valoresInicialesPromocion}
         pathFormulario={pathFormulario} columns={cols} 

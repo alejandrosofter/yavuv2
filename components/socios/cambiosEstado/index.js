@@ -7,6 +7,7 @@ import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
 import SubColeccionColeccion from "../../forms/subColeccion/";
 import ImpresionDialog from "../../forms/impresion"
 import ImpresionCambiosEstadoSocio from "./impresion"
+import {fuego} from '@nandorojo/swr-firestore'
 export default function CambiosEstadoSocio({data,mod})
 {
     const campo="cambiosEstado"
@@ -41,7 +42,13 @@ export default function CambiosEstadoSocio({data,mod})
       },
       [],
     )
-     
+    const cambiaEstado=async (valores,tipo)=>{
+      
+      if(tipo==="nuevo"){
+        await fuego.db.collection("socios").doc(data.id).update({estado:valores.estado})
+      }
+      await fetch(`/api/socios/checkMensualizado/${data.id}`)
+    }
     const cols = [
       {
         field: 'fecha',
@@ -58,20 +65,27 @@ export default function CambiosEstadoSocio({data,mod})
       {
         field: 'estado',
         headerName: 'Estado',
-        width: 180,
+        width: 100,
+      },
+      {
+        field: 'label_motivo',
+        headerName: 'Motivo',
+        width: 300,
       },
       {
         field: 'detalle',
-        headerName: 'Detalle',
-        width: 380,
+        headerName: 'Acota',
+        width: 180,
       },
           
     ]
+    
     return(
       <div>
+        <i>Al crear un nuevo estado, se modifica el estado del socio (no asi en las modificaciones)</i>
         <SubColeccionColeccion sortModel={[{ field: 'fecha',  sort: 'desc', }]} 
-          accionesExtra={accionesExtra} 
-          coleccion={mod.coleccion}   titulo={labelCampo}
+          accionesExtra={accionesExtra} mod={mod} callbackchange={cambiaEstado}
+          coleccion={mod.coleccion}   titulo={labelCampo} 
         pathFormulario={pathFormulario} columns={cols} 
         modelo={ModeloCambioEstado} valoresIniciales={valoresInicialesCambioEstado}
         registro={data} campo={campo} icono={icono}/>

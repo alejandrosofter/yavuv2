@@ -68,10 +68,13 @@ export default function PromocionesSocios({data,mod})
       },
       [],
     )
-     
+    const cambiaItem=async (valor,tipo)=>{
+      await fetch(`/api/socios/checkMensualizado/${data.id}`)
+    }
+    
     return(
         <SubColeccionColeccion mod={mod}  coleccion={mod.coleccion}
-        accionesExtra={accionesExtra}
+        accionesExtra={accionesExtra} callbackchange={cambiaItem}
         urlAcepta={urlAcepta}   titulo={labelCampo} modelo={ModeloFamiliares} 
         valoresIniciales={valoresInicialesFamiliares}
         pathFormulario={pathFormulario} columns={cols} 

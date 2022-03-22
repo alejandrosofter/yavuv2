@@ -29,7 +29,7 @@ export const cols = [
   {
     field: 'detalleExtra',
     headerName: 'Detalle',
-    width: 200,
+    width: 180,
     renderCell:(params) =>params.value
   },
  

@@ -17,7 +17,7 @@ import { useDocument } from '@nandorojo/swr-firestore'
 import FormItem from './_formItem';
 import { getIndexItemArray } from '../../../helpers/arrays';
 export default function Modulo({sortModel,maxWidth,fullWidth,mod,callbackSuccess,titulo,
-    accionesExtra,icono,registro,campo,columns,auth,
+    accionesExtra,icono,registro,campo,columns,auth,callbackchange,
     pathFormulario,modelo,valoresIniciales,coleccion}) {
   const [mostrarNuevo,setMostrarNuevo]=useState(false)
   const [mostrarEditar,setMostrarEditar]=useState(false)
@@ -87,9 +87,9 @@ showInMenu
       const i=getIndexItemArray({data:registro[campo],valor:seleccionGrid.id,campoId:"id"})
       let listaAux=registro[campo]
       listaAux.splice(i,1)
-      console.log(listaAux)
-      update({[campo]:listaAux})
-      console.log(seleccionGrid,registro,i)
+      
+      await update({[campo]:listaAux})
+      if(callbackchange)callbackchange(seleccionGrid,"delete")
       setOpenDialogQuita(false)
       setSeleccionGrid(null)
     }
@@ -107,6 +107,7 @@ const handleClose = () => {
 const callbackSuccess_=(vals) => {
   setMostrarNuevo(false);
   if(callbackSuccess)callbackSuccess(vals)
+  if(callbackchange)callbackchange(vals,"nuevo")
 
 }
 ///////////////////////
@@ -116,6 +117,7 @@ const handleCloseEditar = () => {
 const callbackSuccessEditar=(vals) => {
   setMostrarEditar(false);
   if(callbackSuccess)callbackSuccess(vals)
+  if(callbackchange)callbackchange(vals,"editar")
 }
 const ComponenteForm = dynamic(
   () => import(`../../${pathFormulario}`),
