@@ -35,10 +35,9 @@ const columns=[
   },
           
   {
-    field: 'label_concepto',
-    headerName: 'Concepto',
-    renderCell: (params) => `${params.value} ${params.row.detalle}`,
-    width: 280,
+    field: 'label_modDeuda',
+    headerName: 'Modulo',
+    width: 100,
   },
   {
     field: 'importeTotal',

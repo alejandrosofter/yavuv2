@@ -29,6 +29,22 @@ export function valoresInicialesItems(){
         importe:0,
     }
 }
+////////////////////////
+export  function ModeloItemsFormaPago(){
+    return yup.object().shape({
+        detalle: yup.string(),
+        importe: yup.number(),
+
+
+      });
+}
+export function valoresInicialesFormaPago(){
+    return {
+        detalle:"",
+        importe:0,
+    }
+}
+/////
 export function valoresIniciales(){
     return {
         fecha: {seconds:new Date().getTime()/1000,nanoseconds:0},
