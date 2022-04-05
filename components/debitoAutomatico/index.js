@@ -1,41 +1,32 @@
 import DataGridFirebase from '../forms/datagrid/dataGridFirebase';
 import {formatMoney} from "../../helpers/numbers"
 import moment from 'moment';
+import {getFechaString} from "../../helpers/dates"
 export default function Modulo({mod}) {
-const order="fecha"
+const order=['fecha', 'desc']
+const getImputaciones=(imputaciones)=>{ 
+  let salida=""
+  imputaciones.forEach(imputa=>
+    salida+=`${getFechaString(imputa.fecha)} => ${imputa.estado}`
+  )
+  return salida
+}
   const columns=[
 
     {
       field: 'fecha', 
       headerName: 'Fecha',
       width: 80,
-      renderCell: (params) => {
-        const d=new Date(params.value.seconds * 1000);
-        
-        return( //en params.row tengo los otros datos
-          <i>{`${moment(d).format('DD/MM/YY')}`}</i>
-      )
-      }
+      renderCell: (params) => getFechaString(params.value)
     },
     {
-      field: 'fechaVto', 
-      headerName: 'Vto',
-      width: 80,
-      renderCell: (params) => {
-        const d=new Date(params.value.seconds * 1000);
-        
-        return( //en params.row tengo los otros datos
-          <i>{`${moment(d).format('DD/MM/YY')}`}</i>
-      )
-      }
-    },
-            
-    {
-      field: 'label_concepto',
-      headerName: 'Concepto',
-      renderCell: (params) => `${params.value} ${params.row.detalle}`,
-      width: 280,
-    },
+        field: 'imputaciones', 
+        headerName: 'Imputaciones',
+        width: 300,
+        renderCell: (params) => getImputaciones(params.value)
+      },
+      
+    
     {
       field: 'importeTotal',
       headerName: '$ Total',
@@ -43,10 +34,10 @@ const order="fecha"
       renderCell: (params) =>formatMoney(params.value)
     },    
     {
-      field: 'cantidadTotal',
-      headerName: 'Alcanzados...',
+      field: 'totalCobrado',
+      headerName: '$ Cobrado',
       width: 120,
-      renderCell: (params) =>`${params.value}`
+      renderCell: (params) =>`${formatMoney(params.value?params.value:0)}`
     },    
   
            

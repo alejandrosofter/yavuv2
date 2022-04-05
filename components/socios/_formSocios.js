@@ -18,6 +18,8 @@ import { getItemArray } from "../../helpers/arrays";
 import { getEdad } from "../../helpers/fechas";
 import SelectProducto from "../productos/selectProducto"
 import Tooltip from '@mui/material/Tooltip';
+import BuscadorSociosInput from "../clientes/_buscador";
+import SelectFormikAlgolia from "../forms/selectAlgoliaFormik";
 export default function FormSocios({field,setFieldValue,values,mod})
 {
     mod=mod.nombre==="socios"?mod:getModUsuario("socios")
@@ -34,6 +36,9 @@ const cambiaTipoSocio=(valor)=>{
 const seleccion=tipoSocios[tipoSocios.map(item=>item.id).indexOf(valor)]
 setFieldValue(getFieldName(field,`nroSocio`),seleccion.proximoNro)
 
+}
+const cambiaCliente=(cliente)=>{
+    console.log(cliente)
 }
 const cambiaCategoria=(newValue)=>{
     console.log(newValue)
@@ -64,7 +69,8 @@ const agregarValoresImagen=(valores)=>{
     return(
        
             <Grid sx={{pt:1,mb:2}} container rowSpacing={2} spacing={2}>
-                <Grid item md={1} ><ImageFormik  folder={`users/${fuego.auth().currentUser?.uid}/socios`} label="Foto "  campo={getFieldName(field,`foto`)}/></Grid>
+                <Grid item md={1} ><ImageFormik  folder={`users/${fuego.auth().currentUser?.uid}/socios`} 
+                label="Foto "  campo={getFieldName(field,`foto`)}/></Grid>
                 <Grid item xs container sx={{ml:1}} md={9} spacing={2} >
                     <Grid md={1} item> <DataInfoPhoto fnCambia={agregarValoresImagen} /></Grid>
                         <Grid item md={2}><SelectFormik callbackchange={cambiaTipoSocio} lista={tipoSocios} campoId="id" campoLabel={"nombre"} label="Tipo Socio " campo={getFieldName(field,`tipoSocio`)}/></Grid>
@@ -88,7 +94,10 @@ const agregarValoresImagen=(valores)=>{
                         <Grid item md={3}><Input label="Localidad" campo={getFieldName(field,`localidad`)}/></Grid>
                         <Grid item md={2}><Input label="Telefono" campo={getFieldName(field,`telefonoMobil`)}/></Grid>
                         <Grid item md={3}><Input label="Email" campo={getFieldName(field,`email`)}/></Grid>
-                        <Grid item md={4}><SelectProducto label="Obligacion Mensual"/></Grid>
+                        <Grid item md={6}><SelectProducto label="Obligacion Mensual"/></Grid>
+                        <Grid item md={3}><SwitchFormik label="Obligacion por Débito automático" campo={getFieldName(field,`esPorDebitoAutomatico`)}/></Grid>
+                        <Grid item md={4}><SelectFormikAlgolia campo="cliente" label="Cliente" 
+                        coleccionAlgolia="clientes" callbackchange={cambiaCliente}/></Grid>
                         
                        
                        

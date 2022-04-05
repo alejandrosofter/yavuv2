@@ -1,46 +1,64 @@
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import CommentIcon from '@mui/icons-material/Comment';
-import IconButton from '@mui/material/IconButton';
+import {Grid,Icon,Button,Stack} from '@mui/material/';
+import Badge from '@mui/material/Badge';
+
 import * as React from 'react';
 import {useEffect,useState} from "react"
-import Fetch from '../../helpers/Fetcher';
-import Typography from '@mui/material/Typography';
-import {formatDate} from "../../helpers/fechas"
-import {formatMoney} from "../../helpers/numbers"
-export default function Modulo({socio,callbackAdd}){
-    const [deudaSocio,setDeudaSocio]=useState()
-    useEffect(()=>{
-        // const consulta=async ()=>{
-        //     const deuda=await Fetch(`/api/socios_deuda/${socio.id}?pendientes=true`,null,null,token)
-        // setDeudaSocio(deuda)
-        // }
-        // consulta()
-    },[])
+
+import { fuego } from '@nandorojo/swr-firestore'
+import DialogContenido from '../forms/dialogContenido';
+import CheckListFormik from '../forms/checkListFormik';
+import {getFechaString} from "../../helpers/dates"
+export default function Modulo({cliente,fnChange,abre}){
+  const [deudaSocio,setDeudaSocio]=useState([])
+  const [cantidadSeleccion,setCantidadSeleccion]=useState(0)
+  const [open,setOpen]=useState(false)
+  
+  useEffect(()=>{
+  
+    if(cliente)buscarDeuda(cliente)
+  },[cliente])
+  useEffect(()=>{
+    if(abre) setOpen(true)
+  },[abre])
+    const buscarDeuda=async (cliente)=>{
+       
+      const snapshot= await fuego.db.collection("socios").where("cliente","==",cliente.objectID).get() 
+      snapshot.forEach(doc => {
+        
+          fuego.db.collection("socios_deudas").where("idSocio","==",doc.id).where("estado","==","PENDIENTE").get() 
+          .then(refDeuda=>{
+            let arr=[]
+            refDeuda.forEach(docDeuda => {
+              arr.push(docDeuda)
+            })
+            setDeudaSocio(arr)
+          })
+          
+        })
+  }
 
 if(!deudaSocio)return "cargando deuda"
-const clickMenu=(deuda)=>{
-    if(callbackAdd)callbackAdd(deuda)
+const cambiaItems=(items)=>{
+  setCantidadSeleccion(items.length)
+    if(fnChange)fnChange(items)
+}
+
+const fnLabel=(item)=>{
+const bonif=Number(item.importeBonificacion?item.importeBonificacion:0)
+const importe=((item.importe*item.cantidad)-bonif).toFixed(2)
+const hijo=item.hijo?` (${item.hijo.apellido.toUpperCase()} ${item.hijo.nombre})`:''
+  return `${getFechaString(item.fechaVto)} - ${item.label_idProducto} ${hijo} $${importe} `
 }
     return(
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        {deudaSocio.datos.map((value) => (
-      
-           <ListItemButton key={value.id} onClick={clickMenu.bind(this, value)}>
-           <React.Fragment>
-                 <Typography
-                   sx={{ display: 'inline',pr:1 }}
-                   component="span"
-                   variant="body2"
-                   color="text.primary"
-                 >
-                   {formatDate(value.fechaVto)}
-                 </Typography>
-                 {value.label_elemento} {formatMoney(value.importe)}
-               </React.Fragment>
-         </ListItemButton>
-        ))}
-      </List>
+       <Grid container>
+         <Badge badgeContent={cantidadSeleccion} color="error"> <Button variant="outlined" color="secondary" onClick={()=>setOpen(true)}><Icon className="fas fa-user"/> Deuda</Button></Badge>
+      <DialogContenido titulo="Deudas Cliente" open={open} setOpen={setOpen}>
+     
+        <CheckListFormik campo="seleccionItemsDeuda" callbackchange={cambiaItems}
+        fnTransformItem={item=>({...item.data(),_id:item.id})} 
+        lista={deudaSocio} campoLabel={fnLabel} campoId="id" />
+
+      </DialogContenido>
+       </Grid>
     )
 }

@@ -28,6 +28,19 @@ export function getItemArray({data,valor,campoId})
 
 
 }
+export function getIndexArray({data,valor,campoId})
+{
+    if(data){
+        campoId=(campoId)?campoId:"id"
+        const i=data.map(x => x[campoId]).indexOf(valor)
+    
+        if(i>=0)return i
+        return null  
+    }
+    return null
+
+
+}
 export function getItemArrayKey({data,key})
 {
     let aux

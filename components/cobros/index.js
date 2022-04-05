@@ -1,12 +1,28 @@
 import DataGridFirebase from '../forms/datagrid/dataGridFirebase';
-export default function Modulo({modulo,mod,token}) {
-  const url="/api/cobros"
+import {getFechaString} from "../../helpers/dates"
+import {formatMoney} from "../../helpers/numbers"
+import {renderCellExpandData} from "../forms/datagrid/renderCellExpand"
+export default function Modulo({mod}) {
+
+  const fnLabelDetalle=(item)=>{
+    const bonif=Number(item.importeBonificacion?item.importeBonificacion:0)
+    const importe=((item.importe*item.cantidad)-bonif).toFixed(2)
+    const hijo=item.hijo?` (${item.hijo.apellido.toUpperCase()} ${item.hijo.nombre})`:''
+      return `${getFechaString(item.fechaVto)} - ${item.label_idProducto} ${hijo} $${importe} `
+    }
+    const getDetalle=row=>{ 
+      const items=row.deudas
+      let aux=""
+      items.forEach(item=>aux+=fnLabelDetalle(item))
+      return aux
+    }
 const columns=[
 
   {
     field: 'fecha', 
     headerName: 'Fecha',
     width: 100,
+    renderCell: (params) => { return getFechaString(params.value)}  
     
   },
   {
@@ -15,24 +31,28 @@ const columns=[
     width: 250,
   },
   {
-    field: 'detalle', 
+    field: 'deudas', 
     headerName: 'Detalle',
     width: 300,
+    renderCell: (params) =>  renderCellExpandData(params,getDetalle)
   },
   {
     field: 'importe', 
-    headerName: '$importe',
-    width: 150,
+    headerName: '$ Importe',
+    width: 120,
+    renderCell: (params) => { return formatMoney(params.value)} 
   },
   {
-    field: 'importeBonificado', 
+    field: 'importeBonificacion', 
     headerName: '$ Bonif.',
     width: 150,
+    renderCell: (params) => { return formatMoney(params.value)} 
   },
   {
-    field: 'importeTotal', 
-    headerName: '$ Total.',
+    field: 'importePaga', 
+    headerName: '$ Paga.',
     width: 150,
+    renderCell: (params) => { return formatMoney(params.value)} 
   },
           
   

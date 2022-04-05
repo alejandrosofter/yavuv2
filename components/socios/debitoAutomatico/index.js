@@ -19,21 +19,16 @@ export const cols = [
         width: 90,
         renderCell: (params) => getFechaString(params.value)
       },
-      
+
       {
-        field: 'label_modDeuda',
-        headerName: 'Modulo',
-        width: 90,
-      },
-      {
-        field: 'label_concepto',
-        headerName: 'Concepto',
-        width: 140,
-      },
-      {
-        field: 'label_idCuentaEfectivo',
-        headerName: 'Cuenta Destino',
+        field: 'label_idCuentaCbu',
+        headerName: 'Titular',
         width: 120,
+      },
+      {
+        field: 'detalle',
+        headerName: 'Detalle',
+        width: 150,
       },
       {
         field: 'estado',
@@ -78,6 +73,7 @@ export default function ActividadesSocio({data,mod})
      
     return(
       <div>
+       <i> Será utilizada solo la cuenta que se encuentre en estado ACTIVO</i>
         <SubColeccionColeccion sortModel={[{ field: 'fecha',  sort: 'desc', }]} 
         campoId="id" accionesExtra={accionesExtra} coleccion={mod.coleccion}
          titulo={labelCampo} modelo={ModeloDebitoAutomatico} 

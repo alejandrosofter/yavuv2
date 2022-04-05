@@ -3,7 +3,7 @@ import Stack from '@mui/material/Stack';
 import { Grid } from "@mui/material";
 import BuscadorSocios from "./buscadorSocios";
 export default function Modulo({mod,auth}) {
-
+const pru="el"
       return (
       <Stack flex={1} spacing={2}>
             <Grid flex={1}>

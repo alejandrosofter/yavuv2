@@ -17,7 +17,9 @@ export default function _FormGenerico({callbackSuccess,fnUpdate,datos,valoresIni
 
       if(callbackSuccess){
         callbackSuccess(values)
-      }else  router.back({ shallow: true })
+      }else {
+        router.back({ shallow: true })
+      }
   })
   .catch((error) => {
       setLoad(false)
@@ -42,7 +44,7 @@ export default function _FormGenerico({callbackSuccess,fnUpdate,datos,valoresIni
      >
         
          {({handleSubmit,values,errors,setFieldValue,validateForm})=>{
-          console.log(errors)
+          // console.log(errors)
           //  setFieldValue("idUsaurio",fuego.auth().currentUser.uid)
            return ( 
             <Grid sx={{my:0}} md={12} item xs={9}> 

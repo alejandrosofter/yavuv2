@@ -1,24 +1,50 @@
-import DataGridFirebase from '../forms/datagrid/dataGridFirebase';
+import DataGridFirebase from '../forms/datagrid/dataGridFirebase'
+import {getFechaString} from "../../helpers/dates"
+import {formatMoney} from "../../helpers/numbers"
+import {renderCellExpandData} from "../forms/datagrid/renderCellExpand"
 export default function Modulo({mod}) {
-const order="estado"
+const order=["fecha","desc"]
+const getDetalleCobro=(row)=>{
+  return row.deudas.map(item=>`${item.label_idProducto} ${formatMoney(item.importe)}`).reduce((n,p)=>`${n} | ${p}`)
+}
+const getDetalleActividades=(row)=>{
+  return row.actividades.map(item=>`${item.label_idActividad}`).reduce((n,p)=>`${n} | ${p}`)
+}
+let fnAcciones={
+  aplicar:(data)=>{ 
+    console.log(data)
+  },
+  imprimir:(data)=>{ 
+    console.log(data)
+  }
+}
 const columns=[
-
+  {
+    field: 'fecha', 
+    headerName: 'Fecha',
+    width:80,
+    renderCell:params=>getFechaString(params.value)
+  },
     {
         field: 'socio', 
         headerName: 'Socio',
         width:190,
+        renderCell:params=>`${params.value.apellido.toUpperCase()} ${params.value.nombre}`
         
       },
       {
-        field: 'documentos', 
-        headerName: 'Documentos',
-        width:190,
+        field: 'actividades', 
+        headerName: 'Actividades',
+        width:150,
+        renderCell:params=>renderCellExpandData(params,getDetalleActividades)
         
       },
       {
-        field: 'debitoAutomatico', 
-        headerName: 'Debitos',
-        width:190,
+        field: 'deudas', 
+        headerName: 'Cobro',
+        width:250,
+        renderCell:params=>renderCellExpandData(params,getDetalleCobro)
+        
         
       },
       {
@@ -31,7 +57,7 @@ const columns=[
   
 ]
       return (
-        <DataGridFirebase titulo={mod.label} subTitulo="al club" icono={mod.icono}
+        <DataGridFirebase fnAcciones={fnAcciones} titulo={mod.label} subTitulo="al club" icono={mod.icono}
         limit={10} mod={mod} acciones={mod.acciones} orderBy={order}
        columns={columns} />
       )

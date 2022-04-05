@@ -37,9 +37,14 @@ const columns=[
     width: 80,
   },
   {
-    field: 'motivo',
-    headerName: 'Motivo',
-    width: 130,
+    field: 'acumuladorTakeProfit',
+    headerName: '% TP',
+    width: 100,
+  },
+  {
+    field: 'margenStop',
+    headerName: '% STP',
+    width: 100,
   },
  
   {

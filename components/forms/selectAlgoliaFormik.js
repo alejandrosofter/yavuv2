@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IconButton,Box, Icon,Typography,Stack} from '@mui/material';
+import { IconButton,Box,Grid, Icon,Typography,Stack} from '@mui/material';
 
 import algoliasearch from 'algoliasearch/lite';
 import AutoCompleteAsync from "../forms/autocompleteAsync"
@@ -9,12 +9,12 @@ import { FormControl,TextField } from "@mui/material";
 
 
 
-const SelectFormik = ({label,campo,coleccionAlgolia,callbackchange}) => {
+const SelectFormikAlgolia = ({label,campo,coleccionAlgolia,callbackchange}) => {
   const [datos, setDatos] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const containerRef = React.useRef(null);
-  const [showBusca, setShowBusca] = React.useState(false)
-  const [labelSelect, setLabel] = React.useState("")
+  const [showBusca, setShowBusca] = React.useState(true)
+  const [labelSelect, setLabel] = React.useState()
   React.useEffect(()=>{
 
   },[])
@@ -70,21 +70,22 @@ const SelectFormik = ({label,campo,coleccionAlgolia,callbackchange}) => {
   const labelItems=(option)=>`${option.nombre} ${option.apellido} (${option.dni})`
        
     return( 
-      <Box>
-          <Box sx={{ display: 'flex' }}>
-          <Stack direction="row" spacing={2} sx={{ width:"100%", display:`${showBusca?'':'none'}`}}>
-            <AutoCompleteAsync  icono="fas fa-user"  label="Cliente" fnCambia={cambia} fnClick={fnClick} 
+      <Grid container>
+          <Grid item md={11} sx={{ display:`${showBusca?'':'none'}`}}>
+          
+            <AutoCompleteAsync  icono="fas fa-user"  label={`Buscador ${label}`} fnCambia={cambia} fnClick={fnClick} 
         loading={loading} datos={datos} labelItems={labelItems} /> 
-        <IconButton  onClick={clickLabel} size="small" variant="outlined"><Icon className="fas fa-times"/></IconButton>
-        </Stack>
-      </Box>
+        
+  
+      </Grid>
+      <Grid sx={{pt:1, display:`${showBusca?'':'none'}`}} md={1}><IconButton  onClick={clickLabel} size="small" variant="outlined"><Icon className="fas fa-times"/></IconButton></Grid>
                 
-      <Stack  justifyContent="center"
-  alignItems="center" direction="row" spacing={1} sx={{ width:"100%", display:`${!showBusca?'':'none'}`}}>
-        <Typography sx={{pt:1}} variant="h5" >{labelSelect}</Typography>
-        <IconButton  onClick={clickLabel} size="small" variant="outlined"><Icon className="fas fa-pencil"/></IconButton>
-      </Stack>
-      </Box>
+      <Grid md={11} item spacing={2} sx={{ display:`${!showBusca?'':'none'}`}}>
+        <Typography sx={{pt:1}} variant="caption" >Cliente </Typography>
+        <Typography sx={{pt:1}} variant="h5" >{labelSelect==="undefined"?"Seleccione...":labelSelect}</Typography>
+      </Grid>
+      <Grid sx={{ pt:3,display:`${!showBusca?'':'none'}`}} md={1}> <IconButton  onClick={clickLabel} size="small" variant="outlined"><Icon className="fas fa-pencil"/></IconButton></Grid>
+      </Grid>
     )
     }}
     </Field>
@@ -94,4 +95,4 @@ const SelectFormik = ({label,campo,coleccionAlgolia,callbackchange}) => {
   )
       }
 
-export default SelectFormik;
+export default SelectFormikAlgolia;

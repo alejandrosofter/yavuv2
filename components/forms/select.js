@@ -3,6 +3,7 @@ import { Field } from "formik";
 import { useTheme } from "@emotion/react";
 import { CircularProgress,FormControl,InputLabel, MenuItem, OutlinedInput, Select } from "@mui/material";
 import Loader from "../loader";
+import { getItemArray } from "../../helpers/arrays";
 
 
 const SelectFormik = ({label,campo,lista,campoLabel,campoId,callbackchange}) => {
@@ -17,7 +18,7 @@ const SelectFormik = ({label,campo,lista,campoLabel,campoId,callbackchange}) => 
         
           props.form.setFieldValue(campo,event.target.value);
           props.form.setFieldValue(`label_${campo}`,p.props.children);
-          if(callbackchange)callbackchange(event.target.value)
+          if(callbackchange)callbackchange(event.target.value,getItemArray({data:lista,valor:event.target.value}))
         };
     return( 
     <Select

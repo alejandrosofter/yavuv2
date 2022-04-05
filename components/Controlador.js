@@ -14,7 +14,7 @@ const Controlador=({esInicial,url,moduloEditar})=>{
   const auth = useAuthUser()
   const router =useRouter()
   const esEdicion=router.query.componente==="editar" && moduloEditar===true
-  console.log(moduloEditar)
+
   const mod=esInicial?getModModulo({auth,esInicial:true}):getModuloMod({id:router.query.id})
   useEffect(()=>{
     updateField({coleccion:"mods",id:router.query.id,registro:{fechaClick:new Date()}})

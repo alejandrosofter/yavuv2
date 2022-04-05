@@ -3,12 +3,24 @@ export default function Modulo({mod}) {
 const order="titular"
 const columns=[
 
-    {
-        field: 'titular', 
-        headerName: 'Titular',
-        width:190,
-        
-      },
+      {
+            field: 'titular', 
+            headerName: 'Titular',
+            width:190,
+            
+          },
+          {
+            field: 'nroCbu', 
+            headerName: 'CBU/CVU',
+            width:190,
+            
+          },
+          {
+            field: 'label_tipoCuenta', 
+            headerName: 'Origen',
+            width:190,
+            
+          },
           
   
 ]

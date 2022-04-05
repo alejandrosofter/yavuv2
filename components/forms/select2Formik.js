@@ -14,14 +14,13 @@ const datos=lista.map(item=>{  return {label:item[campoLabel],value:item[campoId
   <Field type="hidden" name={`label_${campo}`} id={`label_${campo}`} />
   <Field label={label} name={campo} id={campo} >
     {(props) =>{
-     console.log(datos.filter(option =>  option.value === props.form.values[campo])[0])
+     
         const handleChange = (item) => {
           const registro=getItemArray({data:lista,valor:item?.value,campoId:"id"})
          
           props.form.setFieldValue(campo,item?.value)
           props.form.setFieldValue(`label_${campo}`,item?.label)
           if(extraData)extraData.forEach(field=> {
-            console.log(`${campo}_${field}`)
             props.form.setFieldValue(`${campo}_${field}`,registro?.[field])
           })
          

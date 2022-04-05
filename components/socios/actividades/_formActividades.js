@@ -53,8 +53,8 @@ export default function FormActividadesSocio({values,registro,setFieldValue})
                         <Grid item md={4}><SelectEstaticFormik items={["ACTIVO","INACTIVO"]}  label="Estado" campo="estado"/></Grid>
                         <Grid item md={5}><SelectFormik callbackchange={cambiaActividad} label="Actividad" lista={actividades} campoLabel="nombreActividad" campoId="id" campo="idActividad"/></Grid>
                         <Grid item md={7}><SelectFormik label="Sub-Actividad" lista={subActividades} campoLabel="nombreActividad" campoId="id" campo="idSubActividad"/></Grid>
-                        <Grid item md={7}><SelectFormik label="Periodo" lista={periodos} campoLabel="nombrePeriodo" campoId="id" campo="idPeriodo"/></Grid>
-
+                        <Grid item md={5}><SelectFormik label="Periodo" lista={periodos} campoLabel="nombrePeriodo" campoId="id" campo="idPeriodo"/></Grid>
+                        <Grid item md={7}><SwitchFormik label="Es por Débito automático" campo={`esPorDebitoAutomatico`}/></Grid>
                        
                     </Grid>
            

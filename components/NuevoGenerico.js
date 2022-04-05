@@ -4,6 +4,7 @@ import { useCollection,fuego } from '@nandorojo/swr-firestore'
 import { Grid } from "@mui/material";
 export default function NuevoGenerico({removeTitle,mod,callbackSuccess,modelo,valoresIniciales,children}){
   const { add, error } = useCollection(mod.coleccion)
+  if(error)return error
     return(
       <Grid container>
         {!removeTitle && <TitulosFormularios titulo={"NUEVO/A"} subTitulo={mod.label} icono={mod.icono}/> }

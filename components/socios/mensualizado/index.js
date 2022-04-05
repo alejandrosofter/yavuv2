@@ -13,9 +13,15 @@ import {getValorDb} from "../../../helpers/db"
 import Tooltip from '@mui/material/Tooltip';
 export const cols = [
   {
+    field: 'esPorDebitoAutomatico',
+    headerName: '',
+    width:15,
+    renderCell: (params) =>params.value?<Tooltip title={`Es por Débito automático`}><Icon class="fas fa-credit-card"/></Tooltip>:""
+  }, 
+  {
     field: 'hijo',
     headerName: '',
-    width: 30,
+    width: 20,
     renderCell: (params) =>params.value?<Tooltip title={`${params.value.apellido} ${params.value.nombre}`}><Icon class="fas fa-users"/></Tooltip>:""
   },    
   {
@@ -30,7 +36,7 @@ export const cols = [
   {
     field: 'label_idProducto',
     headerName: 'Producto',
-    width: 200,
+    width: 190,
   },
   {
     field: 'importe',

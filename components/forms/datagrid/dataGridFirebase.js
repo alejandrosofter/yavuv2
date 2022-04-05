@@ -13,11 +13,11 @@ import { useCollection,deleteDocument,fuego } from '@nandorojo/swr-firestore'
 
 import FormBuscador from '../inputBuscador';
 import TitulosFormularios from '../tituloFormularios';
-export default function DataGridFirebase({allUsers,coleccion,titulo,subTitulo,icono,pageSize,orderBy,limit,columns,acciones,mod}) {
+export default function DataGridFirebase({fnAcciones={},condiciones,allUsers,coleccion,titulo,subTitulo,icono,pageSize,orderBy,limit,columns,acciones,mod}) {
   const coleccionDb=coleccion?coleccion:mod.coleccion
-
-  const [filtro,setFiltro]=useState( {where:allUsers?[]:["idUsuario","==",fuego.auth().currentUser?.uid],limit:limit,orderBy:orderBy,startAt:null,endAt:null,listen:true})
-console.log(filtro)
+  const auxWhere=(allUsers?[]:["idUsuario","==",fuego.auth().currentUser?.uid]).concat(condiciones)
+  const [filtro,setFiltro]=useState( {where:auxWhere,limit:limit,orderBy:orderBy,startAt:null,endAt:null,listen:true})
+  
   const { data:datos, update, error } = useCollection(coleccionDb, filtro)
     const router= useRouter()
     const [rowsState, setRowsState] = useState({
@@ -53,7 +53,8 @@ useEffect(() => {
           setData(params.row)
           setAcccionSeleccion(accion)
           if(accion.esFuncion){
-            setdialog(true)
+            if(accion.conConfirmacion)setdialog(true)
+            else ejecutaFuncion(accion.method,params.row)
           }else  router.push(getLinkUrl(accion.url,mod,params.row), undefined, { shallow: true })
         }
         const aux=columns
@@ -87,15 +88,16 @@ useEffect(() => {
      
     
   
-  
+       fnAcciones["quitar"]=async (dataRow)=>{
+        deleteDocument(`${mod.coleccion}/${dataRow.id}`)
+      }
   
   //FUNCIONES CALL DESDE INTERFAZ con EVAL
-  const quitar=async (id)=>{
-    deleteDocument(`${mod.coleccion}/${id}`)
-  }
+
   //********************************/
-  const clickAceptaMenu=async e=>{
-    const res=eval(accionSeleccion.method)
+  const ejecutaFuncion=(accion,dataRow)=>{
+    const fnString=accion?accion:accionSeleccion.method
+    const res=fnAcciones[fnString](dataRow?dataRow:data)
 
     
    
@@ -103,7 +105,10 @@ useEffect(() => {
         setRtaServer(JSON.stringify(res))
         setOpenRta(false)
     }
-    
+  }
+  const clickAceptaMenu=async e=>{
+   
+    ejecutaFuncion()
     
 }
 
@@ -118,7 +123,7 @@ useEffect(() => {
      }else{
         setFiltro({limit:limit,orderBy:orderBy,startAt:null,endAt:null})
      }
-console.log(filtro)
+
  }
   
 
@@ -169,7 +174,7 @@ if(!datos)return "cargando..."
       />
      
       <Dialogo open={dialog} icon="fas fa-exclamation-triangle" setOpen={setdialog} 
-             titulo="" detalle="Realmente deseas realizar esta operacion?" callbackAcepta={clickAceptaMenu} />
+             titulo="" detalle={`Realmente deseas realizar ${accionSeleccion?.label}?`} callbackAcepta={clickAceptaMenu} />
              <DialogContenido titulo="Rta Server" open={openRta} setOpen={setOpenRta}>
                  {rtaServer}
              </DialogContenido>

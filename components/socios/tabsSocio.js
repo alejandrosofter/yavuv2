@@ -14,10 +14,11 @@ import PromocionesSocio from './promociones';
 import DebitosAutomaticosSocio from "./debitoAutomatico"
 import Mensualizado from "./mensualizado"
 function BadgeIcono({icono,cantidad,label}){
-
+const labCantidad=cantidad?`(${cantidad})`:""
+const auxLabel=`${label} ${labCantidad}`
     return(
      
-      <Typography sx={{fontWeight: 'bold',fontSize:10 }} >{`${label} (${cantidad})`}</Typography> 
+      <Typography sx={{fontWeight: 'bold',fontSize:10 }} >{auxLabel}</Typography> 
 
         
           
@@ -66,7 +67,7 @@ export default function TabsSocio({dataSocio,mod,auth}){
         <Stack direction="row" spacing={2} sx={{ }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs orientation="vertical" value={value} onChange={handleChange} aria-label="basic tabs example">
-              <Tab icon={<Icon className="fas fa-file-invoice-dollar" />} iconPosition="top" label={<BadgeIcono label="Cuenta" cantidad={dataSocio.movimientosCuenta?dataSocio.movimientosCuenta.length:0} icono="fas fa-file-invoice-dollar"/>}{...a11yProps(0)} /> 
+              <Tab icon={<Icon className="fas fa-file-invoice-dollar" />} iconPosition="top" label={<BadgeIcono label="Cuenta" cantidad="" icono="fas fa-file-invoice-dollar"/>}{...a11yProps(0)} /> 
               
                 <Tab  icon={<Icon className="fas fa-dumbbell" />} iconPosition="top" label={<BadgeIcono label="Actividades" cantidad={dataSocio.actividades?dataSocio.actividades.length:0}  icono="fas fa-dumbbell"/>}{...a11yProps(2)} /> 
                 <Tab icon={<Icon className="fas fa-heart" />} iconPosition="top" label={<BadgeIcono label="Estados" cantidad={dataSocio.cambiosEstado?dataSocio.cambiosEstado.length:0}  icono="fas fa-heart"/>} {...a11yProps(3)} />

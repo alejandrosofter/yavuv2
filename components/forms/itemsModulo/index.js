@@ -14,7 +14,7 @@ import ItemsModulo_agregar from "./agregar";
 import ItemsModulo_editar from "./editar";
 import ItemsModulo_eliminar from "./eliminar";
 import randomId from "random-id"
-export default function ItemsModulo({fnCambia,dataExtra,fnAddData,fullWidth,icono,titulo,maxWidth,campo,data,modelo,valoresIniciales,setFieldValue,columnas,dataModulo,form,nombreModulo,textoEditar,textoAgregar}){
+export default function ItemsModulo({fnCambia,accionesExtra=()=>[],dataExtra,fnAddData,fullWidth,icono,titulo,maxWidth,campo,data,modelo,valoresIniciales,setFieldValue,columnas,dataModulo,form,nombreModulo,textoEditar,textoAgregar}){
 
   useEffect(() => {
     let aux=columnas
@@ -53,15 +53,13 @@ export default function ItemsModulo({fnCambia,dataExtra,fnAddData,fullWidth,icon
             onClick={handleDeleteClick(data)}
             color="inherit"
           />,
-        ];
+        ].concat(accionesExtra(data))
       }})
       setCols(aux)
   }, [columnas,data])
   useEffect(()=>{
-    console.log(data)
     if(data?.length===0){
       setFieldValue(campo,[])
-      console.log("no existe, se setea []")
     }
   },[])
   const [cols,setCols]=useState([])
@@ -126,7 +124,6 @@ export default function ItemsModulo({fnCambia,dataExtra,fnAddData,fullWidth,icon
             }
             const agregarData=(valores)=>{
               if(valores){
-                console.log(valores,campo)
                 const nuevoArray=[...data?data:[],valores]
                 
                 setFieldValue(campo,nuevoArray)
@@ -139,10 +136,10 @@ export default function ItemsModulo({fnCambia,dataExtra,fnAddData,fullWidth,icon
             <div style={{ height: 400}}>
                 <Stack spacing={1} direction="row">
                 {fnAddData  && dataExtra.length>0 && <IconButton onClick={clickTraer}>
-  <Badge badgeContent={dataExtra?dataExtra.length:0} color="secondary">
-  <Icon className="fas fa-arrow-down"/> 
-  </Badge>
-</IconButton>}
+                  <Badge badgeContent={dataExtra?dataExtra.length:0} color="secondary">
+                  <Icon className="fas fa-arrow-down"/> 
+                  </Badge>
+                </IconButton>}
                   <ItemsModulo_agregar fullWidth={fullWidth} maxWidth={maxWidth} textoAgregar={textoAgregar} nombreModulo={nombreModulo} valoresIniciales={valoresIniciales} dataModulo={dataModulo} modelo={modelo} clickAceptar={clickAceptar} form={form}/>
                   <Button size="small" variant="outlined" onClick={clickVaciar}><Icon className="fas fa-trash"/> Vaciar</Button>
                   <Stack  direction="row" spacing={1} >
@@ -150,11 +147,12 @@ export default function ItemsModulo({fnCambia,dataExtra,fnAddData,fullWidth,icon
                     <Icon className={icono}/>
                   </Stack>
                 </Stack>
-                
+                {/* Me quemo el cerebro un rato eso de que la data del datarow tiraba error data?data:[] */}
              <DataGrid rowHeight={25} 
         columns={cols}
-        rows={data}
+        rows={data?data:[]}
       />
+      
       <ItemsModulo_eliminar nombreModulo={nombreModulo} open={quitarVisible} clickEliminar={clickEliminar} handleClose={closeEliminar}/>
       <ItemsModulo_editar fullWidth={fullWidth} maxWidth={maxWidth} textoEditar={textoEditar} nombreModulo={nombreModulo}  abierto={editarVisible} valoresIniciales={dataSelecciona} dataModulo={dataModulo} modelo={modelo} clickAceptar={clickAceptarModificar} form={form}/>
       </div>

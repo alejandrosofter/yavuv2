@@ -8,7 +8,7 @@ import FormDebitoAutomatico from "./debitoAutomatico"
 import FormFirmaDigital from "./firmaDigital"
 import FormPagos from "./pagos"
 import FormCredenciales from "./credenciales"
-import FormFormaPago from "./formaPago"
+
 import SelectFecha from "../../forms/selectorFecha";
 import SelectEstaticFormik from "../../forms/selectEstaticFormik";
 export default function Form({mod,setFieldValue,values}){
@@ -46,26 +46,22 @@ export default function Form({mod,setFieldValue,values}){
                 <FormFamiliares setFieldValue={setFieldValue} values={values} mod={mod}/>
             </Grid>
             },
-            {label:"Firma",nro:5,vista:
-            <Grid item md={12}>
-            <FormFirmaDigital setFieldValue={setFieldValue} values={values} mod={mod}/>
-            </Grid>
-            },
-            {label:"Credenciales",nro:6,vista:
+            // {label:"Firma",nro:5,vista:
+            // <Grid item md={12}>
+            // <FormFirmaDigital setFieldValue={setFieldValue} values={values} mod={mod}/>
+            // </Grid>
+            // },
+            {label:"Credenciales",nro:5,vista:
             <Grid item md={12}>
                 <FormCredenciales setFieldValue={setFieldValue} values={values} mod={mod}/>
             </Grid>
             },
-            {label:"Deuda Inicial",nro:7,vista:
+            {label:"Cobro",nro:6,vista:
             <Grid item md={12}>
-            <FormPagos setFieldValue={setFieldValue} values={values} mod={mod}/>
+                <FormPagos setFieldValue={setFieldValue} values={values} mod={mod}/>
             </Grid>
             },
-            {label:"Forma Pago",nro:8,vista:
-            <Grid item md={12}>
-            <FormFormaPago setFieldValue={setFieldValue} values={values} mod={mod}/>
-            </Grid>
-            },
+            
             
             
             

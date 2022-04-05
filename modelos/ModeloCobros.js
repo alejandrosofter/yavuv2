@@ -1,8 +1,8 @@
 import * as yup from 'yup';
-
+import {fuego} from '@nandorojo/swr-firestore'
 export default function ModeloCobros(){
     return yup.object().shape({
-        fecha: yup.string().required(),
+
         cliente: yup.string().required(),
         detalle: yup.string(),
         importe: yup.number(),
@@ -22,15 +22,15 @@ export function valoresIniciales(){
         importeTotal: 0,           
         importePaga: 0,                                            
         estado:"CANCELADA",
-        fecha: {seconds:new Date().getTime()/1000,nanoseconds:0},
+        fecha: new Date(),
+        idUsuario:fuego.auth().currentUser.uid
     }
 }
 export  function ModeloItems(){
     return yup.object().shape({
-        detalle: yup.string().required(),
-        importe: yup.number(),
+        producto: yup.string(),
+        importe: yup.number().required(),
         importeBonifica: yup.number(),
-        importeTotal: yup.number(),
 
       });
 }
@@ -50,7 +50,7 @@ export  function ModeloFormasDePago(){
       });
 }
 export function valoresInicialesFormaPago(importe){
-    console.log(importe)
+    
     return {
         formaPago: "",
         importe: importe?importe:0

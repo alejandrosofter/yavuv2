@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-
+import {fuego} from '@nandorojo/swr-firestore'
 export default function ModeloFormaPago(){
     return yup.object().shape({
         nombreFormaPago: yup.string().required(),
@@ -8,6 +8,7 @@ export default function ModeloFormaPago(){
 export function valoresIniciales(){
     return {
         nombreFormaPago: "",
-        estado:"ACTIVO"
+        estado:"ACTIVO",
+        idUsuario:fuego.auth().currentUser.uid
     }
 }

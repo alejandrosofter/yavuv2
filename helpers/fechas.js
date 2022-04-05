@@ -15,6 +15,7 @@ export function getEdad(fechaNacimiento) {
   }
 export function formatDate(fecha)
 {
+  if(!fecha)return ""
   if("seconds" in fecha) return moment(new Date(fecha.seconds * 1000)).format('DD/MM/YY')
   if(fecha instanceof Date) return moment(fecha).format('DD/MM/YY')
   return "-"

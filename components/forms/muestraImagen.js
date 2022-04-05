@@ -4,16 +4,15 @@ import { Avatar, CircularProgress, Stack } from "@mui/material"
 export default function MuestraImagen({pathImagen,w,h}){
     
     useEffect(()=>{
-        const load=async()=>{
-          await mostrarImagen(pathImagen)
-        }
-        if(pathImagen)load()
+        mostrarImagen(pathImagen)
+        
       },[pathImagen])
       const [loadingImage,setLoadingImage]=useState(false)
       const [imagenUrl,setImagenUrl]=useState()
       const mostrarImagen=async (path)=>{
-         
+         console.log(path)
         setLoadingImage(true)
+        if(path)
         fuego.storage().ref().child(path).getDownloadURL()
         .then((url) => {
           setLoadingImage(false)

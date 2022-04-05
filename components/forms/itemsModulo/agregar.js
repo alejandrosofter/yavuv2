@@ -38,7 +38,7 @@ export default function ItemsModulo_agregar({fullWidth,maxWidth,textoAgregar,cli
         
        
       };
-     
+     const initialValues=typeof(valoresIniciales)=="function"?valoresIniciales():valoresIniciales
     return(
             <div>
      
@@ -52,7 +52,7 @@ export default function ItemsModulo_agregar({fullWidth,maxWidth,textoAgregar,cli
         {`${textoAgregar?textoAgregar:''}`}
           </DialogContentText>
           <Formik
-       initialValues={valoresIniciales}
+       initialValues={initialValues}
        validationSchema={modelo()}
        onSubmit={handleAceptar}
        validateOnChange={true}

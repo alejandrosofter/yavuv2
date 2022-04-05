@@ -21,7 +21,7 @@ const columns=[
     )
     }
   },
-  {
+  { 
     field: 'fechaVto', 
     headerName: 'Vto',
     width: 80,
@@ -68,11 +68,7 @@ const columns=[
   headerName: 'Cant.',
   width: 80,
 },   
-  {
-    field: 'porcentajeProcesado',
-    headerName: '%',
-    width: 80,
-  },    
+   
 
          
           {

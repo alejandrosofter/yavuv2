@@ -23,6 +23,7 @@ export default function _FormItemAccion({dataModulo,modelo,clickAceptar,valoresI
             <Grid item md={6}><Input campo='color' label="Color" /></Grid>
             <Grid item md={3}><SwitchFormik label="Es Registro? " campo="esRegistro"/></Grid>
             <Grid item md={3}><SwitchFormik label="Es Funcion? " campo="esFuncion"/></Grid>
+            <Grid item md={3}><SwitchFormik label="Con confirmación? " campo="conConfirmacion"/></Grid>
             
           </Grid>
        

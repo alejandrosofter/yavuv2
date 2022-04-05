@@ -1,5 +1,6 @@
 import * as yup from 'yup';
 import {valoresIniciales as initSocio} from "./ModeloSocios"
+import {fuego} from '@nandorojo/swr-firestore'
 export default function ModeloAfiliados(){
     return yup.object().shape({
         
@@ -23,10 +24,7 @@ export default function ModeloAfiliados(){
                 
               
         }),
-        cliente: yup.object().shape({
-            nombre: yup.string().required('El nombre del cliente es necesario!'),
-            apellido: yup.string().required('El apellido  del cliente tambien!'),
-        })
+        
 
       });
 }
@@ -35,5 +33,6 @@ export function valoresIniciales(){
         socio:initSocio(),
         fecha:new Date(),
         estado:"ALTA",
+        idUsuario:fuego.auth().currentUser.uid
     }
 }

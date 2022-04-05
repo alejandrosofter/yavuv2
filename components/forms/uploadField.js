@@ -1,7 +1,7 @@
 import {Icon, Button} from "@mui/material"
 import { useState } from "react";
 import Resizer from "react-image-file-resizer";
-export default function UpdateField({label,w,h,callBackCambia}){
+export default function UpdateField({label,w,h,callBackCambia,esImagen=true}){
     const [newImage,setNewImage]=useState()
     const [originalImage,setOriginalImage]=useState()
    const fileChangedHandler=(event)=> {
@@ -9,25 +9,28 @@ export default function UpdateField({label,w,h,callBackCambia}){
         if (event.target.files[0]) {
           fileInput = true;
           setOriginalImage(event.target.files[0])
+          callBackCambia(event.target.files[0])
         }
         if (fileInput) {
           try {
-            Resizer.imageFileResizer(
-              event.target.files[0],
-              w?w:300,
-              h?h:300,
-              "JPEG",
-              100,
-              0,
-              (uri) => {
-                console.log(uri);
-                setNewImage(uri)
-                callBackCambia(uri)
-              },
-              "base64",
-              w?w:300,
-              h?h:300,
-            );
+            if(esImagen){
+              Resizer.imageFileResizer(
+                event.target.files[0],
+                w?w:300,
+                h?h:300,
+                "JPEG",
+                100,
+                0,
+                (uri) => {
+                  setNewImage(uri)
+                  callBackCambia(uri)
+                },
+                "base64",
+                w?w:300,
+                h?h:300,
+              )
+            }
+            
           } catch (err) {
             console.log(err);
           }

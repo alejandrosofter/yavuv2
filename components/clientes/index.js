@@ -14,17 +14,38 @@ export default function Modulo({modulo,mod,token}) {
  }
   const url="/api/clientes"
 const columns=[
-
   {
-    field: 'nombre', 
-    headerName: 'Nombre',
+    field: 'label_tipoCliente', 
+    headerName: 'Tipo Cliente',
     width: 150,
     
   },
   {
-    field: 'apellido', 
-    headerName: 'Apellido',
-    width: 100,
+    field: 'esEmpresa', 
+    headerName: 'Empresa',
+    width: 90,
+    renderCell:params=>params.row.esEmpresa?"SI":"NO"
+    
+  },
+  {
+    field: 'nombre', 
+    headerName: 'Nombre',
+    width: 150,
+    renderCell:params=>{
+      if(params.row.esEmpresa)return params.row.razonSocial
+      return `${params.row.apellido.toUpperCase()} ${params.row.nombre}`
+    }
+    
+  },
+  {
+    field: 'dni', 
+    headerName: 'DNI/CUIT',
+    width: 150,
+    renderCell:params=>{
+      if(params.row.esEmpresa)return params.row.cuit
+      return `${params.row.dni}`
+    }
+    
   },
           
   

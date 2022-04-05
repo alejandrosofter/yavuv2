@@ -200,21 +200,16 @@ export  function ModeloActividades(){
 export function valoresDebitoAutomatico(){
     return {
      
-        estado:"",
+        estado:"ACTIVO",
         fecha:new Date(),
-        concepto:"",
-        idCuentaEfectivo:"",
         detalle:"",
     }
 }
 export  function ModeloDebitoAutomatico(){
     return yup.object().shape({
         //    fecha: yup.string(),
-        estado: yup.string(),
-   
-        modDeuda:yup.string().required(),
-        concepto:yup.string().required(),
-        idCuentaEfectivo:yup.string().required(),
+        estado: yup.string().required(),
+        idCuentaCbu:yup.string().required(),
         detalle:yup.string()
 
             }) 

@@ -62,27 +62,35 @@ const WebcamFormik = ({folder,label,campo,w,h,callbackchange}) => {
   var storageRef = fuego.storage().ref()
   var folderSociosRef = storageRef.child(rutaImagen);
   setLoading(true)
-  folderSociosRef.putString(imageBase64, 'data_url').then(async (snapshot) => {
+
+  try{
+    var bufferValue = Buffer.from(imageBase64.toString().split(';base64,').pop(),"base64");
+    folderSociosRef.put(bufferValue).then(async (snapshot) => {
     
-    setearValores(rutaImagen,rutaImagenThum)
-    setImagenUrl(rutaImagen)
-    setLoading(false)
-    console.log("SUBI IMAGEN")
-    setOpenAdjuntar(false)
-    setOpenSacaFoto(false)
-  });
+      setearValores(rutaImagen,rutaImagenThum)
+      setImagenUrl(rutaImagen)
+      setLoading(false)
+      console.log("SUBI IMAGEN")
+      setOpenAdjuntar(false)
+      setOpenSacaFoto(false)
+    })
+  }catch(err){
+    console.error(err)
+  }
+  
   
 }
   return (
 <FormControl fullWidth>
   <Field  label={label} name={campo} id={campo} >
     {(props) =>{
-    
+    console.log(props.form.values)
       setearValores=(rutaImagen,rutaImagenThum)=>{
+    
       props.form.setFieldValue(campo,rutaImagen)
       props.form.setFieldValue(`${campo}_thum`,rutaImagenThum)
       }
-      setValorFoto(props.form.values?.[campo])
+      setValorFoto(eval(`props.form.values?.${campo}`) )
         const clickOpenSacaFoto=()=>{
           setOpenSacaFoto(true)
         }
