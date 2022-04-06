@@ -2,7 +2,6 @@ import DataGridFirebase from '../forms/datagrid/dataGridFirebase'
 import {getFechaString} from "../../helpers/dates"
 import {formatMoney} from "../../helpers/numbers"
 import {renderCellExpandData} from "../forms/datagrid/renderCellExpand"
-import VentanaImpresion from "../impresorDirecto/toPdf"
 import { useState } from 'react'
 import ImpresionDialog from "../forms/impresion"
 export default function Modulo({mod}) {
