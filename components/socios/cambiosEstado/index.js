@@ -89,8 +89,7 @@ export default function CambiosEstadoSocio({data,mod})
         pathFormulario={pathFormulario} columns={cols} 
         modelo={ModeloCambioEstado} valoresIniciales={valoresInicialesCambioEstado}
         registro={data} campo={campo} icono={icono}/>
-        <ImpresionDialog titulo="IMPRESION DE ESTADO" abrir={openImpresion}
-        datos={datosClick} ComponenteItem={ImpresionCambiosEstadoSocio} />
+        
      </div>
     )
                   

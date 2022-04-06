@@ -2,8 +2,13 @@ import DataGridFirebase from '../forms/datagrid/dataGridFirebase'
 import {getFechaString} from "../../helpers/dates"
 import {formatMoney} from "../../helpers/numbers"
 import {renderCellExpandData} from "../forms/datagrid/renderCellExpand"
+import VentanaImpresion from "../impresorDirecto/toPdf"
+import { useState } from 'react'
+import ImpresionDialog from "../forms/impresion"
 export default function Modulo({mod}) {
 const order=["fecha","desc"]
+const [openImpresion,setOpenImpresion]=useState(false)
+const [dataImpresion,setDataImpresion]=useState()
 const getDetalleCobro=(row)=>{
   return row.deudas.map(item=>`${item.label_idProducto} ${formatMoney(item.importe)}`).reduce((n,p)=>`${n} | ${p}`)
 }
@@ -15,7 +20,8 @@ let fnAcciones={
     console.log(data)
   },
   imprimir:(data)=>{ 
-    console.log(data)
+    setOpenImpresion(true)
+    setDataImpresion(data)
   }
 }
 const columns=[
@@ -57,9 +63,14 @@ const columns=[
   
 ]
       return (
-        <DataGridFirebase fnAcciones={fnAcciones} titulo={mod.label} subTitulo="al club" icono={mod.icono}
-        limit={10} mod={mod} acciones={mod.acciones} orderBy={order}
-       columns={columns} />
+        <>
+            <DataGridFirebase fnAcciones={fnAcciones} titulo={mod.label} subTitulo="al club" icono={mod.icono}
+            limit={10} mod={mod} acciones={mod.acciones} orderBy={order}
+          columns={columns} /> 
+          <ImpresionDialog titulo="IMPRESIÓN AFILIACIÓN" setOpen={setOpenImpresion} open={openImpresion}
+           data={dataImpresion} nombrePlantilla="afiliacion_informe" />
+          
+        </>
       )
 
 }

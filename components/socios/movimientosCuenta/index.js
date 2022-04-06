@@ -118,8 +118,7 @@ export default function CuentaSocio({data,mod})
         limit={10} acciones={[]} orderBy={order}
        columns={columns} />
 
-        <ImpresionDialog titulo="IMPRESION DE ESTADO" abrir={openImpresion}
-        datos={datosClick} ComponenteItem={ImpresionCambiosEstadoSocio} />
+       
      </div>
     )
                   

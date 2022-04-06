@@ -28,7 +28,7 @@ import MenuModulosInvitado from './menuModulosInvitado';
 import MenuAccionesBarra from './menuAccionesBarra';
 import MenuCuenta from './menuCuenta';
 import { useAuthUser } from 'next-firebase-auth'; 
-import ImpresorDirecto from "./impresorDirecto"
+
 const drawerWidth = 240;
 
 
@@ -152,7 +152,7 @@ router.push(`/mod/${mod.id}/editar`, undefined, { shallow: true })
                 </Stack>
                 </Box>
             </Box>
-            <ImpresorDirecto />
+           
             <MenuCuenta acciones={accionesCuenta} auth={auth} />
         </Toolbar>
       </AppBar>

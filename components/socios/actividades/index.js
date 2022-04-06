@@ -92,8 +92,7 @@ export default function ActividadesSocio({data,mod})
         valoresIniciales={valoresInicialesActividades} callbackchange={cambiaItem}
         pathFormulario={pathFormulario} columns={cols} 
         registro={data} campo={campo} icono={icono}/>
-        <ImpresionDialog titulo="IMPRESION DE INGRESO A ACTIVIDAD" abrir={openImpresion}
-           datos={datosClick} ComponenteItem={ImpresionActividadSocio} />
+       
         </div>
         
     )

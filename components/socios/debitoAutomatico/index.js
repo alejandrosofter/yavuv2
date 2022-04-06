@@ -9,8 +9,8 @@ import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
 import SubColeccionColeccion from "../../forms/subColeccion/";
 import ImpresionDialog from "../../forms/impresion"
 import ImpresionActividadSocio from "./impresion"
-import {ModeloDebitoAutomatico,valoresDebitoAutomatico}from "../../../modelos/ModeloSocios"
-import { getFechaString } from "../../../helpers/dates";
+import {ModeloDebitoAutomatico,valoresDebitoAutomatico}from "@modelos/ModeloSocios"
+import { getFechaString } from "@helpers/dates";
 export const cols = [
     
       {
@@ -80,8 +80,7 @@ export default function ActividadesSocio({data,mod})
         valoresIniciales={valoresDebitoAutomatico}
         pathFormulario={pathFormulario} columns={cols} 
         registro={data} campo={campo} icono={icono}/>
-        <ImpresionDialog titulo="IMPRESION DE DEBITO AUT." abrir={openImpresion}
-           datos={datosClick} ComponenteItem={ImpresionActividadSocio} />
+        
         </div>
         
     )
