@@ -8,7 +8,7 @@ import Tabla from "./_reporte"
 import {formatMoney} from "../../helpers/numbers"
 import {getFechaString} from "../../helpers/dates"
 export default ({mod})=>{
-    const [filtro,setFiltro]=useState({where:["idUsuario","==",fuego.auth().currentUser?.uid]})
+    const [filtro,setFiltro]=useState({where:["idUsuario","==",fuego.auth().currentUser?.uid],sort:["fecha","desc"]})
     const {data}=useCollection(mod.coleccion,filtro)
   
     const condiciones=[

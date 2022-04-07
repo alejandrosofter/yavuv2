@@ -52,7 +52,6 @@ export default function FormActividad({mod,setFieldValue,values}){
                                 
                                 
                                 { field: 'label_profesor',headerName: 'Profesor', width: 280,  },
-                                { field: 'label_idProducto',headerName: 'Producto Asociado', width: 180,  },
                                 { field: 'estado',headerName: 'Estado', width: 80,  },
                            
                                 

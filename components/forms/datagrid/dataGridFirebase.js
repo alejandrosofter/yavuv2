@@ -53,6 +53,7 @@ useEffect(() => {
           setData(params.row)
           setAcccionSeleccion(accion)
           if(accion.esFuncion){
+            console.log(accion)
             if(accion.conConfirmacion)setdialog(true)
             else ejecutaFuncion(accion.method,params.row)
           }else  router.push(getLinkUrl(accion.url,mod,params.row), undefined, { shallow: true })
@@ -89,7 +90,7 @@ useEffect(() => {
     
   
        fnAcciones["quitar"]=async (dataRow)=>{
-        deleteDocument(`${mod.coleccion}/${dataRow.id}`)
+        return deleteDocument(`${mod.coleccion}/${dataRow.id}`)
       }
   
   //FUNCIONES CALL DESDE INTERFAZ con EVAL
@@ -99,16 +100,20 @@ useEffect(() => {
     const fnString=accion?accion:accionSeleccion.method
     const res=fnAcciones[fnString](dataRow?dataRow:data)
 
-    
+     
    
-    if(res){
-        setRtaServer(JSON.stringify(res))
-        setOpenRta(false)
-    }
+    // if(res){
+    //     setRtaServer(JSON.stringify(res))
+    //     setOpenRta(false)
+    // }
   }
   const clickAceptaMenu=async e=>{
-   
-    ejecutaFuncion()
+    try{
+      ejecutaFuncion()
+    }catch(err){
+      console.error(err)
+    }
+    
     
 }
 

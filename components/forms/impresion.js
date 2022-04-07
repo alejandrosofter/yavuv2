@@ -25,6 +25,7 @@ export default function ImpresionDialog({data,nombrePlantilla,open,setOpen,titul
     },[nombrePlantilla])
   
     const setTemplate=async nombre=>{
+      if(!nombre)return 
       const templates=await fuego.db.collection("plantillas")
     .where("identificador","==",nombre)
     .where("idUsuario","==",fuego.auth().currentUser.uid)
@@ -34,7 +35,7 @@ export default function ImpresionDialog({data,nombrePlantilla,open,setOpen,titul
     templates.forEach(template=>dataTemplate=template.data())
     setHtml(dataTemplate.dataPlantilla)
     }
-    const [html,setHtml]=React.useState("")
+    const [html,setHtml]=useState("")
     // const ComponenteItem = dynamic(
     //   () => import(`./${pathForm}`),
     //   { loading: ({error,timedOut,isLoading}) => {

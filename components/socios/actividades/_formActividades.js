@@ -2,7 +2,7 @@ import {  Grid } from "@mui/material"
 import { useState ,useEffect } from "react"
 import Input from "../../forms/input"
 import SwitchFormik from "../../forms/switch"
-
+import SelectProducto from "@components/productos/selectProducto"
 import SelectFecha from "../../forms/selectorFecha";
 import _FormItem from "../../forms/subColeccion/_formItem"
 import { useCollection,fuego } from '@nandorojo/swr-firestore'
@@ -55,7 +55,9 @@ export default function FormActividadesSocio({values,registro,setFieldValue})
                         <Grid item md={7}><SelectFormik label="Sub-Actividad" lista={subActividades} campoLabel="nombreActividad" campoId="id" campo="idSubActividad"/></Grid>
                         <Grid item md={5}><SelectFormik label="Periodo" lista={periodos} campoLabel="nombrePeriodo" campoId="id" campo="idPeriodo"/></Grid>
                         <Grid item md={7}><SwitchFormik label="Es por Débito automático" campo={`esPorDebitoAutomatico`}/></Grid>
-                       
+                        <Grid item md={9}><SelectProducto label="Obligacion Mensual"/></Grid>
+                        <Grid item md={3}><Input campo="porcentualObligacion" label="% Obligación"/></Grid>
+                        
                     </Grid>
            
     )

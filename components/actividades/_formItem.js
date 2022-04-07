@@ -14,11 +14,10 @@ export default function FormularioItemActividad({profesores,mod}){
          <Grid container spacing={2}>
 
             <Grid item md={5}><Input campo='nombreActividad' label="Nombre" /></Grid>
-            <Grid item md={3}><Input campo='importe' label="Importe" /></Grid>
             <Grid item md={2}><SelectEstaticFormik items={["ACTIVA","RECESO","SUSPENDIDA"]}  label="ESTADO" campo="estado"/></Grid>
             <Grid item md={3}><SelectFormik campo='profesor' label="Profesor" lista={profesores} campoId="id" 
             campoLabel={item=>`${item.apellido} ${item.nombre}`} /></Grid>
-             <Grid item md={3}><SelectProducto /></Grid>
+            
             
           </Grid>
         

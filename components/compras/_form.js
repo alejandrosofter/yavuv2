@@ -43,8 +43,9 @@ export default function FormCompras({values,setFieldValue}) {
             campoLabel="nombreCentroCosto" /></Grid>
                 <Grid item md={3}><Select2 campo='idEntidad' label="Proveedor" lista={proveedores} campoId="id" 
             campoLabel="razonSocial" /></Grid>
-                <Grid item xs={9}><Input label="Detalle " campo="detalle"/></Grid>
-                <Grid item xs={3}><Input label="$ Total " campo="importeTotal"/></Grid>
+                <Grid item xs={6}><Input label="Detalle " campo="detalle"/></Grid>
+                <Grid item xs={2}><Input label="$ Total " campo="importeTotal"/></Grid>
+                <Grid item xs={3}><Input label="Nro Comprobante" campo="nro"/></Grid>
                     
                 </Grid>
             </TabPanel>
@@ -64,8 +65,10 @@ export default function FormCompras({values,setFieldValue}) {
                         { field: 'cantidad',headerName: 'Cantidad', editable: false, width: 100,  },
                         
                         { field: 'detalle',headerName: 'Detalle', editable: false, width:380,  },
-                        { field: 'importe',headerName: 'Importe', width: 80,  
-                        renderCell: (params) => formatMoney(params.value)}
+                        { field: 'importe',headerName: '$ Unidad', width: 80,  
+                        renderCell: (params) => formatMoney(params.value)},
+                        { field: 'total',headerName: '$ Total', width: 80,  
+                        renderCell: (params) => formatMoney( (params.row.cantidad*params.row.importe).toFixed(2))}
                         ]}
                          />
             </Grid>
