@@ -1,4 +1,4 @@
-const { chromium } = require('playwright');
+import { chromium } from 'playwright'
 
 import {findOne} from "../../../config/firebase"
 const TIME_OUT_INNERTEXT=5000
