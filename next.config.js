@@ -3,5 +3,8 @@ module.exports = {
   images: {
     domains: ['firebasestorage.googleapis.com'],
   },
+  env:{
+    NEXTAUTH_URL:process.env.NEXTAUTH_URL,
+  }
 
 }

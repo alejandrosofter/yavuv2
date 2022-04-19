@@ -63,8 +63,14 @@ const callBoot=async (boot)=>{
     if(dataOk(dataParse)&& !loading){
         setLoading(true)
         setDataParse(dataParse)
-        
-        axios.post(`/api/bootsWeb/${boot.bootWeb}`,dataParse)
+        // fetch(`/api/bootsWeb/${boot.bootWeb}`, {
+        //     method: 'POST',
+        //     // headers: {
+        //     // 'Content-Type': 'application/x-www-form-urlencoded',
+        //     // },
+        //         body: JSON.stringify(dataParse),
+        //     })
+        axios.post(`${process.env.NEXTAUTH_URL}/api/bootsWeb/${boot.bootWeb}`,dataParse)
         .then(res=>{
             setTextoRespuesta(textoRta(res.data.result,boot.salida))
             setResultados(res.data)
