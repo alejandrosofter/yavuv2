@@ -26,6 +26,10 @@ export default function FormItem({mod,values}){
                                 FormularioItem={FormSubRutina}  campo="subRutinas" columns={[
                                     { field: 'accion',headerName: 'Accion',width: 120,  },
                                     { field: 'selector',headerName: 'Selector',width: 120,  },
+                                    { field: 'subAccion',headerName: 'SubAccion',width: 120,  },
+                                    { field: 'parametros',headerName: 'Parametros',width: 120,  },
+                                    { field: 'esEntrada',headerName: 'Es Entrada',width: 120,  },
+                                    { field: 'esSalida',headerName: 'Salida?',width: 120,  },
                                     ]}/>
 </Grid>
 

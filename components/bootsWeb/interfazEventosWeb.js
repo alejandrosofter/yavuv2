@@ -64,16 +64,23 @@ const callBoot=async (boot)=>{
         setLoading(true)
         setDataParse(dataParse)
         
-        const res=await axios.post(`/api/bootsWeb/${boot.bootWeb}`,dataParse)
-        setTextoRespuesta(textoRta(res.data.result,boot.salida))
-        setResultados(res.data)
-        setOpenResultados(true)
-        setLoading(false)
-    }else{
-
-    }
+        axios.post(`/api/bootsWeb/${boot.bootWeb}`,dataParse)
+        .then(res=>{
+            setTextoRespuesta(textoRta(res.data.result,boot.salida))
+            setResultados(res.data)
+            setOpenResultados(true)
+            setLoading(false)
+        })
+        .catch(err=>{
+            setOpenError(true)
+            setTextoRespuesta(JSON.stringify(err))
+            setLoading(false)
+        })
+        
+    
     
   }
+}
   const onChange=async (boot)=>{
     callBoot(boot)
     
@@ -117,8 +124,8 @@ return(
     <Stack direction="row" spacing={2}>
         <Icon className="fas fa-globe-americas" />
         {loading && <Tooltip title="Realizando consulta WEB "><CircularProgress/></Tooltip> }
-        <DialogContenido titulo="Data insuficiente" open={openError} setOpen={setOpenError}>
-            <p>No se puede ejecutar el boot por falta de infromacion: {JSON.stringify(dataParse)}</p>
+        <DialogContenido titulo="Opss..." open={openError} setOpen={setOpenError}>
+            <p> {textoRespuesta}</p>
         </DialogContenido>
         <DialogContenido titulo="RESULTADOS CONSULTA WEB" open={openResultados} setOpen={setOpenResultados}>
          {parse(textoRespuesta)}
