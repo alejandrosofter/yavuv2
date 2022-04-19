@@ -2,7 +2,8 @@ import * as yup from 'yup';
 
 export default function ModeloModulos(){
     return yup.object().shape({
-        nombre: yup.string().required(),
+      nombre: yup.string().required(),
+      label: yup.string().required(),
         detalle: yup.string(),
         icono: yup.string(),
         coleccion: yup.string(),
@@ -30,6 +31,7 @@ export function valoresIniciales(){
   return {
       nombre: "",
       detalle: "",
+      label: "",
       icono: "",
       destinoDeuda:"",
       acciones: [],

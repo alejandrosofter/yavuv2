@@ -7,7 +7,7 @@ import React from 'react';
 import ErrorsForm from "../components/forms/errorForms"
 import {esVacio} from "../helpers/objectos"
 
-export default function _FormGenerico({callbackSuccess,fnUpdate,datos,valoresIniciales,modelo,children,mod}) {
+export default function _FormGenerico({preData,callbackSuccess,fnUpdate,datos,valoresIniciales,modelo,children,mod}) {
 
   const router=useRouter();
   const [load,setLoad]=useState();
@@ -30,7 +30,7 @@ export default function _FormGenerico({callbackSuccess,fnUpdate,datos,valoresIni
     
     
   }
-  const valores=datos?datos:(valoresIniciales?valoresIniciales():null)
+  const valores=datos?datos:(valoresIniciales?valoresIniciales(preData):null)
 
   return (
     <Formik

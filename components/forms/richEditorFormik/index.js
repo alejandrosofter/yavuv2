@@ -4,7 +4,7 @@ import { FormControl, InputLabel, } from "@mui/material";
 
 import { Editor } from '@tinymce/tinymce-react';
 
-const RichEditorFormik = ({ label, campo, lista, campoLabel, campoId, callbackchange }) => {
+const RichEditorFormik = ({ label, campo, callbackchange,height }) => {
   const [data, setData] = useState("")
   const editorRef = useRef(null);
   useState(()=>{
@@ -15,13 +15,10 @@ const RichEditorFormik = ({ label, campo, lista, campoLabel, campoId, callbackch
       <Field type="hidden" name={`label_${campo}`} id={`label_${campo}`} />
       <Field label={label} name={campo} id={campo} >
         {(props) => {
-          // setData(props.form.values[campo]?props.form[campo]:{})
           const handleChange = (e) => {
             console.log(e.target.getContent())
-            // setData(e.target.getContent())
             props.form.setFieldValue(campo, e.target.getContent())
-            //   props.form.setFieldValue(`label_${campo}`,p.props.children);
-            //   if(callbackchange)callbackchange(event.target.value,getItemArray({data:lista,valor:event.target.value}))
+              if(callbackchange)callbackchange(e.target.getContent())
           }
           return (
             <Editor
@@ -36,7 +33,7 @@ const RichEditorFormik = ({ label, campo, lista, campoLabel, campoId, callbackch
          }}
         //  initialValue={props.form.values[campo]}
          init={{
-           height: 500, 
+           height: height?height:500, 
            language: 'es',
            menubar: true,
            automatic_uploads: true,

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import { getItemArrayKey } from "../../../helpers/arrays";
-
+const check=num=>num?Number(num):0
 const suma=({arr,obj,campoSum})=>{
     const item=getItemArrayKey({data:arr,key:obj.valor})
    
     if(item)
-        return item.map(item=>item[campoSum]).reduce((partialSum, a) => partialSum + a, 0).toFixed(2);
+        return item.map(item=>item[campoSum]).reduce((partialSum, a) => check(partialSum) + check(a), 0).toFixed(2);
     
     return 0
     

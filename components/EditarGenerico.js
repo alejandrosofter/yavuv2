@@ -5,10 +5,10 @@ import { useDocument, fuego } from '@nandorojo/swr-firestore'
 import { useEffect,useState } from "react";
 import TitulosFormularios from "./forms/tituloFormularios"
 import { Grid } from "@mui/material";
-export default function EditarGenerico({callbackSuccess,mod,pathDocExterno,urlAcepta,modelo,valoresIniciales,children})
+export default function EditarGenerico({idItem,callbackSuccess,mod,pathDocExterno,urlAcepta,modelo,valoresIniciales,children})
 {
   const router=useRouter()
-  const pathDoc=pathDocExterno?pathDocExterno:`${mod.coleccion}/${router.query.idItem}`
+  const pathDoc=pathDocExterno?pathDocExterno:`${mod.coleccion}/${idItem?idItem:router.query.idItem}`
   const { data,  update } = useDocument(pathDoc)
 
       if(!data)return "Cargando data registro..."

@@ -48,7 +48,7 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function DialogContenido({children,titulo,open,setOpen}) {
+export default function DialogContenido({children,titulo,open,setOpen,fullWidth,maxWidth}) {
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -64,6 +64,8 @@ export default function DialogContenido({children,titulo,open,setOpen}) {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
           {titulo}

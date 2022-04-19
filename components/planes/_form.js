@@ -5,6 +5,7 @@ import ListaTransferencia from "../forms/listaTransferencia";
 
 export default function _formPlanes({values,setFieldValue}){
 const {data:dataModulos}=useCollection("modulos")
+console.log(dataModulos)
 if(!dataModulos)return "Cargando Modulos..."
     return(
         <Grid sx={{pt:3}} md={12} container rowSpacing={2} spacing={2}>
@@ -13,7 +14,7 @@ if(!dataModulos)return "Cargando Modulos..."
             <Grid item md={3}><Input label="Icono " campo="icono"/></Grid>
             <Grid item md={4}><Input label="Detalle " campo="detalle"/></Grid>
             <Grid item md={7}>
-                <ListaTransferencia label="Modulos" campoId={"id"} campoLabel={"label"} items={dataModulos} campo="modulos"/>
+                <ListaTransferencia label="Modulos" campoId={"id"} campoLabel={"nombre"} items={dataModulos} campo="modulos"/>
             </Grid>
             
         </Grid>

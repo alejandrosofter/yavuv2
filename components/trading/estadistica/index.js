@@ -20,6 +20,7 @@ export default function Stats({mod}) {
             <div style={{ width: "100%" }}>
                   <TitulosFormularios titulo="STATS" subTitulo="de los tradings BOT" icono="fas fa-chart-area"/>
                   <PieChart datos={agrupado} campoSum="porcentualGanancia" categorias={categorias} />
+                  <PieChart datos={agrupado} campoSum="importeBeneficio" categorias={categorias} />
           </div>
       )
 }
