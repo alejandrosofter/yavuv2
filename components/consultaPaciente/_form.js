@@ -33,7 +33,6 @@ const [dataBoot,setDataBoot]=useState({})
                         <Grid item md={2}><SelectEstaticFormik items={["PENDIENTE","VALIDADO"]}  label="Estado" campo="estado" /></Grid>
                         <Grid item md={12}>
                         <ItemsModulo
-                            fnCambia={cambiaPrestaciones}
                             setFieldValue={setFieldValue} 
                             campo="prestaciones" data={values.prestaciones} 
                             modelo={ModeloPrestacion}

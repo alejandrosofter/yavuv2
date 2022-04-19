@@ -4,9 +4,9 @@ import { useState } from 'react';
 import Input from "../forms/input";
 import Switch from "../forms/switch";
 import {ModelRutinas} from "@modelos/ModeloBootsWeb";
-import FormSubRutina from "./_formSubRutina";
 export default function FormItem({mod,values}){
     const [muestraSalida,setMuestraSalida]=useState(values.esSalida)
+    const [esMultiple,setEsMultiple]=useState(values.esMultiple)
     return(
    
          <Grid container spacing={2}>
@@ -19,15 +19,7 @@ export default function FormItem({mod,values}){
 
 <Grid item md={2}><Switch campo='esSalida' callbackChange={(check)=>setMuestraSalida(check)} label="Es salida" /></Grid>
 <Grid item sx={{display:muestraSalida?"block":"none"}}  md={5}><Input campo='nombreSalida' label="Nombre Salida" /></Grid>
-<Grid item md={2}><Switch campo='tieneSubRutinas' label="Sub Rutinas" /></Grid>
-<Grid sx={{display:values.tieneSubRutinas?"block":"none"}} md={12} item>
-    
-<DataGridFormikItems label="SUB RUTINAS" Modelo={ModelRutinas} 
-                                FormularioItem={FormSubRutina}  campo="subRutinas" columns={[
-                                    { field: 'accion',headerName: 'Accion',width: 120,  },
-                                    { field: 'selector',headerName: 'Selector',width: 120,  },
-                                    ]}/>
-</Grid>
+
 
             
             

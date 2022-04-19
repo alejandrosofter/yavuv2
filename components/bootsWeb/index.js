@@ -6,7 +6,7 @@ const columns=[
           {
             field: 'nombre', 
             headerName: 'Nombre',
-            width:120,
+            width:220,
             
           },
           {

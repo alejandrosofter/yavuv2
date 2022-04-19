@@ -49,16 +49,16 @@ export default function Modulo({mod}){
         
     ]
     const series=[44, 55, 41, 17]
-    const labels=["CUOTA SOCIAL","ACTIVIDADES","ESCUELAS","CARNETS"]
+    const labels=["SWISS","SEROS","OSECAC","OSDE"]
     return(
        <Stack>
            ATENCION: graficas con data test!
             <Grid container >
            
-           <Grid item md={5}><GraficaAnual data={ex1} titulo=" ESCUELAS"/></Grid>
-          <Grid item md={5}><GraficaAnual data={ex2} titulo="ACTIVIDADES"/></Grid>
-          <Grid item md={5}><GraficaAnual data={ex3} titulo="CUOTA SOCIAL"/></Grid>
-          <Grid item md={5}><GraficaAnual tipo="donut" labels={labels} series={series} data={ex3} titulo="PRODUCTOS"/></Grid>
+           <Grid item md={5}><GraficaAnual data={ex1} titulo="CONSULTAS"/></Grid>
+          <Grid item md={5}><GraficaAnual data={ex2} titulo="TURNOS"/></Grid>
+          <Grid item md={5}><GraficaAnual data={ex3} titulo="RECETAS"/></Grid>
+          <Grid item md={5}><GraficaAnual tipo="donut" labels={labels} series={series} data={ex3} titulo="CONSULTAS O.S"/></Grid>
    
         </Grid>
        </Stack>
