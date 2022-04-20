@@ -50,6 +50,7 @@
     "next-firebase-auth": "0.13.5-alpha.0",
     "nextjs-progressbar": "^0.0.13",
     "playwright": "^1.21.1",
+    "puppeteer": "^13.6.0",
     "qz-tray": "^2.2.1",
     "random-id": "^1.0.4",
     "react": "^17.0.2",
