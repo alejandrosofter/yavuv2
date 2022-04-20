@@ -1,13 +1,13 @@
 const chromium = require('chrome-aws-lambda');
-const playwright = require('playwright-core');
 import {findOne} from "../../../config/firebase"
 const TIME_OUT_INNERTEXT=5000
 
 export default async function handler(req, res) {
 
     const { id } = req.body
-    const browser = await playwright.chromium.launch({
+    const browser = await chromium.puppeteer.launch({
         args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
         executablePath: await chromium.executablePath,
         headless: chromium.headless,
       })
