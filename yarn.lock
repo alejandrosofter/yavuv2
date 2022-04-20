@@ -6634,30 +6634,6 @@
   "resolved" "https://registry.npmjs.org/platform/-/platform-1.3.6.tgz"
   "version" "1.3.6"
 
-"playwright-core@1.21.0":
-  "integrity" "sha512-yDGVs9qaaW6WiefgR7wH1CGt9D6D/X4U3jNpIzH0FjjrrWLCOYQo78Tu3SkW8X+/kWlBpj49iWf3QNSxhYc12Q=="
-  "resolved" "https://registry.npmjs.org/playwright-core/-/playwright-core-1.21.0.tgz"
-  "version" "1.21.0"
-  dependencies:
-    "colors" "1.4.0"
-    "commander" "8.3.0"
-    "debug" "4.3.3"
-    "extract-zip" "2.0.1"
-    "https-proxy-agent" "5.0.0"
-    "jpeg-js" "0.4.3"
-    "mime" "3.0.0"
-    "pixelmatch" "5.2.1"
-    "pngjs" "6.0.0"
-    "progress" "2.0.3"
-    "proper-lockfile" "4.1.2"
-    "proxy-from-env" "1.1.0"
-    "rimraf" "3.0.2"
-    "socks-proxy-agent" "6.1.1"
-    "stack-utils" "2.0.5"
-    "ws" "8.4.2"
-    "yauzl" "2.10.0"
-    "yazl" "2.5.1"
-
 "playwright-core@1.21.1":
   "integrity" "sha512-SbK5dEsai9ZUKlxcinqegorBq4GnftXd4/GfW+pLsdQIQWrLCM/JNh6YQ2Rf2enVykXCejtoXW8L5vJXBBVSJQ=="
   "resolved" "https://registry.npmjs.org/playwright-core/-/playwright-core-1.21.1.tgz"
@@ -6682,12 +6658,12 @@
     "yauzl" "2.10.0"
     "yazl" "2.5.1"
 
-"playwright@^1.21.0":
-  "integrity" "sha512-OH5ZFoiS0HkBZzhb7HPVeE8lEx3PO/AaKgoQfgs1NbmwFPqHgPzfKFa3fO+VM27WqTLjtYOL6hM03sWnJhT3ig=="
-  "resolved" "https://registry.npmjs.org/playwright/-/playwright-1.21.0.tgz"
-  "version" "1.21.0"
+"playwright@^1.21.1":
+  "integrity" "sha512-Of0h1XAvsqK1XfHVZ8sL2PjJVoQUu9gTmmMTtLS7MEyWMRD0kn8myeI90xj1ncJhUysQxGboH64S5v+lL2USrg=="
+  "resolved" "https://registry.npmjs.org/playwright/-/playwright-1.21.1.tgz"
+  "version" "1.21.1"
   dependencies:
-    "playwright-core" "1.21.0"
+    "playwright-core" "1.21.1"
 
 "pngjs@^4.0.1":
   "integrity" "sha512-rf5+2/ioHeQxR6IxuYNYGFytUyG3lma/WW1nsmjeHlWwtb2aByla6dkVc8pmJ9nplzkTA0q2xx7mMWrOTqT4Gg=="
