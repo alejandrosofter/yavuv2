@@ -1,22 +1,21 @@
-const chromium = require('chrome-aws-lambda');
-import {findOne} from "../../../config/firebase"
+import { postData } from "@helpers/Fetcher"
 const TIME_OUT_INNERTEXT=5000
 
 export default async function handler(req, res) {
 
-    const { id } = req.body
-    const browser = await chromium.puppeteer.launch({
-        args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath,
-        headless: chromium.headless,
-      })
-    const page = await browser.newPage();
-    const rutinaBoot=await findOne("bootsWeb",id)
-
-    const result=rutinaBoot?await ejecutaRutina({rutina:rutinaBoot.rutinas,page,params:req.body}):{error:"No encuentro boot web"}
-
-    res.status(200).json({result})
+    const dataParse = req.body
+    
+    postData(`${process.env.URL_EJECUTA_BOOTWEB}`, dataParse)
+    .then(async result => {
+        const resultJson=await result.json()
+        res.status(200).json(resultJson)
+    })
+    .catch(error => {
+      console.log(error)
+        res.status(500).json({error})
+    })
+    
+    
 }
 
 const ejecutaAccion=async ({accion,page,params})=>{

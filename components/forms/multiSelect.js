@@ -51,7 +51,7 @@ if(!lista)return <CircularProgress />
         {lista.map((item) => (
           <MenuItem
             key={item[campoId]}
-            value={item.id}
+            value={item[campoId]}
           >
             {item[campoMuestra]}
           </MenuItem>

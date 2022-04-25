@@ -1,5 +1,5 @@
 import { useCollection,fuego } from '@nandorojo/swr-firestore';
-import Select from "../forms/select"
+import Select from "../forms/select2Formik"
 export default function Modulo({label,campo,callbackchange}){
     const {data}=useCollection("consultorios",{where:["idUsuario","==",fuego.auth().currentUser.uid]})
     if(!data) return ""

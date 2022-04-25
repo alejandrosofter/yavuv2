@@ -1,5 +1,7 @@
-import Select from "../forms/select"
-export default function Modulo({mod,callbackchange,campo,label}){
+import Select from "../forms/select2Formik"
+import { getModUsuario } from "@helpers/db"
+export default function Modulo({callbackchange,campo,label}){
+    const mod=getModUsuario("turnos")
     const data=mod.config?.tipoTurnos?mod.config?.tipoTurnos:[]
     if(!data) return ""
     return(

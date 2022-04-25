@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { CircularProgress, Stack } from '@mui/material';
 import DialogContenido from "@components/forms/dialogContenido"
 import parse from "html-react-parser"
+import {postData} from "@helpers/Fetcher"
 export default function EventosBootWeb({ setFieldValue, boots, data, set }) {
     const [loading, setLoading] = useState(false)
     const [dataParse, setDataParse] = useState()
@@ -22,25 +23,7 @@ export default function EventosBootWeb({ setFieldValue, boots, data, set }) {
     }, [boots])
 
     if (!boots) return "No boots"
-
-
-
-
     
-
-
-
-
-
-
-    // const getEventos=(boot)=>{
-    //     let eventos=[]
-    //     for(let variable in data){
-    //         eventos.push( boot.eventos.map(item=> item.indexOf(variable)>-1?item:null).reduce((a,b)=>a||b) )
-    //     }
-
-    //     return eventos
-    // }
     const getValorParametro = (data, valorParametro) => {
         let valor = data
         let arr = valorParametro.split(".")
@@ -68,31 +51,26 @@ export default function EventosBootWeb({ setFieldValue, boots, data, set }) {
     const textoRta = (data, layout) => {
         return eval("`" + layout + "`")
     }
+ 
     const callBoot = async (boot) => {
 
         const dataParse = { ...parseDataBootWeb(boot, data), id: boot.bootWeb }
         if (dataOk(dataParse) && !loading) {
             setLoading(true)
             setDataParse(dataParse)
-            // fetch(`/api/bootsWeb/${boot.bootWeb}`, {
-            //     method: 'POST',
-            //     // headers: {
-            //     // 'Content-Type': 'application/x-www-form-urlencoded',
-            //     // },
-            //         body: JSON.stringify(dataParse),
-            //     })
-            axios.post(`${process.env.NEXTAUTH_URL}/api/bootsWeb/${boot.bootWeb}`, dataParse)
-                .then(res => {
-                    setTextoRespuesta(textoRta(res.data.result, boot.salida))
-                    setResultados(res.data)
-                    setOpenResultados(true)
-                    setLoading(false)
-                })
-                .catch(err => {
-                    setOpenError(true)
-                    setTextoRespuesta(JSON.stringify(err))
-                    setLoading(false)
-                })
+            console.log(`${process.env.URL_EJECUTA_BOOTWEB}`)
+            axios.post(`/api/bootsWeb/${dataParse.id}`, dataParse)
+            .then(res => {
+                setTextoRespuesta(textoRta(res.data.result, boot.salida))
+                setResultados(res.data)
+                setOpenResultados(true)
+                setLoading(false)
+            })
+            .catch(err => {
+                setOpenError(true)
+                setTextoRespuesta(JSON.stringify(err))
+                setLoading(false)
+            })
 
 
 

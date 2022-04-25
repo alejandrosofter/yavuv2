@@ -14,8 +14,8 @@ const SelectFormik = ({label,campo,lista,campoLabel,campoId,callbackchange}) => 
   <Field type="hidden" name={`label_${campo}`} id={`label_${campo}`} />
   <Field label={label} name={campo} id={campo} >
     {(props) =>{
+    
         const handleChange = (event,p) => {
-        
           props.form.setFieldValue(campo,event.target.value);
           props.form.setFieldValue(`label_${campo}`,p.props.children);
           if(callbackchange)callbackchange(event.target.value,getItemArray({data:lista,valor:event.target.value}))

@@ -16,12 +16,8 @@ const datos=lista.map(item=>{  return { label:typeof(campoLabel)==="function"?ca
   <Field type="hidden" name={`label_${campo}`} id={`label_${campo}`} />
   <Field label={label} name={campo} id={campo} >
     {(props) =>{
-      
-      if(multiple){
-        if(valor!==props.field.value){
-          setValor(props.field.value)
-        }
-      }else if(valor?.value!==props.field.value){
+
+      if(valor?.value!==props.field.value){
         const itemArray=getItemArray({data:lista,valor:props.field.value})
         if(itemArray){
           const item={ label:typeof(campoLabel)==="function"?campoLabel(itemArray):
@@ -33,25 +29,16 @@ const datos=lista.map(item=>{  return { label:typeof(campoLabel)==="function"?ca
       }
         
         const handleChange = (item) => {
- 
-          if(multiple){
-            props.form.setFieldValue(campo,item)
-            props.form.setFieldValue(`label_${campo}`,item.map(item=>item.label).join(","))
-            setValor(item)
-            if(callbackchange)callbackchange(item)
-          }else{
-            const registro=getItemArray({data:lista,valor:item?.value,campoId:"id"})
-            setValor(item)
-            props.form.setFieldValue(campo,item?.value)
-            props.form.setFieldValue(`label_${campo}`,item?.label)
-            if(extraData)extraData.forEach(field=> {
-              props.form.setFieldValue(`${campo}_${field}`,registro?.[field])
-            })
-           
-            
-            if(callbackchange)callbackchange(item,registro)
-          }
+          const registro=getItemArray({data:lista,valor:item?.value,campoId:"id"})
+        console.log(item)
+          props.form.setFieldValue(campo,item?.value)
+          props.form.setFieldValue(`label_${campo}`,item?.label)
+          if(extraData)extraData.forEach(field=> {
+            props.form.setFieldValue(`${campo}_${field}`,registro?.[field])
+          })
+         
           
+          if(callbackchange)callbackchange(item,registro)
         }
     return( 
     <Select2
@@ -68,11 +55,12 @@ const datos=lista.map(item=>{  return { label:typeof(campoLabel)==="function"?ca
     defaultValue={ datos.filter(option =>  option.value === props.form.values[campo])[0]}
     label={`${label}`}
     isClearable={true} 
-    value={valor}
-    isMulti={multiple}
+    
+    isMulti={true}
     options={datos}
     placeholder={label}
-    onChange={handleChange}/>
+    // onChange={handleChange}
+    />
     )
     }}
     </Field>

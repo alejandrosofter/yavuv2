@@ -4,6 +4,8 @@ export function getFechaString(fecha,format)
     const formato=format?format:'DD/MM/YY'
     
     if(!fecha)return "-"
+    if(Number.isInteger(fecha))
+    return `${moment(new Date(fecha * 1000)).format(formato)}` 
     if(moment.isDate(fecha))
         return `${moment(new Date(fecha)).format(formato)}`
     if('seconds' in fecha)

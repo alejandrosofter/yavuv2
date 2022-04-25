@@ -4,17 +4,17 @@ export default function Modulo({mod}) {
 const order=["fecha","desc"]
 const columns=[
     {
-        field: 'fecha', 
-        headerName: 'Fecha',
+        field: 'fechaTurno', 
+        headerName: 'Horario',
         width:110,
         renderCell:params=>getFechaString(params.value,"DD/MM/YY hh:mm")
         
       },
       {
-        field: 'duracion', 
-        headerName: 'Duración',
+        field: 'label_tipoTurno', 
+        headerName: 'Tipo',
         width:90,
-        renderCell:params=>`${params.value} mins`
+        renderCell:params=>`${params.value}`
         
       },
       {
