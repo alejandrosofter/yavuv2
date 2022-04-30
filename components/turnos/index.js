@@ -18,6 +18,13 @@ const columns=[
         
       },
       {
+        field: 'label_consultorio', 
+        headerName: 'Consultorio',
+        width:100,
+        renderCell:params=>`${params.value}`
+        
+      },
+      {
         field: 'label_paciente', 
         headerName: 'Paciente',
         width:180,

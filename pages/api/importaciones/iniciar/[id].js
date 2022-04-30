@@ -46,13 +46,13 @@ const ingresarLotes=async ({id,refImportacion,dataInit})=>{
         .catch(error => {
             console.error(error)
         })
-        console.log(result)
         totalPostProcesa+=result?.resultadoPost?
         result.resultadoPost.map(item=>item.timeout===0?1:0).reduce((a,b)=>a+b):0
         totalImportados+=result?.importados?result.importados:0
         desde=hasta
         hasta=hasta+SIZE_LOTE
         console.log(`${desde}/${hasta}`)
+        await Firestore().collection("importaciones").doc(id).update({pagina:i,cantidadPorPagina:SIZE_LOTE, estadoParcial:`${desde}/${hasta}`, importados:totalImportados,totalPostProcesa})
     }
     return {totalImportados,totalPostProcesa}
 }

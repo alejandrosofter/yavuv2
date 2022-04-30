@@ -14,7 +14,7 @@ import ItemsModulo_agregar from "./agregar";
 import ItemsModulo_editar from "./editar";
 import ItemsModulo_eliminar from "./eliminar";
 import randomId from "random-id"
-export default function ItemsModulo({fnCambia,accionesExtra=()=>[],dataExtra,fnAddData,fullWidth,icono,titulo,maxWidth,campo,data,modelo,valoresIniciales,setFieldValue,columnas,dataModulo,form,nombreModulo,textoEditar,textoAgregar}){
+export default function ItemsModulo({height,fnCambia,accionesExtra=()=>[],dataExtra,fnAddData,fullWidth,icono,titulo,maxWidth,campo,data,modelo,valoresIniciales,setFieldValue,columnas,dataModulo,form,nombreModulo,textoEditar,textoAgregar}){
 
   useEffect(() => {
     let aux=columnas
@@ -133,7 +133,7 @@ export default function ItemsModulo({fnCambia,accionesExtra=()=>[],dataExtra,fnA
          
             }
             return(
-            <div style={{ height: 400}}>
+            <div style={{ height: height?height:400}}>
                 <Stack spacing={1} direction="row">
                 {fnAddData  && dataExtra.length>0 && <IconButton onClick={clickTraer}>
                   <Badge badgeContent={dataExtra?dataExtra.length:0} color="secondary">

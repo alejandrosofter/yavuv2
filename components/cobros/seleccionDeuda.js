@@ -55,7 +55,10 @@ const hijo=item.hijo?` (${item.hijo.apellido.toUpperCase()} ${item.hijo.nombre})
       <DialogContenido titulo="Deudas Cliente" open={open} setOpen={setOpen}>
      
         <CheckListFormik campo="seleccionItemsDeuda" callbackchange={cambiaItems}
-        fnTransformItem={item=>({...item.data(),_id:item.id})} 
+        fnTransformItem={item=>({...item.data(),
+          _id:item.id?item.id:new Date().getTime(), 
+          id:item.id?item.id:new Date().getTime(),label:fnLabel(item.data())}
+          )}
         lista={deudaSocio} campoLabel={fnLabel} campoId="id" />
 
       </DialogContenido>

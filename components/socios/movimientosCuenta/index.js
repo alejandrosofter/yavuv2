@@ -3,7 +3,7 @@ import { useState,useCallback } from "react";
 import moment from 'moment';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import { ModeloCambioEstado,valoresInicialesCambioEstado } from "../../../modelos/ModeloSocios";
-import { Button, Stack,Icon,Grid,Box,IconButton, Tooltip } from '@mui/material';
+import { Button, Stack,Icon,Grid,Box,IconButton, Tooltip, Typography } from '@mui/material';
 import SubColeccionColeccion from "../../forms/subColeccion/";
 import ImpresionDialog from "../../forms/impresion"
 import ImpresionCambiosEstadoSocio from "./impresion"
@@ -11,6 +11,9 @@ import {getFechaString} from "../../../helpers/dates"
 import { formatMoney } from "../../../helpers/numbers";
 import {getModUsuario} from "../../../helpers/db"
 import DgFirebaseABM from "../../forms/datagrid/dgFirebaseABM"
+import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
+import NewSocioDeuda from "@components/socios_deudas/nuevo" 
+import Modelo,{valoresIniciales} from "@modelos/ModeloSocioDeudas"
 export const columns = [
   {
     field: 'esPorDebitoAutomatico',
@@ -18,19 +21,12 @@ export const columns = [
     width:15,
     renderCell: (params) =>params.value?<Tooltip title={`Es por Débito automático`}><Icon class="fas fa-credit-card"/></Tooltip>:""
   }, 
+
   {
     field: 'fecha',
     headerName: 'Fecha',
     width: 80,
-    type: 'date',
-    valueGetter: (params) =>getFechaString(params.value)
-  },
-  {
-    field: 'fechaVto',
-    headerName: 'Vto.',
-    width: 80,
-    type: 'date',
-    valueGetter: (params) =>getFechaString(params.value)
+    renderCell: (params) =>params.value?<Tooltip title={`CON VTO el ${getFechaString(params.row.fechaVto)}`}><Typography>{`${getFechaString(params.row.fecha)}`}</Typography></Tooltip>:""
   },
   {
     field: 'hijo',
@@ -42,7 +38,7 @@ export const columns = [
     field: 'label_idProducto',
     headerName: 'Servicio/Producto',
     width: 165,
-    renderCell:(params) =>params.value
+    renderCell:(params) =>renderCellExpandData(params,(row)=>`${row.label_idProducto} ${row.detalle?row.detalle:""}`)
   },
  
   {
@@ -69,7 +65,7 @@ export const columns = [
   {
     field: 'estado',
     headerName: 'Estado',
-    width: 110
+    width: 80
   },
 ]
 export default function CuentaSocio({data,mod})
@@ -81,7 +77,7 @@ export default function CuentaSocio({data,mod})
     const order="fecha"
     const [datosClick,setDatosClick]=useState()
     const [openImpresion,setOpenImpresion]=useState()
-    const modDeudas=getModUsuario("socios_deuda")
+    const modDeudas=getModUsuario("socios_deudas")
     const accionesExtra=(params)=>{
 
       return(
@@ -99,7 +95,9 @@ export default function CuentaSocio({data,mod})
     }
      
     
-
+    const cargoNuevo=()=>{
+      
+    }
     const clickImprimir = useCallback(
       (data) => () => {
         setDatosClick(data)
@@ -112,11 +110,14 @@ export default function CuentaSocio({data,mod})
 
     return(
       <div>
-        <DgFirebaseABM where={[["idSocio","==",data.id]]} allUsers={true} coleccion="socios_deudas" 
-        hideSearchBox={true} hideTitle={true} titulo="Resumen" 
-        subTitulo="de cuenta" icono="fas fa-dollar"
-        limit={10} acciones={[]} orderBy={order}
-       columns={columns} />
+        <DgFirebaseABM mod={mod} valoresIniciales={valoresIniciales} Modelo={Modelo}
+          FormNew={<NewSocioDeuda preData={{idSocio:data.id,label_idSocio:`${data.apellido} ${data.nombre}`}} mod={modDeudas} />} 
+          where={[["idSocio","==",data.id]]} 
+          allUsers={true} coleccion="socios_deudas" 
+          hideSearchBox={true} hideTitle={true} titulo="Resumen" 
+          subTitulo="de cuenta" icono="fas fa-dollar"
+          limit={10} acciones={modDeudas.acciones} orderBy={order}
+          columns={columns} />
 
        
      </div>

@@ -13,13 +13,15 @@ import { useCollection,deleteDocument,fuego } from '@nandorojo/swr-firestore'
 
 import FormBuscador from '../inputBuscador';
 import TitulosFormularios from '../tituloFormularios';
-export default function DgFirebaseABM({where,hideTitle,hideSearchBox,allUsers,coleccion,titulo,subTitulo,icono,pageSize,orderBy,limit,columns,acciones}) {
+import NuevoGenerico from '@components/NuevoGenerico';
+export default function DgFirebaseABM({where,FormNew,hideTitle,hideSearchBox,allUsers,coleccion,titulo,subTitulo,icono,pageSize,orderBy,limit,columns,acciones}) {
 
   const auxWhere=(allUsers?[]:["idUsuario","==",fuego.auth().currentUser?.uid]).concat(where)
-  console.log(auxWhere)
+
   const [filtro,setFiltro]=useState( {where:auxWhere,limit:limit,orderBy:orderBy,startAt:null,endAt:null,listen:true})
 
-  const { data:datos, update, error } = useCollection(coleccion, filtro)
+  const { data:datos, update, error } = useCollection(coleccion,filtro)
+
     const router= useRouter()
     const [rowsState, setRowsState] = useState({
     page: 0,
@@ -34,6 +36,7 @@ export default function DgFirebaseABM({where,hideTitle,hideSearchBox,allUsers,co
   
   const [rtaServer, setRtaServer] = useState("");
   const [openRta, setOpenRta] = useState(false);
+  const [openNew, setOpenNew] = useState(false);
   const [dialog, setdialog] = useState(false);
   const [accionSeleccion, setAcccionSeleccion] = useState(null);
   const [data, setData] = useState(null);
@@ -95,7 +98,7 @@ useEffect(() => {
     deleteDocument(`${coleccion}/${id}`)
   }
   const clickAgregar=()=>{
-
+    setOpenNew(true)
   }
   //********************************/
   const clickAceptaMenu=async e=>{
@@ -131,6 +134,9 @@ const actualizaRegistros=async (pagina)=>{
   let aux={limit:limit,orderBy:orderBy,startAt:  tx,endAt:tx+'\uf8ff'}
         setFiltro(aux)
 }
+const cargoNuevo=()=>{
+  setOpenNew(false)
+}
 const marks = [
   {
     value: 0,
@@ -147,7 +153,7 @@ if(error)return `${error}`
 if(!datos)return "cargando..."
 
   return (
-    <div style={{ height: screen.height-100, width: '100%' }}>
+    <div style={{ height: screen.height-300, width: '100%' }}>
       <Stack direction="row"> 
           {!hideTitle && <Grid item flex={1} ><TitulosFormularios titulo={titulo} subTitulo={subTitulo}icono={icono}/></Grid> }
           {!hideSearchBox && <Grid item><FormBuscador  fnCambia={cambiaBuscador} label="Buscar"/></Grid> }
@@ -181,6 +187,9 @@ if(!datos)return "cargando..."
              titulo="" detalle="Realmente deseas realizar esta operacion?" callbackAcepta={clickAceptaMenu} />
              <DialogContenido titulo="Rta Server" open={openRta} setOpen={setOpenRta}>
                  {rtaServer}
+             </DialogContenido>
+             <DialogContenido maxWidth={"md"} fullWidth={true} titulo="NUEVO" open={openNew} setOpen={setOpenNew}>
+                  {React.cloneElement( FormNew, {callbackSuccess:cargoNuevo } )}
              </DialogContenido>
     </div>
   );

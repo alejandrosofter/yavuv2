@@ -4,6 +4,7 @@ import Input from "@components/forms/input"
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import {valoresInicialesHorarios,ModeloHorarios} from "@modelos/ModeloTurnos";
 import FormHorario from "./_formHorario"
+import SelectConsultorio from "./selectConsultorio"
 export default function Form({mod,setFieldValue,values}){
     return(
         <Grid >
@@ -11,12 +12,17 @@ export default function Form({mod,setFieldValue,values}){
                     <Grid sx={{pt:1,pb:1}} md={12} container rowSpacing={2} spacing={2}>
                         
                         <Grid item md={4}><Input label="Nombre"  campo="nombre"/></Grid>
-                        <Grid item md={2}><Input label="Dirección"  campo="direccion"/></Grid>
+                        <Grid item md={2}><SelectConsultorio label="Consultorio Guia" campo="consultorioGuia"/></Grid>
+                        <Grid item md={4}><Input label="Dirección"  campo="direccion"/></Grid>
                         <Grid item md={2}><Input label="Tel"  campo="telefono"/></Grid>
-                        <Grid item md={2}><Input label="Email"  campo="email"/></Grid>
+                        <Grid item md={4}><Input label="Email"  campo="email"/></Grid>
+                       
                         <Grid item md={2}><SelectEstaticFormik items={["ACTIVO","INACTIVO"]}  label="Estado" campo="estado" /></Grid>
+                        <Grid item md={6}><Input label="Detalle"  campo="detalle"/></Grid>
+                        
                         <Grid item md={12}>
                         <ItemsModulo
+                        height={200}
                             setFieldValue={setFieldValue} 
                             campo="horarios" data={values.horarios} 
                             modelo={ModeloHorarios}
@@ -37,7 +43,6 @@ export default function Form({mod,setFieldValue,values}){
                                 ]} 
                                 />
                         </Grid>
-                        <Grid item md={12}><Input label="Detalle"  campo="detalle"/></Grid>
                         
                        
                         

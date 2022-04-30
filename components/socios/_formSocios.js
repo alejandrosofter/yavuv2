@@ -96,10 +96,8 @@ const agregarValoresImagen=(valores)=>{
                         <Grid item md={3}><Input label="Email" campo={getFieldName(field,`email`)}/></Grid>
                         <Grid item md={6}><SelectProducto label="Obligacion Mensual"/></Grid>
                         <Grid item md={3}><SwitchFormik label="Obligacion por Débito automático" campo={getFieldName(field,`esPorDebitoAutomatico`)}/></Grid>
-                        <Grid item md={2}><SwitchFormik label="Es diferente cliente?" campo={getFieldName(field,`esDiferenteCliente`)}/></Grid>
-                        <Grid item md={4}><SelectFormikAlgolia campo="cliente" label="Cliente" 
-                        coleccionAlgolia="clientes" callbackchange={cambiaCliente}/></Grid>
-                        
+                       
+                         
                        
                        
                 </Grid>  

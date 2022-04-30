@@ -8,12 +8,13 @@ export default function Modulo({mod}) {
     const bonif=Number(item.importeBonificacion?item.importeBonificacion:0)
     const importe=((item.importe*item.cantidad)-bonif).toFixed(2)
     const hijo=item.hijo?` (${item.hijo.apellido.toUpperCase()} ${item.hijo.nombre})`:''
-      return `${getFechaString(item.fechaVto)} - ${item.label_idProducto} ${hijo} $${importe} `
+      return `${getFechaString(item.fechaVto)} - ${item.label_idProducto}  ${item.detalle} ${hijo} $${importe} `
     }
     const getDetalle=row=>{ 
       const items=row.deudas
       let aux=""
-      items.forEach(item=>aux+=fnLabelDetalle(item))
+      if(items)
+        items.forEach(item=>aux+=fnLabelDetalle(item))
       return aux
     }
 const columns=[
@@ -60,8 +61,7 @@ const columns=[
       return (
         <DataGridFirebase titulo={mod.label} subTitulo=" generales"
         icono="fas fa-funnel-dollar" limit={10} mod={mod} acciones={mod.acciones} 
-        orderBy="fecha"
-       columns={columns} />
+        orderBy={["fecha","desc"]} columns={columns} />
       )
 
 }

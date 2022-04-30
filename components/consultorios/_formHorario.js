@@ -12,7 +12,7 @@ export default function FormularioItemActividad({profesores,mod}){
 
             <Grid item md={2}><Input campo='desde' label="Desde" /></Grid>
             <Grid item md={2}><Input campo='hasta' label="Hasta" /></Grid>
-            <Grid item md={2}><SelectTipoTurno/></Grid>
+            <Grid item md={3}><SelectTipoTurno/></Grid>
             <Grid item md={5}><SelectDias /></Grid>
             
           </Grid>
