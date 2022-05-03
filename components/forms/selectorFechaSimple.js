@@ -8,10 +8,11 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 export default function SelectorFechaSimple({callbackChange,format,label}) {
   const [value, setValue] = React.useState(
-    new Date(),
+    Date.now(),
   )
   const handleChange = (newValue) => {
     setValue(newValue)
+    console.log(newValue)
     if(callbackChange)callbackChange(newValue)
   };
 

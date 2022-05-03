@@ -36,6 +36,7 @@ export default function Form({mod,setFieldValue,values}){
                                
                                 { field: 'desde',headerName: 'Desde', width: 80,  },
                                 { field: 'hasta',headerName: 'Hasta', width: 80, },
+                                { field: 'duracion',headerName: 'Duracion', width: 80, },
                                 { field: 'label_tipoTurno',headerName: 'Tipo Turno', width: 120,},
                                 { field: 'label_dias',headerName: 'Dias', width: 400,}
                                

@@ -7,6 +7,6 @@ export default function Modulo({label,campo,callbackchange}){
         <Select2 callbackchange={callbackchange} campo={campo?campo:"paciente"} 
         label="Paciente"
          lista={pacientes} campoId="id" 
-            campoLabel={(item)=>`${item.nombre} ${item.apellido}`}  />
+            campoLabel={(item)=>`${item.nombre} ${item.apellido} ${item.dni}`}  />
     )
 }

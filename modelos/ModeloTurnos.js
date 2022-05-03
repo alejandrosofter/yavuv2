@@ -2,7 +2,8 @@ import * as yup from 'yup';
 import {fuego} from '@nandorojo/swr-firestore'
 export default function Modelo(){
   return yup.object().shape({
-
+    consultorio:yup.string().required("El consultorio es requerido"),
+    tipoTurno:yup.string().required("El tipo de turno es requerido"),
       detalle: yup.string(),
       estado: yup.string(),
       
@@ -16,7 +17,7 @@ export function valoresIniciales(data){
       paciente: "",
       detalle:"",
       duracion:"",
-      fechaTurno:new Date(),
+     
       fecha:new Date(),
       idUsuario:fuego.auth().currentUser.uid
   }
@@ -24,7 +25,8 @@ export function valoresIniciales(data){
 }
 export  function ModeloHorarios(){
   return yup.object().shape({
-      desde: yup.string().required(),
+    desde: yup.string().required(),
+    fechaTurno: yup.date().required(),
       hasta: yup.string(),
       cada: yup.string(),
       dias: yup.array(),
