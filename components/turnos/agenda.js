@@ -45,8 +45,8 @@ export default function Modulo({mod,callbackSuccess}) {
     const turnosCalendario=data?data.map(item=>(
       {...item,
         title:`${item.label_paciente} - ${item.detalle}`, 
-        start:new Date(item.fecha.seconds * 1000),
-        end: new Date(new Date(item.fecha.seconds * 1000).setMinutes(new Date(item.fecha.seconds * 1000).getMinutes() + Number(item.duracion) ))
+        start:new Date(item.fechaTurno.seconds * 1000),
+        end: new Date(new Date(item.fechaTurno.seconds * 1000).setMinutes(new Date(item.fechaTurno.seconds * 1000).getMinutes() + Number(item.duracion) ))
       
       })):[]
 

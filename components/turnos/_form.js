@@ -36,9 +36,9 @@ export default function Form({mod,setFieldValue,values}){
                         <Grid item md={2}><SelectTurno consultorio={consultorio} tipoTurno={tipoTurno}  label="Turno" campo="fechaTurno"/></Grid>
                      
                         <Grid item md={3}><SelectPacientes /></Grid>
-                        
+                        <Grid item md={2}><Input label="Duracion"  campo="duracion"/></Grid>
                         <Grid item md={2}><SelectEstaticFormik items={["PENDIENTE","ASISTE","NO ASISTE"]}  label="Estado" campo="estado" /></Grid>
-                        <Grid item md={10}><Input label="Detalle"  campo="detalle"/></Grid>
+                        <Grid item md={8}><Input label="Detalle"  campo="detalle"/></Grid>
                         
                        
                         

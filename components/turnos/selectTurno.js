@@ -55,7 +55,8 @@ const SelectTurno = ({label,campo,callbackchange,consultorio,tipoTurno}) => {
                 
                 let turno=turnosOcupados[j]
                 // console.log(new Date(turno.fechaTurno.seconds*1000),horario.value.toDate())
-               
+               //02974062020
+               // devuser1 desarrollosx santiagot@itcsoluciones.com soporte@it
                 if(sonFechasIguales(new Date(turno.fechaTurno.seconds*1000),horario.value.toDate())){
                  
                     horariosDisponibles[i].disabled=true
@@ -102,7 +103,7 @@ const SelectTurno = ({label,campo,callbackchange,consultorio,tipoTurno}) => {
                     const range = momentRange.range(desde,hasta);
                   
                     const lista=Array.from(range.by('minutes', { step: CADA_MINUTOS }))
-                    .map(date=>({label:date.format('HH:mm'),value:date}))
+                    .map(date=>({label:date.format('HH:mm'),value:date,duracion:CADA_MINUTOS}))
                     
                     horariosDisponibles=horariosDisponibles.concat(lista)
                 }
@@ -126,6 +127,7 @@ const SelectTurno = ({label,campo,callbackchange,consultorio,tipoTurno}) => {
         const handleChange = (item) => {
             setOpenTurnosDisponibles(false)
           props.form.setFieldValue(campo,item.value.toDate())//VIENE OBJ MOMENT
+          props.form.setFieldValue("duracion",item.duracion)
           if(callbackchange)callbackchange(item)
         };
     return( 
