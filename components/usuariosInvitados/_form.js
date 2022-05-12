@@ -1,17 +1,14 @@
-import {  TabContext, TabList, TabPanel } from '@mui/lab';
 import { Grid, Tab } from "@mui/material"
-import Input from "../forms/input"
-import SwitchFormik from "../forms/switch"
-import { useState } from "react";
+import Input from "@components/forms/input"
+import SwitchFormik from "@components/forms/switch"
 import Modelo,{valoresIniciales,ModeloMods,valoresInicialesItems} from "../../modelos/ModeloUsuariosInvitados"
-import useSWR from 'swr';
+
 import ItemsModulo from '../forms/itemsModulo';
-import Select from "../forms/select"
+import Select from "@components/forms/select"
 import Form from "./_formItems"
 
-import Titulo from "../forms/tituloFormularios"
 export default function _formUsuarioInvitado({values,setFieldValue,titulo,subTitulo,icono}){
-      
+    
     return(
                 <Grid container>
                         <Grid item md={12}><Input label="Email "  campo="email"/></Grid>
@@ -28,10 +25,10 @@ export default function _formUsuarioInvitado({values,setFieldValue,titulo,subTit
                             valoresIniciales={valoresIniciales()} 
                             form={<Form />} 
                             columnas={[
-                              { field: 'label_idMod',headerName: 'Modulo', editable: true, width: 280,  },
+                              { field: 'label_idMod',headerName: 'Modulo', editable: true, width: 120,  },
                               { field: 'habilitado',headerName: 'Habilitado', width: 120,  
-                              valueFormatter: ({ value }) => value?"SI":"NO",
-                          },
+                              valueFormatter: ({ value }) => value?"SI":"NO"},
+                              { field: 'label_recursos',headerName: 'Recursos', editable: true, width: 380,  },
                               
                               ]}
                                 />

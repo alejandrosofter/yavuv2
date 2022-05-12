@@ -10,25 +10,19 @@ import DialogContenido from '../dialogContenido';
 import Fetcher from "../../../helpers/Fetcher"
 import {cantidadColeccion,getPrimeroPagina} from "../../../config/db"
 import { useCollection,deleteDocument,fuego } from '@nandorojo/swr-firestore'
+import { makeStyles } from "@mui/styles";
 
 import FormBuscador from '../inputBuscador';
 import TitulosFormularios from '../tituloFormularios';
-export default function DataGridFirebase({fnAcciones={},condiciones,allUsers,coleccion,titulo,subTitulo,icono,pageSize,orderBy,limit,columns,acciones,mod}) {
-  const coleccionDb=coleccion?coleccion:mod.coleccion
-  const auxWhere=(allUsers?[]:["idUsuario","==",fuego.auth().currentUser?.uid]).concat(condiciones)
-  const [filtro,setFiltro]=useState( {where:auxWhere,limit:limit,orderBy:orderBy,startAt:null,endAt:null,listen:true})
+import { useDataModulo } from '@hooks/useDataModulo';
+export default function DataGridFirebase({rowClassName,fnAcciones={},condiciones,allUsers,coleccion,titulo,subTitulo,icono,pageSize,orderBy,limit,columns,acciones,mod}) {
   
-  const { data:datos, update, error } = useCollection(coleccionDb, filtro)
-    const router= useRouter()
-    const [rowsState, setRowsState] = useState({
-    page: 0,
-    pageSize: pageSize?pageSize:5,
-    loading: false,
-  })
+  const { data:datos, update, error,where } = useDataModulo({mod,allUsers,condiciones,coleccion,limit,orderBy})
 
-  const pagesNextCursor = React.useRef({});
+  const router= useRouter()
+  
   const [columnas,setColumnas]=useState([])
-  const [contadorTotalRegistros,setContadorTotalRegistros]=useState(0)
+  // const [contadorTotalRegistros,setContadorTotalRegistros]=useState(0)
   // const [rows, setRows] = React.useState([]);
   
   const [rtaServer, setRtaServer] = useState("");
@@ -36,8 +30,7 @@ export default function DataGridFirebase({fnAcciones={},condiciones,allUsers,col
   const [dialog, setdialog] = useState(false);
   const [accionSeleccion, setAcccionSeleccion] = useState(null);
   const [data, setData] = useState(null);
-  const [cantidadPaginas, setCantidadPaginas] = useState(10);
-  const [pagina, setPagina] = useState(0)
+
  
 
 useEffect(() => {
@@ -100,12 +93,7 @@ useEffect(() => {
     const fnString=accion?accion:accionSeleccion.method
     const res=fnAcciones[fnString](dataRow?dataRow:data)
 
-     
    
-    // if(res){
-    //     setRtaServer(JSON.stringify(res))
-    //     setOpenRta(false)
-    // }
   }
   const clickAceptaMenu=async e=>{
     try{
@@ -117,62 +105,38 @@ useEffect(() => {
     
 }
 
-  
+const useStyles = makeStyles({
+  root: {
+    "& .error": {
+      backgroundColor: "#d13333"
+    }
+  }
+});
+const classes = useStyles();
 
- const cambiaBuscador=tx=>{
-    // const startDoc =datos? datos[datos.length - 1].__snapshot:null
-     if(tx!==""){
 
-        let aux={startAt:  tx,limit:limit,orderBy:orderBy,endAt:tx+'\uf8ff'}
-        setFiltro(aux)
-     }else{
-        setFiltro({limit:limit,orderBy:orderBy,startAt:null,endAt:null})
-     }
-
- }
-  
-
-const actualizaRegistros=async (pagina)=>{
-  const primero=await getPrimeroPagina({coleccion,filtro,pagina})
-  let aux={limit:limit,orderBy:orderBy,startAt:  tx,endAt:tx+'\uf8ff'}
-        setFiltro(aux)
-}
-const marks = [
-  {
-    value: 0,
-    label: 'Primera',
-  },
-  
-  {
-    value: cantidadPaginas,
-    label: 'Ultima',
-  },
-];
-if(!fuego.auth().currentUser)return "Sin login"
-if(error)return `${error}`
 if(!mod)return "Cargando mod..."
-if(!datos)return "cargando..."
+
 
   return (
-    <div style={{ height: screen.height-100, width: '100%' }}>
+    <div className={classes.root} style={{ height: screen.height-100, width: '100%' }}>
       <Stack direction="row"> 
           <Grid item flex={1} ><TitulosFormularios titulo={titulo} subTitulo={subTitulo}icono={icono}/></Grid>
-          <Grid item><FormBuscador  fnCambia={cambiaBuscador} label="Buscar"/></Grid>
+       
       </Stack>
     
  
     <DataGrid
-    hideFooterPagination={true}
+    // hideFooterPagination={true}
     columns={columnas}
     rows={datos?datos:[]}
-    pagination
     
-    rowCount={contadorTotalRegistros}
-    {...rowsState}
-    paginationMode="server"
-    onPageChange={(page) =>
-      setRowsState((prev) => ({ ...prev, page }))
-    }
+    getRowClassName={rowClassName}
+    // {...rowsState}
+    // paginationMode="server"
+    // onPageChange={(page) =>
+    //   setRowsState((prev) => ({ ...prev, page }))
+    // }
     
 
         

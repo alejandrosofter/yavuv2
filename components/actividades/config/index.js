@@ -2,14 +2,15 @@ import useSWR from "swr"
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
-import FormSubitemColeccion from "../../forms/editarSubitemColeccion";
+import FormSubitemColeccion from "@components/forms/editarSubitemColeccion";
 
 import { useRouter } from "next/router";
-import DataGridFormikItems from "../../forms/dataGridFormik";
+import DataGridFormikItems from "@components/forms/dataGridFormik";
 import FormItem from "./_form"
-import {ModeloConfig,ModeloTipoConfig, ModeloTipoSocios} from "../../../modelos/ModeloSocios"
-import TabsFormik,{TabPanel} from "../../forms/tab";
-import TitulosFormularios from "../../forms/tituloFormularios";
+import FormCompartir from "./_formCompartir"
+import {ModeloConfig,ModeloTipoConfig, ModeloTipoSocios} from "@modelos/ModeloSocios"
+import TabsFormik,{TabPanel} from "@components/forms/tab";
+import TitulosFormularios from "@components/forms/tituloFormularios";
 export default function ConfigActividadad({mod}){
     const campo="config"
     const coleccion="mods"
@@ -41,6 +42,7 @@ export default function ConfigActividadad({mod}){
                                     columns={[ { field: 'detalle', headerName: 'Detalle',width: 450,  editable: true },]}/>
                            
                         },
+                        
                     ]}
                 />
     </FormSubitemColeccion>

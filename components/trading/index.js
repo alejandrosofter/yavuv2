@@ -1,6 +1,7 @@
 import moment from 'moment';
 import {formatMoney,formatPorcentual} from "../../helpers/numbers"
 import DataGridFirebase from '../forms/datagrid/dataGridFirebase';
+
 export default function Modulo({mod}) {
 
 const columns=[
@@ -92,10 +93,11 @@ const columns=[
 
  
 ]
+
       return (
-        <DataGridFirebase  coleccion={mod.coleccion} titulo={mod.label} subTitulo="BINANCE" icono="fas fa-dollar"
-        limit={40} mod={mod} acciones={mod.acciones} orderBy={['fecha', 'desc']}
-       columns={columns} />
+        <DataGridFirebase rowClassName={(params) =>params.row.importeBeneficio<0? `error`:''} coleccion={mod.coleccion} titulo={mod.label} subTitulo="BINANCE" icono="fas fa-dollar"
+        limit={120} mod={mod} acciones={mod.acciones} orderBy={['fecha', 'desc']}
+       columns={columns} /> 
       )
 
 }

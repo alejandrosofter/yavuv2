@@ -5,7 +5,7 @@ import { CircularProgress,FormControl,InputLabel, MenuItem, OutlinedInput } from
 import Loader from "../loader";
 import Select2 from 'react-select'
 import {getItemArray} from "@helpers/arrays"
-const SelectFormik = ({label,campo,lista,campoLabel,campoId,callbackchange,extraData,multiple}) => {
+const SelectFormik = ({label,campo,lista,campoLabel,campoId,callbackchange,extraData}) => {
   const [valor,setValor]=useState()
     if(!lista)return "cargando"
 const datos=lista.map(item=>{  return { label:typeof(campoLabel)==="function"?campoLabel(item):
@@ -59,7 +59,7 @@ const datos=lista.map(item=>{  return { label:typeof(campoLabel)==="function"?ca
     isMulti={true}
     options={datos}
     placeholder={label}
-    // onChange={handleChange}
+    onChange={handleChange}
     />
     )
     }}

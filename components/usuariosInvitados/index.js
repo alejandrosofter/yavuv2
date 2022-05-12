@@ -11,11 +11,17 @@ const columns=[
     
   },
   {
-      field: 'mods', 
-      headerName: 'Mods',
-      renderCell: (params) => { return fnLabelMods(params.value)}  ,
-      width: 400,
-    },
+    field: 'mods', 
+    headerName: 'Mods',
+    renderCell: (params) => { return fnLabelMods(params.value)}  ,
+    width: 400,
+  },
+  {
+    field: 'recursos', 
+    headerName: 'Recursos',
+    renderCell: (params) => params.row.mods.map(item=>item.label_recursos).join(),
+    width: 200,
+  },
   {
     field: 'activo', 
     headerName: 'Estado',

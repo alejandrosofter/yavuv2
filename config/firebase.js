@@ -11,6 +11,7 @@ const firestore = (
 ).firestore()
 return firestore
 }
+
 export async function updateArrayField({coleccion,id,datos,campo})
 {
   const documento=await Firestore().collection(coleccion).doc(id);
