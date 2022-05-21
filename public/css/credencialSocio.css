@@ -1,0 +1,88 @@
+.credencial{
+    color: #00b4e1;
+    font-family: 'Source Sans Pro';
+    background-color: #ffffff;
+    width: 8.56cm;
+    height: 5.398cm;
+    background-image: url("/images/dorsoTarjeta.png");
+  background-repeat: repeat-y;
+  background-size: 8.56cm 5.398cm;
+    position: relative;
+    border-radius: 10px;
+      overflow: hidden;
+    z-index: 1;
+  }
+  
+  .heading .aclaracion .logo .logoEmpresa .heading .subtitle, .foto, img, .datos{
+    position: absolute;
+  }
+  
+  .heading .logo {
+    letter-spacing: -0.4mm;
+    top: -0.7cm;
+    left: 0.6cm;
+    font-size: 1cm;
+  }
+  
+  .datos, .heading .subtitle{
+    list-style: none;
+  }
+  
+  .datos{
+    color: #B0BBC8;
+    bottom: 0.8cm;
+    font-size: 0.29cm;
+    font-weight: 600;
+    left: 0mm;
+    letter-spacing: 0.1mm
+  }
+  .aclaracion{
+    font-size: 0.2cm;
+    color: #adadad;
+    position: absolute;
+    letter-spacing: 0.6mm;
+    bottom: 0.5cm;
+    left: 1cm;
+  }
+  .nombreSocio{
+    font-weight: bolder;
+    font-size: 0.4cm;
+  }
+  .logoEmpresa{
+    top: 1.5cm;
+    left: 1.1cm;
+    width: 6cm;
+    filter: brightness(0) invert(1);
+
+  }
+  .heading .subtitle{
+    font-size: 2.6mm;
+    left: 0cm;
+    line-height: 3mm;
+    font-weight: 600;
+    color: #777777;
+    
+  }
+  .title{
+    font-weight: 900;
+    color:white
+  }
+  img{
+    
+         
+     top: 50%;      
+     transform: translate(-25.5%, -32.2%) scale(0.6);
+    z-index: -1;
+    
+  }
+  
+  
+  
+  .foto{
+    height: 3.005cm;
+    width: 2.66cm;
+    right: 6mm;
+    top: 4mm;
+    background-color: white;
+    border-radius: 10px;
+  }

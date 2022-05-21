@@ -62,9 +62,9 @@ export default function ActividadesSocio({ data, mod }) {
   const accionesExtra = (params) => {
     return [
       <GridActionsCellItem
-        key={params.row.id}
+        key={`${params.row.id}_imrpimir`}
         icon={<Icon fontSize="10" className="fas fa-print" />}
-        label="imprimir"
+        label="Imprimir"
         onClick={clickImprimir(params.row)}
         showInMenu
       />,

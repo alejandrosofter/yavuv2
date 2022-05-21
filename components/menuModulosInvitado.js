@@ -21,23 +21,24 @@ export default function MenuModulosInvitado({}) {
         MODULOS COMPARTIDO
       </Typography>
       <List component="div" disablePadding>
-        {data.map((moduloInvitado) =>
-          moduloInvitado.mods.map((items) => (
-            <Link
-              passHref
-              key={`link_${items.idMod}`}
-              href={"/mod/" + items.idMod}
-            >
-              <ListItem button>
-                <ListItemIcon>
-                  <Icon className={items.icono} />
-                </ListItemIcon>
+        {data &&
+          data.map((moduloInvitado) =>
+            moduloInvitado.mods.map((items) => (
+              <Link
+                passHref
+                key={`link_${items.idMod}`}
+                href={"/mod/" + items.idMod}
+              >
+                <ListItem button>
+                  <ListItemIcon>
+                    <Icon className={items.icono} />
+                  </ListItemIcon>
 
-                <ListItemText primary={items.label_idMod} />
-              </ListItem>
-            </Link>
-          ))
-        )}
+                  <ListItemText primary={items.label_idMod} />
+                </ListItem>
+              </Link>
+            ))
+          )}
       </List>
     </div>
   );

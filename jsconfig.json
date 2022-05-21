@@ -5,7 +5,9 @@
         "@components/*": ["components/*"],
         "@helpers/*": ["helpers/*"],
         "@modelos/*": ["modelos/*"],
-        "@hooks/*": ["hooks/*"]
+        "@hooks/*": ["hooks/*"],
+        "@assets/*": ["assets/*"],
+        "@config/*": ["config/*"]
       }
     }
   }
