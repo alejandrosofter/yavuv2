@@ -85,7 +85,7 @@ export default function Modulo({ mod }) {
         asunto="AFILIACIÓN "
         data={dataImpresion}
         plantilla={plantilla}
-        emailDefault={dataImpresion.socio.email}
+        emailDefault={dataImpresion?.socio?.email}
         nombrePlantillaEmail="emailAfiliacion"
         attachments={[{ filename: "AFILIACION.pdf", data: plantilla }]}
       />
