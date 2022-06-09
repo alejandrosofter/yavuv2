@@ -40,26 +40,31 @@ const ingresarLotes = async ({ id, refImportacion, dataInit }) => {
   let totalImportados = 0;
   let totalPostProcesa = 0;
   console.log(`CANTIDAD LOTES ${cantidadLotes}, desde ${desde} hasta ${hasta}`);
-  for (let i = 0; i < cantidadLotes; i++) {
+  for (
+    let i = refImportacion.data().pagina ? refImportacion.data().pagina : 0;
+    i < cantidadLotes;
+    i++
+  ) {
     const url = `https://us-central1-yavu-98cac.cloudfunctions.net/importaciones_cargar?id=${id}&desde=${desde}&hasta=${hasta}`;
-    console.log(url);
+
     const result = await fetch(url)
       .then(async (dataImporta) => {
         const result = await dataImporta.json();
-
-        const resultadoPost = refImportacion.data().postProcesamiento
-          ? await postProcesamiento(
-              refImportacion.data().urlPostProcesamiento,
-              result?.arrIds
-            )
-          : [];
+        let resultadoPost = 0;
+        if (result.importados > 0)
+          resultadoPost = refImportacion.data().postProcesamiento
+            ? await postProcesamiento(
+                refImportacion.data().urlPostProcesamiento,
+                result?.arrIds
+              )
+            : [];
 
         return { ...result, resultadoPost };
       })
       .catch((error) => {
         console.error(error);
       });
-    console.log(result);
+    console.log(`IMPORTADOS: ${result.importados} PAGINA: ${i} `);
 
     totalPostProcesa +=
       result.resultadoPost.length > 0
@@ -78,6 +83,7 @@ const ingresarLotes = async ({ id, refImportacion, dataInit }) => {
         pagina: i,
         cantidadPorPagina: SIZE_LOTE,
         estadoParcial: `${desde}/${hasta}`,
+        cantidadLotes,
         importados: totalImportados,
         totalPostProcesa,
       });

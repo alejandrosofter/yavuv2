@@ -82,8 +82,10 @@ export default function Modulo({ mod }) {
         titulo="IMPRESIÓN AFILIACIÓN"
         setOpen={setOpenImpresion}
         open={openImpresion}
+        asunto="AFILIACIÓN "
         data={dataImpresion}
         plantilla={plantilla}
+        emailDefault={dataImpresion.socio.email}
         nombrePlantillaEmail="emailAfiliacion"
         attachments={[{ filename: "AFILIACION.pdf", data: plantilla }]}
       />

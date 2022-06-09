@@ -5,26 +5,23 @@ import DialogContenido from "./dialogContenido";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import parse from "html-react-parser";
 export function SendEmail({
-  nombrePlantilla,
   asunto,
   titulo,
   email,
   open,
   setOpen,
-  data,
+
   attachs,
+  html,
 }) {
   const [inputEmail, setInputEmail] = useState(email);
   const [loading, setLoading] = useState(false);
   const { add } = useCollection("emails");
-  const [plantilla, setPlantilla] = UsePlantilla({
-    nombre: nombrePlantilla,
-    data: data,
-  });
+
   const handleSendMail = async () => {
     setLoading(true);
     const data = {
-      cuerpo: plantilla,
+      cuerpo: html,
       attachs,
       fecha: new Date(),
       destinatario: inputEmail,
@@ -68,7 +65,7 @@ export function SendEmail({
           width: 950,
         }}
       >
-        {parse(plantilla)}
+        {parse(html)}
       </div>
     </DialogContenido>
   );

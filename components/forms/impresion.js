@@ -5,7 +5,6 @@ import { Box, Icon, Input } from "@mui/material/";
 import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import { fuego } from "@nandorojo/swr-firestore";
 import parse from "html-react-parser";
 
 import IconButton from "@mui/material/IconButton";
@@ -15,9 +14,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { forwardRef, useState, useEffect } from "react";
 import ImpresorDirecto from "../impresorDirecto";
-import DialogContenido from "./dialogContenido";
 import { SendEmail } from "./sendEmail";
-import { UsePlantilla } from "@components/plantillas/usePlantilla";
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
 });
@@ -28,7 +25,7 @@ export default function ImpresionDialog({
   setOpen,
   asunto,
   titulo,
-  fieldEmail,
+  emailDefault,
   plantilla,
 }) {
   const [loading, setLoading] = useState(false);
@@ -108,8 +105,9 @@ export default function ImpresionDialog({
         setOpen={setOpenSendMail}
         asunto={asunto ? asunto : titulo}
         attachs={attachments}
-        email={data?.email}
-        data={{ ...data, credencial: plantilla }}
+        email={emailDefault ? emailDefault : data?.email}
+        html={plantilla}
+        // data={{ ...data }}
       />
     </Dialog>
   );

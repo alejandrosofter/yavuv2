@@ -38,6 +38,15 @@ export default function Modulo({ mod }) {
       width: 100,
     },
     {
+      field: "pagina",
+      headerName: "Pagina",
+      width: 100,
+      renderCell: (params) =>
+        `${params.row.pagina ? params.row.pagina : 0}/${
+          params.row.cantidadLotes ? params.row.cantidadLotes : 0
+        }`,
+    },
+    {
       field: "registros",
       headerName: "Registros",
       width: 120,

@@ -1,7 +1,7 @@
 import moment from "moment";
 export function getFechaString(fecha, format) {
   const formato = format ? format : "DD/MM/YY";
-  console.log(fecha);
+  // console.log(fecha);
   if (!fecha) return "-";
   if (moment.isMoment(fecha)) {
     return fecha.format(formato);
@@ -22,6 +22,8 @@ export function getFechaString(fecha, format) {
     if ("seconds" in fecha)
       return `${moment(new Date(fecha.seconds * 1000)).format(formato)}`;
   }
+
+  return "-";
 }
 
 export function getFechaFormik(fecha) {
