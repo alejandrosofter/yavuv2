@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Field } from "formik";
-import { useTheme } from "@emotion/react";
-import {
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-} from "@mui/material";
-import Loader from "../loader";
+
+import { FormControl } from "@mui/material";
 import Select2 from "react-select";
 import { getItemArray } from "@helpers/arrays";
 const SelectFormik = ({

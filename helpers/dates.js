@@ -1,7 +1,7 @@
 import moment from "moment";
 export function getFechaString(fecha, format) {
   const formato = format ? format : "DD/MM/YY";
-  // console.log(fecha);
+
   if (!fecha) return "-";
   if (moment.isMoment(fecha)) {
     return fecha.format(formato);

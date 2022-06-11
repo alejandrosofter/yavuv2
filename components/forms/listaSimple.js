@@ -30,7 +30,7 @@ export default function ListaSimple({
                 disabled={value.disabled}
                 onClick={onClick ? onClick.bind(this, value) : null}
               >
-                <ListItemText primary={`${fnRender(value)}`} />
+                <ListItemText primary={fnRender(value)} />
               </ListItemButton>
             </ListItem>
             {subCampo &&

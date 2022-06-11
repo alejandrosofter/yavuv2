@@ -7049,7 +7049,12 @@
   dependencies:
     "cropperjs" "^1.5.12"
 
-"react-dom@^15.0.0 || ^16.0.0 || ^17.0.0", "react-dom@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.0.0 || ^17.0.0", "react-dom@^16.14.0 || ^17", "react-dom@^16.8.0 || ^17.0.0", "react-dom@^17.0.2", "react-dom@^17.0.2 || ^18.0.0", "react-dom@^18.0.0 || ^17.0.1 || ^16.7.0", "react-dom@>= 16.3.0 < 18", "react-dom@>= 16.8", "react-dom@>= 16.8.0", "react-dom@>=0.14.0", "react-dom@>=15.3.0", "react-dom@>=16", "react-dom@>=16.2.0", "react-dom@>=16.3.0", "react-dom@>=16.6.0", "react-dom@>=16.8", "react-dom@>=16.8.0 <18", "react-dom@>=17.0.2", "react-dom@0.13.x || 0.14.x || ^15.0.0-0 || 15.x.x || ^16.0.0-0 || ^16.x.x || ^17.x.x":
+"react-date-object@^2.1.5":
+  "integrity" "sha512-iAtF2nz+jZjy3w36qKx2MsxXqbiL7UgGljz9jPjLWxWCl4rDTZUMS/i7hKKiVbL1lJlmubz1Xu6W3i6CW06kTg=="
+  "resolved" "https://registry.npmjs.org/react-date-object/-/react-date-object-2.1.5.tgz"
+  "version" "2.1.5"
+
+"react-dom@^15.0.0 || ^16.0.0 || ^17.0.0", "react-dom@^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0", "react-dom@^16.0.0 || ^17.0.0", "react-dom@^16.14.0 || ^17", "react-dom@^16.8.0 || ^17.0.0", "react-dom@^17.0.2", "react-dom@^17.0.2 || ^18.0.0", "react-dom@^18.0.0 || ^17.0.1 || ^16.7.0", "react-dom@>= 16.3.0 < 18", "react-dom@>= 16.8", "react-dom@>= 16.8.0", "react-dom@>=0.14.0", "react-dom@>=15.3.0", "react-dom@>=16", "react-dom@>=16.2.0", "react-dom@>=16.3.0", "react-dom@>=16.6.0", "react-dom@>=16.8", "react-dom@>=16.8.0", "react-dom@>=16.8.0 <18", "react-dom@>=17.0.2", "react-dom@0.13.x || 0.14.x || ^15.0.0-0 || 15.x.x || ^16.0.0-0 || ^16.x.x || ^17.x.x":
   "integrity" "sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-17.0.2.tgz"
   "version" "17.0.2"
@@ -7093,6 +7098,11 @@
     "attr-accept" "^2.2.1"
     "file-selector" "^0.2.2"
     "prop-types" "^15.7.2"
+
+"react-element-popper@^2.1.6":
+  "integrity" "sha512-8va7mUmrKIkUnaM2t5Dyctd8cjgVgVcrv5vVD0FRay0sN6EPBCKa0bDi1/KmVDAjfgSIn7zQnjtc4VojcGrkgQ=="
+  "resolved" "https://registry.npmjs.org/react-element-popper/-/react-element-popper-2.1.6.tgz"
+  "version" "2.1.6"
 
 "react-error-boundary@^3.1.4":
   "integrity" "sha512-uM9uPzZJTF6wRQORmSrvOIgt4lJ9MC1sNgEOj2XGsDTRE4kmpWxg7ENK9EWNKJRMAOY9z0MuF4yIfl6gp4sotA=="
@@ -7182,6 +7192,14 @@
   "integrity" "sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA=="
   "resolved" "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz"
   "version" "3.0.4"
+
+"react-multi-date-picker@^3.3.0":
+  "integrity" "sha512-xAounECAkPUSnwmGCXlLevRLS9lt6IrGzD1VUJKZPbuzauwxaJLZ0mW6vnGUjui60qBY/uQeEmJftq+pEq5HgQ=="
+  "resolved" "https://registry.npmjs.org/react-multi-date-picker/-/react-multi-date-picker-3.3.0.tgz"
+  "version" "3.3.0"
+  dependencies:
+    "react-date-object" "^2.1.5"
+    "react-element-popper" "^2.1.6"
 
 "react-overlays@^4.1.1":
   "integrity" "sha512-WtJifh081e6M24KnvTQoNjQEpz7HoLxqt8TwZM7LOYIkYJ8i/Ly1Xi7RVte87ZVnmqQ4PFaFiNHZhSINPSpdBQ=="
