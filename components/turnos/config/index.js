@@ -15,6 +15,7 @@ import {
 } from "../../../modelos/ModeloSocios";
 import TabsFormik, { TabPanel } from "../../forms/tab";
 import TitulosFormularios from "../../forms/tituloFormularios";
+import SelectPlantilla from "@components/plantillas/selectPlantilla";
 export default function ConfigActividadad({ mod }) {
   const campo = "config";
   const coleccion = "mods";
@@ -47,8 +48,19 @@ export default function ConfigActividadad({ mod }) {
           label="Configs"
           vistas={[
             {
-              label: "Tipo de Turnos",
+              label: "Datos",
               nro: 0,
+              vista: (
+                <Grid spacing={2} container>
+                  <Grid item md={3}>
+                    <SelectPlantilla campo="plantillaTurno" label="Plantilla" />
+                  </Grid>
+                </Grid>
+              ),
+            },
+            {
+              label: "Tipo de Turnos",
+              nro: 1,
               vista: (
                 <DataGridFormikItems
                   label="Tipo de Turnos"
@@ -64,7 +76,7 @@ export default function ConfigActividadad({ mod }) {
             },
             {
               label: "Categoria de Turnos",
-              nro: 1,
+              nro: 2,
               vista: (
                 <DataGridFormikItems
                   label="Categoria de Turnos"

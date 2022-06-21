@@ -14,7 +14,7 @@ export function valoresIniciales(data) {
     paciente: "",
     detalle: "",
     duracion: "",
-
+    notificar: true,
     fecha: new Date(),
     idUsuario: fuego.auth().currentUser.uid,
   };
@@ -33,8 +33,9 @@ export function valoresInicialesHorarios(data) {
     hasta: "",
     desde: "",
     cada: "",
+
     dias: "",
-    idUsuario: fuego.auth().currentUser.uid,
+    idUsuario: fuego.auth().currentUser?.uid,
   };
   return { ...valores, ...data };
 }

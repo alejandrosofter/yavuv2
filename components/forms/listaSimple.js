@@ -20,12 +20,8 @@ export default function ListaSimple({
     <List sx={{ width: "100%", bgcolor: "background.paper" }}>
       {items.map((value) => {
         return (
-          <>
-            <ListItem
-              key={value[campoId]}
-              disableGutters
-              secondaryAction={ComponentSecondaryAction}
-            >
+          <div key={value[campoId]}>
+            <ListItem disableGutters secondaryAction={ComponentSecondaryAction}>
               <ListItemButton
                 disabled={value.disabled}
                 onClick={onClick ? onClick.bind(this, value) : null}
@@ -62,7 +58,7 @@ export default function ListaSimple({
                   </List>
                 </Collapse>
               ))}
-          </>
+          </div>
         );
       })}
     </List>

@@ -5,5 +5,6 @@ export function formatMoney(number) {
   return numberFormat2.format(Number(number));
 }
 export function formatPorcentual(number, decimal = 2) {
+  if (isNaN(number)) return "0%";
   return `${Number(number).toFixed(decimal)}%`;
 }

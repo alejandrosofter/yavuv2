@@ -1,23 +1,15 @@
-import { fuego } from "@nandorojo/swr-firestore";
+import { fuego, useDocument } from "@nandorojo/swr-firestore";
 import { useEffect, useState } from "react";
 import { formatMoney } from "@helpers/numbers";
 import { getFechaString } from "@helpers/dates";
-export function UsePlantilla({ nombre, data }) {
+export function UsePlantilla({ id, data }) {
+  const { dataTemplate } = useDocument(`plantillas/${id}`);
   const [html, setHtml] = useState("");
   useEffect(() => {
     init();
   }, [nombre, data]);
   const init = async () => {
     try {
-      // console.log(data);
-      const templates = await fuego.db
-        .collection("plantillas")
-        .where("identificador", "==", nombre)
-        .where("idUsuario", "==", fuego.auth().currentUser?.uid)
-        .limit(1)
-        .get();
-      let dataTemplate;
-      templates.forEach((template) => (dataTemplate = template.data()));
       if (dataTemplate)
         setHtml(await remplazarValores(dataTemplate.dataPlantilla, data));
     } catch (error) {

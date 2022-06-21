@@ -33,3 +33,24 @@ export function getFechaFormik(fecha) {
   if ("$date" in fecha) return new Date(fecha.$date);
   return new Date();
 }
+export function getFechaDesde(fecha) {
+  const fechaAux = new Date(fecha);
+  fechaAux.setHours(0, 0, 0, 0);
+  return fechaAux;
+}
+
+export function getFechaHasta(fecha) {
+  const fechaAux = new Date(fecha);
+  fechaAux.setHours(24, 0, 0, 0);
+  return fechaAux;
+}
+export function getFechaDesdeMes(fecha) {
+  const fechaAux = new Date(fecha);
+  fechaAux.setHours(0, 0, 0, 0);
+  return fechaAux;
+}
+export function getFechaHastaMes(fecha) {
+  const fechaAux = new Date(fecha);
+  fechaAux.setHours(24, 0, 0, 0);
+  return fechaAux;
+}

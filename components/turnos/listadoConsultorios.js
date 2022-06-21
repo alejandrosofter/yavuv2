@@ -5,36 +5,49 @@ import ConsultorioTurnos from "./consultorioTurnos";
 import DatePicker from "react-multi-date-picker";
 import DateObject from "react-date-object";
 import CalendarioTurnos from "./calendarioTurnos";
+import NavegadorConsultorios from "./navegadorConsultorios";
+import { UseStorage } from "@hooks/useStorage";
 export default function ListadoConsultorios({ mod }) {
   const { data } = useCollection("consultorios", {
-    where: ["idUsuario", "==", fuego.auth().currentUser.uid],
+    where: ["idUsuario", "==", fuego.auth().currentUser?.uid],
   });
-  const [fechaBusca, setFechaBusca] = useState(
-    new Date(
-      new Date().getFullYear(),
-      new Date().getMonth(),
-      new Date().getDay() + 1
-    )
-  );
+  const [checks, setChecks] = UseStorage("checksConsultorios", []);
+  const [fechaBusca, setFechaBusca] = useState(new Date());
   const handleChange = (item) => {
-    console.log(item);
     if (item instanceof DateObject) setFechaBusca(item.toDate());
   };
   return (
-    <Grid container>
-      <Grid md={12} item>
-        <CalendarioTurnos value={fechaBusca} onChange={handleChange} />
+    <Grid spacing={2} container>
+      <Grid md={2} item>
+        <CalendarioTurnos fechaBusca={fechaBusca} onChange={handleChange} />
       </Grid>
-      {data
-        ? data.map((consultorio, index) => (
-            <ConsultorioTurnos
-              fechaBusca={fechaBusca}
-              consultorio={consultorio}
-              key={index}
-              mod={mod}
-            />
-          ))
-        : ""}
+      <Grid md={10} item>
+        <Typography variant="h6" gutterBottom>
+          Consultorios
+        </Typography>
+        <NavegadorConsultorios
+          checks={checks}
+          setChecks={setChecks}
+          sx={{ lp: 2 }}
+          consultorios={data}
+        />
+      </Grid>
+      <Typography sx={{ p: 2 }} variant="h6" gutterBottom>
+        Turneras
+      </Typography>
+      <Grid container>
+        {data
+          ? data.map((consultorio, index) => (
+              <ConsultorioTurnos
+                muestra={checks.includes(consultorio.id)}
+                fechaBusca={fechaBusca}
+                consultorio={consultorio}
+                key={index}
+                mod={mod}
+              />
+            ))
+          : ""}
+      </Grid>
     </Grid>
   );
 }

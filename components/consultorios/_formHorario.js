@@ -3,6 +3,7 @@ import Input from "@components/forms/input";
 
 import SelectDias from "./selectDias";
 import SelectTipoTurno from "@components/turnos/selectTipoTurno";
+import TimePickerFormik from "@components/forms/timePickerFormik";
 
 export default function FormularioItemActividad({ profesores, mod }) {
   return (
@@ -11,11 +12,12 @@ export default function FormularioItemActividad({ profesores, mod }) {
         DESDE Y HASTA debe tener el formato HH:MM!
       </Grid>
       <Grid item md={2}>
-        <Input campo="desde" label="Desde" />
+        <TimePickerFormik campo="desde" label="Desde" />
       </Grid>
       <Grid item md={2}>
-        <Input campo="hasta" label="Hasta" />
+        <TimePickerFormik campo="hasta" label="Hasta" />
       </Grid>
+
       <Grid item md={2}>
         <Input campo="duracion" label="Duracion Mins." />
       </Grid>

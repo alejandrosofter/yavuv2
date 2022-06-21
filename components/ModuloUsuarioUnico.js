@@ -21,9 +21,11 @@ export default function ModuloUsuarioUnico({
         .collection(mod.coleccion)
         .where("idUsuario", "==", fuego.auth().currentUser.uid)
         .get();
-      if (!refColeccion.empty) return setData(refColeccion.docs[0].data());
+
+      if (!refColeccion.empty) return setData(refColeccion.docs[0]);
     } else setData(null);
   };
+
   if (!mod) return "cargando mod...";
   if (data)
     return (

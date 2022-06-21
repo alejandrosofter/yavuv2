@@ -1,4 +1,4 @@
-import { Stack, Button } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import Select from "../forms/select2Simple";
@@ -21,17 +21,19 @@ export default function Modulo({ callbackchange }) {
   };
   if (!data) return "";
   return (
-    <Stack sx={{ pl: 2, pb: 2 }} direction="row">
+    <Grid spacing={1} container>
       {data.map((consultorio) => (
-        <Button
-          sx={{ width: "30px" }}
-          disabled={seleccion?.id === consultorio.id}
-          onClick={handleChange.bind(this, consultorio)}
-          key={consultorio.id}
-        >
-          {consultorio.nombreCorto}
-        </Button>
+        <Grid key={consultorio.id} md={3} item>
+          <Button
+            sx={{ width: "20px" }}
+            disabled={seleccion?.id === consultorio.id}
+            onClick={handleChange.bind(this, consultorio)}
+            key={consultorio.id}
+          >
+            {consultorio.nombreCorto}
+          </Button>
+        </Grid>
       ))}
-    </Stack>
+    </Grid>
   );
 }
