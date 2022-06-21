@@ -53,7 +53,19 @@ export default function ConfigActividadad({ mod }) {
               vista: (
                 <Grid spacing={2} container>
                   <Grid item md={3}>
+                    <Typography variant="caption" component="div" gutterBottom>
+                      Plantilla Turno{" "}
+                    </Typography>
                     <SelectPlantilla campo="plantillaTurno" label="Plantilla" />
+                  </Grid>
+                  <Grid item md={3}>
+                    <Typography variant="caption" component="div" gutterBottom>
+                      Plantilla Elimina{" "}
+                    </Typography>
+                    <SelectPlantilla
+                      campo="plantillaElimina"
+                      label="Plantilla Elimina"
+                    />
                   </Grid>
                 </Grid>
               ),
