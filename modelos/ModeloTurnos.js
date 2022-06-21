@@ -15,6 +15,7 @@ export function valoresIniciales(data) {
     detalle: "",
     duracion: "",
     notificar: true,
+    emailNotifica: "",
     fecha: new Date(),
     idUsuario: fuego.auth().currentUser.uid,
   };
@@ -26,6 +27,7 @@ export function ModeloHorarios() {
     hasta: yup.string(),
     cada: yup.string(),
     dias: yup.array(),
+    emailNotifica: yup.string(),
   });
 }
 export function valoresInicialesHorarios(data) {
@@ -33,7 +35,6 @@ export function valoresInicialesHorarios(data) {
     hasta: "",
     desde: "",
     cada: "",
-
     dias: "",
     idUsuario: fuego.auth().currentUser?.uid,
   };
