@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { formatMoney } from "@helpers/numbers";
 import { getFechaString } from "@helpers/dates";
 export function UsePlantilla({ id, data }) {
-  const { dataTemplate } = useDocument(`plantillas/${id}`);
+  const { data: dataTemplate } = useDocument(`plantillas/${id}`);
   const [html, setHtml] = useState("");
+
   useEffect(() => {
     init();
-  }, [nombre, data]);
+  }, [id, data]);
+
   const init = async () => {
     try {
       if (dataTemplate)
@@ -16,7 +18,7 @@ export function UsePlantilla({ id, data }) {
       console.log(error);
     }
   };
-
+  if (!dataTemplate) return "No hay Template";
   const getImagen = async (path) => {
     return path
       ? await fuego.storage().ref().child(path).getDownloadURL()

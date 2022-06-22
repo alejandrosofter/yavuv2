@@ -27,6 +27,7 @@ export default function ImpresionDialog({
   titulo,
   emailDefault,
   plantilla,
+  plantillaEmail,
 }) {
   const [loading, setLoading] = useState(false);
   const [openSendMail, setOpenSendMail] = useState(false);
@@ -99,7 +100,6 @@ export default function ImpresionDialog({
         <ComponentToPrint ref={componentRef} />
       </Box>
       <SendEmail
-        nombrePlantilla="emailCredencial"
         titulo={titulo}
         open={openSendMail}
         setOpen={setOpenSendMail}
@@ -107,7 +107,8 @@ export default function ImpresionDialog({
         attachs={attachments}
         email={emailDefault ? emailDefault : data?.email}
         html={plantilla}
-        // data={{ ...data }}
+        plantilla={plantillaEmail}
+        data={data}
       />
     </Dialog>
   );

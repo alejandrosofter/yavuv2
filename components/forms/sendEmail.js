@@ -10,18 +10,22 @@ export function SendEmail({
   email,
   open,
   setOpen,
-
+  plantilla,
   attachs,
   html,
+  data,
 }) {
   const [inputEmail, setInputEmail] = useState(email);
   const [loading, setLoading] = useState(false);
   const { add } = useCollection("emails");
-
+  const [plantillaEmail, setPlantillaEmail] = UsePlantilla({
+    id: plantilla,
+    data: { ...data, contenido: html },
+  });
   const handleSendMail = async () => {
     setLoading(true);
     const data = {
-      cuerpo: html,
+      cuerpo: plantillaEmail,
       attachs,
       fecha: new Date(),
       destinatario: inputEmail,
@@ -51,6 +55,7 @@ export function SendEmail({
       <Button disabled={loading} onClick={handleSendMail}>
         <Icon className="fas fa-envelope" /> Enviar
       </Button>
+
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loading}
@@ -65,7 +70,7 @@ export function SendEmail({
           width: 950,
         }}
       >
-        {parse(html)}
+        {parse(plantillaEmail)}
       </div>
     </DialogContenido>
   );

@@ -41,12 +41,18 @@ export const cols = [
     width: 180,
   },
 ];
-const nombrePlantilla = "crendencialSocio";
+
 export default function TarjetasSocio({ data, mod }) {
+  const idPlantillaCredencial = mod.config?.plantillaCredencial
+    ? mod.config?.plantillaCredencial
+    : "";
+  const idPlantillaEmail = mod.config?.plantillaEmailCredencial
+    ? mod.config?.plantillaEmailCredencial
+    : "";
   const [openCompartir, setOpenCompartir] = useState();
   const [dataSeleccion, setDataSeleccion] = useState();
   const [plantilla, setPlantilla] = UsePlantilla({
-    nombre: nombrePlantilla,
+    id: idPlantillaCredencial,
     data: dataSeleccion,
   });
   const [cuenta, setCuenta] = UseCuenta();
@@ -98,7 +104,7 @@ export default function TarjetasSocio({ data, mod }) {
         open={openCompartir}
         asunto="CREDENCIAL ELECTRONICA"
         data={{ ...dataSeleccion, cuenta }}
-        nombrePlantillaEmail="emailCredencial"
+        plantillaEmail={idPlantillaEmail}
         plantilla={plantilla}
         attachments={[{ filename: "CREDENCIAL.pdf", data: plantilla }]}
       />
