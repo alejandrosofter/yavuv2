@@ -1,23 +1,17 @@
 import { getFechaString } from "@helpers/dates";
+import { QueryApi } from "@helpers/queryApi";
 import { Backdrop, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
 export default function Modulo({ mod }) {
-  const order = "fecha";
-  const [loading, setLoading] = useState(false);
+  const order = ["fecha", "desc"];
+  const [dataConsulta, setDataConsulta] = useState();
   let fnAcciones = {
-    aplicar: async (data) => {
-      setLoading(true);
-      fetch(`/api/importaciones/iniciar/${data.id}`)
-        .then(async (response) => {
-          setLoading(false);
-
-          console.log(await response.json());
-        })
-        .catch((error) => {
-          setLoading(false);
-          console.error(error);
-        });
+    aplicar: (data, id) => {
+      setDataConsulta({ url: "/api/importaciones/iniciar", data });
+    },
+    stop: (data, id) => {
+      setDataConsulta({ url: "/api/importaciones/stop", data });
     },
   };
   const columns = [
@@ -38,27 +32,37 @@ export default function Modulo({ mod }) {
       width: 100,
     },
     {
-      field: "pagina",
-      headerName: "Pagina",
+      field: "cantidadProcesada",
+      headerName: "Procesados",
       width: 100,
-      renderCell: (params) =>
-        `${params.row.pagina ? params.row.pagina : 0}/${
-          params.row.cantidadLotes ? params.row.cantidadLotes : 0
-        }`,
     },
+    // {
+    //   field: "pagina",
+    //   headerName: "Pagina",
+    //   width: 100,
+    //   renderCell: (params) =>
+    //     `${params.row.pagina ? params.row.pagina : 0}/${
+    //       params.row.cantidadLotes ? params.row.cantidadLotes : 0
+    //     }`,
+    // },
+    // {
+    //   field: "registros",
+    //   headerName: "Registros",
+    //   width: 120,
+    //   renderCell: (params) =>
+    //     `${params.row.cantidadRegistros ? params.row.cantidadRegistros : 0}/${
+    //       params.row.importados ? params.row.importados : 0
+    //     }`,
+    // },
+    // {
+    //   field: "totalPostProcesa",
+    //   headerName: "Res. Post",
+    //   width: 80,
+    // },
     {
-      field: "registros",
-      headerName: "Registros",
-      width: 120,
-      renderCell: (params) =>
-        `${params.row.cantidadRegistros ? params.row.cantidadRegistros : 0}/${
-          params.row.importados ? params.row.importados : 0
-        }`,
-    },
-    {
-      field: "totalPostProcesa",
-      headerName: "Res. Post",
-      width: 80,
+      field: "pathFile",
+      headerName: "Archivo",
+      width: 420,
     },
     {
       field: "pathFile",
@@ -66,9 +70,14 @@ export default function Modulo({ mod }) {
       width: 420,
     },
     {
+      field: "fnPostProcesa",
+      headerName: "FN Post",
+      width: 100,
+    },
+    {
       field: "estado",
-      headerName: "ESTADO",
-      width: 120,
+      headerName: "Estado",
+      width: 100,
     },
   ];
   return (
@@ -84,12 +93,7 @@ export default function Modulo({ mod }) {
         orderBy={order}
         columns={columns}
       />
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      <QueryApi dataConsulta={dataConsulta} />
     </>
   );
 }

@@ -11,7 +11,7 @@ export default function Form({ mod, setFieldValue, values }) {
       </Grid>
       <Grid item md={2}>
         <SelectEstaticFormik
-          items={["PENDIENTE", "IMPORTADO"]}
+          items={["PENDIENTE", "PROCESADO", "PROCESANDO"]}
           label="Estado"
           campo="estado"
         />
@@ -21,19 +21,21 @@ export default function Form({ mod, setFieldValue, values }) {
         <Input label="Clave Primaria" campo="clavePrimaria" />
       </Grid>
       <Grid item md={2}>
-        <Input label="Pagina" campo="pagina" />
+        <Input label="Nombre Mod Asociado" campo="nombreMod" />
       </Grid>
+
       <Grid item md={2}>
         <Input label="Destino" campo="destino" />
       </Grid>
       <Grid item md={12}>
         <Input label="Path Archivo (Storage)" campo="pathFile" />
       </Grid>
-      <Grid item md={3}>
-        <Switch label="Tiene Post Procesa?" campo="postProcesamiento" />
-      </Grid>
-      <Grid item md={6}>
-        <Input label="Url Post Procesamiento" campo="urlPostProcesamiento" />
+      <Grid item md={2}>
+        <SelectEstaticFormik
+          items={["SOCIO", "IMAGENSOCIO"]}
+          label="FN Post Procesa"
+          campo="fnPostProcesa"
+        />
       </Grid>
     </Grid>
   );

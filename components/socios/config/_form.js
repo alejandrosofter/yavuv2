@@ -4,7 +4,9 @@ import FormTipoSocios from "./_formItemsTipoSocios";
 import FormTipoDocumentacionSocios from "./_formTipoDocumentacion";
 import FormGeneracionDeuda from "./_formGenerarDeuda";
 import FormMotivos from "./_formMotivos";
+import FormDifusion from "./_formDifusion";
 import SelectPlantilla from "@components/plantillas/selectPlantilla";
+import Switch from "@components/forms/switch";
 import {
   ModeloConfig,
   ModeloTipoConfig,
@@ -12,7 +14,8 @@ import {
   ModeloCategoriaSocio,
   ModeloGeneracionDeuda,
   ModeloMotivos,
-} from "../../../modelos/ModeloSocios";
+  ModeloDifusion,
+} from "@modelos/ModeloSocios";
 import TabsFormik, { TabPanel } from "../../forms/tab";
 import Grid from "@mui/material/Grid";
 import Input from "../../forms/input";
@@ -23,7 +26,7 @@ export default function FormConfig({}) {
       label="Configs"
       vistas={[
         {
-          label: "Categorias Socio",
+          label: "Categorias",
           nro: 0,
           vista: (
             <Grid item md={12}>
@@ -46,7 +49,7 @@ export default function FormConfig({}) {
           ),
         },
         {
-          label: "Tipos de Socios",
+          label: "Tipos",
           nro: 1,
           vista: (
             <Grid item md={12}>
@@ -90,7 +93,7 @@ export default function FormConfig({}) {
           ),
         },
         {
-          label: "Generacion Deuda Socios",
+          label: "Generacion Deuda",
           nro: 3,
           vista: (
             <Grid item md={12}>
@@ -149,6 +152,55 @@ export default function FormConfig({}) {
                   label="Email Credencial"
                 />
               </Grid>
+            </Grid>
+          ),
+        },
+        {
+          label: "Difusion",
+          nro: 6,
+          vista: (
+            <Grid spacing={2} container>
+              <Grid item md={2}>
+                <Switch campo="aceptaDifusion" label="Acepta Difusion" />
+              </Grid>
+              <Grid item md={2}>
+                <Input campo="campoOrderDifusion" label="Campo Order" />
+                <Typography variant="caption" component="div" gutterBottom>
+                  Es vital para el envio de la difusion ya que envia por lotes
+                  ordenando por este campo
+                </Typography>
+              </Grid>
+              <Grid item md={2}>
+                <Input campo="nombreCampoDestinatario" label="Campo NOMBRE" />
+                <Typography variant="caption" component="div" gutterBottom>
+                  El campo del nombre para esta coleccion
+                </Typography>
+              </Grid>
+              <Grid item md={2}>
+                <Input campo="emailCampoDestinatario" label="Campo EMAIL" />
+                <Typography variant="caption" component="div" gutterBottom>
+                  El campo del email para esta coleccion
+                </Typography>
+              </Grid>
+              <Grid item md={2}>
+                <Input
+                  campo="telefonoCampoDestinatario"
+                  label="Campo TELEFONO"
+                />
+                <Typography variant="caption" component="div" gutterBottom>
+                  El campo del telefono para esta coleccion
+                </Typography>
+              </Grid>
+              <DataGridFormikItems
+                label="Difusion"
+                Modelo={ModeloDifusion}
+                FormularioItem={FormDifusion}
+                campo="itemsDifusion"
+                columns={[
+                  { field: "nombre", headerName: "Nombre", width: 330 },
+                  { field: "condicion", headerName: "Condicion", width: 130 },
+                ]}
+              />
             </Grid>
           ),
         },

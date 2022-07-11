@@ -11,21 +11,10 @@ import Productos from "../../productos/selectProducto";
 import { getItemArray } from "../../../helpers/arrays";
 import SelectEstaticFormik from "../../forms/selectEstaticFormik";
 import { useRouter } from "next/router";
+import AlgoliaAutocomplete from "@components/forms/algoliaSearch";
+import SelectFormikAlgolia from "@components/forms/selectAlgoliaFormik";
 
 export default function FormDebitoAutomatico({ values, setFieldValue, mod }) {
-  const router = useRouter();
-  const { data: modsDeuda } = useCollection(`mods`, {
-    where: [
-      ["generaDeuda", "==", true],
-      ["idUsuario", "==", fuego.auth().currentUser.uid],
-    ],
-  });
-  const { data: itemsCuentas } = useCollection(`cuentasEfectivo`, {
-    where: [["idUsuario", "==", fuego.auth().currentUser.uid]],
-  });
-  const { data: cbus } = useCollection(`cuentasCbu`, {
-    where: [["idUsuario", "==", fuego.auth().currentUser.uid]],
-  });
   const cambiaCuenta = (valor, item) => {
     setFieldValue(`valor_idCuentaCbu`, item ? item.cbu : "");
   };
@@ -43,12 +32,10 @@ export default function FormDebitoAutomatico({ values, setFieldValue, mod }) {
         />
       </Grid>
       <Grid item md={8}>
-        <SelectFormik
-          callbackchange={cambiaCuenta}
+        <SelectFormikAlgolia
+          coleccionAlgolia={"cuentasCbu"}
           label="Cuenta CBU"
-          lista={cbus}
-          campoId="id"
-          campoLabel="titular"
+          labelItems={(opt) => `${opt.titular}`}
           campo="idCuentaCbu"
         />
       </Grid>

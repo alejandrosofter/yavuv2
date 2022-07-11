@@ -5,7 +5,7 @@ import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import Select2 from "../forms/select2Formik";
 import NuevoPaciente from "./nuevo";
-export default function Modulo({ campo, callbackchange }) {
+export default function Modulo({ campo, label, callbackchange }) {
   const { data } = useCollection("plantillas", {
     listen: true,
     where: ["idUsuario", "==", fuego.auth().currentUser.uid],
@@ -18,7 +18,7 @@ export default function Modulo({ campo, callbackchange }) {
         <Select2
           callbackchange={callbackchange}
           campo={campo ? campo : "plantilla"}
-          label="Plantilla"
+          label={label ? label : "Plantilla"}
           lista={data}
           campoId="id"
           campoLabel={(item) => `${item.nombre} `}

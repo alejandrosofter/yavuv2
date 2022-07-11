@@ -5,12 +5,16 @@ import { renderCellExpandData } from "../forms/datagrid/renderCellExpand";
 import { useState } from "react";
 import ImpresionDialog from "../forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
+import AlgoliaAutocomplete from "@components/forms/algoliaSearch";
+import { SearchBox } from "react-instantsearch-dom";
+import AlgoliaSearch from "@components/forms/algoliaSearch";
 export default function Modulo({ mod }) {
   const order = ["fecha", "desc"];
+  const idPlantilla = mod.config?.plantillaAfiliacion;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const [plantilla, setPlantilla] = UsePlantilla({
-    nombre: "afiliacion",
+    id: idPlantilla,
     data: dataImpresion,
   });
   const getDetalleCobro = (row) => {
@@ -65,6 +69,7 @@ export default function Modulo({ mod }) {
       width: 100,
     },
   ];
+
   return (
     <>
       <DataGridFirebase

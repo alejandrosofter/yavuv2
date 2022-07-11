@@ -7,6 +7,7 @@ export default function Select2Simple({
   multiple,
   campoId,
   callbackchange,
+  defaultValue,
   value,
   campoLabel,
 }) {
@@ -33,6 +34,7 @@ export default function Select2Simple({
       if (callbackchange) callbackchange(item, registro);
     }
   };
+
   return (
     <Select2
       //   menuPortalTarget={document.body}
@@ -45,7 +47,13 @@ export default function Select2Simple({
       }}
       id={`${label}`}
       // defaultValue={props.form.values[campo]}
-      defaultValue={value}
+      defaultValue={
+        defaultValue
+          ? lista.map((item) =>
+              item[campoId] === defaultValue ? item : null
+            )[0]
+          : value
+      }
       label={`${label}`}
       isClearable={true}
       value={valor}

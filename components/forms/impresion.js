@@ -1,11 +1,9 @@
 import { useRef } from "react";
-import { useReactToPrint } from "react-to-print";
 import Dialog from "@mui/material/Dialog";
 import { Box, Icon, Input } from "@mui/material/";
 import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import parse from "html-react-parser";
 
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -39,23 +37,30 @@ export default function ImpresionDialog({
   const componentRef = useRef();
   const view = (props, ref) => {
     return (
-      <div
-        style={{
-          paddingLeft: 80,
-          paddingRight: 50,
-          paddingTop: 50,
-          width: 950,
-        }}
-        ref={ref}
-      >
-        {parse(plantilla)}
-      </div>
+      // <div
+      //   // style={{
+      //   //   paddingLeft: 80,
+      //   //   paddingRight: 50,
+      //   //   paddingTop: 50,
+      //   //   width: 950,
+      //   // }}
+      //   ref={ref}
+      // >
+      //   {parse(plantilla)}
+      // </div>
+      <iframe
+        width="900px"
+        frameBorder="0"
+        id="impresionFrame"
+        height="500px"
+        srcDoc={`${plantilla}`}
+      ></iframe>
     );
   };
   const ComponentToPrint = forwardRef(view);
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
+  const handlePrint = () => {
+    document.getElementById("impresionFrame").contentWindow.print();
+  };
 
   return (
     <Dialog
