@@ -69,6 +69,7 @@ export default function DataGridFirebase({
           shallow: true,
         });
     };
+    const clickBusca = (txt) => {};
     const aux = columns;
     const actions = (params) => {
       let arr = [];
@@ -147,7 +148,7 @@ export default function DataGridFirebase({
           />
         </Grid>
       </Stack>
-
+      {/* <FormBuscador fnCambia={clickBusca} /> */}
       <DataGrid
         // hideFooterPagination={true}
         columns={columnas}

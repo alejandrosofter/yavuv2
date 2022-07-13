@@ -16,21 +16,21 @@ import {
 import { getFechaString } from "@helpers/dates";
 export const cols = [
   {
-    field: "fecha",
-    headerName: "Fecha",
-    width: 90,
+    field: "fechaInicio",
+    headerName: "Fecha Inicio",
+    width: 110,
     renderCell: (params) => getFechaString(params.value),
   },
 
   {
     field: "label_idCuentaCbu",
     headerName: "Titular",
-    width: 120,
+    width: 260,
   },
   {
     field: "detalle",
     headerName: "Detalle",
-    width: 150,
+    width: 260,
   },
   {
     field: "estado",

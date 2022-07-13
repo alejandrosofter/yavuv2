@@ -40,12 +40,22 @@ export function UsePlantilla({ id, data }) {
     Handlebars.registerHelper("numero", function (aString) {
       return aString.toFixed(2);
     });
- 
+
     Handlebars.registerHelper("importe", function (aString) {
       return formatMoney(aString);
     });
     Handlebars.registerHelper("bool", function (aString) {
       return aString ? "SI" : "NO";
+    });
+
+    Handlebars.registerHelper("importeTotal", function (data, campo) {
+      //suma el campo importe del array data
+      let total = 0;
+      if (data)
+        data.forEach((item) => {
+          total += item[campo];
+        });
+      return formatMoney(total);
     });
 
     Handlebars.registerHelper("fecha", function (aString) {

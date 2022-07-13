@@ -1,22 +1,20 @@
 import { Grid } from "@mui/material";
 import { useState, useEffect } from "react";
 import Input from "../../forms/input";
-import Switch from "../../forms/switch";
 
-import SelectFecha from "../../forms/selectorFecha";
-import _FormItem from "../../forms/subColeccion/_formItem";
-import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import SelectFormik from "../../forms/select2Formik";
-import Productos from "../../productos/selectProducto";
-import { getItemArray } from "../../../helpers/arrays";
-import SelectEstaticFormik from "../../forms/selectEstaticFormik";
-import { useRouter } from "next/router";
-import AlgoliaAutocomplete from "@components/forms/algoliaSearch";
+import SelectFecha from "@components/forms/selectorFecha";
+import _FormItem from "@components/forms/subColeccion/_formItem";
+import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import SelectFormikAlgolia from "@components/forms/selectAlgoliaFormik";
 
 export default function FormDebitoAutomatico({ setFieldValue, mod }) {
-  const cambiaCuenta = (valor, item) => {
-    setFieldValue(`valor_idCuentaCbu`, item ? item.cbu : "");
+  const cambiaCuenta = (item) => {
+    if (item) {
+      setFieldValue(`banco`, item.banco);
+      setFieldValue(`cbu`, item.cbu);
+      setFieldValue(`titular`, item.titular);
+      setFieldValue(`nroCuenta`, item.nroCuenta);
+    }
   };
 
   return (
@@ -38,6 +36,7 @@ export default function FormDebitoAutomatico({ setFieldValue, mod }) {
         <SelectFormikAlgolia
           coleccionAlgolia={"cuentasCbu"}
           label="Cuenta CBU"
+          callbackchange={cambiaCuenta}
           labelItems={(opt) =>
             `${opt.titular} ${opt.dniTitular ? opt.dniTitular : "(sin dni)"}`
           }

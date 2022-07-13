@@ -23,6 +23,9 @@ export default function Form({ mod, setFieldValue, values }) {
           <Grid item md={4}>
             <Input label="DNI Titular" campo="dniTitular" />
           </Grid>
+          <Grid item md={2}>
+            <Input label="Nro Cuenta" campo="nroCuenta" />
+          </Grid>
           <Grid item md={3}>
             <SelectTipoCuenta label="Tipo Cuenta" campo="tipoCuenta" />
           </Grid>
