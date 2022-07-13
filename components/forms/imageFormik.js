@@ -42,7 +42,6 @@ const WebcamFormik = ({ folder, label, campo, w, h, callbackchange }) => {
     setImageSource(imageSrc);
   }, [webcamRef]);
   useEffect(() => {
-    console.log(valorFoto);
     setImagenUrl(valorFoto);
   }, [valorFoto]);
 
@@ -79,6 +78,7 @@ const WebcamFormik = ({ folder, label, campo, w, h, callbackchange }) => {
       });
     } catch (err) {
       console.error(err);
+      setLoading(false);
     }
   };
   return (

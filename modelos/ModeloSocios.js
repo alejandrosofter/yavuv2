@@ -164,29 +164,26 @@ export function ModeloTipoConfig() {
 }
 export function valoresInicialesActividades() {
   return {
-    estaBaja: false,
-    tieneImporteEspecial: false,
-    tieneVto: false,
     idActividad: "",
-    fechaInicio: { seconds: new Date().getTime() / 1000, nanoseconds: 0 },
+    fechaInicio: new Date(),
+    porcentualObligacion: "100",
+    estado: "ACTIVO",
+    idProducto: "",
   };
 }
 export function ModeloActividades() {
   return yup.object().shape({
-    //    fecha: yup.string(),
-    estaBaja: yup.boolean(),
-    tieneImporteEspecial: yup.boolean(),
-    tieneVto: yup.boolean(),
+    esPorDebitoAutomatico: yup.boolean(),
     idActividad: yup.string().required(),
-    idSubActividad: yup.string().required(),
-    idPeriodo: yup.string().required(),
+    estado: yup.string().required(),
+    porcentualObligacion: yup.string().required(),
   });
 }
 ////////////////////////////
 export function valoresDebitoAutomatico() {
   return {
     estado: "ACTIVO",
-    fecha: new Date(),
+    fechaInicio: new Date(),
     detalle: "",
   };
 }

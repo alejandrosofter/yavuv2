@@ -8,28 +8,33 @@ import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import AlgoliaAutocomplete from "@components/forms/algoliaSearch";
 import { SearchBox } from "react-instantsearch-dom";
 import AlgoliaSearch from "@components/forms/algoliaSearch";
+import { QueryApi } from "@helpers/queryApi";
 export default function Modulo({ mod }) {
   const order = ["fecha", "desc"];
   const idPlantilla = mod.config?.plantillaAfiliacion;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
+  const [dataConsulta, setDataConsulta] = useState();
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,
   });
   const getDetalleCobro = (row) => {
+    if (!row.deudas || row.deudas.length === 0) return "-";
     return row.deudas
       .map((item) => `${item.label_idProducto} ${formatMoney(item.importe)}`)
       .reduce((n, p) => `${n} | ${p}`);
   };
   const getDetalleActividades = (row) => {
+    if (!row.actividades) return "-";
     return row.actividades
       .map((item) => `${item.label_idActividad}`)
       .reduce((n, p) => `${n} | ${p}`);
   };
+
   let fnAcciones = {
     aplicar: (data) => {
-      console.log(data);
+      setDataConsulta({ url: "/api/afiliaciones/aplicar", data });
     },
     imprimir: (data) => {
       setOpenImpresion(true);
@@ -94,6 +99,7 @@ export default function Modulo({ mod }) {
         nombrePlantillaEmail="emailAfiliacion"
         attachments={[{ filename: "AFILIACION.pdf", data: plantilla }]}
       />
+      <QueryApi dataConsulta={dataConsulta} />
     </>
   );
 }

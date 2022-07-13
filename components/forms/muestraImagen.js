@@ -10,6 +10,7 @@ export default function MuestraImagen({ pathImagen, w, h }) {
   const mostrarImagen = async (path) => {
     // console.log(path);
     setLoadingImage(true);
+    if (!path) return setLoadingImage(false);
     if (path)
       await fuego
         .storage()

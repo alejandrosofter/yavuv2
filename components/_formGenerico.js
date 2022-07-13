@@ -40,7 +40,7 @@ export default function _FormGenerico({
     : valoresIniciales
     ? valoresIniciales(preData)
     : null;
-
+  console.log(preData);
   return (
     <Formik
       initialValues={valores}

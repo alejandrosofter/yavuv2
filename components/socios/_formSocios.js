@@ -11,15 +11,13 @@ import SelectFormik from "../forms/select2Formik";
 import TitulosFormularios from "../forms/tituloFormularios";
 import ImageFormik from "../forms/imageFormik";
 import { fuego } from "@nandorojo/swr-firestore";
-import { getFieldName } from "../../helpers/forms";
+import { getFieldName, getValueName } from "../../helpers/forms";
 import DataInfoPhoto from "../forms/dataInfoPhoto";
 import { getModUsuario } from "../../helpers/db";
 import { getItemArray } from "../../helpers/arrays";
 import { getEdad } from "../../helpers/fechas";
 import SelectProducto from "../productos/selectProducto";
 import Tooltip from "@mui/material/Tooltip";
-import BuscadorSociosInput from "../clientes/_buscador";
-import SelectFormikAlgolia from "../forms/selectAlgoliaFormik";
 export default function FormSocios({ field, setFieldValue, values, mod }) {
   mod = mod.nombre === "socios" ? mod : getModUsuario("socios");
   const tipoSocios = mod.config?.itemsTipoSocios
@@ -152,7 +150,7 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
         <Grid item md={1}>
           <Input label="Edad" campo={getFieldName(field, `edad`)} />
         </Grid>
-        <Grid item md={2}>
+        <Grid item md={3}>
           <SelectFormik
             callbackchange={cambiaCategoria}
             lista={categoriaSocios}
@@ -166,28 +164,52 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
         <Grid item md={2}>
           <Input label="D.N.I " campo={getFieldName(field, `dni`)} />
         </Grid>
-        <Grid item md={3}>
+        <Grid item md={4}>
           <Input label="Domicilio " campo={getFieldName(field, `domicilio`)} />
         </Grid>
-        <Grid item md={3}>
+        <Grid item md={2}>
           <Input label="Localidad" campo={getFieldName(field, `localidad`)} />
         </Grid>
-        <Grid item md={2}>
+        <Grid item md={3}>
           <Input
-            label="Telefono"
+            label="Telefono Primario"
             campo={getFieldName(field, `telefonoMobil`)}
           />
         </Grid>
         <Grid item md={3}>
+          <Input
+            label="Telefono Secundario"
+            campo={getFieldName(field, `telefonoMobilSecundario`)}
+          />
+        </Grid>
+        <Grid item md={4}>
           <Input label="Email" campo={getFieldName(field, `email`)} />
         </Grid>
         <Grid item md={6}>
-          <SelectProducto label="Obligacion Mensual" />
+          <SelectProducto
+            campo={getFieldName(field, `obligacionMensual`)}
+            label="Obligacion Mensual"
+          />
         </Grid>
         <Grid item md={3}>
           <SwitchFormik
             label="Obligacion por Débito automático"
             campo={getFieldName(field, `esPorDebitoAutomatico`)}
+          />
+        </Grid>
+        <Grid
+          item
+          sx={{
+            flex: 1,
+            display: getValueName(values, field, `esPorDebitoAutomatico`)
+              ? "yes"
+              : "none",
+          }}
+          md={3}
+        >
+          <SelectFecha
+            label="Fecha Inicio Debito "
+            campo={getFieldName(field, `fechaInicioDebito`)}
           />
         </Grid>
       </Grid>

@@ -34,16 +34,7 @@ export const cols = [
     headerName: "Actividad",
     width: 170,
   },
-  {
-    field: "label_idSubActividad",
-    headerName: "Sub-Actividad",
-    width: 170,
-  },
-  {
-    field: "label_idPeriodo",
-    headerName: "Periodo",
-    width: 150,
-  },
+
   {
     field: "estado",
     headerName: "Estado",

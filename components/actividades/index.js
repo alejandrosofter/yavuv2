@@ -1,15 +1,22 @@
-import ListaSimple from "@components/forms/listaSimple";
-import { useDataModulo } from "@hooks/useDataModulo";
-import { UseSeleccion } from "@hooks/useSeleccion";
-import { Grid } from "@mui/material";
-
-import { DetalleActividad } from "./detalleActividad";
-import { DetalleSubActividad } from "./detalleSubActividad";
+import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
+import { getFechaString } from "../../helpers/dates";
+import { formatMoney } from "../../helpers/numbers";
+import { renderCellExpandData } from "../forms/datagrid/renderCellExpand";
+import { useState } from "react";
+import ImpresionDialog from "../forms/impresion";
+import { UsePlantilla } from "@components/plantillas/usePlantilla";
 export default function Modulo({ mod }) {
-  const [actividadSeleccion, setActividadSeleccion] = UseSeleccion("actividad");
-  const [subActividadSeleccion, setSubActividadSeleccion] =
-    UseSeleccion("subActividad");
+  const order = ["nombreActividad", "asc"];
 
+  let fnAcciones = {
+    aplicar: (data) => {
+      console.log(data);
+    },
+    imprimir: (data) => {
+      setOpenImpresion(true);
+      setDataImpresion(data);
+    },
+  };
   const columns = [
     {
       field: "nombreActividad",
@@ -21,41 +28,29 @@ export default function Modulo({ mod }) {
       headerName: "Estado",
       width: 100,
     },
+    {
+      field: "label_idProducto",
+      headerName: "Servicio Asociado",
+      width: 250,
+    },
+    {
+      field: "detalle",
+      headerName: "Detalle",
+      width: 400,
+    },
   ];
-  const clickItem = (item, padre) => {
-    setActividadSeleccion(padre);
-    setSubActividadSeleccion(item);
-  };
-  const { data, error } = useDataModulo({
-    mod,
-    coleccion: mod.coleccion,
-    orderBy: ["nombreActividad"],
-  });
 
   return (
-    <Grid container>
-      <Grid item xs={2}>
-        <ListaSimple
-          items={data}
-          campoId="id"
-          campoLabelSubCampo={(subItem) =>
-            `${subItem.nombreActividad} (${
-              subItem.cantidadIntegrantes ? subItem.cantidadIntegrantes : 0
-            })`
-          }
-          subCampo="subActividades"
-          fnRender={(value) =>
-            `${value.nombreActividad} (${
-              value.cantidadIntegrantes ? value.cantidadIntegrantes : 0
-            })`
-          }
-          onClickSubItem={clickItem}
-        />
-      </Grid>
-      <Grid item xs={10}>
-        <DetalleActividad item={actividadSeleccion} />
-        <DetalleSubActividad item={subActividadSeleccion} />
-      </Grid>
-    </Grid>
+    <DataGridFirebase
+      fnAcciones={fnAcciones}
+      titulo={mod.label}
+      subTitulo="al club"
+      icono={mod.icono}
+      limit={50}
+      mod={mod}
+      acciones={mod.acciones}
+      orderBy={order}
+      columns={columns}
+    />
   );
 }

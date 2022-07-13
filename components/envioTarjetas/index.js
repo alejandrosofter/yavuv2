@@ -60,8 +60,8 @@ export default function Modulo({ mod }) {
       setDataSeleccion(data);
       setOpenEnviar(true);
     },
-    reprocesar: (data) => {
-      enviarSolicitud(`/api/envioTarjetas/reprocesar`, { id: data?.id });
+    stop: (data) => {
+      enviarSolicitud(`/api/envioTarjetas/stop`, { id: data?.id });
     },
     procesar: (data, id) => {
       enviarSolicitud(`/api/envioTarjetas/procesar`, { id: data?.id });

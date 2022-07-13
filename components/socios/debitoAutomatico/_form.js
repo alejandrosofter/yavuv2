@@ -14,15 +14,18 @@ import { useRouter } from "next/router";
 import AlgoliaAutocomplete from "@components/forms/algoliaSearch";
 import SelectFormikAlgolia from "@components/forms/selectAlgoliaFormik";
 
-export default function FormDebitoAutomatico({ values, setFieldValue, mod }) {
+export default function FormDebitoAutomatico({ setFieldValue, mod }) {
   const cambiaCuenta = (valor, item) => {
     setFieldValue(`valor_idCuentaCbu`, item ? item.cbu : "");
   };
 
   return (
     <Grid container rowSpacing={2} spacing={2}>
-      <Grid item sx={{ flex: 1 }} md={7}>
+      <Grid item sx={{ flex: 1 }} md={5}>
         <SelectFecha label="Fecha " campo="fecha" />
+      </Grid>
+      <Grid item sx={{ flex: 1 }} md={5}>
+        <SelectFecha label="Inicio del Debito" campo="fechaInicio" />
       </Grid>
       <Grid item md={4}>
         <SelectEstaticFormik
@@ -35,7 +38,9 @@ export default function FormDebitoAutomatico({ values, setFieldValue, mod }) {
         <SelectFormikAlgolia
           coleccionAlgolia={"cuentasCbu"}
           label="Cuenta CBU"
-          labelItems={(opt) => `${opt.titular}`}
+          labelItems={(opt) =>
+            `${opt.titular} ${opt.dniTitular ? opt.dniTitular : "(sin dni)"}`
+          }
           campo="idCuentaCbu"
         />
       </Grid>
