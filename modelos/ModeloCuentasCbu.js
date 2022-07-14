@@ -11,7 +11,8 @@ export default function Modelo() {
     nroCbu: yup
       .string()
       .test("Cuit invalido", "${path} INVALIDO", async (value, testContext) => {
-        const esValido = validarCBU(value);
+        const validador = require("arg.js").cbu;
+        const esValido = validador.isValid(value);
         if (!esValido)
           return testContext.createError({ message: `CBU invalido` });
 

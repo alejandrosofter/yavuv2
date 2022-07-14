@@ -2778,6 +2778,13 @@
     "delegates" "^1.0.0"
     "readable-stream" "^2.0.6"
 
+"arg.js@^1.1.7":
+  "integrity" "sha512-yYSvLDTk+HUACsvvfD46eMb+CUPEijVcRgBHEgGGoCHaZ+AHrfNLh0m6XqsY1ldkDYHmbex6b2txeLjRv7Ovvw=="
+  "resolved" "https://registry.npmjs.org/arg.js/-/arg.js-1.1.7.tgz"
+  "version" "1.1.7"
+  dependencies:
+    "google-libphonenumber" "^2.0.19"
+
 "argparse@^1.0.7":
   "integrity" "sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg=="
   "resolved" "https://registry.npmjs.org/argparse/-/argparse-1.0.10.tgz"
@@ -4998,6 +5005,11 @@
     "proto3-json-serializer" "^0.1.5"
     "protobufjs" "6.11.2"
     "retry-request" "^4.0.0"
+
+"google-libphonenumber@^2.0.19":
+  "integrity" "sha512-kwtbruT+eyiof081cxT1tltMTxgTOq3CQhUoEYBROC+vNf+COPqzfKJtVnDvgXQe4SzfbnAYkP8KoSpbJBIlSg=="
+  "resolved" "https://registry.npmjs.org/google-libphonenumber/-/google-libphonenumber-2.0.19.tgz"
+  "version" "2.0.19"
 
 "google-p12-pem@^3.0.3":
   "integrity" "sha512-tjf3IQIt7tWCDsa0ofDQ1qqSCNzahXDxdAGJDbruWqu3eCg5CKLYKN+hi0s6lfvzYZ1GDVr+oDF9OOWlDSdf0A=="

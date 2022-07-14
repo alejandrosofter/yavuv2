@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import React from "react";
 import ErrorsForm from "../components/forms/errorForms";
 import { esVacio } from "../helpers/objectos";
+import ImpresionDialog from "./forms/impresion";
+import { UsePlantilla } from "./plantillas/usePlantilla";
 
 export default function _FormGenerico({
   preData,
@@ -15,10 +17,15 @@ export default function _FormGenerico({
   valoresIniciales,
   modelo,
   children,
+  idPlantilla,
   mod,
 }) {
   const router = useRouter();
   const [load, setLoad] = useState();
+  // const idPlantillaImpresion = mod.config?.plantillaCobro;
+  const [openImpresion, setOpenImpresion] = useState(false);
+
+  // const [plantilla, setPlantilla] = UsePlantilla();
   const clickForm = async (values) => {
     setLoad(true);
     if (fnUpdate)
@@ -40,7 +47,7 @@ export default function _FormGenerico({
     : valoresIniciales
     ? valoresIniciales(preData)
     : null;
-  console.log(preData);
+
   return (
     <Formik
       initialValues={valores}
@@ -52,6 +59,7 @@ export default function _FormGenerico({
       enableReinitialize={true}
     >
       {({ handleSubmit, values, errors, setFieldValue, validateForm }) => {
+        // if (idPlantilla) setPlantilla({ id: idPlantilla, data: values });
         // console.log(errors)
         //  setFieldValue("idUsaurio",fuego.auth().currentUser.uid)
         return (
@@ -65,6 +73,14 @@ export default function _FormGenerico({
               })}
 
               <ErrorsForm errors={errors} />
+              <ImpresionDialog
+                titulo="PANEL COMPARTIR COBRO"
+                setOpen={setOpenImpresion}
+                open={openImpresion}
+                asunto="COBRO "
+                data={values}
+                // plantilla={plantilla}
+              />
               <LoadingButton
                 disabled={!esVacio(errors)}
                 sx={{ mt: 3 }}
