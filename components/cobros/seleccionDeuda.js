@@ -1,4 +1,4 @@
-import { Grid, Icon, Button, Stack } from "@mui/material/";
+import { Grid, Icon, Button, Stack, Typography } from "@mui/material/";
 import Badge from "@mui/material/Badge";
 
 import * as React from "react";
@@ -8,9 +8,11 @@ import { fuego } from "@nandorojo/swr-firestore";
 import DialogContenido from "../forms/dialogContenido";
 import CheckListFormik from "../forms/checkListFormik";
 import { getFechaString } from "../../helpers/dates";
-export default function Modulo({ cliente, fnChange, abre }) {
+import TooltipHtml from "@components/forms/tooltipHtml";
+import randomId from "random-id";
+export default function Modulo({ cliente, enabled, fnChange, abre }) {
   const [deudaSocio, setDeudaSocio] = useState([]);
-  const [cantidadSeleccion, setCantidadSeleccion] = useState(0);
+  const [deudaSeleccion, setDeudaSeleccion] = useState([]);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -33,27 +35,46 @@ export default function Modulo({ cliente, fnChange, abre }) {
     return wheres;
   };
   const buscarDeuda = async (cliente) => {
-    const arrSocios = await getWhereFamilares(cliente, cliente.objectID);
-    fuego.db
-      .collection("socios_deudas")
-      .where("idSocio", "in", arrSocios)
-      .where("estado", "==", "PENDIENTE")
-      .get()
-      .then((refDeuda) => {
-        let arr = [];
-        refDeuda.forEach((docDeuda) => {
-          arr.push(docDeuda);
+    if (cliente) {
+      const arrSocios = await getWhereFamilares(cliente, cliente.objectID);
+      fuego.db
+        .collection("socios_deudas")
+        .where("idSocio", "in", arrSocios)
+        .where("estado", "==", "PENDIENTE")
+        .get()
+        .then((refDeuda) => {
+          let arr = [];
+          refDeuda.forEach((docDeuda) => {
+            arr.push(docDeuda);
+          });
+          if (arr.length > 0) setOpen(true);
+          setDeudaSocio(arr);
         });
-        setDeudaSocio(arr);
-      });
+    }
   };
 
   if (!deudaSocio) return "cargando deuda";
   const cambiaItems = (items) => {
-    setCantidadSeleccion(items.length);
-    if (fnChange) fnChange(items);
+    setDeudaSeleccion(items);
+    // if (fnChange) fnChange(items);
   };
-
+  const clickAgregar = () => {
+    fnChange(deudaSeleccion);
+    setOpen(false);
+  };
+  const fnItem = (item) => {
+    const id = randomId(7);
+    return {
+      ...item.data(),
+      _id: item.id ? item.id : id,
+      id: item.id ? item.id : id,
+      label: fnLabel(item.data()),
+    };
+  };
+  const clickAgregarTodo = () => {
+    fnChange(deudaSocio.map(fnItem));
+    setOpen(false);
+  };
   const fnLabel = (item) => {
     const bonif = Number(
       item.importeBonificacion ? item.importeBonificacion : 0
@@ -67,32 +88,62 @@ export default function Modulo({ cliente, fnChange, abre }) {
     } ${hijo} $${importe} `;
   };
   return (
-    <Grid container>
-      <Badge badgeContent={cantidadSeleccion} color="error">
-        {" "}
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={() => setOpen(true)}
-        >
-          <Icon className="fas fa-user" /> Deuda
-        </Button>
-      </Badge>
-      <DialogContenido titulo="Deudas Cliente" open={open} setOpen={setOpen}>
-        <CheckListFormik
-          campo="seleccionItemsDeuda"
-          callbackchange={cambiaItems}
-          fnTransformItem={(item) => ({
-            ...item.data(),
-            _id: item.id ? item.id : new Date().getTime(),
-            id: item.id ? item.id : new Date().getTime(),
-            label: fnLabel(item.data()),
-          })}
-          lista={deudaSocio}
-          campoLabel={fnLabel}
-          campoId="id"
-        />
+    <>
+      <Button
+        disabled={!enabled}
+        variant="outlined"
+        color="primary"
+        onClick={() => setOpen(true)}
+      >
+        <Icon className="fas fa-search-dollar" />
+      </Button>
+
+      <DialogContenido
+        titulo="DEUDAS DEL SOCIO"
+        fullWidth={true}
+        maxWidth="sm"
+        open={open}
+        setOpen={setOpen}
+      >
+        <Grid container>
+          <Grid item sx={{ p: 2 }} xs={12}>
+            <Typography variant="body1">
+              Selecciona la deuda que le quieras liquidar al socio o bien puedes
+              agregar todo sin seleccionar con el boton inferior (naranja).
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <CheckListFormik
+              campo="seleccionItemsDeuda"
+              callbackchange={cambiaItems}
+              fnTransformItem={fnItem}
+              lista={deudaSocio}
+              campoLabel={fnLabel}
+              campoId="id"
+            />
+          </Grid>
+          <Grid container sx={{ p: 3 }} spacing={2}>
+            <Grid item xs={6}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={clickAgregar}
+              >
+                <Icon className="fas fa-plus" /> Agregar Seleccion
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={clickAgregarTodo}
+              >
+                <Icon className="fas fa-plus" /> Agregar Todo
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
       </DialogContenido>
-    </Grid>
+    </>
   );
 }

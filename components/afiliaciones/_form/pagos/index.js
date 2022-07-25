@@ -53,14 +53,14 @@ export default function Modulo({ mod, setFieldValue, values }) {
     setFieldValue("deudas", deudas);
   };
   return (
-    <Grid container>
-      <Grid item xs={8}>
-        <ItemsCobro values={values} setFieldValue={setFieldValue} />
-      </Grid>
+    <Grid justifyContent="flex-end" alignItems="flex-end" container>
       <Grid item xs={2}>
         <Button onClick={clickTraer} variant="contained">
           <Icon className="fas fa-dollar" /> TRAER ITEMS
         </Button>
+      </Grid>
+      <Grid item xs={12}>
+        <ItemsCobro values={values} setFieldValue={setFieldValue} />
       </Grid>
     </Grid>
   );

@@ -71,7 +71,7 @@ export default function ActividadesSocio({ data, mod }) {
       <i> Será utilizada solo la cuenta que se encuentre en estado ACTIVO</i>
       <SubColeccionColeccion
         labelAgregar={"ASIGNAR"}
-        sortModel={[{ field: "fecha", sort: "desc" }]}
+        sortModel={[{ field: "fechaInicio", sort: "desc" }]}
         campoId="id"
         accionesExtra={accionesExtra}
         coleccion={mod.coleccion}

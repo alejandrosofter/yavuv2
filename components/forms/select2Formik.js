@@ -37,6 +37,7 @@ const SelectFormik = ({
               data: lista,
               valor: props.field.value,
             });
+
             if (itemArray) {
               const item = {
                 label:
@@ -47,6 +48,8 @@ const SelectFormik = ({
               };
               setValor(item);
               if (callbackchange) callbackchange(item, itemArray);
+            } else {
+              setValor(null);
             }
           }
 
@@ -71,7 +74,7 @@ const SelectFormik = ({
               });
               setValor(item);
               props.form.setFieldValue(campo, item?.value);
-              console.log(`setenado ${campoLabel} con ${item?.label}`);
+
               props.form.setFieldValue(campoLabel, item?.label);
               if (extraData)
                 extraData.forEach((field) => {

@@ -17,6 +17,7 @@ import randomId from "random-id";
 export default function ItemsModulo({
   labelNuevo,
   height,
+  labelBtnAgregar,
   fnCambia,
   accionesExtra = () => [],
   dataExtra,
@@ -157,6 +158,7 @@ export default function ItemsModulo({
                 </IconButton>
               )}
               <ItemsModulo_agregar
+                labelBtnAgregar={labelBtnAgregar}
                 labelNuevo={labelNuevo}
                 fullWidth={fullWidth}
                 maxWidth={maxWidth}
@@ -177,7 +179,13 @@ export default function ItemsModulo({
               </Stack>
             </Stack>
             {/* Me quemo el cerebro un rato eso de que la data del datarow tiraba error data?data:[] */}
-            <DataGrid rowHeight={25} columns={cols} rows={data ? data : []} />
+            <DataGrid
+              rowHeight={25}
+              disableColumnFilter={true}
+              rowsPerPageOptions={[]}
+              columns={cols}
+              rows={data ? data : []}
+            />
 
             <ItemsModulo_eliminar
               nombreModulo={nombreModulo}

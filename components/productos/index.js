@@ -47,7 +47,7 @@ export default function Modulo({ mod }) {
       titulo={mod.label}
       subTitulo=""
       icono={mod.icono}
-      limit={10}
+      limit={50}
       mod={mod}
       acciones={mod.acciones}
       orderBy={order}

@@ -185,6 +185,7 @@ export function valoresDebitoAutomatico() {
     estado: "ACTIVO",
     fechaInicio: new Date(),
     detalle: "",
+    cbu: "",
   };
 }
 export function ModeloDebitoAutomatico() {

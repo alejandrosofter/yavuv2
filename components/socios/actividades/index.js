@@ -32,7 +32,7 @@ export const cols = [
   {
     field: "label_idActividad",
     headerName: "Actividad",
-    width: 170,
+    width: 370,
   },
 
   {

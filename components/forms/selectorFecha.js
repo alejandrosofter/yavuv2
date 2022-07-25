@@ -17,6 +17,19 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { getFechaFormik } from "../../helpers/dates";
 
 const SelectFecha = ({ label, campo, callbackChange }) => {
+  const getValor = (values, campo) => {
+    //verifico si la variable campo viene con punto o no
+    if (campo.indexOf(".") > -1) {
+      let campos = campo.split(".");
+      let valor = values;
+      for (let i = 0; i < campos.length; i++) {
+        valor = valor[campos[i]];
+      }
+      return valor;
+    } else {
+      return values[campo];
+    }
+  };
   return (
     <FormControl fullWidth>
       <Field label={label} name={campo} id={campo}>
@@ -34,7 +47,7 @@ const SelectFecha = ({ label, campo, callbackChange }) => {
                 label={label}
                 inputVariant="outlined"
                 inputFormat="dd/MM/yyyy"
-                value={getFechaFormik(props.form.values?.[campo])}
+                value={getFechaFormik(getValor(props.form.values, campo))}
                 onChange={handleChange}
                 KeyboardButtonProps={{
                   "aria-label": "change date",

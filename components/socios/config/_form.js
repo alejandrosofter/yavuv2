@@ -92,28 +92,10 @@ export default function FormConfig({}) {
             </Grid>
           ),
         },
-        {
-          label: "Generacion Deuda",
-          nro: 3,
-          vista: (
-            <Grid item md={12}>
-              <DataGridFormikItems
-                label="Generar Deuda"
-                Modelo={ModeloGeneracionDeuda}
-                FormularioItem={FormGeneracionDeuda}
-                campo="itemsGeneracionDeuda"
-                columns={[
-                  { field: "nombre", headerName: "Nombre", width: 130 },
-                  { field: "activo", headerName: "Estado", width: 140 },
-                  { field: "destino", headerName: "Destino...", width: 130 },
-                ]}
-              />
-            </Grid>
-          ),
-        },
+
         {
           label: "Motivos Estados",
-          nro: 4,
+          nro: 3,
           vista: (
             <Grid item md={12}>
               <DataGridFormikItems
@@ -131,7 +113,7 @@ export default function FormConfig({}) {
         },
         {
           label: "Impresiones",
-          nro: 5,
+          nro: 4,
           vista: (
             <Grid item md={12}>
               <Grid item md={3}>
@@ -157,7 +139,7 @@ export default function FormConfig({}) {
         },
         {
           label: "Difusion",
-          nro: 6,
+          nro: 5,
           vista: (
             <Grid spacing={2} container>
               <Grid item md={2}>

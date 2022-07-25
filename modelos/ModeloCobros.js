@@ -1,17 +1,38 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { contador, contadorMoney } from "@helpers/arrays";
 export default function ModeloCobros() {
   return yup.object().shape({
-    cliente: yup.string().required(),
+    cliente: yup.string().required("Debes seleccionar el socio!"),
     detalle: yup.string(),
     importe: yup.number(),
 
     importeTotal: yup.number(),
     importeBonifica: yup.number(),
     importePaga: yup.number(),
+    formasDePago: yup
+      .array()
+      .required("Debes Ingresar por lo menos un pago!")
+      .test(
+        "Debe coincidir la sumatoria de los items con los pagos",
+        "${path} EXISTENTE",
+        (value, testContext) => {
+          if (!value || !testContext.parent.deudas)
+            return testContext.createError({
+              message: `Deben haber items!`,
+            });
+          const importeItems = contador(testContext.parent.deudas);
+          const importeFormaPagos = contador(testContext.parent?.formasDePago);
+          if (importeItems !== importeFormaPagos)
+            return testContext.createError({
+              message: `Debe coincidir la sumatoria de los items con los pagos`,
+            });
+          return true;
+        }
+      ),
   });
 }
-export function valoresIniciales() {
+export function valoresIniciales(data) {
   return {
     cliente: "",
     detalle: "",
@@ -19,6 +40,14 @@ export function valoresIniciales() {
     importeBonificacion: 0,
     importeTotal: 0,
     importePaga: 0,
+    comprobante_razonSocial: data ? data.comprobante_razonSocial : "",
+    comprobante_nroDocumento: data ? data.comprobante_nroDocumento : "",
+    comprobante_tipoCliente: data ? data.comprobante_tipoCliente : "",
+    comprobante_tipoComprobante: data ? data.comprobante_tipoComprobante : "",
+    comprobante_tipoDocumento: data ? data.comprobante_tipoDocumento : "",
+    comprobante_domicilio: data ? data.comprobante_domicilio : "",
+    comprobante_tipoConcepto: data ? data.comprobante_tipoConcepto : "",
+    tipoComprobanteNoFiscal: data ? data.tipoComprobanteNoFiscal : "",
     estado: "CANCELADA",
     fecha: new Date(),
     idUsuario: fuego.auth().currentUser.uid,

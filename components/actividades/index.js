@@ -19,15 +19,16 @@ export default function Modulo({ mod }) {
   };
   const columns = [
     {
+      field: "label_idActividadPadre",
+      headerName: "Grupo",
+      width: 100,
+    },
+    {
       field: "nombreActividad",
       headerName: "Actividad",
       width: 150,
     },
-    {
-      field: "label_estado",
-      headerName: "Estado",
-      width: 100,
-    },
+
     {
       field: "label_idProducto",
       headerName: "Servicio Asociado",
@@ -37,6 +38,11 @@ export default function Modulo({ mod }) {
       field: "detalle",
       headerName: "Detalle",
       width: 400,
+    },
+    {
+      field: "estado",
+      headerName: "Estado",
+      width: 100,
     },
   ];
 

@@ -41,12 +41,85 @@ export function UsePlantilla({ id, data }) {
       return aString.toFixed(2);
     });
 
-    Handlebars.registerHelper("importe", function (aString) {
-      return formatMoney(aString);
+    Handlebars.registerHelper("importe", function (importe) {
+      console.log(importe);
+      return formatMoney(importe);
+    });
+    Handlebars.registerHelper("letraFiscal", function (tipoComprobante) {
+      if (!tipoComprobante) return "-";
+      const palabras = tipoComprobante.split(" ");
+      return palabras[palabras.length - 1];
+    });
+    Handlebars.registerHelper("qr", function (data) {
+      const auxData = {
+        ver: 1,
+        fecha: getFecha2(data.CbteFch),
+        cuit: Number(data.cuit),
+        ptoVta: Number(data.puntoVenta),
+        tipoCmp: Number(data.CbteTipo),
+        nroCmp: Number(data.nroComprobante),
+        importe: Number(data.ImpTotal),
+        moneda: data.MonId,
+        ctz: 1,
+        tipoDocRec: Number(data.DocTipo),
+        nroDocRec: Number(data.DocNro),
+        tipoCodAut: "E",
+        codAut: Number(data.nroCae),
+      };
+      //json to base 64
+      const json = JSON.stringify(auxData);
+      const base64 = Buffer.from(json).toString("base64");
+
+      return `https://serviciosweb.afip.gob.ar/genericos/comprobantes/cae.aspx?p=${base64}`;
+    });
+
+    // $json=json_encode($data);
+    // $base64=base64_encode($json);
+    // return "https://serviciosweb.afip.gob.ar/genericos/comprobantes/cae.aspx?p=".$base64;
+    Handlebars.registerHelper("subTotal", function (importe, cantidad) {
+      console.log(importe, cantidad);
+      return formatMoney(importe * cantidad);
+    });
+    const getFecha = (fecha) => {
+      if (!fecha) return "-";
+      const fechaString = fecha.toString();
+      const anio = fechaString.substring(0, 4);
+      const mes = fechaString.substring(4, 6);
+      const dia = fechaString.substring(6, 8);
+      return `${dia}/${mes}/${anio}`;
+    };
+    const getFecha2 = (fecha) => {
+      if (!fecha) return "-";
+      const fechaString = fecha.toString();
+      const anio = fechaString.substring(0, 4);
+      const mes = fechaString.substring(4, 6);
+      const dia = fechaString.substring(6, 8);
+      return `${anio}-${mes}-${dia}`;
+    };
+    Handlebars.registerHelper("fecha2", function (fecha) {
+      //parse fecha en formato yyyymmdd a formato dd/mm/yyyy
+      return getFecha(fecha);
+    });
+    Handlebars.registerHelper("rpad", function (string, length, pad) {
+      if (!string) return "-";
+      return `${string}`.padStart(length, pad);
     });
     Handlebars.registerHelper("bool", function (aString) {
       return aString ? "SI" : "NO";
     });
+    Handlebars.registerHelper(
+      "sumatoriaDebitos",
+      function (actividades, importeMensual, esPorDebitoMensual) {
+        //SUMO el importe de actividades que sean por debito
+        let suma = 0;
+        actividades.forEach((actividad) => {
+          if (actividad.esPorDebitoAutomatico)
+            suma += Number(actividad.idProducto_importe);
+        });
+        if (esPorDebitoMensual) suma += Number(importeMensual);
+        return formatMoney(suma);
+      }
+    );
 
     Handlebars.registerHelper("importeTotal", function (data, campo) {
       //suma el campo importe del array data

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export function getModUsuario(nombreModulo) {
   const { data } = useCollection("mods", {
     where: [
-      ["idUsuario", "==", fuego.auth().currentUser.uid],
+      ["idUsuario", "==", fuego.auth().currentUser?.uid],
       ["nombre", "==", nombreModulo],
     ],
   });
@@ -17,6 +17,8 @@ export function useModUsuario(nombreModulo) {
     buscarMod(nombreModulo);
   }, [nombreModulo]);
   const buscarMod = async (nombreModulo) => {
+    console.log(fuego.auth().currentUser);
+    if (!fuego.auth().currentUser) return false;
     const data = await fuego.db
       .collection("mods")
       .where("idUsuario", "==", fuego.auth().currentUser.uid)

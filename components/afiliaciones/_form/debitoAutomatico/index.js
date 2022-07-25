@@ -20,6 +20,7 @@ export default function Modulo({ mod, setFieldValue, values }) {
       </Button>
       <ItemsModulo
         setFieldValue={setFieldValue}
+        labelBtnAgregar="ASIGNAR CTA"
         campo={field}
         data={values[field]}
         modelo={ModeloDebitoAutomatico}

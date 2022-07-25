@@ -26,28 +26,19 @@ export default function ImpresionDialog({
   emailDefault,
   plantilla,
   plantillaEmail,
+  callbackClose,
 }) {
   const [loading, setLoading] = useState(false);
   const [openSendMail, setOpenSendMail] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
+    if (callbackClose) callbackClose();
   };
 
   const componentRef = useRef();
   const view = (props, ref) => {
     return (
-      // <div
-      //   // style={{
-      //   //   paddingLeft: 80,
-      //   //   paddingRight: 50,
-      //   //   paddingTop: 50,
-      //   //   width: 950,
-      //   // }}
-      //   ref={ref}
-      // >
-      //   {parse(plantilla)}
-      // </div>
       <iframe
         width="900px"
         frameBorder="0"

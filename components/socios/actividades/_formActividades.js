@@ -37,19 +37,6 @@ export default function FormActividadesSocio({
         />
       </Grid>
       <Grid item md={5}>
-        <SelectFormik
-          label="Actividad"
-          lista={actividades}
-          campoLabel="nombreActividad"
-          callbackchange={cambiaActividad}
-          campoId="id"
-          campo="idActividad"
-        />
-      </Grid>
-      <Grid item md={2}>
-        <Input campo="porcentualObligacion" label="% Obligación" />
-      </Grid>
-      <Grid item md={5}>
         <SwitchFormik
           label="Es por Débito automático"
           campo={`esPorDebitoAutomatico`}
@@ -62,6 +49,16 @@ export default function FormActividadesSocio({
         md={3}
       >
         <SelectFecha label="Fecha Inicio Debito " campo="fechaInicioDebito" />
+      </Grid>
+      <Grid item md={8}>
+        <SelectFormik
+          label="Actividad"
+          lista={actividades}
+          campoLabel="nombreActividad"
+          callbackchange={cambiaActividad}
+          campoId="id"
+          campo="idActividad"
+        />
       </Grid>
     </Grid>
   );

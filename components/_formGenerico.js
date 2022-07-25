@@ -28,11 +28,13 @@ export default function _FormGenerico({
   // const [plantilla, setPlantilla] = UsePlantilla();
   const clickForm = async (values) => {
     setLoad(true);
+    console.log(values);
     if (fnUpdate)
       fnUpdate(values)
-        .then(() => {
+        .then((res) => {
+          setLoad(false);
           if (callbackSuccess) {
-            callbackSuccess(values);
+            callbackSuccess(values, res);
           } else {
             router.back({ shallow: true });
           }

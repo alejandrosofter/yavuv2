@@ -4,7 +4,6 @@ import Input from "../forms/input";
 import SelectProducto from "../productos/selectProducto";
 
 export default function FormularioItemCobro({ setFieldValue, mod, values }) {
-  console.log(values);
   const cambiaProducto = (producto, item) => {
     setFieldValue("importe", item.importe);
   };

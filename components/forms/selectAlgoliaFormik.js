@@ -10,6 +10,7 @@ import { FormControl, TextField } from "@mui/material";
 const SelectFormikAlgolia = ({
   label,
   campo,
+  autoFocus,
   coleccionAlgolia,
   callbackchange,
   labelItems,
@@ -24,6 +25,7 @@ const SelectFormikAlgolia = ({
     <FormControl fullWidth>
       <Field label={label} name={campo} id={campo}>
         {(props) => {
+          if (!props.field.value) setShowBusca(true);
           setLabel(`${props.form.values?.[`label_${campo}`]}`);
           const client = algoliasearch(
             "YEIGHXO1BF",
@@ -73,6 +75,9 @@ const SelectFormikAlgolia = ({
             <Grid container>
               <Grid item md={11} sx={{ display: `${showBusca ? "" : "none"}` }}>
                 <AutoCompleteAsync
+                  inputRef={
+                    autoFocus ? (input) => input && input.focus() : null
+                  }
                   icono="fas fa-user"
                   label={label ? label : "Buscador"}
                   fnCambia={cambia}

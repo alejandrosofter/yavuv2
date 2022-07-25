@@ -16,7 +16,7 @@ import { Formik, Form } from "formik";
 import Alert from "@mui/material/Alert";
 
 export default function ItemsModulo_agregar({
-  labelNuevo,
+  labelBtnAgregar,
   fullWidth,
   maxWidth,
   textoAgregar,
@@ -51,7 +51,8 @@ export default function ItemsModulo_agregar({
   return (
     <div>
       <Button size="small" variant="outlined" onClick={handleClickOpen}>
-        <Icon className="fas fa-plus" /> {labelNuevo ? labelNuevo : "Nuevo"}
+        <Icon className="fas fa-plus" />{" "}
+        {labelBtnAgregar ? labelBtnAgregar : "Nuevo"}
       </Button>
       <Dialog
         fullWidth={fullWidth}
