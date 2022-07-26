@@ -77,8 +77,7 @@ export function UsePlantilla({ id, data }) {
     // $base64=base64_encode($json);
     // return "https://serviciosweb.afip.gob.ar/genericos/comprobantes/cae.aspx?p=".$base64;
     Handlebars.registerHelper("subTotal", function (importe, cantidad) {
-      console.log(importe, cantidad);
-      return formatMoney(importe * cantidad);
+      return formatMoney(Number(importe) * Number(cantidad));
     });
     const getFecha = (fecha) => {
       if (!fecha) return "-";
@@ -121,19 +120,23 @@ export function UsePlantilla({ id, data }) {
       }
     );
 
-    Handlebars.registerHelper("importeTotal", function (data, campo) {
-      //suma el campo importe del array data
-      let total = 0;
-      if (data)
-        data.forEach((item) => {
-          total += item[campo];
-        });
-      return formatMoney(total);
-    });
+    Handlebars.registerHelper(
+      "importeTotal",
+      function (data, campo = "importe") {
+        //suma el campo importe del array data
+        let total = 0;
+        if (data)
+          data.forEach((item) => {
+            total += Number(item[campo]);
+          });
+        return formatMoney(total);
+      }
+    );
 
     Handlebars.registerHelper("fecha", function (aString) {
       return getFechaString(aString);
     });
+
     Handlebars.registerHelper("fechaHora", function (aString) {
       return getFechaString(aString, "DD/MM/YYYY hh:mm");
     });

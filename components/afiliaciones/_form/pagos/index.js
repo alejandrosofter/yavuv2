@@ -13,28 +13,18 @@ const getItemsCobro = (values) => {
 export default function Modulo({ mod, setFieldValue, values }) {
   const clickTraer = () => {
     let deudas = [];
-    if (values.socio?.obligacionMensual)
-      deudas.push({
-        id: new Date().getTime(),
-        cantidad: 1,
-        label_idProducto: values.socio.label_obligacionMensual,
-        idProducto: values.socio.obligacionMensual,
-        importe: Number(values.socio.obligacionMensual_importe),
-        importeBonificacion: 0,
-      });
-
-    if (values.actividades?.length > 0)
-      for (let actividad of values.actividades) {
+    if (values.mensualizado)
+      values.mensualizado.map((item) => {
         deudas.push({
-          id: `${actividad.id}-${new Date().getTime()}`,
+          id: item.id,
           cantidad: 1,
-          label_idProducto: actividad.label_idProducto,
-          detalle: actividad.label_idActividad,
-          idProducto: actividad.idProducto,
-          importe: Number(actividad.idProducto_importe),
+          label_idProducto: item.label_idProducto,
+          idProducto: item.idProducto,
+          importe: Number(item.importe),
           importeBonificacion: 0,
         });
-      }
+      });
+
     if (values.tarjetas?.length > 0)
       for (let tarjeta of values.tarjetas) {
         const configTarjeta = mod.config;

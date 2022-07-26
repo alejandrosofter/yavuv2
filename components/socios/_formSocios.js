@@ -185,18 +185,7 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
         <Grid item md={4}>
           <Input label="Email" campo={getFieldName(field, `email`)} />
         </Grid>
-        <Grid item md={6}>
-          <SelectProducto
-            campo={getFieldName(field, `obligacionMensual`)}
-            label="Obligacion Mensual"
-          />
-        </Grid>
-        <Grid item md={3}>
-          <SwitchFormik
-            label="Obligacion por Débito automático"
-            campo={getFieldName(field, `esPorDebitoAutomatico`)}
-          />
-        </Grid>
+
         <Grid
           item
           sx={{

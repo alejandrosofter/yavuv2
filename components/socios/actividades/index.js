@@ -70,8 +70,7 @@ export default function ActividadesSocio({ data, mod }) {
     []
   );
   const cambiaItem = async (valor, tipo) => {
-    await fetch(`/api/socios/checkMensualizado/${data.id}`);
-    await fetch(`/api/socios/checkActividades/${data.id}`);
+    // await fetch(`/api/socios/checkMensualizado/${data.id}`);
   };
   return (
     <div>

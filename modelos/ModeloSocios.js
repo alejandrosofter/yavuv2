@@ -208,7 +208,7 @@ export function ModeloMensualizado() {
   return yup.object().shape({
     //    fecha: yup.string(),
     estado: yup.string(),
-    idProducto: yup.object(),
+    // idProducto: yup.object(),
     detalle: yup.string(),
   });
 }

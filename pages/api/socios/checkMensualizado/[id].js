@@ -1,9 +1,20 @@
-import Storage from "../../../../config/storage"
-import {mfindAll} from "../../../../config/mongodb";
-export default async function handler(req, res) {
-    const { id} = req.query
-    const url=`https://us-central1-yavu-98cac.cloudfunctions.net/socios_chequearMensualizadoSocio?id=${id}`
-    const output=await(await fetch(url)).json()
+import axios from "axios";
 
-    res.status(200).json(output)
+export default async function handler(req, res) {
+  const { id } = req.query;
+  const url = `${process.env.URL_FUNCTIONS}/socios_chequearMensualizadoSocio`;
+
+  // const output = await (await fetch(url)).json();
+  await axios
+    .get(url, {
+      params: req.query,
+    })
+    .then((response) => {
+      res.status(200).json(response.data);
+    })
+    .catch((error) => {
+      res
+        .status(error.response.status)
+        .json({ msg: error.response.data, err: error.body });
+    });
 }

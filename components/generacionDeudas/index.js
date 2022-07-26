@@ -33,7 +33,12 @@ export default function Modulo({ mod }) {
         );
       },
     },
-
+    {
+      field: "totalDeudas",
+      headerName: "Cant. deudas",
+      width: 120,
+      renderCell: (params) => params.value,
+    },
     {
       field: "importeTotal",
       headerName: "$ Total",

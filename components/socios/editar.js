@@ -1,15 +1,24 @@
-import Modelo,{valoresIniciales} from "../../modelos/ModeloSocios"
-import EditarGenerico from "../EditarGenerico"
+import Modelo, { valoresIniciales } from "@modelos/ModeloSocios";
+import { useRouter } from "next/router";
+import EditarGenerico from "../EditarGenerico";
 
-import Form from "./_formSocios"
+import Form from "./_formSocios";
 
-export default function Modulo({mod}) {
+export default function Modulo({ mod }) {
+  const router = useRouter();
 
-    
-      return (
-      <EditarGenerico valoresIniciales={valoresIniciales}  mod={mod} modelo={Modelo}   >
-            <Form titulo="Editar" mod={mod} subTitulo={mod.label} icono="fas fa-pencil" />
-       </EditarGenerico>
-      ) 
-
+  return (
+    <EditarGenerico
+      valoresIniciales={valoresIniciales}
+      mod={mod}
+      modelo={Modelo}
+    >
+      <Form
+        titulo="Editar"
+        mod={mod}
+        subTitulo={mod.label}
+        icono="fas fa-pencil"
+      />
+    </EditarGenerico>
+  );
 }

@@ -124,6 +124,8 @@ export default function CuentaSocio({ data, mod }) {
             sortModel={[{ field: "fecha", sort: "desc" }]}
             accionesExtra={accionesExtra}
             coleccion={mod.coleccion}
+            maxWidth="md"
+            fullWidth={true}
             titulo={labelCampo}
             pathFormulario={pathFormulario}
             columns={cols}

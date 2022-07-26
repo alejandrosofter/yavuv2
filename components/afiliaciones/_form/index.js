@@ -5,6 +5,7 @@ import FormDocumentos from "./documentos";
 import FormActividades from "./actividades";
 import FormFamiliares from "./familiares";
 import FormDebitoAutomatico from "./debitoAutomatico";
+import FormMensualizado from "./mensualizado";
 import FormFirmaDigital from "./firmaDigital";
 import FormPagos from "./pagos";
 import FormCredenciales from "./credenciales";
@@ -40,21 +41,10 @@ export default function Form({ mod, setFieldValue, values }) {
               />
             ),
           },
-          {
-            label: "Debito Automatico",
-            nro: 1,
-            vista: (
-              <FormDebitoAutomatico
-                field="debitoAutomatico"
-                setFieldValue={setFieldValue}
-                values={values}
-                mod={mod}
-              />
-            ),
-          },
+
           {
             label: "Documentacion",
-            nro: 2,
+            nro: 1,
             vista: (
               <FormDocumentos
                 setFieldValue={setFieldValue}
@@ -65,7 +55,7 @@ export default function Form({ mod, setFieldValue, values }) {
           },
           {
             label: "Actividades",
-            nro: 3,
+            nro: 2,
             vista: (
               <Grid item md={12}>
                 <FormActividades
@@ -79,7 +69,7 @@ export default function Form({ mod, setFieldValue, values }) {
 
           {
             label: "Familiares",
-            nro: 4,
+            nro: 3,
             vista: (
               <Grid item md={12}>
                 <FormFamiliares
@@ -97,7 +87,7 @@ export default function Form({ mod, setFieldValue, values }) {
           // },
           {
             label: "Credenciales",
-            nro: 5,
+            nro: 4,
             vista: (
               <Grid item md={12}>
                 <FormCredenciales
@@ -106,6 +96,18 @@ export default function Form({ mod, setFieldValue, values }) {
                   mod={mod}
                 />
               </Grid>
+            ),
+          },
+          {
+            label: "Mensualizado",
+            nro: 5,
+            vista: (
+              <FormMensualizado
+                field="mensualizado"
+                setFieldValue={setFieldValue}
+                values={values}
+                mod={mod}
+              />
             ),
           },
           {

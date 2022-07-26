@@ -10,7 +10,6 @@ import SelectFormikAlgolia from "@components/forms/selectAlgoliaFormik";
 export default function FormDebitoAutomatico({ setFieldValue, mod }) {
   const cambiaCuenta = (item) => {
     if (item) {
-      console.log(item);
       setFieldValue(`banco`, item.banco);
       setFieldValue(`cbu`, item.cbu);
       setFieldValue(`titular`, item.titular);

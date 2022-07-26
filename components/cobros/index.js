@@ -5,6 +5,8 @@ import { renderCellExpandData } from "../forms/datagrid/renderCellExpand";
 import ImpresionDialog from "@components/forms/impresion";
 import { useState } from "react";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
+import { Typography } from "@mui/material";
+import { parse } from "handlebars";
 export default function Modulo({ mod }) {
   const idPlantilla = mod.config?.plantillaCobro;
   const [openImpresion, setOpenImpresion] = useState(false);
@@ -14,7 +16,7 @@ export default function Modulo({ mod }) {
     id: idPlantilla,
     data: dataImpresion,
   });
-  const fnLabelDetalle = (item) => {
+  const fnLabelDetalle = (item, nro) => {
     const bonif = Number(
       item.importeBonificacion ? item.importeBonificacion : 0
     );
@@ -22,14 +24,19 @@ export default function Modulo({ mod }) {
     const hijo = item.hijo
       ? ` (${item.hijo.apellido.toUpperCase()} ${item.hijo.nombre})`
       : "";
-    return `${getFechaString(item.fechaVto)} - ${item.label_idProducto}  ${
-      item.detalle
-    } ${hijo} $${importe} `;
+    return `${nro}.- ${getFechaString(item.fechaVto)} - ${
+      item.label_idProducto
+    }  ${item.detalle ? item.detalle : ""} ${hijo} $${importe}, `;
   };
   const getDetalle = (row) => {
     const items = row.deudas;
     let aux = "";
-    if (items) items.forEach((item) => (aux += fnLabelDetalle(item)));
+    if (items)
+      for (let i = 0; i < items.length; i++) {
+        aux += fnLabelDetalle(items[i], i + 1);
+      }
+    //return parse html
+    parse;
     return aux;
   };
   let fnAcciones = {
