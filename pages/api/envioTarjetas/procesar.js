@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   const { id } = req.query;
-  const url = `${process.env.URL_FUNCTIONS}/envioTarjetas_procesarEnvio?id=${id}`;
+  const url = `${process.env.URL_FUNCTIONS}/envioTarjetas-procesarEnvio?id=${id}`;
   console.log(url);
   const output = await (await fetch(url)).json();
 

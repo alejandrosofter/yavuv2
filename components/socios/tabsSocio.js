@@ -81,7 +81,7 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
             {...a11yProps(0)}
           />
 
-          <Tab
+          {/* <Tab
             icon={<Icon className="fas fa-dumbbell" />}
             iconPosition="top"
             label={
@@ -94,7 +94,7 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
               />
             }
             {...a11yProps(2)}
-          />
+          /> */}
           <Tab
             icon={<Icon className="fas fa-heart" />}
             iconPosition="top"
@@ -107,7 +107,7 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
                 icono="fas fa-heart"
               />
             }
-            {...a11yProps(3)}
+            {...a11yProps(1)}
           />
           <Tab
             icon={<Icon className="fas fa-id-card" />}
@@ -119,7 +119,7 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
                 icono="fas fa-id-card"
               />
             }
-            {...a11yProps(4)}
+            {...a11yProps(2)}
           />
           <Tab
             icon={<Icon className="fas fa-image" />}
@@ -133,9 +133,9 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
                 icono="fas fa-image"
               />
             }
-            {...a11yProps(5)}
+            {...a11yProps(3)}
           />
-          <Tab
+          {/* <Tab
             icon={<Icon className="fas fa-home-user" />}
             iconPosition="top"
             label={
@@ -148,7 +148,7 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
               />
             }
             {...a11yProps(6)}
-          />
+          /> */}
           <Tab
             icon={<Icon className="fas fa-gift" />}
             iconPosition="top"
@@ -161,7 +161,7 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
                 icono="fas fa-gift"
               />
             }
-            {...a11yProps(7)}
+            {...a11yProps(4)}
           />
 
           <Tab
@@ -176,7 +176,7 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
                 icono="fas fa-calendar"
               />
             }
-            {...a11yProps(8)}
+            {...a11yProps(5)}
           />
         </Tabs>
       </Box>
@@ -184,27 +184,27 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
         <TabPanel value={value} index={0}>
           <MovimientosCuentaSocio mod={mod} data={dataSocio} />
         </TabPanel>
-
+        {/* 
         <TabPanel value={value} index={1}>
           <ActividadesSocio mod={mod} data={dataSocio} />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
+        </TabPanel> */}
+        <TabPanel value={value} index={1}>
           <CambiosEstadoSocio mod={mod} data={dataSocio} />
         </TabPanel>
-        <TabPanel value={value} index={3}>
+        <TabPanel value={value} index={2}>
           <TarjetasSocio mod={mod} data={dataSocio} />
         </TabPanel>
-        <TabPanel value={value} index={4}>
+        <TabPanel value={value} index={3}>
           <DocumentacionSocio mod={mod} data={dataSocio} />
         </TabPanel>
-        <TabPanel value={value} index={5}>
+        {/* <TabPanel value={value} index={5}>
           <FamiliaresSocio mod={mod} data={dataSocio} />
-        </TabPanel>
-        <TabPanel value={value} index={6}>
+        </TabPanel> */}
+        <TabPanel value={value} index={4}>
           <PromocionesSocio mod={mod} auth={auth} data={dataSocio} />
         </TabPanel>
 
-        <TabPanel value={value} index={7}>
+        <TabPanel value={value} index={5}>
           <Mensualizado mod={mod} data={dataSocio} />
         </TabPanel>
       </Box>

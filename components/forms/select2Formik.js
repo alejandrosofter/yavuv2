@@ -100,9 +100,11 @@ const SelectFormik = ({
               id={`${campo}`}
               // defaultValue={props.form.values[campo]}
               defaultValue={
-                datos.filter(
-                  (option) => option.value === props.form.values[campo]
-                )[0]
+                props.form.values
+                  ? datos.filter(
+                      (option) => option.value === props.form.values[campo]
+                    )[0]
+                  : null
               }
               label={`${label}`}
               isClearable={true}

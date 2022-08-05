@@ -6,13 +6,14 @@ import { ListItemButton, Collapse } from "@mui/material";
 
 export default function ListaSimple({
   items,
-  subCampo,
-  campoLabelSubCampo,
-  campoId,
-  ComponentSecondaryAction,
+  campoId = "id",
   fnRender,
   onClick,
+
+  subCampo,
+  campoLabelSubCampo,
   onClickSubItem,
+  ComponentSecondaryAction,
 }) {
   if (!items) return "Cargando...";
   // const [opens, setOpens] = React.useState([]);
@@ -21,7 +22,14 @@ export default function ListaSimple({
       {items.map((value) => {
         return (
           <div key={value[campoId]}>
-            <ListItem disableGutters secondaryAction={ComponentSecondaryAction}>
+            <ListItem
+              disableGutters
+              secondaryAction={
+                typeof ComponentSecondaryAction === "function"
+                  ? ComponentSecondaryAction(value)
+                  : ComponentSecondaryAction
+              }
+            >
               <ListItemButton
                 disabled={value.disabled}
                 onClick={onClick ? onClick.bind(this, value) : null}

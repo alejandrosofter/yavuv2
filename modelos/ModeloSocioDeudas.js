@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import randomId from "random-id";
 export default function Modelo() {
   return yup.object().shape({
     cantidad: yup.number().required(),
@@ -13,6 +14,7 @@ export function valoresIniciales(preData) {
   const data = {
     cantidad: 1,
     idProducto: "",
+    _id: randomId(),
     estado: "PENDIENTE",
     importe: 0,
     fecha: new Date(),

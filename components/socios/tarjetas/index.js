@@ -1,30 +1,25 @@
 import { useState, useCallback, useEffect } from "react";
 
-import moment from "moment";
-import { GridActionsCellItem } from "@mui/x-data-grid";
-import { Backdrop, CircularProgress, Icon } from "@mui/material";
-import SubColeccionColeccion from "@components/forms/subColeccion/";
+import { Grid } from "@mui/material";
 import {
   ModeloTarjetas,
   valoresInicialesTarjetas,
 } from "@modelos/ModeloSocios";
 import ImpresionDialog from "@components/forms/impresion";
-import UseCuenta from "@components/cuentas/useCuenta";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import axios from "axios";
 import { getImagen } from "@helpers/imagenes";
+import ABMColeccion from "@components/forms/ABMcollection";
+import Form from "./_formTarjetas";
+import { getFechaString } from "@helpers/dates";
+import UseCuenta from "@components/cuentas/useCuenta";
 export const cols = [
   {
     field: "fecha",
     headerName: "Fecha",
     width: 120,
     renderCell: (params) => {
-      const d = new Date(params.value.seconds * 1000);
-
-      return (
-        //en params.row tengo los otros datos
-        <i>{`${moment(d).format("DD/MM/YY")}`}</i>
-      );
+      return getFechaString(params.value);
     },
   },
   {
@@ -51,6 +46,7 @@ export default function TarjetasSocio({ data, mod }) {
   const idPlantillaEmail = mod.config?.plantillaEmailCredencial
     ? mod.config?.plantillaEmailCredencial
     : "";
+  const [cuenta, setCuenta] = UseCuenta();
   const [openCompartir, setOpenCompartir] = useState();
   const [dataSeleccion, setDataSeleccion] = useState();
   const [loading, setLoading] = useState(false);
@@ -68,30 +64,30 @@ export default function TarjetasSocio({ data, mod }) {
       setDataSeleccion(aux);
     }
   };
-  const [cuenta, setCuenta] = UseCuenta();
-  const campo = "tarjetas";
-  const labelCampo = "TARJETAS";
-  const icono = "fas fa-credit-card";
-  const pathFormulario = "socios/tarjetas/_formTarjetas";
-  const urlAcepta = `/api/socios/abmItem?subColeccion=${campo}`;
-  const accionesExtra = (params) => {
-    return [
-      <GridActionsCellItem
-        key={params.row.id}
-        icon={<Icon fontSize="10" className="fas fa-share-alt" />}
-        label="Compartir"
-        onClick={clickImprimir(params.row)}
-        showInMenu
-      />,
-      <GridActionsCellItem
-        key={params.row.id}
-        icon={<Icon fontSize="10" className="fas fa-share" />}
-        label="Enviar Impresion Terceros"
-        onClick={clickImprimirTerceros(params.row)}
-        showInMenu
-      />,
-    ];
-  };
+  const order = ["fecha"];
+  const subColeccion = "credenciales";
+  const icono = "fas fa-id-card";
+  const titulo = `CREDENCIALES `;
+  const acciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-share-alt",
+      label: "Compartir",
+      fn: (row) => {
+        setDataSeleccion({ ...data, dataCredencial: row });
+        setOpenCompartir(true);
+      },
+    },
+    {
+      esFuncion: true,
+      icono: "fas fa-share",
+      label: "Enviar Impresion Terceros",
+      fn: (row) => {
+        setDataSeleccion(row);
+        clickImprimirTerceros(row);
+      },
+    },
+  ];
 
   const clickImprimir = useCallback(
     (dataCredencial) => () => {
@@ -132,22 +128,22 @@ export default function TarjetasSocio({ data, mod }) {
   );
 
   return (
-    <>
-      <SubColeccionColeccion
-        sortModel={[{ field: "fecha", sort: "desc" }]}
-        accionesExtra={accionesExtra}
-        mod={mod}
-        coleccion={mod.coleccion}
-        urlAcepta={urlAcepta}
-        titulo={labelCampo}
-        modelo={ModeloTarjetas}
-        valoresIniciales={valoresInicialesTarjetas}
-        pathFormulario={pathFormulario}
-        columns={cols}
-        registro={data}
-        campo={campo}
-        icono={icono}
-      />
+    <Grid container>
+      <Grid item xs={12}>
+        <ABMColeccion
+          coleccion={`socios/${data?.id}/${subColeccion}`}
+          columns={cols}
+          order={order}
+          // callbackclick={callbackclick}
+          icono={icono}
+          acciones={acciones}
+          Modelo={ModeloTarjetas}
+          valoresIniciales={valoresInicialesTarjetas}
+          dataForm={{ mod }}
+          titulo={titulo}
+          Form={Form}
+        />
+      </Grid>
       <ImpresionDialog
         titulo="CREDENCIAL ELECTRONICA"
         setOpen={setOpenCompartir}
@@ -158,12 +154,6 @@ export default function TarjetasSocio({ data, mod }) {
         plantilla={plantilla}
         attachments={[{ filename: "CREDENCIAL.pdf", data: plantilla }]}
       />
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    </>
+    </Grid>
   );
 }

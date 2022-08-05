@@ -4724,6 +4724,11 @@
     "@google-cloud/firestore" "^4.5.0"
     "@google-cloud/storage" "^5.3.0"
 
+"firebase-firestore-timestamp@^1.0.4":
+  "integrity" "sha512-aZXYQzDyQNWcUaExgtyDFaD8ABBy1q0ylCWjJXbQgF+xsV7Wj6e50YxS293c/uxUOLuemDzOtqybJvJ5L9ghXA=="
+  "resolved" "https://registry.npmjs.org/firebase-firestore-timestamp/-/firebase-firestore-timestamp-1.0.4.tgz"
+  "version" "1.0.4"
+
 "firebase@^8.2.4", "firebase@^8.9.1", "firebase@>=7.0.0 <9", "firebase@>=8.2.4":
   "integrity" "sha512-GCABTbJdo88QgzX5OH/vsfKBWvTRbLUylGlYXtO7uYo1VErfGd2BWW9ATlJP5Gxx+ClDfyvVTvcs2rcNWn3uUA=="
   "resolved" "https://registry.npmjs.org/firebase/-/firebase-8.10.0.tgz"

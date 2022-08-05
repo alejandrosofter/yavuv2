@@ -14,19 +14,17 @@ export default function Form({ mod, setFieldValue, values }) {
           rowSpacing={2}
           spacing={2}
         >
-          <Grid item md={8}>
+          <Grid item md={7}>
             <Input label="Titular" campo="titular" />
           </Grid>
-          <Grid item md={4}>
-            <Input label="Nro CBU/CVU" campo="nroCbu" />
+          <Grid item md={5}>
+            <Input label="Nro CBU" campo="cbu" />
           </Grid>
           <Grid item md={4}>
             <Input label="DNI Titular" campo="dniTitular" />
           </Grid>
-          <Grid item md={2}>
-            <Input label="Nro Cuenta" campo="nroCuenta" />
-          </Grid>
-          <Grid item md={3}>
+
+          <Grid item md={5}>
             <SelectTipoCuenta label="Tipo Cuenta" campo="tipoCuenta" />
           </Grid>
         </Grid>

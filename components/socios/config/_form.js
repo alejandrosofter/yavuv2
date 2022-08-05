@@ -12,7 +12,7 @@ import {
   ModeloTipoConfig,
   ModeloTipoSocios,
   ModeloCategoriaSocio,
-  ModeloGeneracionDeuda,
+  ModeloTipoPeriodos,
   ModeloMotivos,
   ModeloDifusion,
 } from "@modelos/ModeloSocios";
@@ -20,6 +20,8 @@ import TabsFormik, { TabPanel } from "../../forms/tab";
 import Grid from "@mui/material/Grid";
 import Input from "../../forms/input";
 import { Typography } from "@mui/material";
+import FormTipoPeriodos from "./_formTIpoPeriodos";
+
 export default function FormConfig({}) {
   return (
     <TabsFormik
@@ -181,6 +183,33 @@ export default function FormConfig({}) {
                 columns={[
                   { field: "nombre", headerName: "Nombre", width: 330 },
                   { field: "condicion", headerName: "Condicion", width: 130 },
+                ]}
+              />
+            </Grid>
+          ),
+        },
+        {
+          label: "Tipos Periodicidad",
+          nro: 6,
+          vista: (
+            <Grid item md={12}>
+              <DataGridFormikItems
+                label="Tipo Periodos"
+                Modelo={ModeloTipoPeriodos}
+                FormularioItem={FormTipoPeriodos}
+                campo="itemsTipoPeriodo"
+                columns={[
+                  { field: "nombre", headerName: "nombre", width: 250 },
+                  {
+                    field: "esConAsistencia",
+                    headerName: "Con asistencia",
+                    width: 150,
+                  },
+                  {
+                    field: "cantidadMinimaAsistencias",
+                    headerName: "Min asistencia generacion deuda",
+                    width: 150,
+                  },
                 ]}
               />
             </Grid>

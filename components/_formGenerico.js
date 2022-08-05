@@ -7,17 +7,16 @@ import React from "react";
 import ErrorsForm from "../components/forms/errorForms";
 import { esVacio } from "../helpers/objectos";
 import ImpresionDialog from "./forms/impresion";
-import { UsePlantilla } from "./plantillas/usePlantilla";
 
 export default function _FormGenerico({
   preData,
   callbackSuccess,
   fnUpdate,
+  dataForm,
   datos,
   valoresIniciales,
   modelo,
   children,
-  idPlantilla,
   mod,
 }) {
   const router = useRouter();
@@ -25,12 +24,19 @@ export default function _FormGenerico({
   // const idPlantillaImpresion = mod.config?.plantillaCobro;
   const [openImpresion, setOpenImpresion] = useState(false);
 
-  // const [plantilla, setPlantilla] = UsePlantilla();
+  const quitarValoresNull = (obj) => {
+    for (let key in obj) {
+      if (obj[key] === null || obj[key] === undefined) {
+        delete obj[key];
+      }
+    }
+    return obj;
+  };
   const clickForm = async (values) => {
     setLoad(true);
     console.log(values);
     if (fnUpdate)
-      fnUpdate(values)
+      fnUpdate(quitarValoresNull(values))
         .then((res) => {
           setLoad(false);
           if (callbackSuccess) {
@@ -58,16 +64,17 @@ export default function _FormGenerico({
       validateOnChange={true}
       validateOnBlur={true}
       validateOnMount={true}
-      enableReinitialize={true}
+      // enableReinitialize={true} <== este hijo de puta me hacia reiniciar el formulario
     >
       {({ handleSubmit, values, errors, setFieldValue, validateForm }) => {
         // if (idPlantilla) setPlantilla({ id: idPlantilla, data: values });
-        // console.log(errors)
+        // console.log(values);
         //  setFieldValue("idUsaurio",fuego.auth().currentUser.uid)
         return (
           <Grid sx={{ my: 0 }} md={12} item xs={9}>
             <Form onSubmit={handleSubmit}>
               {React.cloneElement(children, {
+                ...dataForm,
                 values: values,
                 errors,
                 setFieldValue: setFieldValue,

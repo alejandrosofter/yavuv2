@@ -1,17 +1,29 @@
-import Modelo, { valoresIniciales } from "../../modelos/ModeloActividades"
-import { useRouter } from "next/router"
-import NuevoGenerico from "../NuevoGenerico"
-import Form from "./_form"
+import DialogContenido from "@components/forms/dialogContenido";
+import NuevoGenerico from "@components/NuevoGenerico";
+import Modelo, { valoresIniciales } from "@modelos/ModeloActividades";
 
-export default function Modulo({mod}) {
+import Form from "./_form";
 
-      return (
-      <NuevoGenerico valoresIniciales={valoresIniciales} mod={mod} 
-      modelo={Modelo}   >
-         
-            <Form  titulo="NUEVA" subTitulo="Actividad" icono="fas fa-plus" />
-       
+export default function NuevaActividad({ open, setOpen, mod }) {
+  const callbackSuccess = (data) => {
+    console.log(data);
+    setOpen(false);
+  };
+  return (
+    <DialogContenido
+      fullWidth={true}
+      maxWidth="md"
+      open={open}
+      setOpen={setOpen}
+    >
+      <NuevoGenerico
+        callbackSuccess={callbackSuccess}
+        valoresIniciales={valoresIniciales}
+        mod={mod}
+        modelo={Modelo}
+      >
+        <Form subTitulo={mod.label} icono={mod.icono} />
       </NuevoGenerico>
-      )
-
+    </DialogContenido>
+  );
 }

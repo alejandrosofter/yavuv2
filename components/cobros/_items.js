@@ -18,6 +18,7 @@ export default function ItemsCobro({
   campoItems = "deudas",
   campoFormaPago = "formasDePago",
 }) {
+  console.log(values);
   const [importeDebe, setImporteDebe] = useState(0);
   const [importeHaber, setImporteHaber] = useState(0);
   useEffect(() => {

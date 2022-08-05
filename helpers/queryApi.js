@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { useEffect, useState } from "react";
 
-export function QueryApi({ dataConsulta, method = "get" }) {
+export function QueryApi({ dataConsulta, method = "get", callbackSuccess }) {
   const [loading, setLoading] = useState(false);
   const [openMensaje, setOpenMensaje] = useState(false);
   const [mensaje, setMensaje] = useState("");
@@ -18,8 +18,9 @@ export function QueryApi({ dataConsulta, method = "get" }) {
         .get(url, {
           params: data,
         })
-        .then(() => {
+        .then((data) => {
           setLoading(false);
+          if (callbackSuccess) callbackSuccess(dataConsulta, data);
         })
         .catch((err) => {
           setLoading(false);

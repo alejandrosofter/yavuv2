@@ -8,7 +8,7 @@ export function ModeloTipoCuenta() {
 export default function Modelo() {
   return yup.object().shape({
     titular: yup.string().required(),
-    nroCbu: yup
+    cbu: yup
       .string()
       .test("Cuit invalido", "${path} INVALIDO", async (value, testContext) => {
         const validador = require("arg.js").cbu;

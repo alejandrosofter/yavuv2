@@ -38,7 +38,7 @@ const SelectFecha = ({ label, campo, callbackChange }) => {
             const nuevoValor = !newValue
               ? { seconds: new Date().getTime() / 1000, nanoseconds: 0 }
               : { seconds: newValue.getTime() / 1000, nanoseconds: 0 };
-            props.form.setFieldValue(campo, nuevoValor);
+            props.form.setFieldValue(campo, newValue);
             if (callbackChange) callbackChange(newValue);
           };
           return (

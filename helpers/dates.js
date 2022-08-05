@@ -1,4 +1,10 @@
 import moment from "moment";
+//import Timestamp from firestore
+
+export function parseTimestamp(date) {
+  return new Date();
+}
+
 export function getFechaString(fecha, format) {
   const formato = format ? format : "DD/MM/YY";
 

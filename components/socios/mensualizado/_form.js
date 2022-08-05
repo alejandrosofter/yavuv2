@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, IconButton, Typography } from "@mui/material";
 import Input from "@components/forms/input";
 import Switch from "@components/forms/switch";
 import SelectProducto from "@components/productos/selectProducto";
@@ -8,20 +8,46 @@ import SelectFecha from "@components/forms/selectorFecha";
 import _FormItem from "@components/forms/subColeccion/_formItem";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import SelectFormikAlgolia from "@components/forms/selectAlgoliaFormik";
+import { useEffect, useState } from "react";
+import EditarDialogCbu from "@components/cuentasCbu/editarDialog";
+import SelectTipoPeriodo from "./selectorTipoPeriodos";
+import SelectActividadGrupo from "@components/actividades/selectActividadGrupo";
+import SelectActividades from "@components/actividades/selectActividad";
+import SelectGrupos from "@components/actividades/grupos/select";
 
-export default function FormPromocionesSocio({ values, setFieldValue }) {
-  const cambiaCuenta = (item) => {
-    if (item) {
-      setFieldValue(`banco`, item.banco);
-      setFieldValue(`cbu`, item.cbu);
-      setFieldValue(`titular`, item.titular);
-      setFieldValue(`nroCuenta`, item.nroCuenta);
-    }
+export default function FormMensualizado({ values, setFieldValue }) {
+  const [openEditarCbu, setOpenEditarCbu] = useState(false);
+  const [actividadSeleccion, setActividadSeleccion] = useState();
+  useEffect(() => {}, [values.esPorDebitoAutomatico]);
+  const clickEditarCbu = () => {
+    setOpenEditarCbu(true);
   };
-  const cambiaProducto = (data, item) => {
-    if (item) {
-      setFieldValue(`importe`, item.importe);
-    }
+  const editoCbuSuccess = (item) => {
+    setOpenEditarCbu(false);
+    setItemsCuenta(item);
+  };
+  const setItemsCuenta = (item) => {
+    setFieldValue(`banco`, item.banco);
+    setFieldValue(`cbu`, item.cbu);
+    setFieldValue(`titular`, item.titular);
+    setFieldValue(`nroCuenta`, item.nroCuenta);
+    setFieldValue(`tipoCuenta`, item.tipoCuenta);
+    setFieldValue(`label_tipoCuenta`, item.label_tipoCuenta);
+  };
+  const cambiaCuenta = (item) => {
+    console.log(item);
+    if (item) setItemsCuenta(item);
+  };
+  const cambiaTipoPeriodo = (value, item) => {
+    setFieldValue(
+      `esConAsistencia`,
+      item.esConAsistencia ? item.esConAsistencia : false
+    );
+    setFieldValue(`cantidadAsistenciasMinimas`, item.cantidadMinimaAsistencias);
+  };
+
+  const cambiaActividad = (valor, item) => {
+    setActividadSeleccion(item);
   };
   const cambiaPromo = (valor, registro) => {
     let importe = 0;
@@ -37,13 +63,21 @@ export default function FormPromocionesSocio({ values, setFieldValue }) {
       });
     setFieldValue("importePromocion", importe.toFixed(2));
   };
+
   return (
-    <Grid md={12} container rowSpacing={2} spacing={2}>
-      <Grid item sx={{ flex: 1 }} md={3}>
+    <Grid container sx={{ p: 2 }} spacing={2}>
+      <Grid item md={3}>
         <SelectFecha label="Fecha " campo="fecha" />
       </Grid>
-
-      <Grid item md={5}>
+      <Grid item md={2}>
+        <Switch label="Suspendida" campo="suspendida" />
+      </Grid>
+      {values.suspendida && (
+        <Grid item md={7}>
+          <Input label="Motivo" campo="motivoSuspencion" />
+        </Grid>
+      )}
+      <Grid item md={4}>
         <Switch label="Es Debito Automatico?" campo="esPorDebitoAutomatico" />
       </Grid>
       {values.esPorDebitoAutomatico && (
@@ -56,30 +90,52 @@ export default function FormPromocionesSocio({ values, setFieldValue }) {
           <SelectFormikAlgolia
             coleccionAlgolia={"cuentasCbu"}
             label="Cuenta CBU"
-            callbackchange={cambiaCuenta}
             labelItems={(opt) =>
               `${opt.titular} ${opt.dniTitular ? opt.dniTitular : "(sin dni)"}`
             }
             campo="idCuentaCbu"
+            callbackchange={cambiaCuenta}
           />
+          <Typography variant="caption">
+            {`CBU: ${values.cbu} BANCO: ${
+              values.tipoCuenta ? values.label_tipoCuenta : "-"
+            }`}{" "}
+            <IconButton
+              size="small"
+              onClick={clickEditarCbu}
+              className="fas fa-pencil"
+            ></IconButton>
+          </Typography>
         </Grid>
       )}
-      <Grid item md={3}>
-        <SelectEstaticFormik
-          items={["MENSUAL", "ANUAL"]}
-          label="Periodicidad"
-          campo="periodicidad"
-        />
+      <Grid item md={5}>
+        <SelectTipoPeriodo callbackchange={cambiaTipoPeriodo} />
       </Grid>
+      {values.esConAsistencia && (
+        <Grid item md={3}>
+          <SelectActividades callbackchange={cambiaActividad} />
+        </Grid>
+      )}
+      {values.esConAsistencia && (
+        <Grid item md={3}>
+          <SelectGrupos idActividad={values.idActividad} />
+        </Grid>
+      )}
       <Grid item md={7}>
-        <SelectProducto callbackchange={cambiaProducto} />
+        <SelectProducto />
       </Grid>
       <Grid item md={5}>
-        <SelectPromocion callbackchange={cambiaPromo} />
+        <SelectPromocion />
       </Grid>
       <Grid item md={12}>
         <Input label="Detalle" campo="detalle" />
       </Grid>
+      <EditarDialogCbu
+        idItem={values.idCuentaCbu}
+        open={openEditarCbu}
+        setOpen={setOpenEditarCbu}
+        callbackSuccess={editoCbuSuccess}
+      />
     </Grid>
   );
 }

@@ -31,6 +31,13 @@ export function valoresIniciales() {
     label_idCliente: "seleccione...",
   };
 }
+export function ModeloTipoPeriodos() {
+  return yup.object().shape({
+    nombre: yup.string().required(),
+    esConAsistencia: yup.boolean(),
+    cantidadMinimaAsistencias: yup.number(),
+  });
+}
 export function ModeloFamiliares() {
   return yup.object().shape({
     relacion: yup.string().required(),
@@ -96,7 +103,7 @@ export function ModeloPromociones() {
 }
 export function valoresInicialesTarjetas() {
   return {
-    fecha: { seconds: new Date().getTime() / 1000, nanoseconds: 0 },
+    fecha: new Date(),
     detalle: "",
   };
 }
@@ -166,17 +173,13 @@ export function valoresInicialesActividades() {
   return {
     idActividad: "",
     fechaInicio: new Date(),
-    porcentualObligacion: "100",
     estado: "ACTIVO",
-    idProducto: "",
   };
 }
 export function ModeloActividades() {
   return yup.object().shape({
-    esPorDebitoAutomatico: yup.boolean(),
     idActividad: yup.string().required(),
     estado: yup.string().required(),
-    porcentualObligacion: yup.string().required(),
   });
 }
 ////////////////////////////
@@ -197,8 +200,9 @@ export function ModeloDebitoAutomatico() {
   });
 }
 ////////////////////////////
-export function valoresMensualizado() {
+export function valoresMensualizado(preData) {
   return {
+    ...preData,
     estado: "",
     fecha: new Date(),
     concepto: "",
@@ -233,9 +237,8 @@ export function ModeloCobros() {
 ////////////////////////////
 export function valoresInicialesMovimiento({ dataInicial }) {
   return {
-    importeAcredita: 0,
-    importeDebita: 0,
-    fecha: { seconds: new Date().getTime() / 1000, nanoseconds: 0 },
+    importe: 0,
+    fecha: new Date(),
     nroRecivo: dataInicial ? dataInicial.nroRecivo : "",
   };
 }
@@ -244,7 +247,7 @@ export function ModeloMovimientoCuenta() {
     //    fecha: yup.string(),
     // importeAcredita:yup.number(),
     // importeDebita:yup.number(),
-    // nroRecivo:yup.string()
-    estado: yup.string(),
+    importe: yup.number(),
+    fecha: yup.date(),
   });
 }

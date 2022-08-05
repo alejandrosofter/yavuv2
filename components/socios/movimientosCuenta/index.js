@@ -1,47 +1,21 @@
-import { useState, useCallback } from "react";
-
-import moment from "moment";
-import { GridActionsCellItem } from "@mui/x-data-grid";
 import {
-  ModeloCambioEstado,
-  valoresInicialesCambioEstado,
-} from "../../../modelos/ModeloSocios";
-import {
-  Button,
-  Stack,
-  Icon,
-  Grid,
-  Box,
-  IconButton,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import SubColeccionColeccion from "../../forms/subColeccion/";
-import ImpresionDialog from "../../forms/impresion";
-import ImpresionCambiosEstadoSocio from "./impresion";
-import { getFechaString } from "../../../helpers/dates";
-import { formatMoney } from "../../../helpers/numbers";
-import { getModUsuario } from "../../../helpers/db";
-import DgFirebaseABM from "../../forms/datagrid/dgFirebaseABM";
+  ModeloMovimientoCuenta,
+  valoresInicialesMovimiento,
+} from "@modelos/ModeloSocios";
+import { Icon, Grid, Tooltip, Typography } from "@mui/material";
+import { getFechaString } from "@helpers/dates";
+import { formatMoney } from "@helpers/numbers";
 import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
-import NewSocioDeuda from "@components/socios_deudas/nuevo";
-import Modelo, { valoresIniciales } from "@modelos/ModeloSocioDeudas";
-import TooltipHtml from "@components/forms/tooltipHtml";
-export const columns = [
-  {
-    field: "esPorDebitoAutomatico",
-    headerName: "",
-    width: 15,
-    renderCell: (params) =>
-      params.value ? (
-        <Tooltip title={`Es por Débito automático`}>
-          <Icon class="fas fa-credit-card" />
-        </Tooltip>
-      ) : (
-        ""
-      ),
-  },
-
+import ABMColeccion from "@components/forms/ABMcollection";
+const getColorDebito = (estado) => {
+  let color = "";
+  if (estado === "PENDIENTE") color = "#2a2121de";
+  if (estado === "ACE") color = "#29ab29";
+  console.log(color);
+  return color;
+};
+import Form from "./_formMovimientoCuenta";
+export const cols = [
   {
     field: "fecha",
     headerName: "Fecha",
@@ -103,84 +77,80 @@ export const columns = [
     },
   },
   {
-    field: "estado",
+    field: "esPorDebitoAutomatico",
     headerName: "",
     width: 0,
     renderCell: (params) =>
-      params.value === "PENDIENTE" ? (
+      params.value ? (
         <Icon
-          title={params.value}
-          className="fas fa-dot-circle"
-          sx={{ color: "red" }}
+          sx={{ color: getColorDebito(params.row.estadoDebito) }}
+          title={`${
+            params.row.estadoDebito ? params.row.estadoDebito : "Sin novedad"
+          }`}
+          className="fas fa-credit-card"
         />
       ) : (
-        <Icon
-          title={params.value}
-          className="fas fa-dot-circle"
-          sx={{ color: "green" }}
-        />
+        ""
       ),
+  },
+  {
+    field: "estado",
+    headerName: "",
+    width: 0,
+    renderCell: (params) => {
+      switch (params.value) {
+        case "PENDIENTE":
+          return (
+            <Icon
+              title={params.value}
+              className="fas fa-dot-circle"
+              sx={{ color: "red" }}
+            />
+          );
+
+        case "CANCELADO":
+          return (
+            <Icon
+              title={params.value}
+              className="fas fa-dot-circle"
+              sx={{ color: "green" }}
+            />
+          );
+        default:
+          return (
+            <Icon
+              title={params.value}
+              className="fas fa-dot-circle"
+              sx={{ color: "yellow" }}
+            />
+          );
+      }
+    },
   },
 ];
 export default function CuentaSocio({ data, mod }) {
-  const campo = "movimientosCuenta";
-  const labelCampo = "CUENTA SOCIO";
+  const order = ["fecha", "desc"];
+  const subColeccion = "movimientosCuenta";
   const icono = "fas fa-file-invoice-dollar";
-  const pathFormulario = "socios/movimientosCuenta/_formMovimientoCuenta";
-  const order = "fecha";
-  const [datosClick, setDatosClick] = useState();
-  const [openImpresion, setOpenImpresion] = useState();
-  const modDeudas = getModUsuario("socios_deudas");
-  const accionesExtra = (params) => {
-    return [
-      <GridActionsCellItem
-        key={params.row.id}
-        icon={<Icon fontSize="10" className="fas fa-print" />}
-        label="imprimir"
-        onClick={clickImprimir(params.row)}
-        showInMenu
-      />,
-    ];
-  };
-
-  const cargoNuevo = () => {};
-  const clickImprimir = useCallback(
-    (data) => () => {
-      setDatosClick(data);
-      setOpenImpresion(new Date().getTime()); //uso esto para que cambie valor y abra el dialog.. si no cambia no abre
-    },
-    []
-  );
-  if (!modDeudas) return "...";
+  const titulo = `MOVIMIENTOS DE LA CUENTA`;
 
   return (
-    <div>
-      <DgFirebaseABM
-        mod={mod}
-        valoresIniciales={valoresIniciales}
-        Modelo={Modelo}
-        FormNew={
-          <NewSocioDeuda
-            preData={{
-              idSocio: data.id,
-              label_idSocio: `${data.apellido} ${data.nombre}`,
-            }}
-            mod={modDeudas}
-          />
-        }
-        where={[["idSocio", "==", data.id]]}
-        allUsers={true}
-        coleccion="socios_deudas"
-        hideSearchBox={true}
-        hideTitle={true}
-        titulo="Resumen"
-        subTitulo="de cuenta"
-        icono="fas fa-dollar"
-        limit={10}
-        acciones={modDeudas.acciones}
-        orderBy={order}
-        columns={columns}
-      />
-    </div>
+    <Grid container>
+      <Grid item xs={12}>
+        <ABMColeccion
+          coleccion={`socios/${data?.id}/${subColeccion}`}
+          columns={cols}
+          order={order}
+          preData={{}}
+          maxWidth={"md"}
+          icono={icono}
+          Modelo={ModeloMovimientoCuenta}
+          valoresIniciales={valoresInicialesMovimiento}
+          dataForm={{ mod }}
+          titulo={titulo}
+          Form={Form}
+        />
+      </Grid>
+    </Grid>
   );
 }

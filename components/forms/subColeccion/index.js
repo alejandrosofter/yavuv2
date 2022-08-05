@@ -32,6 +32,7 @@ export default function Modulo({
   callbackchange,
   labelAgregar,
   pathFormulario,
+  getRowClassName,
   modelo,
   valoresIniciales,
   coleccion,
@@ -159,8 +160,20 @@ export default function Modulo({
       });
     return [];
   };
+
   return (
-    <Grid item flex={1}>
+    <Grid
+      item
+      flex={1}
+      sx={{
+        "& .disabled": {
+          bgcolor: (theme) => "text.disabled",
+          "& .warning": {
+            bgcolor: (theme) => "text.secondary",
+          },
+        },
+      }}
+    >
       <Stack direction="row" spacing={3}>
         <Stack flex={1} direction="row" spacing={1}>
           <Typography variant="h5"> {titulo}</Typography>
@@ -183,6 +196,7 @@ export default function Modulo({
             rows={fnRows()}
             columns={columnas}
             pageSize={10}
+            getRowClassName={getRowClassName}
           />
         )}
       </div>

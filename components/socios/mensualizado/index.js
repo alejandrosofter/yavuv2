@@ -1,20 +1,13 @@
 import { useState, useCallback } from "react";
+import { ModeloMensualizado, valoresMensualizado } from "@modelos/ModeloSocios";
+import { Icon, Grid } from "@mui/material";
 
-import moment from "moment";
-import { GridActionsCellItem } from "@mui/x-data-grid";
-import {
-  ModeloMensualizado,
-  valoresMensualizado,
-} from "../../../modelos/ModeloSocios";
-import { Button, Stack, Icon, Grid, Box, IconButton } from "@mui/material";
-import SubColeccionColeccion from "../../forms/subColeccion/";
-import ImpresionDialog from "../../forms/impresion";
-import ImpresionCambiosEstadoSocio from "./impresion";
-import { getFechaString } from "../../../helpers/dates";
-import { formatMoney } from "../../../helpers/numbers";
-import { getValorDb } from "../../../helpers/db";
+import { getFechaString } from "@helpers/dates";
+import { formatMoney } from "@helpers/numbers";
 import Tooltip from "@mui/material/Tooltip";
 import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
+import ABMColeccion from "@components/forms/ABMcollection";
+import Form from "./_form";
 export const cols = [
   {
     field: "esPorDebitoAutomatico",
@@ -76,73 +69,47 @@ export const cols = [
   },
 
   {
-    field: "periodicidad",
-    headerName: "Periodicidad",
+    field: "label_tipoPeriodo",
+    headerName: "Tipo Periodo",
     width: 110,
     renderCell: (params) => params.value,
   },
 ];
 export default function CuentaSocio({ data, mod }) {
-  const campo = "mensualizado";
-  const labelCampo = "MENSUAL";
+  const order = ["fecha"];
+  const subColeccion = "mensualizado";
   const icono = "fas fa-file-invoice-dollar";
-  const pathFormulario = "socios/mensualizado/_form";
-  const [datosClick, setDatosClick] = useState();
-  const [openImpresion, setOpenImpresion] = useState();
-  const accionesExtra = (params) => {
-    return [
-      <GridActionsCellItem
-        key={params.row.id}
-        icon={<Icon fontSize="10" className="fas fa-print" />}
-        label="imprimir"
-        onClick={clickImprimir(params.row)}
-        showInMenu
-      />,
-    ];
+  const titulo = `MENSUAL `;
+
+  const getRowClassName = (params) => {
+    if (params.row.suspendida) return "disabled";
   };
 
-  const clickImprimir = useCallback(
-    (data) => () => {
-      setDatosClick(data);
-      setOpenImpresion(new Date().getTime()); //uso esto para que cambie valor y abra el dialog.. si no cambia no abre
-    },
-    []
-  );
-
   return (
-    <div>
-      {data.modoFamiliar && (
-        <i>
-          Este socio se encuentra en modo familiar.. en este estado no se puede
-          generar deuda mensual a su cargo.. solamente se cargara en el mensual
-          del socio <b>{data.socioFlia?.label}</b>
-        </i>
-      )}
-      {!data.modoFamiliar && (
-        <div>
-          <SubColeccionColeccion
-            sortModel={[{ field: "fecha", sort: "desc" }]}
-            accionesExtra={accionesExtra}
-            coleccion={mod.coleccion}
-            maxWidth="md"
-            fullWidth={true}
-            titulo={labelCampo}
-            pathFormulario={pathFormulario}
-            columns={cols}
-            modelo={ModeloMensualizado}
-            valoresIniciales={valoresMensualizado}
-            registro={data}
-            campo={campo}
-            icono={icono}
-          />
-          <ImpresionDialog
-            titulo="IMPRESION DE ESTADO"
-            abrir={openImpresion}
-            datos={datosClick}
-            ComponenteItem={ImpresionCambiosEstadoSocio}
-          />
-        </div>
-      )}
-    </div>
+    <Grid container>
+      <Grid item xs={12}>
+        <ABMColeccion
+          coleccion={`socios/${data?.id}/${subColeccion}`}
+          columns={cols}
+          preData={{
+            idSocio: data?.id,
+            apellido: data?.apellido,
+            nombre: data?.nombre,
+            dni: data?.dni,
+            nroSocio: data?.nroSocio,
+          }}
+          order={order}
+          maxWidth={"md"}
+          getRowClassName={getRowClassName}
+          // callbackclick={callbackclick}
+          icono={icono}
+          Modelo={ModeloMensualizado}
+          valoresIniciales={valoresMensualizado}
+          dataForm={{ mod }}
+          titulo={titulo}
+          Form={Form}
+        />
+      </Grid>
+    </Grid>
   );
 }

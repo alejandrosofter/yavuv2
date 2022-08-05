@@ -1,66 +1,50 @@
-import { useState,useCallback } from "react";
+import { useCallback } from "react";
 
-import moment from 'moment';
-import { GridActionsCellItem } from '@mui/x-data-grid';
-import {getFechaString} from "../../../helpers/dates"
-import { Button, Stack,Icon,Grid,Box,IconButton } from '@mui/material';
-import SubColeccionColeccion from "../../forms/subColeccion/";
-import { ModeloDocumentos,valoresInicialesDocumentacion } from "../../../modelos/ModeloSocios"
+import { getFechaString } from "@helpers/dates";
+import { Grid } from "@mui/material";
+import ABMColeccion from "@components/forms/ABMcollection";
+import Form from "./_formDocumentos";
+import {
+  ModeloDocumentos,
+  valoresInicialesDocumentacion,
+} from "@modelos/ModeloSocios";
 export const cols = [
-       
   {
-    field: 'fechaVto',
-    headerName: 'Fecha Vto',
+    field: "fechaVto",
+    headerName: "Fecha Vto",
     width: 280,
-    renderCell: (params) => getFechaString(params.value)
+    renderCell: (params) => getFechaString(params.value),
   },
   {
-    field: 'label_tipo',
-    headerName: 'Tipo Documento',
+    field: "label_tipo",
+    headerName: "Tipo Documento",
     width: 180,
   },
-  
-]
-export default function DocumentacionSocio({data,mod})
-{
-    const campo="documentacion"
-    const labelCampo="DOCUMENTACION"
-    const icono="fas fa-image"
-    const pathFormulario="socios/documentos/_formDocumentos"
-    const urlAcepta=`/api/socios/abmItem?subColeccion=${campo}`
-    const accionesExtra=(params)=>{
+];
+export default function DocumentacionSocio({ data, mod }) {
+  const order = ["fechaVto", "desc"];
+  const subColeccion = "documentos";
+  const icono = "fas fa-image";
+  const titulo = `DOCUMENTACION `;
 
-      return(
-        [
-          <GridActionsCellItem
-          key={params.row}
-          icon={<Icon fontSize="10" className="fas fa-print"/>}
-          label="imprimir"
-          onClick={clickImprimir(params.row)}
-          showInMenu
-          />,
-    
-        ]
-      )
-    }
-     
-    
+  const clickImprimir = useCallback((data) => () => {}, []);
 
-    const clickImprimir = useCallback(
-      (data) => () => {
-    
-      },
-      [],
-    )
-     
-    
-    return(
-        <SubColeccionColeccion mod={mod}  coleccion={mod.coleccion}
-        accionesExtra={accionesExtra} 
-        urlAcepta={urlAcepta}   titulo={labelCampo} modelo={ModeloDocumentos} valoresIniciales={valoresInicialesDocumentacion}
-        pathFormulario={pathFormulario} columns={cols} 
-        registro={data} campo={campo} icono={icono}/>
-        
-    )
-                  
+  return (
+    <Grid container>
+      <Grid item xs={12}>
+        <ABMColeccion
+          coleccion={`socios/${data?.id}/${subColeccion}`}
+          columns={cols}
+          order={order}
+          // callbackclick={callbackclick}
+          icono={icono}
+          Modelo={ModeloDocumentos}
+          valoresIniciales={valoresInicialesDocumentacion}
+          dataForm={{ mod }}
+          titulo={titulo}
+          Form={Form}
+        />
+      </Grid>
+    </Grid>
+  );
 }

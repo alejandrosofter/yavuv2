@@ -95,7 +95,10 @@ export default function FormGeneracionDeudas({
         <SelectFecha label="Fecha" campo="fecha" />
       </Grid>
       <Grid item md={2}>
-        <SelectFecha label="Fecha Vto" campo="fechaVto" />
+        <SelectFecha label="Fecha Vto Debito" campo="fechaVto" />
+      </Grid>
+      <Grid item md={2}>
+        <SelectFecha label="Fecha Vto Otros" campo="fechaVtoOtros" />
       </Grid>
       <Grid item md={3}>
         <SelectFormik

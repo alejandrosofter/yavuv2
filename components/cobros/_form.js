@@ -14,8 +14,8 @@ import SelectFormikAlgolia from "../forms/selectAlgoliaFormik";
 import PersonalizarComprobante from "./_personalizarComprobante";
 export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
   useEffect(() => {
-    setFieldValue("deudas", []);
-    setFieldValue("formasDePago", []);
+    // setFieldValue("deudas", []);
+    // setFieldValue("formasDePago", []);
     setDeudas([]);
     setClienteSeleccion(null);
   }, [banderaReset]);
