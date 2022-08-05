@@ -1,7 +1,5 @@
-import ColeccionTable from "@components/forms/coleccionTable";
-
 import { useState } from "react";
-import { Grid, Icon } from "@mui/material";
+import { Grid } from "@mui/material";
 import { getFechaString } from "@helpers/dates";
 import ABMColeccion from "@components/forms/ABMcollection";
 import Form from "./_formActividades";
@@ -9,7 +7,6 @@ import {
   ModeloActividades,
   valoresInicialesActividades,
 } from "@modelos/ModeloSocios";
-import { ImportContactsOutlined } from "@material-ui/icons";
 export const cols = [
   {
     field: "fechaInicio",
