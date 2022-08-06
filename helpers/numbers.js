@@ -1,5 +1,6 @@
-export function formatMoney(number) {
-  if (!number) return "$ 0.00";
+export function formatMoney(number, symbol) {
+  const simb = symbol ? symbol : "$";
+  if (!number) return `${simb}0.00`;
   const options2 = { style: "currency", currency: "USD" };
   const numberFormat2 = new Intl.NumberFormat("en-US", options2);
   return numberFormat2.format(Number(number));

@@ -1,103 +1,193 @@
-import moment from 'moment';
-import {formatMoney,formatPorcentual} from "../../helpers/numbers"
-import DataGridFirebase from '../forms/datagrid/dataGridFirebase';
+import ColeccionTable from "@components/forms/coleccionTable";
 
-export default function Modulo({mod}) {
+import { useState } from "react";
+import { Grid } from "@mui/material";
 
-const columns=[
+import ABMColeccion from "@components/forms/ABMcollection";
+import Modelo, { valoresIniciales } from "@modelos/ModeloEstrategiasTrading";
+import Form from "./_form";
+import TitulosFormularios from "@components/forms/tituloFormularios";
+import { QueryApi } from "@helpers/queryApi";
+import { formatMoney } from "@helpers/numbers";
+import LinkTradingView from "./linkTradingView";
+import TradingsEstrategia from "./tradingsEstrategia";
+export default function ListaGrupos({ actividad, callbackchange }) {
+  const order = ["nombreGrupo", "asc"];
+  const [seleccion, setSeleccion] = useState(null);
+  const [dataConsulta, setDataConsulta] = useState();
+  const [openLink, setOpenLink] = useState();
+  const [openTradings, setOpenTradings] = useState();
+  const callbackclick = (params) => {
+    cambiaSeleccion(params.row);
+  };
 
-  {
-    field: 'fecha', 
-    headerName: 'Fecha',
-    width: 90,
-    renderCell: (params) => {
-      const d=new Date(params.value.seconds * 1000);
-      
-      return( //en params.row tengo los otros datos
-        <i>{`${moment(d).format('DD/MM HH:mm')}`}</i>
-    )
+  const cambiaSeleccion = (data) => {
+    if (callbackchange) {
+      callbackchange(data);
     }
-  },
-  {
-    field: 'fechaCierre', 
-    headerName: 'Cierre',
-    width: 90,
-    renderCell: (params) => {
-      if(!params.value)return "OPEN"
-      const d=new Date(params.value.seconds * 1000);
-      
-      return( //en params.row tengo los otros datos
-        <i>{`${moment(d).format('DD/MM HH:mm')}`}</i>
-    )
-    }
-  },
-          
-  {
-    field: 'tipo',
-    headerName: 'Tipo',
-    width: 80,
-  },
-  {
-    field: 'acumuladorTakeProfit',
-    headerName: '% TP',
-    width: 100,
-  },
-  {
-    field: 'margenStop',
-    headerName: '% STP',
-    width: 100,
-  },
- 
-  {
-    field: 'importeEntrada',
-    headerName: '$ Entrada',
-    width: 120,
-    renderCell: (params) =>formatMoney(params.value?params.value:0)
-  }, 
-  {
-    field: 'importeMarca',
-    headerName: '$ AHORA',
-    width: 120,
-    renderCell: (params) =>formatMoney(params.value?params.value:0)
-  }, 
-  {
-    field: 'maximo',
-    headerName: '$ MAX',
-    width: 120,
-    renderCell: (params) =>formatMoney(params.value?params.value:0)
-  }, 
-  {
-    field: 'minimo',
-    headerName: '$ MIN',
-    width: 120,
-    renderCell: (params) =>formatMoney(params.value?params.value:0)
-  }, 
-  {
-    field: 'porcentajeUsoStopLoss',
-    headerName: '% STOP',
-    width: 120,
-    renderCell: (params) =>formatPorcentual(params.value?params.value:0)
-  }, 
-  {
-    field: 'importeBeneficio',
-    headerName: '$ Ganancia',
-    width: 120,
-    renderCell: (params) =>formatMoney(params.value?params.value:0)
-  }, 
-  {
-    field: 'porcentualGanancia',
-    headerName: '% GANO',
-    width: 120,
-    renderCell: (params) =>formatPorcentual(params.value?params.value:0)
-  }, 
+  };
 
- 
-]
+  const columns = [
+    {
+      field: "estado",
+      headerName: "Estado",
+      width: 130,
+    },
+    {
+      field: "mercado",
+      headerName: "Mercado",
+      width: 100,
+    },
+    {
+      field: "evento",
+      headerName: "Evento",
+      width: 100,
+    },
 
-      return (
-        <DataGridFirebase rowClassName={(params) =>params.row.importeBeneficio<0? `error`:''} coleccion={mod.coleccion} titulo={mod.label} subTitulo="BINANCE" icono="fas fa-dollar"
-        limit={120} mod={mod} acciones={mod.acciones} orderBy={['fecha', 'desc']}
-       columns={columns} /> 
-      )
+    {
+      field: "posicionCerrada",
+      headerName: "Close ant?",
+      width: 100,
+      renderCell: (params) => {
+        if (params.value) {
+          return "Si";
+        } else {
+          return "No";
+        }
+      },
+    },
+    {
+      field: "posicionAbierta",
 
+      headerName: "Open new?",
+      width: 100,
+      renderCell: (params) => {
+        if (params.value) {
+          return "Si";
+        } else {
+          return "No";
+        }
+      },
+    },
+
+    {
+      field: "pendienteCambioPosicion",
+      headerName: "Pendiente Cambio?",
+      width: 150,
+      renderCell: (params) => {
+        return params.value ? "Si" : "No";
+      },
+    },
+    {
+      field: "importe",
+      headerName: "$ Operacion",
+      width: 110,
+    },
+
+    {
+      field: "unRealizedProfit",
+      headerName: "$ Ganancia",
+      width: 100,
+      renderCell: (params) => formatMoney(params.value),
+    },
+    {
+      field: "porcentualGanancia",
+      headerName: "% Ganancia",
+      width: 100,
+      renderCell: (params) => (params.value ? params.value.toFixed(2) : "-"),
+    },
+  ];
+  const acciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-angle-up",
+      label: "Ir LONG",
+
+      fn: (row) => {
+        setSeleccion(row);
+        setDataConsulta({
+          url: "/api/trading/long",
+          data: { ...row, evento: "long", token: `piteroski1984**` },
+        });
+      },
+    },
+    {
+      esFuncion: true,
+      icono: "fas fa-angle-down",
+      label: "Ir SHORT",
+
+      fn: (row) => {
+        setSeleccion(row);
+        setDataConsulta({
+          url: "/api/trading/short",
+          data: { ...row, evento: "short", token: `piteroski1984**` },
+        });
+      },
+    },
+    {
+      esFuncion: true,
+      icono: "fas fa-database",
+      label: "Registros",
+
+      fn: (row) => {
+        setSeleccion(row);
+        setOpenTradings(true);
+      },
+    },
+    {
+      esFuncion: true,
+      icono: "fas fa-redo",
+      label: "Refresh Data",
+
+      fn: (row) => {
+        setSeleccion(row);
+        setDataConsulta({
+          url: "/api/trading/refreshData",
+          data: { ...row, token: `piteroski1984**` },
+        });
+      },
+    },
+    {
+      esFuncion: true,
+      icono: "fas fa-link",
+      label: "Link Trading View",
+
+      fn: (row) => {
+        setSeleccion(row);
+        setOpenLink(true);
+      },
+    },
+  ];
+  return (
+    <Grid container>
+      <Grid item xs={12}>
+        <TitulosFormularios
+          icono="fas fa-dollar"
+          subTitulo="estrategias"
+          titulo="TRADING"
+        />{" "}
+      </Grid>
+      <Grid item xs={12}>
+        <ABMColeccion
+          coleccion={`estrategiasTrading`}
+          columns={columns}
+          acciones={acciones}
+          order={order}
+          callbackclick={callbackclick}
+          icono={"fas fa-users"}
+          Modelo={Modelo}
+          valoresIniciales={valoresIniciales}
+          titulo={``}
+          Form={Form}
+        />
+      </Grid>
+      <LinkTradingView row={seleccion} open={openLink} setOpen={setOpenLink} />
+      <TradingsEstrategia
+        row={seleccion}
+        open={openTradings}
+        setOpen={setOpenTradings}
+      />
+      <QueryApi dataConsulta={dataConsulta} />
+    </Grid>
+  );
 }
