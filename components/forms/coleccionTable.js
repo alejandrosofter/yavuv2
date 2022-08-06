@@ -11,6 +11,7 @@ export default function ColeccionTable({
   orderBy,
   limit,
   acciones,
+  getRowClassName,
   onSelectionModelChange,
   callbackclick,
   checkboxSelection,
@@ -88,12 +89,24 @@ export default function ColeccionTable({
   };
   if (!data) return "Cargando...";
   return (
-    <Grid coleccion height="60vh">
+    <Grid
+      coleccion
+      height="60vh"
+      sx={{
+        "& .disabled": {
+          bgcolor: (theme) => "text.disabled",
+          "& .warning": {
+            bgcolor: (theme) => "text.secondary",
+          },
+        },
+      }}
+    >
       <DataGrid
         hideFooterPagination={true}
         columns={columnas}
         rows={data ? data : []}
         disableSelectionOnClick
+        getRowClassName={getRowClassName}
         onSelectionModelChange={cambiaSelectCheck}
         checkboxSelection={checkboxSelection}
         selectionModel={selectionModel}
