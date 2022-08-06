@@ -7,7 +7,7 @@ import { formatMoney, formatPorcentual } from "@helpers/numbers";
 import ColeccionTable from "@components/forms/coleccionTable";
 import TitulosFormularios from "@components/forms/tituloFormularios";
 export default function TradingsEstrategia({ row, setOpen, open }) {
-  const order = ["updateTime", "desc"];
+  const order = ["fechaInicio", "desc"];
   const coleccion = `estrategiasTrading/${row?.id}/tradings`;
 
   const columns = [
@@ -15,8 +15,7 @@ export default function TradingsEstrategia({ row, setOpen, open }) {
       field: "fechaInicio",
       headerName: "Fecha",
       width: 90,
-      renderCell: (params) =>
-        getFechaString(new Date(params.value), `DD/MM hh:mm`),
+      renderCell: (params) => getFechaString(params.value, `DD/MM hh:mm`),
     },
 
     {
