@@ -12,7 +12,7 @@ export default function TradingsEstrategia({ row, setOpen, open }) {
 
   const columns = [
     {
-      field: "updateTime",
+      field: "fechaInicio",
       headerName: "Fecha",
       width: 90,
       renderCell: (params) =>
