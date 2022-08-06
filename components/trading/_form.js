@@ -14,7 +14,7 @@ export default function FormGrupo({ mod, setFieldValue, values }) {
 
       <Grid item md={4}>
         <SelectEstaticFormik
-          items={["ACTIVA", "RECESO", "SUSPENDIDA"]}
+          items={["CAMBIO POSICION", "OPEN"]}
           label="ESTADO"
           campo="estado"
         />
