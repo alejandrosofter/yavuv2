@@ -7,7 +7,9 @@ import SelectStaticFormik from "@components/forms/selectEstaticFormik";
 import SelectFecha from "@components/forms/selectorFecha";
 import _FormItem from "@components/forms/subColeccion/_formItem";
 
-export default function FormCambioEstadoSocio({ mod, values }) {
+export default function FormCambioEstadoSocio(props) {
+  const { values, setFieldValue, mod } = props;
+  console.log(props);
   useEffect(() => {
     cambiaEstado(values.estado);
   }, []);
@@ -17,10 +19,10 @@ export default function FormCambioEstadoSocio({ mod, values }) {
   const [itemsMotivos, setItemsMotivos] = useState();
   const cambiaEstado = (valor) => {
     setItemsMotivos(
-      mod.config?.itemsMotivosEstados.filter((n) => n.estado === valor)
+      mod?.config?.itemsMotivosEstados.filter((n) => n.estado === valor)
     );
   };
-  console.log(itemsMotivos, mod.config?.itemsMotivosEstados);
+
   return (
     <Grid sx={{ p: 2 }} spacing={2} container>
       <Grid item md={6}>

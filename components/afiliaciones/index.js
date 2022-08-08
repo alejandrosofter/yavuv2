@@ -5,9 +5,6 @@ import { renderCellExpandData } from "../forms/datagrid/renderCellExpand";
 import { useState } from "react";
 import ImpresionDialog from "../forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
-import AlgoliaAutocomplete from "@components/forms/algoliaSearch";
-import { SearchBox } from "react-instantsearch-dom";
-import AlgoliaSearch from "@components/forms/algoliaSearch";
 import { QueryApi } from "@helpers/queryApi";
 export default function Modulo({ mod }) {
   const order = ["fecha", "desc"];
@@ -56,16 +53,9 @@ export default function Modulo({ mod }) {
         `${params.value.apellido.toUpperCase()} ${params.value.nombre}`,
     },
     {
-      field: "actividades",
-      headerName: "Actividades",
-      width: 150,
-      renderCell: (params) =>
-        renderCellExpandData(params, getDetalleActividades),
-    },
-    {
       field: "deudas",
       headerName: "Cobro",
-      width: 250,
+      width: 450,
       renderCell: (params) => renderCellExpandData(params, getDetalleCobro),
     },
     {

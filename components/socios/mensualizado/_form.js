@@ -124,9 +124,6 @@ export default function FormMensualizado({ values, setFieldValue }) {
       <Grid item md={7}>
         <SelectProducto />
       </Grid>
-      <Grid item md={5}>
-        <SelectPromocion />
-      </Grid>
       <Grid item md={12}>
         <Input label="Detalle" campo="detalle" />
       </Grid>

@@ -9,6 +9,7 @@ import { fuego } from "@nandorojo/swr-firestore";
 import ABMColeccion from "@components/forms/ABMcollection";
 import moment from "moment";
 import Form from "./_formCambiosEstado";
+import { getFechaString } from "@helpers/dates";
 export default function CambiosEstadoSocio({ data, mod }) {
   const order = ["fechaInicio"];
   const subColeccion = "cambiosEstado";
@@ -20,14 +21,7 @@ export default function CambiosEstadoSocio({ data, mod }) {
       field: "fecha",
       headerName: "Fecha",
       width: 90,
-      renderCell: (params) => {
-        const d = new Date(params.value.seconds * 1000);
-
-        return (
-          //en params.row tengo los otros datos
-          <i>{`${moment(d).format("DD/MM/YY")}`}</i>
-        );
-      },
+      renderCell: (params) => getFechaString(params.value),
     },
     {
       field: "estado",

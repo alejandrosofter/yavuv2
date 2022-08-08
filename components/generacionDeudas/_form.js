@@ -15,82 +15,9 @@ const getItemsConceptos = (id, arr) => {
     return item.config.itemsTipos;
   return [];
 };
-export default function FormGeneracionDeudas({
-  setFieldValue,
-  values,
-  titulo,
-  subTitulo,
-  icono,
-}) {
-  const router = useRouter();
-  const { data: modsDeuda } = useCollection(`mods`, {
-    where: [
-      ["generaDeuda", "==", true],
-      ["idUsuario", "==", fuego.auth().currentUser.uid],
-    ],
-  });
-  const [itemsConceptos, setItemsConceptos] = useState([]);
-  const [conceptoSeleccion, setConceptoSeleccion] = useState([]);
-  useEffect(() => {
-    setItemsConceptos(getItemsConceptos(values.modDeuda, modsDeuda));
-    setFieldValue("modOrigen", router.query.id);
-    // cambiaConcepto(values.concepto)
-  }, [modsDeuda, values.modDeuda]);
-  if (!modsDeuda) return "carga mods";
-
-  const cambiaMod = (id) => {
-    setItemsConceptos(getItemsConceptos(id, modsDeuda));
-  };
-  const getDataObj = (obj, campo) => {
-    if (obj) return campo in obj ? obj[campo] : "";
-    return "";
-  };
-  const cambiaConcepto = (id) => {
-    const itemMod = getItemArray({
-      data: modsDeuda,
-      valor: values.modDeuda,
-      campoId: "id",
-    });
-    const itemConcepto = getItemArray({
-      data: itemMod.config.itemsTipos,
-      valor: id,
-      campoId: "id",
-    });
-
-    if (itemConcepto) {
-      setConceptoSeleccion(itemConcepto);
-
-      setFieldValue(
-        "conjunto",
-        getDataObj(itemConcepto, "aplicaDeudaConjunto")
-      );
-      setFieldValue(
-        "calculoImporte",
-        getDataObj(itemConcepto, "calculoImporte")
-      );
-      setFieldValue(
-        "fnDetalleConcepto",
-        getDataObj(itemConcepto, "fnDetalleConcepto")
-      );
-      setFieldValue(
-        "fnDetalleExtra",
-        getDataObj(itemConcepto, "fnDetalleExtra")
-      );
-      setFieldValue(
-        "fnLabelElemento",
-        getDataObj(itemConcepto, "fnLabelElemento")
-      );
-    }
-  };
+export default function FormGeneracionDeudas({ setFieldValue, values }) {
   return (
     <Grid sx={{ pt: 1, mb: 2 }} container rowSpacing={2} spacing={2}>
-      <Grid item md={2}>
-        <SelectEstaticFormik
-          items={["PENDIENTE", "PROCESADA", "PROCESANDO", "ENVIADO"]}
-          label="ESTADO"
-          campo="estado"
-        />
-      </Grid>
       <Grid item md={2}>
         <SelectFecha label="Fecha" campo="fecha" />
       </Grid>
@@ -100,13 +27,11 @@ export default function FormGeneracionDeudas({
       <Grid item md={2}>
         <SelectFecha label="Fecha Vto Otros" campo="fechaVtoOtros" />
       </Grid>
-      <Grid item md={3}>
-        <SelectFormik
-          label="Modulo Genera Deuda"
-          lista={modsDeuda}
-          campoId="id"
-          campoLabel="nombre"
-          campo="modDeuda"
+      <Grid item md={2}>
+        <SelectEstaticFormik
+          items={["PENDIENTE", "PROCESADA", "PROCESANDO", "ENVIADO"]}
+          label="ESTADO"
+          campo="estado"
         />
       </Grid>
 

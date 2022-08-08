@@ -31,7 +31,12 @@ export function ModeloAsistencias() {
 export function valoresInicialesAsistencias() {
   return {
     estado: "NORMAL",
-    fecha: new Date(),
+    fecha: new Date(
+      localStorage.getItem("asistencia_fecha")
+        ? localStorage.getItem("asistencia_fecha")
+        : ""
+    ),
+    fecha_timestamp: new Date().getTime(),
     integrantes: [],
   };
 }

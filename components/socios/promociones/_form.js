@@ -5,7 +5,6 @@ import { useCollection } from "@nandorojo/swr-firestore";
 
 import SelectFecha from "../../forms/selectorFecha";
 import _FormItem from "../../forms/subColeccion/_formItem";
-import SelectStaticFormik from "../../forms/selectEstaticFormik";
 import useSWR from "swr";
 import SelectFormik from "../../forms/select";
 import { getIndexItemArray } from "../../../helpers/arrays";

@@ -5,6 +5,7 @@ import { Button, Grid, Icon, Typography } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import { ABMCollection_nuevo } from "./nuevo";
 import { ABMCollection_editar } from "./editar";
+import Dialogo from "../dialogo";
 
 export default function ABMColeccion({
   valoresIniciales,
@@ -41,9 +42,8 @@ export default function ABMColeccion({
       label: "Quitar",
       color: "red",
       fn: (row) => {
-        quitarDocumento(row).then(() => {
-          console.log("Documento eliminado");
-        });
+        setSeleccion(row);
+        setOpenConfirma(true);
       },
     },
     {
@@ -53,10 +53,15 @@ export default function ABMColeccion({
   const [seleccion, setSeleccion] = useState(null);
   const [openEditar, setOpenEditar] = useState(null);
   const [openNuevo, setOpenNuevo] = useState(null);
+  const [openConfirma, setOpenConfirma] = useState(null);
   const [accions, setAcctions] = useState(
     accionesABM.concat(acciones ? acciones : [])
   );
-
+  const confirma = () => {
+    quitarDocumento(seleccion).then(() => {
+      setOpenConfirma(false);
+    });
+  };
   const callbackclick = (params) => {
     cambiaSeleccion(params.row);
   };
@@ -129,6 +134,12 @@ export default function ABMColeccion({
           Form={Form}
         />
       )}
+      <Dialogo
+        callbackAcepta={confirma}
+        titulo={`Estas seguro de eliminar este registro?`}
+        open={openConfirma}
+        setOpen={setOpenConfirma}
+      />
     </Grid>
   );
 }

@@ -6,24 +6,44 @@ import { Button, Grid } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 //parse timestamp firestore
 import { parseTimestamp } from "@helpers/dates";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+const oneday = +86400000;
 export default function FiltroAsistencias({ setWhere }) {
   const onSubmit = (data) => {
-    const start = new Date("2021-01-01T00:00:00.000z");
-    setWhere([["fecha.seconds", ">", 432432]]);
+    setWhere([
+      ["fecha_timestamp", ">=", data.fechaDesde.getTime()],
+      ["fecha_timestamp", "<=", data.fechaHasta.getTime() + oneday],
+    ]);
   };
+  const cambiaDesde = (data) => {
+    localStorage.setItem("fechaDesde", data);
+  };
+  const cambiaHasta = (data) => {
+    localStorage.setItem("fechaHasta", data);
+  };
+  console.log(localStorage.getItem("fechaDesde"));
   return (
     <FormGenerico2
       onSubmit={onSubmit}
-      initialValues={{ fechaDesde: new Date(), fechaHasta: new Date() }}
+      initialValues={{
+        fechaDesde: new Date(localStorage.getItem("fechaDesde")),
+        fechaHasta: new Date(localStorage.getItem("fechaHasta")),
+      }}
     >
       <Grid sx={{ p: 3 }} spacing={2} container>
         <Grid item md={4}>
-          <SelectFecha campo="fechaDesde" label="Fecha Desde" />{" "}
+          <SelectFecha
+            callbackChange={cambiaDesde}
+            campo="fechaDesde"
+            label="Fecha Desde"
+          />{" "}
         </Grid>
         <Grid item md={4}>
-          <SelectFecha campo="fechaHasta" label="Fecha Hasta" />{" "}
+          <SelectFecha
+            callbackChange={cambiaHasta}
+            campo="fechaHasta"
+            label="Fecha Hasta"
+          />{" "}
         </Grid>
         <Grid item md={4}>
           <Button color="primary" variant="outlined" type="submit">

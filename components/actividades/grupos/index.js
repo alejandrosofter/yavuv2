@@ -1,12 +1,6 @@
-import ColeccionTable from "@components/forms/coleccionTable";
-
 import { useState } from "react";
-import { Button, Grid, Icon, Typography } from "@mui/material";
-import { fuego, useDocument } from "@nandorojo/swr-firestore";
-import EditarGrupo from "./editar";
-import NuevoGrupo from "./nuevo";
+import { Grid } from "@mui/material";
 import InscriptosGrupo from "./inscriptos";
-import TomarAsistenciaGrupo from "./tomarAsistencia";
 
 import ListaAsistenciaGrupo from "./asistencias";
 import ListaCierreAsistenciasGrupo from "./cierreAsistencias";
@@ -16,21 +10,12 @@ import Form from "./_form";
 export default function ListaGrupos({ actividad, callbackchange }) {
   const order = ["nombreGrupo", "asc"];
   const [seleccion, setSeleccion] = useState(null);
-  const [openEditar, setOpenEditar] = useState(null);
   const [openCierreAsistencias, setOpenCierreAsistencias] = useState(null);
   const [openInscriptos, setOpenInscriptos] = useState(null);
   const [openAsistencias, setOpenAsistencias] = useState(null);
-  const [openTomarAsistencia, setOpenTomarAsistencia] = useState(null);
-  const [openNuevo, setOpenNuevo] = useState(null);
 
   const callbackclick = (params) => {
     cambiaSeleccion(params.row);
-  };
-  const quitarDocumento = (doc) => {
-    return fuego.db
-      .collection(`actividades/${actividad.id}/grupos`)
-      .doc(doc.id)
-      .delete();
   };
 
   const cambiaSeleccion = (data) => {

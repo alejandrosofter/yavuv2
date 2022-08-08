@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Field } from "formik";
-import { Box } from "@mui/material";
-import { useTheme } from "@emotion/react";
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-} from "@mui/material";
-import Loader from "../loader";
+import { FormControl } from "@mui/material";
+
 import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import { getFechaFormik } from "../../helpers/dates";
+import { getFechaFormik } from "@helpers/dates";
 
 const SelectFecha = ({ label, campo, callbackChange }) => {
   const getValor = (values, campo) => {
@@ -34,11 +26,15 @@ const SelectFecha = ({ label, campo, callbackChange }) => {
     <FormControl fullWidth>
       <Field label={label} name={campo} id={campo}>
         {(props) => {
+          if (!props.form.values[`${campo}_timestamp`])
+            console.log(props.form.values[`${campo}`]);
+          // props.form.setFieldValue(
+          //   `${campo}_timestamp`,
+          //   props.form.values[campo]?.getTime()
+          // );
           const handleChange = (newValue) => {
-            const nuevoValor = !newValue
-              ? { seconds: new Date().getTime() / 1000, nanoseconds: 0 }
-              : { seconds: newValue.getTime() / 1000, nanoseconds: 0 };
             props.form.setFieldValue(campo, newValue);
+            props.form.setFieldValue(`${campo}_timestamp`, newValue.getTime());
             if (callbackChange) callbackChange(newValue);
           };
           return (

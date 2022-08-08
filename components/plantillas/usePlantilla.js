@@ -120,18 +120,29 @@ export function UsePlantilla({ id, data }) {
       }
     );
 
-    Handlebars.registerHelper(
-      "importeTotal",
-      function (data, campo = "importe") {
-        //suma el campo importe del array data
-        let total = 0;
-        if (data)
-          data.forEach((item) => {
-            total += Number(item[campo]);
-          });
-        return formatMoney(total);
-      }
-    );
+    Handlebars.registerHelper("importeTotal", function (data, campo) {
+      //suma el campo importe del array data
+      const field = campo || "importe";
+      let total = 0;
+      if (data)
+        data.forEach((item) => {
+          total += Number(item[field]);
+        });
+      return formatMoney(total);
+    });
+
+    Handlebars.registerHelper("importeTotalDebitos", function (data) {
+      //suma el campo importe del array data
+      console.log("solo debitos");
+      let total = 0;
+      if (data)
+        data.forEach((item) => {
+          total += item.esPorDebitoAutomatico
+            ? Number(item.idProducto_importe)
+            : 0;
+        });
+      return formatMoney(total);
+    });
 
     Handlebars.registerHelper("fecha", function (aString) {
       return getFechaString(aString);

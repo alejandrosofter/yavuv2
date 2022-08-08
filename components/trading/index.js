@@ -98,32 +98,32 @@ export default function ListaGrupos({ actividad, callbackchange }) {
     },
   ];
   const acciones = [
-    {
-      esFuncion: true,
-      icono: "fas fa-angle-up",
-      label: "Ir LONG",
+    // {
+    //   esFuncion: true,
+    //   icono: "fas fa-angle-up",
+    //   label: "Ir LONG",
 
-      fn: (row) => {
-        setSeleccion(row);
-        setDataConsulta({
-          url: "/api/trading/long",
-          data: { ...row, evento: "long", token: `piteroski1984**` },
-        });
-      },
-    },
-    {
-      esFuncion: true,
-      icono: "fas fa-angle-down",
-      label: "Ir SHORT",
+    //   fn: (row) => {
+    //     setSeleccion(row);
+    //     setDataConsulta({
+    //       url: "/api/trading/long",
+    //       data: { ...row, evento: "long", token: `piteroski1984**` },
+    //     });
+    //   },
+    // },
+    // {
+    //   esFuncion: true,
+    //   icono: "fas fa-angle-down",
+    //   label: "Ir SHORT",
 
-      fn: (row) => {
-        setSeleccion(row);
-        setDataConsulta({
-          url: "/api/trading/short",
-          data: { ...row, evento: "short", token: `piteroski1984**` },
-        });
-      },
-    },
+    //   fn: (row) => {
+    //     setSeleccion(row);
+    //     setDataConsulta({
+    //       url: "/api/trading/short",
+    //       data: { ...row, evento: "short", token: `piteroski1984**` },
+    //     });
+    //   },
+    // },
     {
       esFuncion: true,
       icono: "fas fa-database",

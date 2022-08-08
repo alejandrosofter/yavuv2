@@ -21,8 +21,6 @@ export default function _FormGenerico({
 }) {
   const router = useRouter();
   const [load, setLoad] = useState();
-  // const idPlantillaImpresion = mod.config?.plantillaCobro;
-  const [openImpresion, setOpenImpresion] = useState(false);
 
   const quitarValoresNull = (obj) => {
     for (let key in obj) {
@@ -34,7 +32,6 @@ export default function _FormGenerico({
   };
   const clickForm = async (values) => {
     setLoad(true);
-    console.log(values);
     if (fnUpdate)
       fnUpdate(quitarValoresNull(values))
         .then((res) => {
@@ -67,29 +64,21 @@ export default function _FormGenerico({
       // enableReinitialize={true} <== este hijo de puta me hacia reiniciar el formulario
     >
       {({ handleSubmit, values, errors, setFieldValue, validateForm }) => {
-        // if (idPlantilla) setPlantilla({ id: idPlantilla, data: values });
-        // console.log(values);
-        //  setFieldValue("idUsaurio",fuego.auth().currentUser.uid)
+        console.log(dataForm);
         return (
           <Grid sx={{ my: 0 }} md={12} item xs={9}>
             <Form onSubmit={handleSubmit}>
               {React.cloneElement(children, {
-                ...dataForm,
-                values: values,
+                values,
                 errors,
+
+                ...dataForm,
+                mod: mod ? mod : dataForm.mod ? dataForm.mod : {},
                 setFieldValue: setFieldValue,
-                mod: mod,
               })}
 
               <ErrorsForm errors={errors} />
-              <ImpresionDialog
-                titulo="PANEL COMPARTIR COBRO"
-                setOpen={setOpenImpresion}
-                open={openImpresion}
-                asunto="COBRO "
-                data={values}
-                // plantilla={plantilla}
-              />
+
               <LoadingButton
                 disabled={!esVacio(errors)}
                 sx={{ mt: 3 }}

@@ -5,20 +5,16 @@ import { getFechaString } from "../../helpers/dates";
 import { QueryApi } from "@helpers/queryApi";
 import { useState } from "react";
 import Dialogo from "@components/forms/dialogo";
+import ItemsDebitoAutomatico from "./deudas";
+import EnvioBanco from "./envio";
 export default function Modulo({ mod }) {
   const [dataConsulta, setDataConsulta] = useState();
   const [openDialogo, setOpenDialogo] = useState(false);
+  const [openEnviar, setOpenEnviar] = useState(false);
   const [dataSeleccion, setDataSeleccion] = useState();
+  const [openDeudas, setOpenDeudas] = useState();
   const order = ["fecha", "desc"];
-  const getImputaciones = (imputaciones) => {
-    let salida = "";
-    if (!imputaciones) return "Sin imputaciones, esperando rta del banco";
-    imputaciones.forEach(
-      (imputa) =>
-        (salida += `${getFechaString(imputa.fecha)} => ${imputa.estado}`)
-    );
-    return salida;
-  };
+
   const columns = [
     {
       field: "fecha",
@@ -61,24 +57,20 @@ export default function Modulo({ mod }) {
       width: 120,
     },
   ];
-  const successQuery = (dataConsulta, dataResponse) => {
-    switch (dataConsulta.url) {
-      case "/api/debitoAutomatico/descargar": {
-        window.open(dataResponse.data.url, "_blank");
-        break;
-      }
-    }
-  };
+
   let fnAcciones = {
     descargar: (data) => {
       setDataSeleccion(data);
-      setDataConsulta({ url: "/api/debitoAutomatico/descargar", data });
+      // descargo archivo con url
+      window.open(data?.archivoBanco?.url, "_blank");
     },
-    reprocesar: (data) => {
+    deudas: (data) => {
       setDataSeleccion(data);
-      // if (data.estado !== "PROCESANDO")
-      setDataConsulta({ url: "/api/debitoAutomatico/reprocesar", data });
-      // else setOpenDialogo(true);
+      setOpenDeudas(true);
+    },
+    enviar: (data) => {
+      setDataSeleccion(data);
+      setOpenEnviar(true);
     },
   };
   return (
@@ -101,7 +93,16 @@ export default function Modulo({ mod }) {
         open={openDialogo}
         setOpen={setOpenDialogo}
       />
-      <QueryApi callbackSuccess={successQuery} dataConsulta={dataConsulta} />
+      <EnvioBanco
+        open={openEnviar}
+        setOpen={setOpenEnviar}
+        data={dataSeleccion}
+      />
+      <ItemsDebitoAutomatico
+        open={openDeudas}
+        setOpen={setOpenDeudas}
+        debito={dataSeleccion}
+      />
     </>
   );
 }

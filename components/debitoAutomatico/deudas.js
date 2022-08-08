@@ -1,84 +1,73 @@
-import { useState, useCallback } from "react";
-import { GridActionsCellItem } from "@mui/x-data-grid";
-
-import {
-  Button,
-  Stack,
-  Icon,
-  Grid,
-  Box,
-  Typography,
-  Tooltip,
-} from "@mui/material";
-import ImpresionDialog from "@components/forms/impresion";
-
-import { formatMoney } from "@helpers/numbers";
-import { useRouter } from "next/router";
 import ColeccionTable from "@components/forms/coleccionTable";
+import DialogContenido from "@components/forms/dialogContenido";
+import NuevoGenerico from "@components/NuevoGenerico2";
+import { formatMoney } from "@helpers/numbers";
+import Modelo, { valoresIniciales } from "@modelos/ModeloGrupos";
+import { Grid, Typography } from "@mui/material";
 
-export const columns = [
-  {
-    field: "titular",
-    headerName: "Cuenta Banco",
-    width: 250,
-    renderCell: (params) => params.value,
-  },
-  {
-    field: "label_socio",
-    headerName: "Socio",
-    width: 250,
-  },
-
-  {
-    field: "importe",
-    headerName: "$ Importe",
-    width: 110,
-    renderCell: (params) => `${formatMoney(params.value)}`,
-  },
-  {
-    field: "importeBonificado",
-    headerName: "$ Bonif.",
-    width: 110,
-    renderCell: (params) => formatMoney(params.value),
-  },
-  {
-    field: "cbu",
-    headerName: "CBU/CVU",
-    width: 165,
-    renderCell: (params) => params.value,
-  },
-];
-export default function CuentaSocio({}) {
-  const router = useRouter();
-  const idDebito = router.query.idItem;
-  const accionesExtra = (params) => {
-    return [
-      <GridActionsCellItem
-        key={params.row.id}
-        icon={<Icon fontSize="10" className="fas fa-print" />}
-        label="imprimir"
-        onClick={clickImprimir(params.row)}
-        showInMenu
-      />,
-    ];
+export default function ItemsDebitoAutomatico({ open, setOpen, debito }) {
+  const order = ["titular", "asc"];
+  const callbackclick = (data) => {
+    console.log(data);
   };
 
-  const clickImprimir = useCallback(
-    (data) => () => {
-      setDatosClick(data);
-      setOpenImpresion(new Date().getTime()); //uso esto para que cambie valor y abra el dialog.. si no cambia no abre
+  const columns = [
+    {
+      field: "cbu",
+      headerName: "CBU",
+      width: 180,
     },
-    []
-  );
-  console.log(`idDebito: ${idDebito}`);
+    {
+      field: "titular",
+      headerName: "Titular",
+      width: 200,
+    },
+
+    {
+      field: "label_idProducto",
+      headerName: "Producto/Servicio",
+      width: 250,
+    },
+    {
+      field: "idProducto_importe",
+      headerName: "$ Importe",
+      width: 100,
+      renderCell: (params) => `${formatMoney(params.value)}`,
+    },
+  ];
+  const acciones = [
+    // {
+    //   esFuncion: true,
+    //   icono: "fas fa-pencil",
+    //   label: "Editar",
+    //   fn: (row) => {
+    //     setSeleccion(row);
+    //     setOpenEditar(true);
+    //   },
+    // }
+  ];
   return (
-    <Grid container>
-      <Grid item md={12}>
-        <ColeccionTable
-          columns={columns}
-          coleccion={`debitoAutomatico/${idDebito}/deudas`}
-        />
+    <DialogContenido
+      fullWidth={true}
+      maxWidth="md"
+      open={open}
+      setOpen={setOpen}
+    >
+      <Grid container>
+        <Grid item md={9}>
+          <Typography variant="h6" gutterBottom>
+            {`TITULARES DE DEBITO AUTOMATICO`}
+          </Typography>
+        </Grid>
+
+        <Grid item md={12}>
+          <ColeccionTable
+            columns={columns}
+            orderBy={order}
+            coleccion={`debitoAutomatico/${debito?.id}/deudas/`}
+          />
+        </Grid>
       </Grid>
-    </Grid>
+    </DialogContenido>
   );
 }

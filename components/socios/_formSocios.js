@@ -103,14 +103,14 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
             campo={getFieldName(field, `esActivo`)}
           />
         </Grid>
-        <Tooltip title="Al tildar modo familiar no se genera deuda mensual en este socio! .. solo en el socio en el cual se agrego a este socio">
+        {/* <Tooltip title="Al tildar modo familiar no se genera deuda mensual en este socio! .. solo en el socio en el cual se agrego a este socio">
           <Grid item md={2}>
             <SwitchFormik
               label="Modo Familiar"
               campo={getFieldName(field, `modoFamiliar`)}
             />
           </Grid>
-        </Tooltip>
+        </Tooltip> */}
         <Grid item md={2}>
           <SelectEstaticFormik
             items={["ALTA", "BAJA", "SUSPENDIDO"]}

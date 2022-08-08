@@ -10,13 +10,13 @@ export const cols = [
   {
     field: "fechaInicio",
     headerName: "Fecha ",
-    width: 110,
+    width: 90,
     renderCell: (params) => getFechaString(params.value),
   },
   {
     field: "fechaVto",
     headerName: "Fecha Vto",
-    width: 110,
+    width: 90,
     renderCell: (params) => getFechaString(params.value),
   },
   {

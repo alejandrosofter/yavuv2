@@ -17,7 +17,7 @@ export default function NuevoGenerico2({
   icono,
 }) {
   const { add, error } = useCollection(coleccion);
-  const { update } = useDocument(coleccion);
+  console.log(dataForm);
   if (error) return error;
   return (
     <Grid container>

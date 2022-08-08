@@ -50,7 +50,7 @@ export function ModeloFamiliares() {
 export function valoresInicialesFamiliares() {
   return {
     relacion: "",
-    fecha: { seconds: new Date().getTime() / 1000, nanoseconds: 0 },
+    fecha: new Date(),
     socio: "",
     label_socio: "",
   };
@@ -58,7 +58,7 @@ export function valoresInicialesFamiliares() {
 export function valoresInicialesCambioEstado() {
   return {
     estado: "",
-    fecha: { seconds: new Date().getTime() / 1000, nanoseconds: 0 },
+    fecha: new Date(),
   };
 }
 export function ModeloItemMovimientoCuenta() {
@@ -87,8 +87,8 @@ export function ModeloDocumentos() {
 }
 export function valoresInicialesPromocion() {
   return {
-    fechaVto: { seconds: new Date().getTime() / 1000, nanoseconds: 0 },
-    fechaInicio: { seconds: new Date().getTime() / 1000, nanoseconds: 0 },
+    fechaVto: new Date(),
+    fechaInicio: new Date(),
     detalle: "",
     estado: "ACTIVO",
   };
@@ -193,7 +193,6 @@ export function valoresDebitoAutomatico() {
 }
 export function ModeloDebitoAutomatico() {
   return yup.object().shape({
-    //    fecha: yup.string(),
     estado: yup.string().required(),
     idCuentaCbu: yup.string().required(),
     detalle: yup.string(),
@@ -205,12 +204,14 @@ export function valoresMensualizado(preData) {
     ...preData,
     estado: "",
     fecha: new Date(),
+    fechaInicio: new Date(),
     concepto: "",
   };
 }
 export function ModeloMensualizado() {
   return yup.object().shape({
-    //    fecha: yup.string(),
+    fecha: yup.string(),
+    fechaInicio: yup.string(),
     estado: yup.string(),
     // idProducto: yup.object(),
     detalle: yup.string(),

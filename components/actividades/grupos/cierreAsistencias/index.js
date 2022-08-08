@@ -1,8 +1,5 @@
-import ColeccionTable from "@components/forms/coleccionTable";
-
 import { useState } from "react";
-import { Button, Grid, Icon, Typography } from "@mui/material";
-import { fuego, useDocument } from "@nandorojo/swr-firestore";
+import { Grid } from "@mui/material";
 import {
   ModeloCierreAsistencias,
   valoresInicialesCierreAsistencias,
@@ -26,14 +23,6 @@ export default function ListaCierreAsistenciasGrupo({
   const callbackclick = (params) => {
     cambiaSeleccion(params.row);
   };
-  const quitarDocumento = (doc) => {
-    return fuego.db
-      .collection(
-        `actividades/${actividad?.id}/grupos/${grupo?.id}/cierreAsistencias`
-      )
-      .doc(doc.id)
-      .delete();
-  };
 
   const cambiaSeleccion = (data) => {
     if (callbackchange) {
@@ -45,21 +34,26 @@ export default function ListaCierreAsistenciasGrupo({
     {
       field: "fechaDesde",
       headerName: "Desde",
-      width: 150,
+      width: 100,
       renderCell: (params) => getFechaString(params.value),
     },
     {
       field: "fechaHasta",
       headerName: "Hasta",
-      width: 150,
+      width: 100,
       renderCell: (params) => getFechaString(params.value),
     },
 
     {
-      field: "integrantesInasistencia",
+      field: "totalAsisten",
       headerName: "Resultados",
-      width: 150,
-      renderCell: (params) => `${params.value ? params.value.length : "0"} `,
+      width: 350,
+      renderCell: (params) =>
+        `GENERAN DEUDA ${
+          params.row.totalAsisten ? params.row.totalAsisten : "0"
+        } | NO GENERAN ${
+          params.row.totalNoAsisten ? params.row.totalNoAsisten : "0"
+        } `,
     },
     {
       field: "estado",

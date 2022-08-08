@@ -5,14 +5,9 @@ import Modelo, { valoresIniciales } from "@modelos/ModeloGrupos";
 import { Grid, Typography } from "@mui/material";
 
 export default function InscriptosGrupo({ open, setOpen, actividad, grupo }) {
+  const order = ["apellido", "asc"];
   const callbackclick = (data) => {
     console.log(data);
-  };
-
-  const cambiaSeleccion = (data) => {
-    if (callbackchange) {
-      callbackchange(data);
-    }
   };
 
   const columns = [
@@ -69,7 +64,7 @@ export default function InscriptosGrupo({ open, setOpen, actividad, grupo }) {
             acciones={acciones}
             callbackclick={callbackclick}
             columns={columns}
-            orderBy="apellido"
+            orderBy={order}
             coleccion={`actividades/${actividad?.id}/grupos/${grupo?.id}/integrantes/`}
           />
         </Grid>

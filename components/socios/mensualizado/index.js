@@ -22,19 +22,19 @@ export const cols = [
         ""
       ),
   },
-  {
-    field: "hijo",
-    headerName: "",
-    width: 20,
-    renderCell: (params) =>
-      params.value ? (
-        <Tooltip title={`${params.value.apellido} ${params.value.nombre}`}>
-          <Icon class="fas fa-users" />
-        </Tooltip>
-      ) : (
-        ""
-      ),
-  },
+  // {
+  //   field: "hijo",
+  //   headerName: "",
+  //   width: 20,
+  //   renderCell: (params) =>
+  //     params.value ? (
+  //       <Tooltip title={`${params.value.apellido} ${params.value.nombre}`}>
+  //         <Icon class="fas fa-users" />
+  //       </Tooltip>
+  //     ) : (
+  //       ""
+  //     ),
+  // },
   {
     field: "fecha",
     headerName: "Fecha",
@@ -51,28 +51,18 @@ export const cols = [
       renderCellExpandData(params, (row) => `${row.label_idProducto}`),
   },
   {
-    field: "importe",
+    field: "idProducto_importe",
     headerName: "$ Importe",
     width: 110,
     renderCell: (params) => formatMoney(params.value),
-  },
-  {
-    field: "promoProducto",
-    headerName: "Promocion",
-    width: 110,
-    valueGetter: (params) =>
-      params.value
-        ? `${params.value.nombrePromocion} ${formatMoney(
-            params.row.importeBonifica
-          )}`
-        : "-",
   },
 
   {
     field: "label_tipoPeriodo",
     headerName: "Tipo Periodo",
     width: 110,
-    renderCell: (params) => params.value,
+    renderCell: (params) =>
+      renderCellExpandData(params, (row) => `${row.label_tipoPeriodo}`),
   },
 ];
 export default function CuentaSocio({ data, mod }) {

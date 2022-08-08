@@ -23,6 +23,9 @@ export default function FormGrupo({
       renderCell: (params) => `${params.row.apellido} ${params.row.nombre}`,
     },
   ];
+  const cambiaFecha = (data) => {
+    localStorage.setItem("asistencia_fecha", data);
+  };
   return (
     <Grid container sx={{ p: 2 }} rowSpacing={2} spacing={2}>
       <Grid item md={4}>
@@ -33,7 +36,7 @@ export default function FormGrupo({
         />
       </Grid>
       <Grid item md={6}>
-        <SelectFecha label="Fecha" campo="fecha" />
+        <SelectFecha callbackChange={cambiaFecha} label="Fecha" campo="fecha" />
       </Grid>
 
       <Grid item md={12}>

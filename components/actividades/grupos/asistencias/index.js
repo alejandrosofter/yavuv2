@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Grid } from "@mui/material";
-import { fuego } from "@nandorojo/swr-firestore";
 
 import { getFechaString } from "@helpers/dates";
 import DialogContenido from "@components/forms/dialogContenido";
@@ -24,9 +23,7 @@ export default function ListaAsistenciaGrupo({
   const callbackclick = (params) => {
     cambiaSeleccion(params.row);
   };
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+
   const cambiaSeleccion = (data) => {
     if (callbackchange) {
       callbackchange(data);
@@ -75,7 +72,6 @@ export default function ListaAsistenciaGrupo({
       },
     },
   ];
-  console.log(where);
   return (
     <DialogContenido
       fullWidth={true}

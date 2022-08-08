@@ -10,10 +10,8 @@ export default function EditarGenerico2({
   subTitulo,
   coleccion,
   modelo,
-  valoresIniciales,
   label,
   children,
-  esUpdate,
   dataForm,
   icono,
 }) {

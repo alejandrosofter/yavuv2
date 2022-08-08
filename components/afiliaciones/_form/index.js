@@ -1,17 +1,18 @@
 import { Grid } from "@mui/material";
-import TabsFormik from "../../forms/tab";
-import FormSocios from "../../socios/_formSocios";
+import TabsFormik from "@components/forms/tab";
+import FormSocios from "@components/socios/_formSocios";
 import FormDocumentos from "./documentos";
 import FormActividades from "./actividades";
 import FormFamiliares from "./familiares";
 import FormDebitoAutomatico from "./debitoAutomatico";
 import FormMensualizado from "./mensualizado";
+import FormPromociones from "./promociones";
 import FormFirmaDigital from "./firmaDigital";
 import FormPagos from "./pagos";
 import FormCredenciales from "./credenciales";
 
-import SelectFecha from "../../forms/selectorFecha";
-import SelectEstaticFormik from "../../forms/selectEstaticFormik";
+import SelectFecha from "@components/forms/selectorFecha";
+import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 export default function Form({ mod, setFieldValue, values }) {
   return (
     <Grid sx={{ pt: 1, pb: 1 }} md={12} container rowSpacing={2} spacing={2}>
@@ -54,32 +55,43 @@ export default function Form({ mod, setFieldValue, values }) {
             ),
           },
           {
-            label: "Actividades",
+            label: "Promociones",
             nro: 2,
             vista: (
-              <Grid item md={12}>
-                <FormActividades
-                  setFieldValue={setFieldValue}
-                  values={values}
-                  mod={mod}
-                />
-              </Grid>
+              <FormPromociones
+                setFieldValue={setFieldValue}
+                values={values}
+                mod={mod}
+              />
             ),
           },
+          // {
+          //   label: "Actividades",
+          //   nro: 2,
+          //   vista: (
+          //     <Grid item md={12}>
+          //       <FormActividades
+          //         setFieldValue={setFieldValue}
+          //         values={values}
+          //         mod={mod}
+          //       />
+          //     </Grid>
+          //   ),
+          // },
 
-          {
-            label: "Familiares",
-            nro: 3,
-            vista: (
-              <Grid item md={12}>
-                <FormFamiliares
-                  setFieldValue={setFieldValue}
-                  values={values}
-                  mod={mod}
-                />
-              </Grid>
-            ),
-          },
+          // {
+          //   label: "Familiares",
+          //   nro: 3,
+          //   vista: (
+          //     <Grid item md={12}>
+          //       <FormFamiliares
+          //         setFieldValue={setFieldValue}
+          //         values={values}
+          //         mod={mod}
+          //       />
+          //     </Grid>
+          //   ),
+          // },
           // {label:"Firma",nro:5,vista:
           // <Grid item md={12}>
           // <FormFirmaDigital setFieldValue={setFieldValue} values={values} mod={mod}/>
@@ -87,7 +99,7 @@ export default function Form({ mod, setFieldValue, values }) {
           // },
           {
             label: "Credenciales",
-            nro: 4,
+            nro: 3,
             vista: (
               <Grid item md={12}>
                 <FormCredenciales
@@ -100,7 +112,7 @@ export default function Form({ mod, setFieldValue, values }) {
           },
           {
             label: "Mensualizado",
-            nro: 5,
+            nro: 4,
             vista: (
               <FormMensualizado
                 field="mensualizado"
@@ -112,7 +124,7 @@ export default function Form({ mod, setFieldValue, values }) {
           },
           {
             label: "Cobro",
-            nro: 6,
+            nro: 5,
             vista: (
               <Grid item md={12}>
                 <FormPagos

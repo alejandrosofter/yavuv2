@@ -15,12 +15,13 @@ export default function Modulo({ mod, setFieldValue, values }) {
     let deudas = [];
     if (values.mensualizado)
       values.mensualizado.map((item) => {
+        console.log(item);
         deudas.push({
           id: item.id,
           cantidad: 1,
           label_idProducto: item.label_idProducto,
           idProducto: item.idProducto,
-          importe: Number(item.importe),
+          importe: Number(item.idProducto_importe),
           importeBonificacion: 0,
         });
       });
