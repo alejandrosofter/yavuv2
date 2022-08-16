@@ -1,18 +1,10 @@
-import { Grid, Icon } from "@mui/material";
+import { Grid, Icon, Stack, Typography } from "@mui/material";
 
-import { useState } from "react";
-
-import SelectFecha from "../forms/selectorFecha";
-import SelectEstaticFormik from "../forms/selectEstaticFormik";
-import SelectTipoCuenta from "../cuentasCbu/selectTipoCuenta";
-import ItemsModulo from "../forms/itemsModulo";
+import SelectFecha from "@components/forms/selectorFecha";
+import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
+import SelectTipoCuenta from "@components/cuentasCbu/selectTipoCuenta";
 import Input from "../forms/input";
-import FormItem from "./_formImputa";
-import {
-  ModeloImputaciones,
-  valoresInicialesImputa,
-} from "../../modelos/ModeloDebitoAutomatico";
-import { getFechaString } from "../../helpers/dates";
+
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import SelectFormaPago from "@components/formaPagos/selectFormaPago";
 export default function FormCobranzaGrupal({ setFieldValue, values }) {
@@ -30,6 +22,20 @@ export default function FormCobranzaGrupal({ setFieldValue, values }) {
   ];
   return (
     <Grid sx={{ pt: 1, mb: 2 }} md={12} container rowSpacing={2} spacing={2}>
+      <Grid item md={12}>
+        <Stack>
+          <Typography variant="caption">
+            ** IMPORTANTE: El sistema buscara todas las deudas de socios que
+            esten PENDIENTES,con DEBITO AUTOMATICO habilitado y que coincida con
+            el campo "Tipo Cuenta" (banco)
+          </Typography>
+          <Typography variant="caption">
+            ** IMPORTANTE: El campo "Forma de Pago" sera la forma de pago que
+            sera seteada en los COBROS efectivos una vez aplicados las
+            respuestas de banco.
+          </Typography>
+        </Stack>
+      </Grid>
       <Grid item md={2}>
         <SelectEstaticFormik
           items={["PENDIENTE", "GENERADO", "PROCESANDO", "PROCESADO"]}

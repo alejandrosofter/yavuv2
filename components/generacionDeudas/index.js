@@ -5,20 +5,18 @@ import TitulosFormularios from "../forms/tituloFormularios";
 import DataGridServer from "../forms/datagrid/dataGridServer";
 import { formatMoney } from "../../helpers/numbers";
 import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
+import ItemsGeneracionDeuda from "./items";
+import { useState } from "react";
+import { getFechaString } from "@helpers/dates";
 export default function Modulo({ mod }) {
+  const [openItems, setOpenItems] = useState(false);
+  const [seleccion, setSeleccion] = useState();
   const columns = [
     {
       field: "fecha",
       headerName: "Fecha",
       width: 80,
-      renderCell: (params) => {
-        const d = new Date(params.value.seconds * 1000);
-
-        return (
-          //en params.row tengo los otros datos
-          <i>{`${moment(d).format("DD/MM/YY")}`}</i>
-        );
-      },
+      renderCell: (params) => getFechaString(params.value),
     },
     {
       field: "fechaVto",
@@ -64,17 +62,31 @@ export default function Modulo({ mod }) {
       width: 120,
     },
   ];
+  let fnAcciones = {
+    deudas: (data, id) => {
+      setSeleccion(data);
+      setOpenItems(true);
+    },
+  };
   return (
-    <DataGridFirebase
-      coleccion={mod.coleccion}
-      titulo={mod.label}
-      subTitulo="del club"
-      icono="fas fa-funnel-dollar"
-      limit={10}
-      mod={mod}
-      acciones={mod.acciones}
-      orderBy="fecha"
-      columns={columns}
-    />
+    <>
+      <DataGridFirebase
+        fnAcciones={fnAcciones}
+        coleccion={mod.coleccion}
+        titulo={mod.label}
+        subTitulo="del club"
+        icono="fas fa-funnel-dollar"
+        limit={10}
+        mod={mod}
+        acciones={mod.acciones}
+        orderBy="fecha"
+        columns={columns}
+      />
+      <ItemsGeneracionDeuda
+        open={openItems}
+        setOpen={setOpenItems}
+        generacion={seleccion}
+      />
+    </>
   );
 }

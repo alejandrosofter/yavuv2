@@ -14,14 +14,21 @@ export default function Modulo({ mod }) {
     {
       field: "coleccion",
       headerName: "Coleccion",
-      width: 100,
+      width: 180,
       renderCell: (params) => `${params.value}`,
     },
+
     {
-      field: "cantidadProcesada",
-      headerName: "Procesados",
-      width: 200,
-      renderCell: (params) => `${params.value} - ultimo ${params.row.last}`,
+      field: "comienzaAcumulado",
+      headerName: "Comienza Acumulado",
+      width: 150,
+      renderCell: (params) => (params.value ? "Si" : "No"),
+    },
+    {
+      field: "guardaRegistros",
+      headerName: "Guarda Registros?",
+      width: 150,
+      renderCell: (params) => (params.value ? "Si" : "No"),
     },
     {
       field: "estado",
@@ -31,8 +38,7 @@ export default function Modulo({ mod }) {
     },
   ];
   let fnAcciones = {
-    chequear: (data) => {
-      console.log(data);
+    aplicar: (data) => {
       setDataConsulta({ url: "/api/listeningData/chequear", data });
     },
     stopProceso: (data) => {

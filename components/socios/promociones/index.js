@@ -43,6 +43,7 @@ export default function PromocionesSocios({ data, mod, auth }) {
         <ABMColeccion
           coleccion={`socios/${data?.id}/${subColeccion}`}
           columns={cols}
+          labelNuevo="asignar promocion"
           order={order}
           // callbackclick={callbackclick}
           icono={icono}

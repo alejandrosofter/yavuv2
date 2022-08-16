@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default async function handler(req, res) {
-  const url = `${process.env.URL_FUNCTIONS}/debitoAutomatico-aplicarRespuestaBanco`;
+  const url = `${process.env.URL_FUNCTIONS}/debitosAutomatico-aplicarRespuestaBanco`;
   console.log(req.query);
   // const output = await (await fetch(url)).json();
   await axios

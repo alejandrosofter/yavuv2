@@ -18,6 +18,19 @@ const getItemsConceptos = (id, arr) => {
 export default function FormGeneracionDeudas({ setFieldValue, values }) {
   return (
     <Grid sx={{ pt: 1, mb: 2 }} container rowSpacing={2} spacing={2}>
+      <Grid item md={12}>
+        <Stack>
+          <Typography variant="caption">
+            ** IMPORTANTE: El sistema buscara en todos los socios MENSUALIZADOS
+            que tengan fecha superior al valor del campo "FECHA".
+          </Typography>
+          <Typography variant="caption">
+            ** IMPORTANTE: Para los que paguen con DEBITO AUTOMATICO la fecha
+            Vto sera el valor del campo "Fecha Vto Debito" y para el resto sera
+            el valor del campo "Fecha Vto Otros"
+          </Typography>
+        </Stack>
+      </Grid>
       <Grid item md={2}>
         <SelectFecha label="Fecha" campo="fecha" />
       </Grid>

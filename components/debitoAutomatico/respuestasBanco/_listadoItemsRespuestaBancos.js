@@ -2,16 +2,21 @@ import ListaSimple from "@components/forms/listaSimple";
 import Tabla from "@components/forms/tabla";
 import { getFechaString } from "@helpers/dates";
 import { formatMoney } from "@helpers/numbers";
-import { Button, Grid, IconButton, Stack, Typography } from "@mui/material";
-import { useCollection, useDocument } from "@nandorojo/swr-firestore";
+import { Grid, Stack, Typography } from "@mui/material";
+import { useCollection } from "@nandorojo/swr-firestore";
 import { useState } from "react";
-import Icon from "react-multi-date-picker/components/icon";
-import NuevaRespuestaBanco from "./nuevo";
 
+import Link from "next/link";
+import ColeccionTable from "@components/forms/coleccionTable";
+import { useRouter } from "next/router";
+import { getModUsuario } from "@helpers/db";
+import { Box } from "@mui/system";
 export default function ListadoItemsBanco({ idDebito, respuestaBanco }) {
+  const router = useRouter();
+  const modSocios = getModUsuario("socios");
   const coleccion = `debitoAutomatico/${idDebito}/respuestasBanco/${respuestaBanco?.id}/items`;
   const { data } = useCollection(coleccion, {
-    orderBy: "referencia",
+    orderBy: "cbu",
     listen: true,
   });
 
@@ -25,33 +30,90 @@ export default function ListadoItemsBanco({ idDebito, respuestaBanco }) {
     if (callbackcambia) callbackcambia(item);
     setSeleccion(item);
   };
-  const cols = [
+  const clickSocio = (row) => {
+    console.log(row);
+    localStorage.setItem(
+      "socioSeleccion",
+      JSON.stringify({
+        objectID: row.idSocio,
+        apellido: row.apellido,
+        nombre: row.nombre,
+        dni: row.dni,
+      })
+    );
+    router.push("/mod/[id]", `/mod/${modSocios.id}`, {
+      shallow: true,
+    });
+  };
+  const order = ["titular", "asc"];
+  const acciones = [
+    // {
+    //   esFuncion: true,
+    //   icono: "fas fa-link",
+    //   label: "Ir Perfil",
+    //   fn: (row) => {
+    //     setSeleccion(row);
+    //     console.log(row);
+    //     localStorage.setItem(
+    //       "socioSeleccion",
+    //       JSON.stringify({
+    //         objectID: row.idSocio,
+    //         apellido: row.apellido,
+    //         nombre: row.nombre,
+    //         dni: row.dni,
+    //       })
+    //     );
+    //     router.push("/mod/[id]", `/mod/${modSocios.id}`, {
+    //       shallow: true,
+    //     });
+    //   },
+    // },
+  ];
+  const columns = [
     {
-      label: "CBU",
       field: "cbu",
+      headerName: "CBU",
+      width: 180,
     },
-    {
-      label: "Referencia",
-      field: "referencia",
-      // fn: (valor, row) => {
 
-      // },
+    {
+      field: "titular",
+      headerName: "Titular",
+      width: 180,
     },
     {
-      label: "Socio/s",
       field: "dataMach",
-      fn: (data) => {
-        return data.data
-          .map((item) => `${item.label_socio} ${formatMoney(item.importe)}`)
-          .join(", ");
+      headerName: "Socios",
+      width: 320,
+      renderCell: (params) => {
+        return (
+          <Stack direction="row" spacing={2}>
+            <Box>
+              {params.value.map((item) => (
+                <a href={`#${item.id}`} id={item.id}>
+                  <Typography
+                    onClick={clickSocio.bind(this, item)}
+                    variant="caption"
+                    key={item.idSocio}
+                  >
+                    {`${item.label_socio} ${formatMoney(
+                      item.idProducto_importe
+                    )}`}
+                  </Typography>
+                </a>
+              ))}
+            </Box>
+          </Stack>
+        );
       },
     },
     {
-      // align: "right",
-      label: "ESTADO",
       field: "estado",
+      headerName: "Estado",
+      width: 120,
     },
   ];
+
   return (
     <Grid container>
       <Grid item md={8}>
@@ -59,7 +121,12 @@ export default function ListadoItemsBanco({ idDebito, respuestaBanco }) {
       </Grid>
 
       <Grid item xs={12}>
-        <Tabla data={data} cols={cols} />
+        <ColeccionTable
+          acciones={acciones}
+          columns={columns}
+          orderBy={order}
+          coleccion={coleccion}
+        />
       </Grid>
     </Grid>
   );

@@ -40,7 +40,7 @@ export function valoresInicialesFormaPago() {
 /////
 export function valoresIniciales() {
   return {
-    fecha: { seconds: new Date().getTime() / 1000, nanoseconds: 0 },
+    fecha: new Date(),
 
     estado: "PENDIENTE",
     nroDocumento: "",

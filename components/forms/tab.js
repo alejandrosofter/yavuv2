@@ -39,7 +39,7 @@ function a11yProps(index) {
   };
 }
 
-export default function TabsFormik({ vistas, children, label }) {
+export default function TabsFormik({ vistas, hide, label }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -49,18 +49,30 @@ export default function TabsFormik({ vistas, children, label }) {
   return (
     <Grid item xs={12}>
       <Tabs value={value} onChange={handleChange} aria-label={`tab_${label}`}>
-        {vistas.map((vista) => (
-          <Tab key={vista.nro} label={vista.label} {...a11yProps(vista.nro)} />
-        ))}
+        {vistas.map((vista) =>
+          !vista.hide ? (
+            <Tab
+              key={vista.nro}
+              label={vista.label}
+              {...a11yProps(vista.nro)}
+            />
+          ) : (
+            ""
+          )
+        )}
       </Tabs>
 
-      {vistas.map((vista) => (
-        <TabPanel key={`vista_${vista.nro}`} value={value} index={vista.nro}>
-          <Grid item md={12}>
-            {vista.vista}
-          </Grid>
-        </TabPanel>
-      ))}
+      {vistas.map((vista) =>
+        !vista.hide ? (
+          <TabPanel key={`vista_${vista.nro}`} value={value} index={vista.nro}>
+            <Grid item md={12}>
+              {vista.vista}
+            </Grid>
+          </TabPanel>
+        ) : (
+          ""
+        )
+      )}
     </Grid>
   );
 }

@@ -32,7 +32,7 @@ export default function Form({ mod, setFieldValue, values }) {
       </Grid>
       <Grid item md={2}>
         <SelectEstaticFormik
-          items={["SOCIO", "IMAGENSOCIO"]}
+          items={["SOCIO", "IMAGENSOCIO", "CBUS"]}
           label="FN Post Procesa"
           campo="fnPostProcesa"
         />

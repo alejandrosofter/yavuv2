@@ -6,16 +6,21 @@ import { useState } from "react";
 import ImpresionDialog from "../forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { QueryApi } from "@helpers/queryApi";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { getModUsuario } from "@helpers/db";
 export default function Modulo({ mod }) {
   const order = ["fecha", "desc"];
   const idPlantilla = mod.config?.plantillaAfiliacion;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const [dataConsulta, setDataConsulta] = useState();
+  const router = useRouter();
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,
   });
+  const modSocios = getModUsuario("socios");
   const getDetalleCobro = (row) => {
     if (!row.deudas || row.deudas.length === 0) return "-";
     return row.deudas
@@ -32,6 +37,24 @@ export default function Modulo({ mod }) {
   let fnAcciones = {
     aplicar: (data) => {
       setDataConsulta({ url: "/api/afiliaciones/aplicar", data });
+    },
+    irSocio: (data) => {
+      if (data.idSocio) {
+        localStorage.setItem(
+          "socioSeleccion",
+          JSON.stringify({
+            objectID: data.idSocio,
+            apellido: data.apellido,
+            nombre: data.nombre,
+            dni: data.dni,
+            estado: data.estado,
+            nroSocio: data.nroSocio,
+          })
+        );
+        router.push("/mod/[id]", `/mod/${modSocios.id}`, {
+          shallow: true,
+        });
+      } else alert("Debes Aplicarlo primero");
     },
     imprimir: (data) => {
       setOpenImpresion(true);

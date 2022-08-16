@@ -19,16 +19,27 @@ export default function Form({ mod, setFieldValue, values }) {
       <Grid item md={2}>
         <Input label="Coleccion" campo="coleccion" />
       </Grid>
-      <Grid item md={2}>
+      {/* <Grid item md={2}>
         <Input label="Campo Order" campo="campoOrder" />
-        Importante para poder realizar el recorrido de los datos
+        <Typography variant="caption">
+          ** Importante para poder realizar el recorrido de los datos
+        </Typography>
+      </Grid> */}
+
+      <Grid item md={3}>
+        <Switch label="Comienza Acumulado" campo="comienzaAcumulado" />
+        <Typography variant="caption">
+          ** Al seleccionar esta opcion, se comenzara el periodo con el conteo
+          total historico
+        </Typography>
       </Grid>
-      <Grid item md={2}>
-        <SelectEstaticFormik
-          items={["MENSUAL", "DIARIO", "ANUAL"]}
-          label="Periodicidad"
-          campo="periodicidad"
-        />
+
+      <Grid item md={3}>
+        <Switch label="Guarda Registros" campo="guardaRegistros" />
+        <Typography variant="caption">
+          ** Guarda registros de los items que hagan mach de la condicion de los
+          CAMPOS
+        </Typography>
       </Grid>
       <Grid item md={2}>
         <SelectEstaticFormik
@@ -37,13 +48,18 @@ export default function Form({ mod, setFieldValue, values }) {
           campo="estado"
         />
       </Grid>
-      <Grid item md={3}>
-        <Switch label="Comienza con Historico" campo="comienzaHistorico" />
-        <Typography variant="caption">
-          Al seleccionar esta opcion, se comenzara el periodo con el conteo
-          total
-        </Typography>
+      <Grid item md={2}>
+        <Switch
+          label="Tiene cond. Decrementa"
+          campo="tieneCondicionDecrementa"
+        />
       </Grid>
+      {values.tieneCondicionDecrementa && (
+        <Grid item md={6}>
+          <Input label="Condicion Decrementa" campo="condicionDecrementa" />
+        </Grid>
+      )}
+
       <Grid item md={12}>
         <TabsFormik
           label=""
@@ -68,13 +84,19 @@ export default function Form({ mod, setFieldValue, values }) {
                       field: "nombre",
                       headerName: "Nombre",
                       editable: false,
-                      width: 200,
+                      width: 150,
                     },
 
                     {
                       field: "asignacion",
                       headerName: "Asignacion",
                       width: 100,
+                    },
+                    {
+                      field: "esCampoArray",
+                      headerName: "Campo Array",
+                      width: 100,
+                      renderCell: (params) => (params.value ? "SI" : "NO"),
                     },
                     { field: "condicion", headerName: "Condicion", width: 380 },
                   ]}
@@ -84,6 +106,7 @@ export default function Form({ mod, setFieldValue, values }) {
             {
               label: "Campos Items Salida",
               nro: 1,
+              hide: true,
               vista: (
                 <ItemsModulo
                   setFieldValue={setFieldValue}

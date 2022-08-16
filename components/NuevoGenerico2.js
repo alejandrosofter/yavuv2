@@ -17,7 +17,7 @@ export default function NuevoGenerico2({
   icono,
 }) {
   const { add, error } = useCollection(coleccion);
-  console.log(dataForm);
+
   if (error) return error;
   return (
     <Grid container>
@@ -29,6 +29,7 @@ export default function NuevoGenerico2({
         />
       )}
       <_FormGenerico
+        isNew={true}
         dataForm={dataForm}
         preData={preData}
         callbackSuccess={callbackSuccess}

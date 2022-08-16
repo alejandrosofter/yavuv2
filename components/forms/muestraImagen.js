@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { fuego } from "@nandorojo/swr-firestore";
 import { Avatar, CircularProgress, Stack } from "@mui/material";
-export default function MuestraImagen({ pathImagen, w, h }) {
+export default function MuestraImagen({
+  borderColor = "grey.700",
+  border = 1,
+  title,
+  pathImagen,
+  w,
+  h,
+}) {
   useEffect(() => {
     mostrarImagen(pathImagen);
   }, [pathImagen]);
@@ -23,15 +30,20 @@ export default function MuestraImagen({ pathImagen, w, h }) {
         })
         .catch((err) => {
           setLoadingImage(false);
-          console.log(err);
         });
   };
   if (loadingImage) return <CircularProgress />;
   return (
     <Avatar
+      title={title}
       alt="Imagen Socio"
-      src={imagenUrl}
-      sx={{ width: w ? w : 100, height: h ? h : 100 }}
+      src={pathImagen ? imagenUrl : null}
+      sx={{
+        border,
+        borderColor,
+        width: w ? w : 100,
+        height: h ? h : 100,
+      }}
     />
   );
 }

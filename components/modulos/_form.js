@@ -1,21 +1,14 @@
-import { useRouter } from "next/router";
-import { Formik, Form } from "formik";
 import { useState } from "react";
-import { LoadingButton, TabContext, TabList, TabPanel } from "@mui/lab";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Grid, Tab, Icon } from "@mui/material";
-import Input from "../forms/input";
-import ModeloModulos, {
-  ModeloAcciones,
-  valoresInicialesItems,
-} from "../../modelos/ModeloModulos";
-import { valoresIniciales } from "../../modelos/ModeloModulos";
+import Input from "@components/forms/input";
+import Switch from "@components/forms/switch";
+import { ModeloAcciones, valoresInicialesItems } from "@modelos/ModeloModulos";
 
-import Fetch from "../../helpers/Fetcher";
-import useSWR, { mutate } from "swr";
-import CheckboxForm from "../forms/checkbox";
-import ItemsModulo from "../forms/itemsModulo";
+import ItemsModulo from "@components/forms/itemsModulo";
 import _FormItemAccion from "./_formItemAccion";
-import TitulosFormularios from "../forms/tituloFormularios";
+import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
+import SelectMenuGrupo from "./selectGrupo";
 
 export default function _FormModulos({ values, setFieldValue }) {
   const [tabDatos, setTabDatos] = useState("datos");
@@ -23,7 +16,7 @@ export default function _FormModulos({ values, setFieldValue }) {
   const cambiaTab = (event, newValue) => {
     setTabDatos(newValue);
   };
-  console.log(values);
+
   return (
     <TabContext value={tabDatos}>
       <Grid xs={9}>
@@ -63,21 +56,14 @@ export default function _FormModulos({ values, setFieldValue }) {
             <Grid item xs={3}>
               <Input label="Coleccion" campo="coleccion" />
             </Grid>
-            <Grid item xs={2}>
-              <Input label="Label Field" campo="labelField" />
+            <Grid item xs={3}>
+              <Switch label="Es Frecuente?" campo="frecuente" />
+            </Grid>
+            <Grid item md={4}>
+              <SelectMenuGrupo />
             </Grid>
             <Grid item xs={5}>
               <Input label="Detalle" campo="detalle" />
-            </Grid>
-            <Grid item xs={3}>
-              <CheckboxForm label="Genera Deuda" campo="generaDeuda" />
-            </Grid>
-
-            <Grid item xs={2}>
-              <CheckboxForm label="Activo" campo="activo" />
-            </Grid>
-            <Grid item xs={2}>
-              <CheckboxForm label="Es Individual" campo="esIndividual" />
             </Grid>
           </Grid>
         </TabPanel>

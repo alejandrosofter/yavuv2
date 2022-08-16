@@ -1,3 +1,4 @@
+import ColeccionTable from "@components/forms/coleccionTable";
 import ListaSimple from "@components/forms/listaSimple";
 import { getFechaString } from "@helpers/dates";
 import { QueryApi } from "@helpers/queryApi";
@@ -9,7 +10,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useCollection, useDocument } from "@nandorojo/swr-firestore";
+import { useCollection, useDocument, fuego } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import NuevaRespuestaBanco from "./nuevo";
 
@@ -23,6 +24,7 @@ export default function ListadoRespuestasBanco({ idDebito, callbackcambia }) {
   const [seleccion, setSeleccion] = useState();
   const [coleccionElimina, setColeccionElimina] = useState();
   const { deleteDocument } = useDocument(coleccionElimina);
+
   const clickAdd = async () => {
     setOpenNew(true);
   };
@@ -34,11 +36,14 @@ export default function ListadoRespuestasBanco({ idDebito, callbackcambia }) {
     setSeleccion(item);
   };
   const clickEliminar = (item) => {
-    const aux = `debitoAutomatico/${idDebito}/respuestasBanco/${item.id}`;
-    setColeccionElimina(aux);
-    console.log(aux);
+    const coleccion = `debitoAutomatico/${idDebito}/respuestasBanco`;
+    console.log(coleccion);
+    setColeccionElimina(coleccion);
     if (item)
-      deleteDocument()
+      fuego.db
+        .collection(coleccion)
+        .doc(item.id)
+        .delete()
         .then(() => {
           console.log("Eliminado");
           if (callbackcambia) callbackcambia(null);
@@ -81,7 +86,7 @@ export default function ListadoRespuestasBanco({ idDebito, callbackcambia }) {
           ComponentSecondaryAction={(item) => {
             return (
               <Stack direction="row" spacing={2}>
-                {item.estado !== "PENDIENTE" && (
+                {true && (
                   <IconButton
                     onClick={clickEliminar.bind(this, item)}
                     title="Eliminar"
@@ -98,7 +103,7 @@ export default function ListadoRespuestasBanco({ idDebito, callbackcambia }) {
                     edge="end"
                     aria-label="aplicar"
                   >
-                    <Icon className="fas fa-plug" />
+                    <Icon className="fas fa-play" />
                   </IconButton>
                 )}
                 {true && (

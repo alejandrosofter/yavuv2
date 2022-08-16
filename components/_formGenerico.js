@@ -1,12 +1,13 @@
 import { LoadingButton } from "@mui/lab";
-import { Alert, Grid } from "@mui/material";
-import { Form, Formik, Field } from "formik";
+import { Alert, Button, Grid } from "@mui/material";
+import { Form, Formik, useFormikContext } from "formik";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import React from "react";
 import ErrorsForm from "../components/forms/errorForms";
 import { esVacio } from "../helpers/objectos";
 import ImpresionDialog from "./forms/impresion";
+import ShowErrors from "./showErrors";
 
 export default function _FormGenerico({
   preData,
@@ -21,6 +22,7 @@ export default function _FormGenerico({
 }) {
   const router = useRouter();
   const [load, setLoad] = useState();
+  const [openErrores, setOpenErrores] = useState(false);
 
   const quitarValoresNull = (obj) => {
     for (let key in obj) {
@@ -30,8 +32,12 @@ export default function _FormGenerico({
     }
     return obj;
   };
-  const clickForm = async (values) => {
-    setLoad(true);
+  const showErrors = (errors, isValid) => {
+    if (!isValid) {
+      setOpenErrores(true);
+    }
+  };
+  const clickForm = async (values, propsForm) => {
     if (fnUpdate)
       fnUpdate(quitarValoresNull(values))
         .then((res) => {
@@ -56,15 +62,20 @@ export default function _FormGenerico({
   return (
     <Formik
       initialValues={valores}
-      validationSchema={modelo()}
+      validationSchema={modelo}
       onSubmit={clickForm}
-      validateOnChange={true}
-      validateOnBlur={true}
-      validateOnMount={true}
       // enableReinitialize={true} <== este hijo de puta me hacia reiniciar el formulario
     >
-      {({ handleSubmit, values, errors, setFieldValue, validateForm }) => {
-        console.log(dataForm);
+      {({
+        handleSubmit,
+        values,
+        errors,
+        setFieldValue,
+        isValid,
+        dirty,
+        validateForm,
+        isValidating,
+      }) => {
         return (
           <Grid sx={{ my: 0 }} md={12} item xs={9}>
             <Form onSubmit={handleSubmit}>
@@ -73,23 +84,26 @@ export default function _FormGenerico({
                 errors,
 
                 ...dataForm,
-                mod: mod ? mod : dataForm.mod ? dataForm.mod : {},
+                mod: mod ? mod : dataForm?.mod ? dataForm.mod : {},
                 setFieldValue: setFieldValue,
               })}
-
-              <ErrorsForm errors={errors} />
-
               <LoadingButton
-                disabled={!esVacio(errors)}
                 sx={{ mt: 3 }}
                 loading={load}
                 color="primary"
                 variant="contained"
+                onClick={() => showErrors(errors, isValid)}
                 fullWidth
                 type="submit"
               >
                 ACEPTAR
               </LoadingButton>
+              <ShowErrors
+                isValidating={isValidating}
+                errors={errors}
+                open={openErrores}
+                setOpen={setOpenErrores}
+              />
             </Form>
           </Grid>
         );

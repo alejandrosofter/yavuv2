@@ -42,6 +42,13 @@ export const cols = [
     type: "date",
     renderCell: (params) => getFechaString(params.value),
   },
+  {
+    field: "fechaInicio",
+    headerName: "Inicia",
+    width: 85,
+    type: "date",
+    renderCell: (params) => getFechaString(params.value),
+  },
 
   {
     field: "label_idProducto",
@@ -69,7 +76,7 @@ export default function CuentaSocio({ data, mod }) {
   const order = ["fecha"];
   const subColeccion = "mensualizado";
   const icono = "fas fa-file-invoice-dollar";
-  const titulo = `MENSUAL `;
+  const titulo = `COMPROMISOS MENSUALES `;
 
   const getRowClassName = (params) => {
     if (params.row.suspendida) return "disabled";
@@ -81,6 +88,7 @@ export default function CuentaSocio({ data, mod }) {
         <ABMColeccion
           coleccion={`socios/${data?.id}/${subColeccion}`}
           columns={cols}
+          labelNuevo="Agregar compromiso mensual"
           preData={{
             idSocio: data?.id,
             apellido: data?.apellido,

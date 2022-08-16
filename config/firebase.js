@@ -266,7 +266,7 @@ export async function findOneField(coleccion, { campo, valor }) {
   return null;
 }
 export async function findWhere(coleccion, whereArr, soloUno) {
-  var query = await Firestore().collection(coleccion);
+  var query = Firestore().collection(coleccion);
   whereArr.map((w) => {
     query.where(w.campo, "==", w.valor);
   });

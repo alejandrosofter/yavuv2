@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 export default function ModeloCuentas() {
   return yup.object().shape({
-    razonSocial: yup.string().required(),
+    razonSocial: yup.string(),
     email: yup.string().required(),
     plan: yup.string(),
     telefono: yup.string().required(),

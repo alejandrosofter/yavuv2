@@ -2,19 +2,22 @@ import {
   ModeloMovimientoCuenta,
   valoresInicialesMovimiento,
 } from "@modelos/ModeloSocios";
-import { Icon, Grid, Tooltip, Typography } from "@mui/material";
+import { Icon, Grid, Tooltip, Typography, IconButton } from "@mui/material";
 import { getFechaString } from "@helpers/dates";
 import { formatMoney } from "@helpers/numbers";
 import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 import ABMColeccion from "@components/forms/ABMcollection";
+import Form from "./_formMovimientoCuenta";
+import { useState } from "react";
+import ListaStatusDebitos from "./novedadesDebito";
 const getColorDebito = (estado) => {
   let color = "";
   if (estado === "PENDIENTE") color = "#2a2121de";
   if (estado === "ACE") color = "#29ab29";
+  if (estado === "PRE-DEBITO") color = "#e99e40";
   console.log(color);
   return color;
 };
-import Form from "./_formMovimientoCuenta";
 export const cols = [
   {
     field: "fecha",
@@ -83,6 +86,7 @@ export const cols = [
     renderCell: (params) =>
       params.value ? (
         <Icon
+          key={params.row.id}
           sx={{ color: getColorDebito(params.row.estadoDebito) }}
           title={`${
             params.row.estadoDebito ? params.row.estadoDebito : "Sin novedad"
@@ -129,20 +133,40 @@ export const cols = [
   },
 ];
 export default function CuentaSocio({ data, mod }) {
+  const [openStatusDebito, setOpenStatusDebito] = useState(false);
+  const [seleccion, setSeleccion] = useState(false);
   const order = ["fecha", "desc"];
   const subColeccion = "movimientosCuenta";
   const icono = "fas fa-file-invoice-dollar";
   const titulo = `MOVIMIENTOS DE LA CUENTA`;
 
+  const clickDebito = (item) => {
+    setSeleccion(item);
+    setOpenStatusDebito(true);
+  };
+  const acciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-history",
+      label: "Historial Debitos",
+      fn: (row) => {
+        setSeleccion(row);
+        console.log(row);
+        setOpenStatusDebito(true);
+      },
+    },
+  ];
   return (
     <Grid container>
       <Grid item xs={12}>
         <ABMColeccion
+          acciones={acciones}
           coleccion={`socios/${data?.id}/${subColeccion}`}
           columns={cols}
           order={order}
           preData={{}}
           maxWidth={"md"}
+          labelNuevo="agregar Movimiento"
           icono={icono}
           Modelo={ModeloMovimientoCuenta}
           valoresIniciales={valoresInicialesMovimiento}
@@ -151,6 +175,11 @@ export default function CuentaSocio({ data, mod }) {
           Form={Form}
         />
       </Grid>
+      <ListaStatusDebitos
+        open={openStatusDebito}
+        setOpen={setOpenStatusDebito}
+        data={seleccion?.observacionesDebitos}
+      />
     </Grid>
   );
 }

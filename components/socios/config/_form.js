@@ -61,7 +61,9 @@ export default function FormConfig({}) {
                 FormularioItem={FormTipoSocios}
                 campo="itemsTipoSocios"
                 columns={[
-                  { field: "nombre", headerName: "nombre", width: 250 },
+                  { field: "id", headerName: "ID", width: 180 },
+                  { field: "nombre", headerName: "Nombre", width: 250 },
+
                   {
                     field: "proximoNro",
                     headerName: "Proximo Nro Socio",

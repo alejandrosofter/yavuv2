@@ -40,6 +40,7 @@ export function useDataModulo({
   });
   const coleccionDb = coleccion ? coleccion : mod.coleccion;
   const setConfigModInvitado = (modCurrentUser, usuariosInvitados) => {
+    if (!usuariosInvitados) return;
     return usuariosInvitados
       .map((usuarioInvitado) =>
         usuarioInvitado.mods.map(async (mod) => {

@@ -1,24 +1,17 @@
-import { CircularProgress, Grid, Stack, Tab } from "@mui/material";
+import { Grid, Icon, IconButton, Stack } from "@mui/material";
 import { useState, useEffect } from "react";
 import Input from "../forms/input";
 
-import SwitchFormik from "../forms/switch";
-
-import SelectAlgoliaFormik from "../forms/selectAlgoliaFormik";
-import SelectFecha from "../forms/selectorFecha";
-import SelectEstaticFormik from "../forms/selectEstaticFormik";
-import SelectFormik from "../forms/select2Formik";
-import TitulosFormularios from "../forms/tituloFormularios";
-import ImageFormik from "../forms/imageFormik";
+import SelectFecha from "@components/forms/selectorFecha";
+import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
+import SelectFormik from "@components/forms/select2Formik";
+import ImageFormik from "@components/forms/imageFormik";
 import { fuego } from "@nandorojo/swr-firestore";
-import { getFieldName, getValueName } from "../../helpers/forms";
-import DataInfoPhoto from "../forms/dataInfoPhoto";
-import { getModUsuario } from "../../helpers/db";
-import { getItemArray } from "../../helpers/arrays";
-import { getEdad } from "../../helpers/fechas";
-import SelectProducto from "../productos/selectProducto";
-import Tooltip from "@mui/material/Tooltip";
+import { getFieldName } from "@helpers/forms";
+import { getModUsuario } from "@helpers/db";
+import { getEdad } from "@helpers/fechas";
 export default function FormSocios({ field, setFieldValue, values, mod }) {
+  const [tipoSocioSeleccion, setTipoSocioSeleccion] = useState(null);
   mod = mod.nombre === "socios" ? mod : getModUsuario("socios");
   const tipoSocios = mod.config?.itemsTipoSocios
     ? mod.config.itemsTipoSocios
@@ -37,8 +30,8 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
   }, [setFieldValue, values]);
   const cambiaTipoSocio = (valor, item) => {
     // console.log(valor, item);
-
-    setFieldValue(getFieldName(field, `nroSocio`), item ? item.proximoNro : "");
+    setTipoSocioSeleccion(item);
+    // setFieldValue(getFieldName(field, `nroSocio`), item ? item.proximoNro : "");
   };
   const cambiaCliente = (cliente) => {
     console.log(cliente);
@@ -62,6 +55,12 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
     });
     return categoria;
   };
+  const clickProximo = () => {
+    setFieldValue(
+      getFieldName(field, `nroSocio`),
+      tipoSocioSeleccion ? tipoSocioSeleccion.proximoNro : ""
+    );
+  };
   const agregarValoresImagen = (valores) => {
     console.log(valores);
     valores.map((item) => {
@@ -79,10 +78,10 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
         />
       </Grid>
       <Grid item xs container sx={{ ml: 2 }} md={9} spacing={2}>
-        <Grid md={1} item>
+        {/* <Grid md={1} item>
           {" "}
           <DataInfoPhoto fnCambia={agregarValoresImagen} />
-        </Grid>
+        </Grid> */}
         <Grid item md={3}>
           <SelectFormik
             callbackchange={cambiaTipoSocio}
@@ -94,15 +93,21 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
           />
         </Grid>
 
-        <Grid item md={2}>
-          <Input label="Nro Socio" campo={getFieldName(field, `nroSocio`)} />
+        <Grid item direction="row" container md={2}>
+          <Grid item md={12}>
+            <Input label="Nro Socio" campo={getFieldName(field, `nroSocio`)} />
+          </Grid>
+          <Grid sx={{ ml: -5, mt: 1 }} item md={1}>
+            {" "}
+            <IconButton onClick={clickProximo}>
+              <Icon
+                title="Colocar Proximo nro Socio"
+                className="fas fa-arrow-left"
+              />
+            </IconButton>
+          </Grid>
         </Grid>
-        <Grid item md={2}>
-          <SwitchFormik
-            label="Es Activo?"
-            campo={getFieldName(field, `esActivo`)}
-          />
-        </Grid>
+
         {/* <Tooltip title="Al tildar modo familiar no se genera deuda mensual en este socio! .. solo en el socio en el cual se agrego a este socio">
           <Grid item md={2}>
             <SwitchFormik
@@ -112,27 +117,29 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
           </Grid>
         </Tooltip> */}
         <Grid item md={2}>
+          <Input label="D.N.I " campo={getFieldName(field, `dni`)} />
+        </Grid>
+        <Grid item md={3}>
+          <SelectEstaticFormik
+            items={["femenino", "masculino"]}
+            label="Sexo"
+            campo={getFieldName(field, `sexo`)}
+          />
+        </Grid>
+        <Grid item md={4}>
+          <Input label="Nombre " campo={getFieldName(field, `nombre`)} />
+        </Grid>
+        <Grid item md={3}>
+          <Input label="Apellido " campo={getFieldName(field, `apellido`)} />
+        </Grid>
+        <Grid item md={2}>
           <SelectEstaticFormik
             items={["ALTA", "BAJA", "SUSPENDIDO"]}
             label="ESTADO"
             campo={getFieldName(field, `estado`)}
           />
         </Grid>
-
-        <Grid item md={4}>
-          <Input label="Nombre " campo={getFieldName(field, `nombre`)} />
-        </Grid>
-        <Grid item md={4}>
-          <Input label="Apellido " campo={getFieldName(field, `apellido`)} />
-        </Grid>
-        <Grid item md={2}>
-          <SelectEstaticFormik
-            items={["Femenino", "Masculino"]}
-            label="Sexo"
-            campo={getFieldName(field, `sexo`)}
-          />
-        </Grid>
-        <Grid item md={2}>
+        <Grid item md={3}>
           <SelectEstaticFormik
             items={["Soltero/a", "Casado/a", "Otros"]}
             label="Estado Civil"
@@ -161,13 +168,10 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
           />
         </Grid>
 
-        <Grid item md={2}>
-          <Input label="D.N.I " campo={getFieldName(field, `dni`)} />
-        </Grid>
-        <Grid item md={4}>
+        <Grid item md={3}>
           <Input label="Domicilio " campo={getFieldName(field, `domicilio`)} />
         </Grid>
-        <Grid item md={2}>
+        <Grid item md={3}>
           <Input label="Localidad" campo={getFieldName(field, `localidad`)} />
         </Grid>
         <Grid item md={3}>
@@ -184,22 +188,6 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
         </Grid>
         <Grid item md={4}>
           <Input label="Email" campo={getFieldName(field, `email`)} />
-        </Grid>
-
-        <Grid
-          item
-          sx={{
-            flex: 1,
-            display: getValueName(values, field, `esPorDebitoAutomatico`)
-              ? "yes"
-              : "none",
-          }}
-          md={3}
-        >
-          <SelectFecha
-            label="Fecha Inicio Debito "
-            campo={getFieldName(field, `fechaInicioDebito`)}
-          />
         </Grid>
       </Grid>
     </Grid>

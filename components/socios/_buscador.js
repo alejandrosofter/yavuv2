@@ -8,7 +8,6 @@ const index = client.initIndex("socios");
 
 export default function BuscadorSociosInput({
   setSocioSeleccion,
-  label_cliente,
   callBackCambia,
 }) {
   const [datos, setDatos] = React.useState([]);
@@ -47,16 +46,14 @@ export default function BuscadorSociosInput({
     `${option.apellido} ${option.nombre}  ${option.nroSocio} (${option.dni})`;
 
   return (
-    <Stack item sx={4}>
-      <AutoCompleteAsync
-        icono="fas fa-user"
-        label="BUSCADOR DE SOCIOS"
-        fnCambia={cambia}
-        fnClick={fnClick}
-        loading={loading}
-        datos={datos}
-        labelItems={labelItems}
-      />
-    </Stack>
+    <AutoCompleteAsync
+      icono="fas fa-user"
+      label="BUSCADOR DE SOCIOS"
+      fnCambia={cambia}
+      fnClick={fnClick}
+      loading={loading}
+      datos={datos}
+      labelItems={labelItems}
+    />
   );
 }

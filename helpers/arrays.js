@@ -54,6 +54,25 @@ export function contador(arr, campo = "importe") {
   });
   return total;
 }
+export function orderArray(arr, campo) {
+  //order array by campo
+  return arr
+    .sort((a, b) => {
+      if (a[campo] < b[campo]) return -1;
+      if (a[campo] > b[campo]) return 1;
+      return 0;
+    })
+    .map((item) => {
+      return item;
+    });
+}
+export function localstorageParser(key) {
+  if (typeof window !== "undefined") {
+    const item = localStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  }
+  return;
+}
 export function groupBy(list, keyGetter) {
   const map = new Map();
   list.forEach((item) => {

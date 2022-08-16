@@ -1,14 +1,30 @@
 import ColeccionTable from "@components/forms/coleccionTable";
 import DialogContenido from "@components/forms/dialogContenido";
 import NuevoGenerico from "@components/NuevoGenerico2";
+import { getModUsuario } from "@helpers/db";
 import { formatMoney } from "@helpers/numbers";
 import Modelo, { valoresIniciales } from "@modelos/ModeloGrupos";
 import { Grid, Typography } from "@mui/material";
+import { useRouter } from "next/router";
 
 export default function ItemsDebitoAutomatico({ open, setOpen, debito }) {
-  const order = ["titular", "asc"];
-  const callbackclick = (data) => {
-    console.log(data);
+  const router = useRouter();
+  const modSocios = getModUsuario("socios");
+  const order = ["label_socio", "asc"];
+  const clickSocio = (row) => {
+    localStorage.setItem(
+      "socioSeleccion",
+      JSON.stringify({
+        objectID: row.idSocio,
+        apellido: row.apellido,
+        nombre: row.nombre,
+        dni: row.dni,
+      })
+    );
+    //open new tab
+    router.push("/mod/[id]", `/mod/${modSocios.id}`, {
+      shallow: true,
+    });
   };
 
   const columns = [
@@ -16,6 +32,22 @@ export default function ItemsDebitoAutomatico({ open, setOpen, debito }) {
       field: "cbu",
       headerName: "CBU",
       width: 180,
+    },
+    {
+      field: "label_socio",
+      headerName: "Socio",
+      width: 200,
+      renderCell: (params) => (
+        <Typography
+          onClick={clickSocio.bind(this, params.row)}
+          variant="caption"
+          key={params.row.idSocio}
+        >
+          <a href={`#${params.row.id}`} id={params.row.id}>
+            {params.value}
+          </a>
+        </Typography>
+      ),
     },
     {
       field: "titular",
@@ -29,8 +61,14 @@ export default function ItemsDebitoAutomatico({ open, setOpen, debito }) {
       width: 250,
     },
     {
-      field: "idProducto_importe",
+      field: "importe",
       headerName: "$ Importe",
+      width: 100,
+      renderCell: (params) => `${formatMoney(params.value)}`,
+    },
+    {
+      field: "importeBonifica",
+      headerName: "$ Bonif.",
       width: 100,
       renderCell: (params) => `${formatMoney(params.value)}`,
     },
@@ -49,7 +87,7 @@ export default function ItemsDebitoAutomatico({ open, setOpen, debito }) {
   return (
     <DialogContenido
       fullWidth={true}
-      maxWidth="md"
+      maxWidth="lg"
       open={open}
       setOpen={setOpen}
     >

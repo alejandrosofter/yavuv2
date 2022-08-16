@@ -1,5 +1,4 @@
 import Dgrid from "../forms/datagrid/dataGridFirebase";
-import { Grid } from "@mui/material";
 
 import { Icon, Typography, Stack } from "@mui/material";
 export default function Modulo({ mod }) {

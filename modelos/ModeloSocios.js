@@ -1,14 +1,60 @@
+import axios from "axios";
 import * as yup from "yup";
 
 export default function ModeloSocios() {
   return yup.object().shape({
-    nombre: yup.string().required(),
-    apellido: yup.string(),
-    tipoSocio: yup.string(),
-    // fechaNacimiento: yup.date(),
-    createdOn: yup.date().default(function () {
-      return new Date();
-    }),
+    nombre: yup.string().required("El NOMBRE del socio es necesario!"),
+    apellido: yup.string().required("El APELLIDO del socio tambien!"),
+    nroSocio: yup
+      .string()
+      .required("Es necesario el NRO DE SOCIO!")
+      .test(
+        "NRO SOCIO no existente",
+        "${path} EXISTENTE",
+        async (value, testContext) => {
+          const { data } = await axios.post(`/api/validadores/socio/nroSocio`, {
+            params: testContext.parent,
+          });
+          if (!data) return true;
+          if (testContext.parent.id === data?.id) return true;
+
+          return testContext.createError({
+            message: `Socio ${
+              data.label_tipoSocio
+            } ya registrado con este NRO DE SOCIO: ${data.apellido.toUpperCase()} ${data.nombre.toUpperCase()} (${
+              data.nroSocio
+            }) registrado!`,
+          });
+
+          return true;
+        }
+      ),
+    telefonoMobil: yup.string().required("Ingresa un TELEFONO por favor"),
+    email: yup.string().email("Ingresa un EMAIL valido por favor"),
+    categoriaSocio: yup
+      .string()
+      .required("Debes seleccionar un CATEGORIA de socio!"),
+    dni: yup
+      .string()
+      .required("Es necesario el DNI")
+      .test(
+        "Dni no existente",
+        "${path} EXISTENTE",
+        async (value, testContext) => {
+          const res = await (
+            await fetch(`/api/validadores/socio/dni/${value}`)
+          ).json();
+          if (testContext.parent.id === res.id) return true;
+          if ("apellido" in res)
+            return testContext.createError({
+              message: `${res.apellido.toUpperCase()} ${res.nombre.toUpperCase()} (${
+                res.nroSocio
+              }) registrado!`,
+            });
+
+          return true;
+        }
+      ),
   });
 }
 export function valoresIniciales() {
@@ -210,9 +256,21 @@ export function valoresMensualizado(preData) {
 }
 export function ModeloMensualizado() {
   return yup.object().shape({
-    fecha: yup.string(),
-    fechaInicio: yup.string(),
+    fecha: yup.string().required("Es necesaria la fecha!"),
+    fechaInicio: yup
+      .string()
+      .required(
+        "Es muy importante que selecciones la FECHA DE INICIO de la mensualizacion"
+      ),
     estado: yup.string(),
+    tipoPeriodo: yup
+      .string()
+      .required("Es necesario que selecciones un PERIODO"),
+    idProducto: yup.string().required("Es necesario que asocies un PRODUCTO!"),
+    idCuentaCbu: yup.string().when("esPorDebitoAutomatico", {
+      is: true,
+      then: yup.string().required("Debes seleccionar una cuenta CBU"),
+    }),
     // idProducto: yup.object(),
     detalle: yup.string(),
   });
@@ -240,15 +298,19 @@ export function valoresInicialesMovimiento({ dataInicial }) {
   return {
     importe: 0,
     fecha: new Date(),
+    fechaVto: new Date(),
+    cantidad: 1,
+    importeBonificacion: 0,
     nroRecivo: dataInicial ? dataInicial.nroRecivo : "",
   };
 }
 export function ModeloMovimientoCuenta() {
   return yup.object().shape({
-    //    fecha: yup.string(),
+    fecha: yup.date(),
     // importeAcredita:yup.number(),
     // importeDebita:yup.number(),
     importe: yup.number(),
-    fecha: yup.date(),
+    importeBonificacion: yup.number(),
+    fechaVto: yup.date(),
   });
 }

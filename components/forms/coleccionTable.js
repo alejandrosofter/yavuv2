@@ -24,7 +24,6 @@ export default function ColeccionTable({
     orderBy,
     listen: true,
   });
-  console.log(data);
   const [accionSeleccion, setAcccionSeleccion] = useState(null);
   const [rowSeleccion, setRowSeleccion] = useState(null);
   const [selectionModel, setSelectionModel] = useState(

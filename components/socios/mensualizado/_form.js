@@ -35,19 +35,23 @@ export default function FormMensualizado({ values, setFieldValue }) {
     setFieldValue(`label_tipoCuenta`, item.label_tipoCuenta);
   };
   const cambiaCuenta = (item) => {
-    console.log(item);
     if (item) setItemsCuenta(item);
   };
   const cambiaTipoPeriodo = (value, item) => {
-    setFieldValue(
-      `esConAsistencia`,
-      item.esConAsistencia ? item.esConAsistencia : false
-    );
-    setFieldValue(`cantidadAsistenciasMinimas`, item.cantidadMinimaAsistencias);
+    if (item) {
+      setFieldValue(
+        `esConAsistencia`,
+        item.esConAsistencia ? item.esConAsistencia : false
+      );
+      setFieldValue(
+        `cantidadAsistenciasMinimas`,
+        item.cantidadMinimaAsistencias
+      );
+    }
   };
 
   const cambiaActividad = (valor, item) => {
-    setActividadSeleccion(item);
+    if (item) setActividadSeleccion(item);
   };
   const cambiaPromo = (valor, registro) => {
     let importe = 0;
@@ -66,8 +70,18 @@ export default function FormMensualizado({ values, setFieldValue }) {
 
   return (
     <Grid container sx={{ p: 2 }} spacing={2}>
+      <Grid item md={12}>
+        <Typography variant="caption">
+          ** IMPORTANTE: a partir del campo "FECHA INICIO" se comenzara a
+          generar la deuda
+        </Typography>
+      </Grid>
       <Grid item md={3}>
         <SelectFecha label="Fecha " campo="fecha" />
+      </Grid>
+
+      <Grid item md={3}>
+        <SelectFecha label="Fecha Inicio" campo="fechaInicio" />
       </Grid>
       <Grid item md={2}>
         <Switch label="Suspendida" campo="suspendida" />
@@ -80,11 +94,7 @@ export default function FormMensualizado({ values, setFieldValue }) {
       <Grid item md={4}>
         <Switch label="Es Debito Automatico?" campo="esPorDebitoAutomatico" />
       </Grid>
-      {values.esPorDebitoAutomatico && (
-        <Grid item sx={{ flex: 1 }} md={3}>
-          <SelectFecha label="Fecha Inicio" campo="fechaInicio" />
-        </Grid>
-      )}
+
       {values.esPorDebitoAutomatico && (
         <Grid item md={8}>
           <SelectFormikAlgolia

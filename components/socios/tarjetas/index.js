@@ -136,6 +136,7 @@ export default function TarjetasSocio({ data, mod }) {
           order={order}
           // callbackclick={callbackclick}
           icono={icono}
+          labelNuevo="agregar credencial"
           acciones={acciones}
           Modelo={ModeloTarjetas}
           valoresIniciales={valoresInicialesTarjetas}

@@ -15,6 +15,7 @@ export default function AutoCompleteAsync({
   loading,
   fnCambia,
   fnClick,
+  defaultValue,
   icono,
   labelItems,
 }) {
@@ -89,6 +90,8 @@ export default function AutoCompleteAsync({
           {...params}
           label={label}
           onChange={fnCambia}
+          defaultValue={defaultValue}
+          value={defaultValue}
           inputRef={inputRef}
           autoFocus
           InputProps={{

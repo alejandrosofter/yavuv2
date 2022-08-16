@@ -26,16 +26,18 @@ const SelectFecha = ({ label, campo, callbackChange }) => {
     <FormControl fullWidth>
       <Field label={label} name={campo} id={campo}>
         {(props) => {
-          if (!props.form.values[`${campo}_timestamp`])
-            console.log(props.form.values[`${campo}`]);
-          // props.form.setFieldValue(
-          //   `${campo}_timestamp`,
-          //   props.form.values[campo]?.getTime()
-          // );
           const handleChange = (newValue) => {
-            props.form.setFieldValue(campo, newValue);
-            props.form.setFieldValue(`${campo}_timestamp`, newValue.getTime());
-            if (callbackChange) callbackChange(newValue);
+            //set hours to 0
+            if (newValue) {
+              newValue.setHours(0);
+              newValue.setMinutes(0);
+              props.form.setFieldValue(campo, newValue);
+              props.form.setFieldValue(
+                `${campo}_timestamp`,
+                newValue.getTime()
+              );
+              if (callbackChange) callbackChange(newValue);
+            }
           };
           return (
             <LocalizationProvider dateAdapter={AdapterDateFns}>

@@ -36,6 +36,7 @@ export default function DocumentacionSocio({ data, mod }) {
           coleccion={`socios/${data?.id}/${subColeccion}`}
           columns={cols}
           order={order}
+          labelNuevo="Agregar documentacion"
           // callbackclick={callbackclick}
           icono={icono}
           Modelo={ModeloDocumentos}
