@@ -69,6 +69,7 @@ export function orderArray(arr, campo) {
 export function localstorageParser(key) {
   if (typeof window !== "undefined") {
     const item = localStorage.getItem(key);
+
     return item ? JSON.parse(item) : null;
   }
   return;

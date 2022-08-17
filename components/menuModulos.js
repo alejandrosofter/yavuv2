@@ -43,6 +43,7 @@ export default function MenuModulos({}) {
       });
   }, [data]);
   const menusIguales = (data1, data2) => {
+    if (!data1 || !data2) return false;
     if (data1.length !== data2.length) return false;
     for (let i = 0; i < data1.length; i++) {
       if (data1[i].label !== data2[i].label) return false;
