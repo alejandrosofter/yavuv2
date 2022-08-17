@@ -12,7 +12,6 @@ import Link from "next/link";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { groupBy, localstorageParser, orderArray } from "@helpers/arrays";
 import { useEffect, useState } from "react";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
 
 export default function MenuModulos({}) {
   const [dataMenu, setDataMenu] = useState(localstorageParser("dataMenu"));
@@ -102,7 +101,11 @@ export default function MenuModulos({}) {
               <Icon className={item.iconoParent} />
             </ListItemIcon>
             <ListItemText primary={item.nombreGrupo} />
-            {item.open ? <ExpandLess /> : <ExpandMore />}
+            {item.open ? (
+              <Icon className="fas fa-angle-down" />
+            ) : (
+              <Icon className="fas fa-angle-up" />
+            )}
           </ListItem>
           <SubItemsMenu open={item.open} items={item.items} />
         </>
