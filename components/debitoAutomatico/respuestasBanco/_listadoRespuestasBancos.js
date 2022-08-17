@@ -122,7 +122,7 @@ export default function ListadoRespuestasBanco({ idDebito, callbackcambia }) {
           onClick={clickLista}
           fnRender={(item) =>
             `${getFechaString(item.fecha)} ${item.estado} ${
-              item.cantidadProcesada
+              item.cantidadProcesada ? item.cantidadProcesada : "0"
             }`
           }
           items={data}

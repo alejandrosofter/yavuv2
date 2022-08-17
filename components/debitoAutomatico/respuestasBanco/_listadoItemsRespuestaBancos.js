@@ -90,7 +90,7 @@ export default function ListadoItemsBanco({ idDebito, respuestaBanco }) {
           <Stack direction="row" spacing={2}>
             <Box>
               {params.value.map((item) => (
-                <a href={`#${item.id}`} id={item.id}>
+                <a key={item.id} href={`#${item.id}`} id={item.id}>
                   <Typography
                     onClick={clickSocio.bind(this, item)}
                     variant="caption"
@@ -108,9 +108,23 @@ export default function ListadoItemsBanco({ idDebito, respuestaBanco }) {
       },
     },
     {
+      field: "dataMach2",
+      headerName: "$ TOTAL",
+      width: 120,
+      renderCell: (
+        params //sumatoria de los importes de los socios
+      ) =>
+        formatMoney(
+          params.row.dataMach.reduce(
+            (a, b) => a + Number(b.idProducto_importe),
+            0
+          )
+        ),
+    },
+    {
       field: "estado",
       headerName: "Estado",
-      width: 120,
+      width: 80,
     },
   ];
 

@@ -14,12 +14,17 @@ import SelectTipoPeriodo from "./selectorTipoPeriodos";
 import SelectActividadGrupo from "@components/actividades/selectActividadGrupo";
 import SelectActividades from "@components/actividades/selectActividad";
 import SelectGrupos from "@components/actividades/grupos/select";
+import NuevoDialogCbu from "@components/cuentasCbu/nuevoDialog";
 
 export default function FormMensualizado({ values, setFieldValue }) {
   const [openEditarCbu, setOpenEditarCbu] = useState(false);
+  const [openNuevoCbu, setOpenNuevoCbu] = useState(false);
   const [actividadSeleccion, setActividadSeleccion] = useState();
   useEffect(() => {}, [values.esPorDebitoAutomatico]);
   const clickEditarCbu = () => {
+    setOpenNuevoCbu(true);
+  };
+  const clickNuevoCbu = () => {
     setOpenEditarCbu(true);
   };
   const editoCbuSuccess = (item) => {
@@ -72,8 +77,8 @@ export default function FormMensualizado({ values, setFieldValue }) {
     <Grid container sx={{ p: 2 }} spacing={2}>
       <Grid item md={12}>
         <Typography variant="caption">
-          ** IMPORTANTE: a partir del campo "FECHA INICIO" se comenzara a
-          generar la deuda
+          ** IMPORTANTE: a partir del campo FECHA INICIO se comenzara a generar
+          la deuda
         </Typography>
       </Grid>
       <Grid item md={3}>
@@ -114,6 +119,13 @@ export default function FormMensualizado({ values, setFieldValue }) {
               size="small"
               onClick={clickEditarCbu}
               className="fas fa-pencil"
+              title="Editar"
+            ></IconButton>
+            <IconButton
+              size="small"
+              onClick={clickNuevoCbu}
+              className="fas fa-plus"
+              title="Agregar Cuenta"
             ></IconButton>
           </Typography>
         </Grid>
@@ -139,6 +151,11 @@ export default function FormMensualizado({ values, setFieldValue }) {
       </Grid>
       <EditarDialogCbu
         idItem={values.idCuentaCbu}
+        open={openEditarCbu}
+        setOpen={setOpenEditarCbu}
+        callbackSuccess={editoCbuSuccess}
+      />
+      <NuevoDialogCbu
         open={openEditarCbu}
         setOpen={setOpenEditarCbu}
         callbackSuccess={editoCbuSuccess}

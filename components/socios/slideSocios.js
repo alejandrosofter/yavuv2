@@ -29,7 +29,7 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
     startAfter,
     listen: true,
   });
-  console.log(tipoSocio);
+
   const clickSocio = (item) => {
     if (callBackCambia) callBackCambia({ ...item, objectID: item.id });
   };
@@ -88,6 +88,7 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
         {data &&
           data.map((item) => (
             <Stack
+              key={item.id}
               onClick={clickSocio.bind(this, item)}
               sx={{ cursor: "pointer" }}
             >

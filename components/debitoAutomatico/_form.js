@@ -27,12 +27,12 @@ export default function FormCobranzaGrupal({ setFieldValue, values }) {
           <Typography variant="caption">
             ** IMPORTANTE: El sistema buscara todas las deudas de socios que
             esten PENDIENTES,con DEBITO AUTOMATICO habilitado y que coincida con
-            el campo "Tipo Cuenta" (banco)
+            el campo Tipo Cuenta (banco)
           </Typography>
           <Typography variant="caption">
-            ** IMPORTANTE: El campo "Forma de Pago" sera la forma de pago que
-            sera seteada en los COBROS efectivos una vez aplicados las
-            respuestas de banco.
+            ** IMPORTANTE: El campo FORMA DE PAGO sera la forma de pago que sera
+            seteada en los COBROS efectivos una vez aplicados las respuestas de
+            banco.
           </Typography>
         </Stack>
       </Grid>

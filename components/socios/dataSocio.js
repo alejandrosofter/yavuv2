@@ -6,7 +6,6 @@ import Link from "next/link";
 import ConfirmDialog from "@components/forms/confirmDialog";
 import { useState } from "react";
 export default function DataSocio({ dataSocio, mod, callbackdelete }) {
-  if (!dataSocio) return "Sin Seleccion de Socio";
   const [openConfirm, setOpenConfirm] = useState(false);
   const borrarSocio = () => {
     fuego.db
@@ -26,6 +25,7 @@ export default function DataSocio({ dataSocio, mod, callbackdelete }) {
     : dataSocio.sexo === "masculino"
     ? "blue"
     : "#ff00d4";
+  if (!dataSocio) return "Sin Seleccion de Socio";
   return (
     <Grid sx={{ pl: 4 }} alignItems={`center`} container>
       <Grid item md={1}>

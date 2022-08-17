@@ -22,12 +22,12 @@ export default function FormGeneracionDeudas({ setFieldValue, values }) {
         <Stack>
           <Typography variant="caption">
             ** IMPORTANTE: El sistema buscara en todos los socios MENSUALIZADOS
-            que tengan fecha superior al valor del campo "FECHA".
+            que tengan fecha superior al valor del campo FECHA.
           </Typography>
           <Typography variant="caption">
             ** IMPORTANTE: Para los que paguen con DEBITO AUTOMATICO la fecha
-            Vto sera el valor del campo "Fecha Vto Debito" y para el resto sera
-            el valor del campo "Fecha Vto Otros"
+            Vto sera el valor del campo Fecha Vto Debito y para el resto sera el
+            valor del campo Fecha Vto Otros
           </Typography>
         </Stack>
       </Grid>
@@ -36,9 +36,15 @@ export default function FormGeneracionDeudas({ setFieldValue, values }) {
       </Grid>
       <Grid item md={2}>
         <SelectFecha label="Fecha Vto Debito" campo="fechaVto" />
+        <Typography variant="caption">
+          ** INFO: fecha de vto para las deudas con DEBITO AUTOMATICO
+        </Typography>
       </Grid>
       <Grid item md={2}>
         <SelectFecha label="Fecha Vto Otros" campo="fechaVtoOtros" />
+        <Typography variant="caption">
+          ** INFO: fecha de vto para las deudas que no sean de DEBITO AUTOMATICO
+        </Typography>
       </Grid>
       <Grid item md={2}>
         <SelectEstaticFormik
