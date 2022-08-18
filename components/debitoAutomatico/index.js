@@ -27,7 +27,15 @@ export default function Modulo({ mod }) {
       headerName: "Tipo Cuenta",
       width: 120,
     },
-
+    {
+      field: "vtos",
+      headerName: "VTOS",
+      width: 230,
+      renderCell: (params) =>
+        `1er ${getFechaString(params.row.primerVto)} | 2do ${getFechaString(
+          params.row.segundoVto
+        )} | 3er ${getFechaString(params.row.tercerVto)} | `,
+    },
     {
       field: "importeTotal",
       headerName: "$ Total",
@@ -40,6 +48,7 @@ export default function Modulo({ mod }) {
       width: 120,
       renderCell: (params) => `${formatMoney(params.value ? params.value : 0)}`,
     },
+
     {
       field: "cantidadProcesada",
       headerName: "Procesados",

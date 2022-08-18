@@ -20,7 +20,15 @@ export default function ColeccionTable({
   const { data, error, update } = useCollection(coleccion, {
     where,
     limit,
-    parseDates: ["fecha"],
+    parseDates: [
+      "fecha",
+      "fechaVto",
+      "fechaDesde",
+      "fechaHasta",
+      "fechaNacimiento",
+      "fechaInicio",
+      "fechaFin",
+    ],
     orderBy,
     listen: true,
   });

@@ -31,7 +31,7 @@ export default function Modulo({ mod }) {
 
   let fnAcciones = {
     aplicar: (data) => {
-      setDataConsulta({ url: "/api/afiliaciones/aplicar", data });
+      setDataConsulta({ url: "/api/desafiliaciones/aplicar", data });
     },
     imprimir: (data) => {
       setOpenImpresion(true);

@@ -95,20 +95,7 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
             }
             {...a11yProps(2)}
           /> */}
-          {/* <Tab
-            icon={<Icon className="fas fa-heart" />}
-            iconPosition="top"
-            label={
-              <BadgeIcono
-                label="Estados"
-                cantidad={
-                  dataSocio.cambiosEstado ? dataSocio.cambiosEstado.length : 0
-                }
-                icono="fas fa-heart"
-              />
-            }
-            {...a11yProps(1)}
-          /> */}
+
           <Tab
             icon={<Icon className="fas fa-id-card" />}
             iconPosition="top"
@@ -141,12 +128,17 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
             label={<BadgeIcono label="Promociones" icono="fas fa-gift" />}
             {...a11yProps(3)}
           />
-
+          <Tab
+            icon={<Icon className="fas fa-heart" />}
+            iconPosition="top"
+            label={<BadgeIcono label="Estados" icono="fas fa-heart" />}
+            {...a11yProps(4)}
+          />
           <Tab
             icon={<Icon className="fas fa-calendar" />}
             iconPosition="top"
             label={<BadgeIcono label="Mensualizado" icono="fas fa-calendar" />}
-            {...a11yProps(4)}
+            {...a11yProps(5)}
           />
         </Tabs>
       </Grid>
@@ -158,9 +150,7 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
         <TabPanel value={value} index={1}>
           <ActividadesSocio mod={mod} data={dataSocio} />
         </TabPanel> */}
-        {/* <TabPanel value={value} index={1}>
-          <CambiosEstadoSocio mod={mod} data={dataSocio} />
-        </TabPanel> */}
+
         <TabPanel value={value} index={1}>
           <TarjetasSocio mod={mod} data={dataSocio} />
         </TabPanel>
@@ -173,8 +163,10 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
         <TabPanel value={value} index={3}>
           <PromocionesSocio mod={mod} auth={auth} data={dataSocio} />
         </TabPanel>
-
         <TabPanel value={value} index={4}>
+          <CambiosEstadoSocio mod={mod} data={dataSocio} />
+        </TabPanel>
+        <TabPanel value={value} index={5}>
           <Mensualizado mod={mod} data={dataSocio} />
         </TabPanel>
       </Grid>

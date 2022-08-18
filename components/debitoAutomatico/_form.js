@@ -37,14 +37,24 @@ export default function FormCobranzaGrupal({ setFieldValue, values }) {
         </Stack>
       </Grid>
       <Grid item md={2}>
+        <SelectFecha label="Fecha" campo="fecha" />
+      </Grid>
+      <Grid item md={2}>
         <SelectEstaticFormik
           items={["PENDIENTE", "GENERADO", "PROCESANDO", "PROCESADO"]}
           label="ESTADO"
           campo="estado"
         />
       </Grid>
+
       <Grid item md={2}>
-        <SelectFecha label="Fecha" campo="fecha" />
+        <SelectFecha label="1er VTO" campo="primerVto" />
+      </Grid>
+      <Grid item md={2}>
+        <SelectFecha label="2do VTO" campo="segundoVto" />
+      </Grid>
+      <Grid item md={2}>
+        <SelectFecha label="3er VTO" campo="tercerVto" />
       </Grid>
       <Grid item md={2}>
         <Input label="CUIT Empresa" campo="cuit" />

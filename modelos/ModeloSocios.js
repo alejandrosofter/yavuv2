@@ -6,7 +6,7 @@ export default function ModeloSocios() {
     nombre: yup.string().required("El NOMBRE del socio es necesario!"),
     apellido: yup.string().required("El APELLIDO del socio tambien!"),
     nroSocio: yup
-      .string()
+      .number()
       .required("Es necesario el NRO DE SOCIO!")
       .test(
         "NRO SOCIO no existente",
@@ -299,6 +299,7 @@ export function valoresInicialesMovimiento({ dataInicial }) {
     importe: 0,
     fecha: new Date(),
     fechaVto: new Date(),
+    estado: "PENDIENTE",
     cantidad: 1,
     importeBonificacion: 0,
     nroRecivo: dataInicial ? dataInicial.nroRecivo : "",

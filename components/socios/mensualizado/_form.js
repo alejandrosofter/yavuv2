@@ -22,13 +22,14 @@ export default function FormMensualizado({ values, setFieldValue }) {
   const [actividadSeleccion, setActividadSeleccion] = useState();
   useEffect(() => {}, [values.esPorDebitoAutomatico]);
   const clickEditarCbu = () => {
-    setOpenNuevoCbu(true);
-  };
-  const clickNuevoCbu = () => {
     setOpenEditarCbu(true);
   };
-  const editoCbuSuccess = (item) => {
+  const clickNuevoCbu = () => {
+    setOpenNuevoCbu(true);
+  };
+  const cbSuccessCbus = (item) => {
     setOpenEditarCbu(false);
+    setOpenNuevoCbu(false);
     setItemsCuenta(item);
   };
   const setItemsCuenta = (item) => {
@@ -153,12 +154,12 @@ export default function FormMensualizado({ values, setFieldValue }) {
         idItem={values.idCuentaCbu}
         open={openEditarCbu}
         setOpen={setOpenEditarCbu}
-        callbackSuccess={editoCbuSuccess}
+        callbackSuccess={cbSuccessCbus}
       />
       <NuevoDialogCbu
-        open={openEditarCbu}
-        setOpen={setOpenEditarCbu}
-        callbackSuccess={editoCbuSuccess}
+        open={openNuevoCbu}
+        setOpen={setOpenNuevoCbu}
+        callbackSuccess={cbSuccessCbus}
       />
     </Grid>
   );
