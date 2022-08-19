@@ -35,14 +35,15 @@ export function UsePlantilla({ id, data }) {
     if (!strTemplate) return "No hay plantilla para mostrar";
     const data = await addData(datos);
     Handlebars.registerHelper("mayu", function (aString) {
-      return aString.toUpperCase();
+      if (!aString) return "";
+      return `${aString}`.toUpperCase();
     });
     Handlebars.registerHelper("numero", function (aString) {
-      return aString.toFixed(2);
+      if (!aString) return "";
+      return `${aString}`.toFixed(2);
     });
 
     Handlebars.registerHelper("importe", function (importe) {
-      console.log(importe);
       return formatMoney(importe);
     });
     Handlebars.registerHelper("letraFiscal", function (tipoComprobante) {
@@ -119,6 +120,17 @@ export function UsePlantilla({ id, data }) {
         return formatMoney(suma);
       }
     );
+
+    Handlebars.registerHelper("esAlta", function (estado) {
+      //SUMO el importe de actividades que sean por debito
+      if (estado === "ALTA") return true;
+      return false;
+    });
+    Handlebars.registerHelper("esBaja", function (estado) {
+      //SUMO el importe de actividades que sean por debito
+      if (estado === "BAJA") return true;
+      return false;
+    });
 
     Handlebars.registerHelper("importeTotal", function (data, campo) {
       //suma el campo importe del array data

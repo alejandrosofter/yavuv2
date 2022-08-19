@@ -82,6 +82,13 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
           {" "}
           <DataInfoPhoto fnCambia={agregarValoresImagen} />
         </Grid> */}
+        <Grid item md={2}>
+          <SelectEstaticFormik
+            items={["ALTA", "BAJA", "SUSPENDIDO"]}
+            label="ESTADO"
+            campo={getFieldName(field, `estado`)}
+          />
+        </Grid>
         <Grid item md={3}>
           <SelectFormik
             callbackchange={cambiaTipoSocio}
@@ -119,6 +126,9 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
         <Grid item md={2}>
           <Input label="D.N.I " campo={getFieldName(field, `dni`)} />
         </Grid>
+        <Grid item md={2}>
+          <Input label="Profesion " campo={getFieldName(field, `profesion`)} />
+        </Grid>
         <Grid item md={3}>
           <SelectEstaticFormik
             items={["femenino", "masculino"]}
@@ -126,19 +136,13 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
             campo={getFieldName(field, `sexo`)}
           />
         </Grid>
-        <Grid item md={4}>
+        <Grid item md={3}>
           <Input label="Nombre " campo={getFieldName(field, `nombre`)} />
         </Grid>
         <Grid item md={3}>
           <Input label="Apellido " campo={getFieldName(field, `apellido`)} />
         </Grid>
-        <Grid item md={2}>
-          <SelectEstaticFormik
-            items={["ALTA", "BAJA", "SUSPENDIDO"]}
-            label="ESTADO"
-            campo={getFieldName(field, `estado`)}
-          />
-        </Grid>
+
         <Grid item md={3}>
           <SelectEstaticFormik
             items={["Soltero/a", "Casado/a", "Otros"]}
@@ -168,11 +172,16 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
           />
         </Grid>
 
-        <Grid item md={3}>
+        <Grid item md={5}>
           <Input label="Domicilio " campo={getFieldName(field, `domicilio`)} />
         </Grid>
+
         <Grid item md={3}>
-          <Input label="Localidad" campo={getFieldName(field, `localidad`)} />
+          <SelectEstaticFormik
+            items={["Comodoro Rivadavia", "Rada Tilly"]}
+            label="Localidad"
+            campo={getFieldName(field, `localidad`)}
+          />
         </Grid>
         <Grid item md={3}>
           <Input
@@ -180,7 +189,7 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
             campo={getFieldName(field, `telefonoMobil`)}
           />
         </Grid>
-        <Grid item md={3}>
+        <Grid item md={2}>
           <Input
             label="Telefono Secundario"
             campo={getFieldName(field, `telefonoMobilSecundario`)}

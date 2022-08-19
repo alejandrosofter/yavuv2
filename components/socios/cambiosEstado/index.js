@@ -10,12 +10,22 @@ import ABMColeccion from "@components/forms/ABMcollection";
 import moment from "moment";
 import Form from "./_formCambiosEstado";
 import { getFechaString } from "@helpers/dates";
+import { UsePlantilla } from "@components/plantillas/usePlantilla";
+import ImpresionDialog from "@components/forms/impresion";
+import { localstorageParser } from "@helpers/arrays";
 export default function CambiosEstadoSocio({ data, mod }) {
   const order = ["fechaInicio"];
   const subColeccion = "cambiosEstado";
   const icono = "fas fa-dumbbell";
   const titulo = `CAMBIOS DE ESTADO SOCIO `;
   const [seleccion, setSeleccion] = useState(null);
+  const idPlantilla = mod.config?.plantillaCambioEstado;
+  const [openImpresion, setOpenImpresion] = useState(false);
+  const [dataImpresion, setDataImpresion] = useState();
+  const [plantilla, setPlantilla] = UsePlantilla({
+    id: idPlantilla,
+    data: dataImpresion,
+  });
   const cols = [
     {
       field: "fecha",
@@ -31,31 +41,38 @@ export default function CambiosEstadoSocio({ data, mod }) {
     {
       field: "label_motivo",
       headerName: "Motivo",
-      width: 300,
+      width: 250,
     },
     {
-      field: "detalle",
-      headerName: "Acota",
-      width: 180,
+      field: "estadoCambioEstado",
+      headerName: "Status",
+      width: 380,
+      renderCell: (params) => {
+        return params.value ? params.value : "PENDIENTE";
+      },
     },
   ];
-  const cambiaEstado = async (valores, tipo) => {
-    if (tipo === "nuevo") {
-      await fuego.db
-        .collection("socios")
-        .doc(data.id)
-        .update({ estado: valores.estado });
-    }
-    await fetch(`/api/socios/checkMensualizado/${data.id}`);
-  };
+  const acciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-share-alt",
+      label: "Compartir",
+      fn: (row) => {
+        const socio = localstorageParser("socioSeleccion");
+        setDataImpresion({ ...row, ...socio });
+        setOpenImpresion(true);
+      },
+    },
+  ];
+
   return (
     <Grid container>
       <Grid item xs={12}>
         <ABMColeccion
+          acciones={acciones}
           coleccion={`socios/${data?.id}/${subColeccion}`}
           columns={cols}
           order={order}
-          // callbackclick={callbackclick}
           icono={icono}
           Modelo={ModeloCambioEstado}
           valoresIniciales={valoresInicialesCambioEstado}
@@ -64,6 +81,16 @@ export default function CambiosEstadoSocio({ data, mod }) {
           Form={Form}
         />
       </Grid>
+      <ImpresionDialog
+        titulo="IMPRESIÓN CAMBIO DE ESTADO"
+        setOpen={setOpenImpresion}
+        open={openImpresion}
+        asunto="ESTADO SOCIO "
+        data={dataImpresion}
+        plantilla={plantilla}
+        nombrePlantillaEmail="emailAfiliacion"
+        attachments={[{ filename: "AFILIACION.pdf", data: plantilla }]}
+      />
     </Grid>
   );
 }

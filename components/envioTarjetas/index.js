@@ -24,11 +24,7 @@ export default function Modulo({ mod }) {
       headerName: "Cantidad Tarjetas",
       width: 170,
     },
-    {
-      field: "cantidadProcesada",
-      headerName: "Cantidad Procesada",
-      width: 170,
-    },
+
     {
       field: "email",
       headerName: "Enviar a ...",

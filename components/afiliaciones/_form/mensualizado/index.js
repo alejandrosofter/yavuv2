@@ -11,9 +11,6 @@ export default function Modulo({ mod, setFieldValue, values }) {
   const [openNuevoCbu, setOpenNuevoCbu] = useState(false);
   return (
     <Stack>
-      <Button onClick={() => setOpenNuevoCbu(true)}>
-        <Icon className="fas fa-plus" /> Agregar CBU/CVU
-      </Button>
       <ItemsModulo
         setFieldValue={setFieldValue}
         labelBtnAgregar="AGREGAR MENSUALIZACION"

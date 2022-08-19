@@ -27,13 +27,16 @@ export default function FormMensualizado({ values, setFieldValue }) {
   const clickNuevoCbu = () => {
     setOpenNuevoCbu(true);
   };
-  const cbSuccessCbus = (item) => {
+  const cbSuccessCbus = (item, res) => {
+    console.log(res, item);
     setOpenEditarCbu(false);
     setOpenNuevoCbu(false);
     setItemsCuenta(item);
   };
   const setItemsCuenta = (item) => {
+    console.log(item);
     setFieldValue(`banco`, item.banco);
+
     setFieldValue(`cbu`, item.cbu);
     setFieldValue(`titular`, item.titular);
     setFieldValue(`nroCuenta`, item.nroCuenta);
@@ -107,7 +110,9 @@ export default function FormMensualizado({ values, setFieldValue }) {
             coleccionAlgolia={"cuentasCbu"}
             label="Cuenta CBU"
             labelItems={(opt) =>
-              `${opt.titular} ${opt.dniTitular ? opt.dniTitular : "(sin dni)"}`
+              `${opt.titular} - ${opt.cbu} - ${
+                opt.dniTitular ? opt.dniTitular : ""
+              }`
             }
             campo="idCuentaCbu"
             callbackchange={cambiaCuenta}

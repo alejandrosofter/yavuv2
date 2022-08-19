@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { getFechaString } from "@helpers/dates";
 import { Grid } from "@mui/material";
@@ -8,6 +8,8 @@ import {
   ModeloDocumentos,
   valoresInicialesDocumentacion,
 } from "@modelos/ModeloSocios";
+import MuestraImagen from "@components/forms/muestraImagen";
+import MuestraImagenDialog from "@components/forms/muestraImagenDialog";
 export const cols = [
   {
     field: "fechaVto",
@@ -21,18 +23,31 @@ export const cols = [
     width: 180,
   },
 ];
+
 export default function DocumentacionSocio({ data, mod }) {
+  const [seleccion, setSeleccion] = useState(null);
+  const [openMuestraImagen, setOpenMuestraImagen] = useState(false);
   const order = ["fechaVto", "desc"];
   const subColeccion = "documentos";
   const icono = "fas fa-image";
   const titulo = `DOCUMENTACION `;
 
-  const clickImprimir = useCallback((data) => () => {}, []);
-
+  const acciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-image",
+      label: "Ver Documento",
+      fn: (row) => {
+        setSeleccion(row);
+        setOpenMuestraImagen(true);
+      },
+    },
+  ];
   return (
     <Grid container>
       <Grid item xs={12}>
         <ABMColeccion
+          acciones={acciones}
           coleccion={`socios/${data?.id}/${subColeccion}`}
           columns={cols}
           order={order}
@@ -46,6 +61,11 @@ export default function DocumentacionSocio({ data, mod }) {
           Form={Form}
         />
       </Grid>
+      <MuestraImagenDialog
+        open={openMuestraImagen}
+        setOpen={setOpenMuestraImagen}
+        pathImagen={seleccion?.imagen}
+      />
     </Grid>
   );
 }

@@ -8,6 +8,8 @@ import Tooltip from "@mui/material/Tooltip";
 import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 import ABMColeccion from "@components/forms/ABMcollection";
 import Form from "./_form";
+import ImpresionDialog from "@components/forms/impresion";
+import { UsePlantilla } from "@components/plantillas/usePlantilla";
 export const cols = [
   {
     field: "esPorDebitoAutomatico",
@@ -77,15 +79,32 @@ export default function CuentaSocio({ data, mod }) {
   const subColeccion = "mensualizado";
   const icono = "fas fa-file-invoice-dollar";
   const titulo = `COMPROMISOS MENSUALES `;
-
+  const idPlantilla = mod.config?.plantillaMensualizacion;
+  const [openImpresion, setOpenImpresion] = useState(false);
+  const [dataImpresion, setDataImpresion] = useState();
+  const [plantilla, setPlantilla] = UsePlantilla({
+    id: idPlantilla,
+    data: dataImpresion,
+  });
   const getRowClassName = (params) => {
     if (params.row.suspendida) return "disabled";
   };
-
+  const acciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-share-alt",
+      label: "Compartir",
+      fn: (row) => {
+        setDataImpresion(row);
+        setOpenImpresion(true);
+      },
+    },
+  ];
   return (
     <Grid container>
       <Grid item xs={12}>
         <ABMColeccion
+          acciones={acciones}
           coleccion={`socios/${data?.id}/${subColeccion}`}
           columns={cols}
           labelNuevo="Agregar compromiso mensual"
@@ -108,6 +127,17 @@ export default function CuentaSocio({ data, mod }) {
           Form={Form}
         />
       </Grid>
+      <ImpresionDialog
+        titulo="IMPRESIÓN MENSUALIZACION"
+        setOpen={setOpenImpresion}
+        open={openImpresion}
+        asunto="MENSUALIZACION "
+        data={dataImpresion}
+        plantilla={plantilla}
+        emailDefault={dataImpresion?.socio?.email}
+        nombrePlantillaEmail="emailAfiliacion"
+        attachments={[{ filename: "AFILIACION.pdf", data: plantilla }]}
+      />
     </Grid>
   );
 }

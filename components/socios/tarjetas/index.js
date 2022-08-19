@@ -13,6 +13,7 @@ import ABMColeccion from "@components/forms/ABMcollection";
 import Form from "./_formTarjetas";
 import { getFechaString } from "@helpers/dates";
 import UseCuenta from "@components/cuentas/useCuenta";
+import { QueryApi } from "@helpers/queryApi";
 export const cols = [
   {
     field: "fecha",
@@ -49,6 +50,7 @@ export default function TarjetasSocio({ data, mod }) {
   const [cuenta, setCuenta] = UseCuenta();
   const [openCompartir, setOpenCompartir] = useState();
   const [dataSeleccion, setDataSeleccion] = useState();
+  const [dataConsulta, setDataConsulta] = useState();
   const [loading, setLoading] = useState(false);
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantillaCredencial,
@@ -84,48 +86,18 @@ export default function TarjetasSocio({ data, mod }) {
       label: "Enviar Impresion Terceros",
       fn: (row) => {
         setDataSeleccion(row);
-        clickImprimirTerceros(row);
+        setDataConsulta({
+          url: "/api/envioTarjetas/sendTarjeta",
+          data: {
+            idTarjeta: row.id,
+            idSocio: data.id,
+            tk: data.idUsuario,
+            ...data,
+          },
+        });
       },
     },
   ];
-
-  const clickImprimir = useCallback(
-    (dataCredencial) => () => {
-      setDataSeleccion({ ...data, dataCredencial });
-      setOpenCompartir(true); //uso esto para que cambie valor y abra el dialog.. si no cambia no abre
-    },
-    []
-  );
-  const enviarTercero = (dataCredencial) => {
-    setLoading(true);
-    console.log(dataCredencial, data);
-    axios
-      .get("/api/envioTarjetas/sendTarjeta", {
-        params: {
-          idTarjeta: dataCredencial.id,
-          idSocio: data.id,
-          nombre: data.nombre,
-          apellido: data.apellido,
-          id: data.id,
-          foto: data.foto,
-          tk: data.idUsuario,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
-  };
-  const clickImprimirTerceros = useCallback(
-    (dataCredencial) => () => {
-      enviarTercero(dataCredencial);
-    },
-    []
-  );
 
   return (
     <Grid container>
@@ -155,6 +127,7 @@ export default function TarjetasSocio({ data, mod }) {
         plantilla={plantilla}
         attachments={[{ filename: "CREDENCIAL.pdf", data: plantilla }]}
       />
+      <QueryApi dataConsulta={dataConsulta} />
     </Grid>
   );
 }

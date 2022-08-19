@@ -19,8 +19,9 @@ import {
 import TabsFormik, { TabPanel } from "../../forms/tab";
 import Grid from "@mui/material/Grid";
 import Input from "../../forms/input";
-import { Typography } from "@mui/material";
+import { Button, Icon, Typography } from "@mui/material";
 import FormTipoPeriodos from "./_formTIpoPeriodos";
+import SelectCamara from "./selectCamara";
 
 export default function FormConfig({}) {
   return (
@@ -127,6 +128,24 @@ export default function FormConfig({}) {
                 <SelectPlantilla
                   campo="plantillaCredencial"
                   label="Credencial"
+                />
+              </Grid>
+              <Grid item md={3}>
+                <Typography variant="caption" component="div" gutterBottom>
+                  Plantilla Mensual
+                </Typography>
+                <SelectPlantilla
+                  campo="plantillaMensualizacion"
+                  label="Mensualizacion"
+                />
+              </Grid>
+              <Grid item md={3}>
+                <Typography variant="caption" component="div" gutterBottom>
+                  Cambio Estado
+                </Typography>
+                <SelectPlantilla
+                  campo="plantillaCambioEstado"
+                  label="Cambio Estado"
                 />
               </Grid>
               <Grid item md={3}>

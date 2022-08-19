@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 
 export default function SlideSocios({ callBackCambia, mod, seleccion }) {
   const campo = "nroSocio";
+
   const [startAfter, setAfter] = useState(
     seleccion ? Number(seleccion[campo]) : null
   );
+  const [startBefore, setBefore] = useState(null);
   const [tipoSocio, setTipoSocio] = useState(
     localStorage.getItem("tipoSocioSlide")
   );
@@ -29,7 +31,18 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
     startAfter,
     listen: true,
   });
+  const getUltimoTipo = (idTipo) => {
+    const ultimo = 0;
 
+    mod?.config?.itemsTipoSocios.forEach((item) => {
+      console.log(idTipo, item);
+      if (item.id === idTipo) {
+        ultimo = Number(item.proximoNro);
+      }
+    });
+    console.log(ultimo);
+    return ultimo;
+  };
   const clickSocio = (item) => {
     if (callBackCambia) callBackCambia({ ...item, objectID: item.id });
   };
@@ -60,7 +73,10 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
           title="IR AL INICIO"
           color="secondary"
           sx={{ width: "20px", p: 1 }}
-          onClick={() => setAfter(-500)}
+          onClick={() => {
+            setAfter(null);
+            setBefore(null);
+          }}
         >
           {`<<`}
         </IconButton>
@@ -73,7 +89,9 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
           title="PAGINA ANTERIOR"
           color="primary"
           sx={{ width: "20px", p: 1 }}
-          onClick={() => setAfter(startAfter - 9)}
+          onClick={() => {
+            setAfter(data[0][campo] - 10);
+          }}
         >
           {`<`}
         </IconButton>
@@ -112,7 +130,9 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
           title="PAGINA SIGUIENTE"
           color="primary"
           sx={{ width: "20px", p: 1 }}
-          onClick={() => setAfter(startAfter + 9)}
+          onClick={() => {
+            setAfter(data[data.length - 1][campo]);
+          }}
         >
           {`>`}
         </IconButton>
@@ -125,7 +145,9 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
           size="small"
           color="secondary"
           sx={{ width: "20px", p: 1 }}
-          onClick={() => setAfter(-500)}
+          onClick={() => {
+            setAfter(getUltimoTipo(tipoSocio));
+          }}
         >
           {`>>`}
         </IconButton>
