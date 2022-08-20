@@ -37,7 +37,9 @@ export function valoresIniciales() {
     estado: "ACTIVA",
     icono: "",
     acciones: [],
-    idUsuario: fuego.auth().currentUser.uid,
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
   };
 }
 ///////////////////////////////

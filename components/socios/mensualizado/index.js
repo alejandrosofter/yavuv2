@@ -59,17 +59,17 @@ export const cols = [
     renderCell: (params) =>
       renderCellExpandData(params, (row) => `${row.label_idProducto}`),
   },
-  {
-    field: "idProducto_importe",
-    headerName: "$ Importe",
-    width: 110,
-    renderCell: (params) => formatMoney(params.value),
-  },
+  // {
+  //   field: "idProducto_importe",
+  //   headerName: "$ Importe",
+  //   width: 110,
+  //   renderCell: (params) => formatMoney(params.value),
+  // },
 
   {
     field: "label_tipoPeriodo",
     headerName: "Tipo Periodo",
-    width: 110,
+    width: 160,
     renderCell: (params) =>
       renderCellExpandData(params, (row) => `${row.label_tipoPeriodo}`),
   },

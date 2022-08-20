@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 
 export default function SlideSocios({ callBackCambia, mod, seleccion }) {
   const campo = "nroSocio";
-
+  const [ultimaPagina, setUltimaPagina] = useState(false);
+  const [primerPagina, setPrimerPagina] = useState(false);
   const [startAfter, setAfter] = useState(
     seleccion ? Number(seleccion[campo]) : null
   );
@@ -17,12 +18,13 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
   useEffect(() => {
     setAfter(seleccion ? Number(seleccion[campo]) : null);
   }, [seleccion]);
+  console.log(mod);
   const tipoSocios = mod?.config?.itemsTipoSocios
     ? mod.config.itemsTipoSocios
     : [];
   const { data, error, update } = useCollection("socios", {
     where: [
-      ["idUsuario", "==", fuego.auth().currentUser?.uid],
+      ["idUsuario", "==", mod.idUsuario],
       ["estado", "==", "ALTA"],
       ["tipoSocio", "==", tipoSocio],
     ],
@@ -31,18 +33,25 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
     startAfter,
     listen: true,
   });
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setPrimerPagina(data[0][campo] === 1);
+      setUltimaPagina(
+        getUltimoTipo(tipoSocio) === Number(data[data.length - 1][campo])
+      );
+    }
+  }, [data]);
   const getUltimoTipo = (idTipo) => {
     const ultimo = 0;
 
     mod?.config?.itemsTipoSocios.forEach((item) => {
-      console.log(idTipo, item);
       if (item.id === idTipo) {
         ultimo = Number(item.proximoNro);
       }
     });
-    console.log(ultimo);
     return ultimo;
   };
+
   const clickSocio = (item) => {
     if (callBackCambia) callBackCambia({ ...item, objectID: item.id });
   };
@@ -65,37 +74,40 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
           }}
         />
       </Grid>
-      <Grid item>
-        {" "}
-        <IconButton
-          variant="outlined"
-          size="small"
-          title="IR AL INICIO"
-          color="secondary"
-          sx={{ width: "20px", p: 1 }}
-          onClick={() => {
-            setAfter(null);
-            setBefore(null);
-          }}
-        >
-          {`<<`}
-        </IconButton>
-      </Grid>
-      <Grid item>
-        {" "}
-        <IconButton
-          variant="outlined"
-          size="small"
-          title="PAGINA ANTERIOR"
-          color="primary"
-          sx={{ width: "20px", p: 1 }}
-          onClick={() => {
-            setAfter(data[0][campo] - 10);
-          }}
-        >
-          {`<`}
-        </IconButton>
-      </Grid>
+      {!primerPagina && (
+        <Grid item>
+          <IconButton
+            variant="outlined"
+            size="small"
+            title="IR AL INICIO"
+            color="secondary"
+            sx={{ width: "20px", p: 1 }}
+            onClick={() => {
+              setAfter(null);
+              setBefore(null);
+            }}
+          >
+            {`<<`}
+          </IconButton>
+        </Grid>
+      )}
+      {!primerPagina && (
+        <Grid item>
+          {" "}
+          <IconButton
+            variant="outlined"
+            size="small"
+            title="PAGINA ANTERIOR"
+            color="primary"
+            sx={{ width: "20px", p: 1 }}
+            onClick={() => {
+              setAfter(data[0][campo] - 20);
+            }}
+          >
+            {`<`}
+          </IconButton>
+        </Grid>
+      )}
       <Grid
         alignItems={`center`}
         direction="row"
@@ -122,35 +134,40 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
             </Stack>
           ))}
       </Grid>
+      {!ultimaPagina && (
+        <Grid item>
+          {" "}
+          <IconButton
+            variant="outlined"
+            size="small"
+            title="PAGINA SIGUIENTE"
+            color="primary"
+            sx={{ width: "20px", p: 1 }}
+            onClick={() => {
+              setAfter(data[data.length - 1][campo]);
+            }}
+          >
+            {`>`}
+          </IconButton>
+        </Grid>
+      )}
       <Grid item>
         {" "}
-        <IconButton
-          variant="outlined"
-          size="small"
-          title="PAGINA SIGUIENTE"
-          color="primary"
-          sx={{ width: "20px", p: 1 }}
-          onClick={() => {
-            setAfter(data[data.length - 1][campo]);
-          }}
-        >
-          {`>`}
-        </IconButton>
-      </Grid>
-      <Grid item>
-        {" "}
-        <IconButton
-          variant="outlined"
-          title="IR ULTIMA PAGINA"
-          size="small"
-          color="secondary"
-          sx={{ width: "20px", p: 1 }}
-          onClick={() => {
-            setAfter(getUltimoTipo(tipoSocio));
-          }}
-        >
-          {`>>`}
-        </IconButton>
+        {!ultimaPagina && (
+          <IconButton
+            variant="outlined"
+            title="IR ULTIMA PAGINA"
+            size="small"
+            disabled={ultimaPagina}
+            color="secondary"
+            sx={{ width: "20px", p: 1 }}
+            onClick={() => {
+              setAfter(getUltimoTipo(tipoSocio) - 10);
+            }}
+          >
+            {`>>`}
+          </IconButton>
+        )}
       </Grid>
     </Grid>
   );

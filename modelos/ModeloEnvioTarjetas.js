@@ -9,7 +9,9 @@ export function valoresIniciales() {
   return {
     estado: "PENDIENTE",
     fecha: new Date(),
-    idUsuario: fuego.auth().currentUser.uid,
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
   };
 }
 //////////////////

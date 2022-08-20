@@ -74,7 +74,7 @@ export const cols = [
     width: 90,
     renderCell: (params) => {
       const importe =
-        (params.row.importe ? params.row.importe : 0) -
+        (params.row.importe ? params.row.importe * params.row.cantidad : 0) -
         (params.row.importeBonificacion ? params.row.importeBonificacion : 0);
       return formatMoney(importe);
     },

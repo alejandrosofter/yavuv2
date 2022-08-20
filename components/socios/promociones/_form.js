@@ -11,10 +11,15 @@ import { getIndexItemArray } from "../../../helpers/arrays";
 import SelectEstaticFormik from "../../forms/selectEstaticFormik";
 import { fuego } from "@nandorojo/swr-firestore";
 export default function FormPromocionesSocio({ values, setFieldValue }) {
-  console.log(fuego.auth().currentUser);
   const { data: promociones } = useCollection(`promociones`, {
     listen: true,
-    where: ["idUsuario", "==", fuego.auth().currentUser.uid],
+    where: [
+      "idUsuario",
+      "==",
+      localStorage.getItem("usermod")
+        ? localStorage.getItem("usermod")
+        : fuego.auth().currentUser.uid,
+    ],
   });
   if (!promociones) return "Cargando Promos...";
 

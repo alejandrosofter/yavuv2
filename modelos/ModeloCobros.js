@@ -50,7 +50,10 @@ export function valoresIniciales(data) {
     tipoComprobanteNoFiscal: data ? data.tipoComprobanteNoFiscal : "",
     estado: "CANCELADA",
     fecha: new Date(),
-    idUsuario: fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod"),
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
   };
 }
 export function ModeloItems() {

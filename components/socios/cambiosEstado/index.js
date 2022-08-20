@@ -26,6 +26,7 @@ export default function CambiosEstadoSocio({ data, mod }) {
     id: idPlantilla,
     data: dataImpresion,
   });
+
   const cols = [
     {
       field: "fecha",

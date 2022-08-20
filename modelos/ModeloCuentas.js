@@ -1,5 +1,5 @@
 import * as yup from "yup";
-
+import { fuego } from "@nandorojo/swr-firestore";
 export default function ModeloCuentas() {
   return yup.object().shape({
     razonSocial: yup.string(),
@@ -15,6 +15,6 @@ export function valoresIniciales() {
     email: "",
     plan: "",
     telefono: "",
-    idUsuario: "",
+    idUsuario: fuego.auth().currentUser.uid,
   };
 }

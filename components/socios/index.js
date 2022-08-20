@@ -1,12 +1,14 @@
 import { Grid } from "@mui/material";
 import PerfilSocio from "./perfilSocio";
 import FiltroSocios from "./filtroSocios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function Modulo({ mod }) {
   const [seleccion, setSeleccion] = useState(
     JSON.parse(localStorage.getItem("socioSeleccion"))
   );
-
+  useEffect(() => {
+    localStorage.setItem(`usermod`, mod.idUsuario);
+  }, [mod]);
   const guardarLocalStorage = (socio) => {
     localStorage.setItem("socioSeleccion", JSON.stringify(socio));
   };

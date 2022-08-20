@@ -13,7 +13,9 @@ export default function Form({ setFieldValue, values }) {
   const [openEditarCbu, setOpenEditarCbu] = useState(false);
   const [openNuevoCbu, setOpenNuevoCbu] = useState(false);
   const cambiaProducto = (producto, item) => {
-    if (item) setFieldValue("importe", item.importe);
+    if (item) {
+      setFieldValue("importe", item.importe);
+    }
   };
   const editoCbuSuccess = (item) => {
     setOpenEditarCbu(false);

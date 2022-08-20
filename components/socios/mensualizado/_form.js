@@ -34,7 +34,6 @@ export default function FormMensualizado({ values, setFieldValue }) {
     setItemsCuenta(item);
   };
   const setItemsCuenta = (item) => {
-    console.log(item);
     setFieldValue(`banco`, item.banco);
 
     setFieldValue(`cbu`, item.cbu);

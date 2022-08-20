@@ -1,66 +1,27 @@
-import { Grid, Stack } from "@mui/material";
-import TitulosFormularios from "../forms/tituloFormularios";
-import GraficaAnual from "./graficaAnual";
-import { GraficaTorta } from "./graficaTorta";
+import { Grid, Typography, Icon } from "@mui/material";
+import { fuego } from "@nandorojo/swr-firestore";
+
 export default function Modulo({ mod }) {
-  const ex1 = [
-    { fecha: new Date("2022/01/01"), importe: 1000 },
-    { fecha: new Date("2022/02/02"), importe: 1100 },
-    { fecha: new Date("2022/03/03"), importe: 1200 },
-    { fecha: new Date("2022/04/04"), importe: 1300 },
-    { fecha: new Date("2022/5/05"), importe: 1400 },
-    { fecha: new Date("2022/6/06"), importe: 1500 },
-    { fecha: new Date("2022/7/07"), importe: 1600 },
-    { fecha: new Date("2022/8/08"), importe: 1500 },
-    { fecha: new Date("2022/9/06"), importe: 1200 },
-    { fecha: new Date("2022/10/10"), importe: 1300 },
-    { fecha: new Date("2022/11/11"), importe: 1400 },
-    { fecha: new Date("2022/12/12"), importe: 1500 },
-  ];
-  const ex2 = [
-    { fecha: new Date("2022/01/01"), importe: 500 },
-    { fecha: new Date("2022/02/02"), importe: 300 },
-    { fecha: new Date("2022/03/03"), importe: 400 },
-    { fecha: new Date("2022/04/04"), importe: 500 },
-    { fecha: new Date("2022/5/05"), importe: 600 },
-    { fecha: new Date("2022/6/06"), importe: 800 },
-    { fecha: new Date("2022/7/07"), importe: 1000 },
-    { fecha: new Date("2022/8/08"), importe: 900 },
-    { fecha: new Date("2022/9/06"), importe: 800 },
-    { fecha: new Date("2022/10/10"), importe: 700 },
-    { fecha: new Date("2022/11/11"), importe: 600 },
-    { fecha: new Date("2022/12/12"), importe: 500 },
-  ];
-  const ex3 = [
-    { fecha: new Date("2022/01/01"), importe: 50 },
-    { fecha: new Date("2022/02/02"), importe: 80 },
-    { fecha: new Date("2022/03/03"), importe: 90 },
-    { fecha: new Date("2022/04/04"), importe: 100 },
-    { fecha: new Date("2022/5/05"), importe: 150 },
-    { fecha: new Date("2022/6/06"), importe: 100 },
-    { fecha: new Date("2022/7/07"), importe: 40 },
-    { fecha: new Date("2022/8/08"), importe: 50 },
-    { fecha: new Date("2022/9/06"), importe: 20 },
-    { fecha: new Date("2022/10/10"), importe: 80 },
-    { fecha: new Date("2022/11/11"), importe: 100 },
-    { fecha: new Date("2022/12/12"), importe: 150 },
-  ];
-  const series = [44, 55, 41, 17];
-  const labels = ["SWISS", "SEROS", "OSECAC", "OSDE"];
   return (
-    <Stack>
-      ATENCION: graficas con data test!
-      <Grid container>
-        <Grid item md={5}>
-          <GraficaAnual data={ex1} titulo="SOCIOS" />
-        </Grid>
-        <Grid item md={5}>
-          <GraficaAnual data={ex2} titulo="COBROS" />
-        </Grid>
-        <Grid item md={5}>
-          <GraficaAnual data={ex3} titulo="PRODUCTOS" />
-        </Grid>
+    <Grid container spacing={2}>
+      <Grid item md={12}>
+        <Typography variant="caption" gutterBottom>
+          <Icon sx={{ fontSize: 12 }} className="fas fa-hand-point-up" />
+          Al boton (tipo hamburguesa) tienes los modulos que puedes operar!
+        </Typography>
       </Grid>
-    </Stack>
+      <Grid item md={12}>
+        <Typography variant="h3" gutterBottom>
+          <Icon fontSize="5px" className="fas fa-hand-peace" />
+          Bienvenido al sistema SOCIOS!
+        </Typography>
+      </Grid>
+      <Grid item md={12}>
+        <Typography variant="body" gutterBottom>
+          Estas usando la cuenta {fuego.auth().currentUser?.email}, y tiene el
+          plan asignado.
+        </Typography>
+      </Grid>
+    </Grid>
   );
 }

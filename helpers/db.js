@@ -1,9 +1,9 @@
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { useEffect, useState } from "react";
-export function getModUsuario(nombreModulo) {
+export function getModUsuario(nombreModulo, userMod) {
   const { data } = useCollection("mods", {
     where: [
-      ["idUsuario", "==", fuego.auth().currentUser?.uid],
+      ["idUsuario", "==", userMod ? userMod : fuego.auth().currentUser?.uid],
       ["nombre", "==", nombreModulo],
     ],
   });

@@ -7,7 +7,13 @@ export default function SelectActividades({
   callbackchange,
 }) {
   const { data } = useCollection("actividades", {
-    where: ["idUsuario", "==", fuego.auth().currentUser.uid],
+    where: [
+      "idUsuario",
+      "==",
+      localStorage.getItem("usermod")
+        ? localStorage.getItem("usermod")
+        : fuego.auth().currentUser.uid,
+    ],
   });
   if (!data) return "";
   return (

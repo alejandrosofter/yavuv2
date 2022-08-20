@@ -1,7 +1,7 @@
 import Select2 from "@components/forms/select2Formik";
 import { getModUsuario } from "@helpers/db";
 export default function SelectTipoPeriodo({ label, campo, callbackchange }) {
-  const mod = getModUsuario("socios");
+  const mod = getModUsuario("socios", localStorage.getItem("usermod"));
   const data = mod.config?.itemsTipoPeriodo ? mod.config.itemsTipoPeriodo : [];
   if (!data) return "";
   return (
