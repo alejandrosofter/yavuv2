@@ -2,7 +2,7 @@ import axios from "axios";
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
 export default function ModeloSocios() {
-  return yup.object({
+  return yup.object().shape({
     nombre: yup.string().required("El NOMBRE del socio es necesario!"),
     apellido: yup.string().required("El APELLIDO del socio tambien!"),
     nroSocio: yup
