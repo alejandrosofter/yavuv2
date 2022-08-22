@@ -24,7 +24,7 @@ export default function DataGridFirebase({
   titulo,
   subTitulo,
   icono,
-  pageSize,
+  parentData,
   orderBy,
   limit,
   columns,
@@ -36,7 +36,15 @@ export default function DataGridFirebase({
     update,
     error,
     where,
-  } = useDataModulo({ mod, allUsers, condiciones, coleccion, limit, orderBy });
+  } = useDataModulo({
+    mod,
+    allUsers,
+    parentData,
+    condiciones,
+    coleccion,
+    limit,
+    orderBy,
+  });
 
   const router = useRouter();
 

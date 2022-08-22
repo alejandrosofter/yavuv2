@@ -1,21 +1,11 @@
-import { getFieldName } from "@helpers/forms";
 import { Button, Grid, Icon } from "@mui/material";
-import ItemsCobro from "../../../cobros/_items";
-
-const getItemsCobro = (values) => {
-  const items = [];
-  values.map((item) => {
-    items.push(item);
-  });
-  return items;
-};
+import ItemsCobro from "@components/cobros/_items";
 
 export default function Modulo({ mod, setFieldValue, values }) {
   const clickTraer = () => {
     let deudas = [];
     if (values.mensualizado)
       values.mensualizado.map((item) => {
-        console.log(item);
         deudas.push({
           id: item.id,
           cantidad: 1,
@@ -40,7 +30,6 @@ export default function Modulo({ mod, setFieldValue, values }) {
         });
       }
 
-    console.log(mod.config);
     setFieldValue("deudas", deudas);
   };
   return (

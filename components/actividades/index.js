@@ -8,7 +8,7 @@ export default function Modulo({ mod }) {
     setActividad(actividad);
   };
   return (
-    <Grid container>
+    <Grid container spacing={3}>
       <Grid item md={3}>
         <ListaActividades mod={mod} callbackchange={cambiaActividad} />
       </Grid>

@@ -1,24 +1,22 @@
+import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import Select2 from "../forms/select2Formik";
+import Modelo, { valoresIniciales } from "@modelos/ModeloProductos";
+import Form from "@components/productos/_form";
 export default function Modulo({ multiple, label, campo, callbackchange }) {
-  const { data: productos } = useCollection("productos", {
-    where: [
-      "idUsuario",
-      "==",
-      localStorage.getItem("usermod")
-        ? localStorage.getItem("usermod")
-        : fuego.auth().currentUser.uid,
-    ],
-  });
-  if (!productos) return "";
   return (
-    <Select2
+    <SelectUserModColeccion
+      coleccion={"productos"}
+      Modelo={Modelo}
+      parentData={true}
+      valoresIniciales={valoresIniciales}
+      Form={Form}
       callbackchange={callbackchange}
       extraData={["importe"]}
       multiple={multiple}
       campo={campo ? campo : "idProducto"}
       label={label ? label : "Producto Asociado"}
-      lista={productos}
+      icono="fas fa-shopping-cart"
+      maxWidth="md"
       campoId="id"
       campoLabel="nombre"
     />

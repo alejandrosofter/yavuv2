@@ -6,9 +6,16 @@ import { useState } from "react";
 import Select2 from "../forms/select2Formik";
 import NuevoPaciente from "./nuevo";
 export default function Modulo({ campo, label, callbackchange }) {
+  const parentData = true;
   const { data } = useCollection("plantillas", {
     listen: true,
-    where: ["idUsuario", "==", fuego.auth().currentUser.uid],
+    where: [
+      "idUsuario",
+      "==",
+      parentData
+        ? localStorage.getItem("usermod")
+        : fuego.auth().currentUser.uid,
+    ],
   });
 
   if (!data) return "";

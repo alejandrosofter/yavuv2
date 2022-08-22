@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
+import { localstorageParser } from "@helpers/arrays";
 function getMod(id) {
   return fuego.db.collection("mods").doc(id).get();
 }
@@ -9,16 +10,21 @@ export function useDataModulo({
   allUsers,
   condiciones,
   limit,
+  parentData,
   orderBy,
 }) {
   const [usuariosGrant, setUsuariosGrant] = useState([
-    fuego.auth().currentUser?.uid,
+    localStorage.getItem("usermod"),
   ]);
   const [recursosGrant, setRecursosGrant] = useState([]);
   const [where, setWhere] = useState(
     (allUsers
       ? []
-      : [["idUsuario", "==", fuego.auth().currentUser?.uid]]
+      : [
+          parentData
+            ? ["idUsuario", "==", localStorage.getItem("usermod")]
+            : ["usermod", "==", fuego.auth().currentUser?.uid],
+        ]
     ).concat(condiciones)
   );
   const [filtro, setFiltro] = useState({
@@ -29,11 +35,11 @@ export function useDataModulo({
     listen: true,
   });
   useEffect(() => {
-    if (mod) setConfigModInvitado(mod, usuariosInvitados);
-    setWhere([["idUsuario", "in", usuariosGrant]]);
+    // if (mod) setConfigModInvitado(mod, usuariosInvitados);
+    // setWhere([["idUsuario", "in", usuariosGrant]]);
   }, []);
   useEffect(() => {
-    setWhere([["idUsuario", "in", usuariosGrant]]);
+    // setWhere([["idUsuario", "in", usuariosGrant]]);
   }, [usuariosGrant]);
   const { data: usuariosInvitados } = useCollection("usuariosInvitados", {
     where: ["email", "==", fuego.auth().currentUser?.email],
@@ -60,7 +66,11 @@ export function useDataModulo({
   };
   const { data, error, loading } = useCollection(coleccionDb, {
     ...filtro,
-    where,
+    where: [
+      parentData
+        ? ["idUsuario", "==", localStorage.getItem("usermod")]
+        : ["usermod", "==", fuego.auth().currentUser?.uid],
+    ],
   });
   const dataPost = data ? data : [];
   // if(error)return "Aguarde..."

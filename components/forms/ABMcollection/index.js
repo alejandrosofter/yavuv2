@@ -25,6 +25,7 @@ export default function ABMColeccion({
   preData,
   Form,
   getRowClassName,
+  onSelectionModelChange,
   callbackchange,
 }) {
   const accionesABM = [
@@ -101,6 +102,7 @@ export default function ABMColeccion({
           callbackclick={callbackclick}
           columns={columns}
           orderBy={orderBy}
+          onSelectionModelChange={onSelectionModelChange}
           getRowClassName={getRowClassName}
           coleccion={coleccion}
         />

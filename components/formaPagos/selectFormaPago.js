@@ -1,8 +1,11 @@
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import Select from "../forms/select";
 export default function SelectFormaPago({ label, campo, callbackchange }) {
+  const parentData = true;
   const { data } = useCollection("formaPagos", {
-    where: ["idUsuario", "==", fuego.auth().currentUser.uid],
+    where: parentData
+      ? ["idUsuario", "==", localStorage.getItem("usermod")]
+      : ["usermod", "==", fuego.auth().currentUser?.uid],
   });
   if (!data) return "";
   return (

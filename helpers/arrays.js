@@ -54,6 +54,14 @@ export function contador(arr, campo = "importe") {
   });
   return total;
 }
+export function contador2(arr, fn, campo = "importe") {
+  let total = 0;
+  if (!arr) return total;
+  arr.forEach((item) => {
+    total += fn ? fn(item) : Number(item[campo]);
+  });
+  return total;
+}
 export function orderArray(arr, campo) {
   //order array by campo
   return arr

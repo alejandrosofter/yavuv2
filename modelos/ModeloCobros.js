@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
-import { contador, contadorMoney } from "@helpers/arrays";
+import { contador, contador2, contadorMoney } from "@helpers/arrays";
 export default function ModeloCobros() {
   return yup.object().shape({
     cliente: yup.string().required("Debes seleccionar el socio!"),
@@ -21,7 +21,10 @@ export default function ModeloCobros() {
             return testContext.createError({
               message: `Deben haber items!`,
             });
-          const importeItems = contador(testContext.parent.deudas);
+          const importeItems = contador2(
+            testContext.parent.deudas,
+            (item) => Number(item.importe) * item.cantidad
+          );
           const importeFormaPagos = contador(testContext.parent?.formasDePago);
           if (importeItems !== importeFormaPagos)
             return testContext.createError({
@@ -50,10 +53,12 @@ export function valoresIniciales(data) {
     tipoComprobanteNoFiscal: data ? data.tipoComprobanteNoFiscal : "",
     estado: "CANCELADA",
     fecha: new Date(),
-    usermod: localStorage.getItem("usermod"),
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
   };
 }
 export function ModeloItems() {

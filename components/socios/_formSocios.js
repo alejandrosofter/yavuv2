@@ -12,7 +12,10 @@ import { getModUsuario } from "@helpers/db";
 import { getEdad } from "@helpers/fechas";
 export default function FormSocios({ field, setFieldValue, values, mod }) {
   const [tipoSocioSeleccion, setTipoSocioSeleccion] = useState(null);
-  mod = mod.nombre === "socios" ? mod : getModUsuario("socios");
+  mod =
+    mod.nombre === "socios"
+      ? mod
+      : getModUsuario("socios", localStorage.getItem("usermod"));
   const tipoSocios = mod.config?.itemsTipoSocios
     ? mod.config.itemsTipoSocios
     : [];

@@ -27,12 +27,6 @@ export default function Modulo({ mod }) {
       .map((item) => `${item.label_idProducto} ${formatMoney(item.importe)}`)
       .reduce((n, p) => `${n} | ${p}`);
   };
-  const getDetalleActividades = (row) => {
-    if (!row.actividades) return "-";
-    return row.actividades
-      .map((item) => `${item.label_idActividad}`)
-      .reduce((n, p) => `${n} | ${p}`);
-  };
 
   let fnAcciones = {
     aplicar: (data) => {

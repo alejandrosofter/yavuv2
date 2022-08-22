@@ -2,6 +2,7 @@ import {
   ModeloMovimientoCuenta,
   valoresInicialesMovimiento,
 } from "@modelos/ModeloSocios";
+import { fuego } from "@nandorojo/swr-firestore";
 import { Icon, Grid, Tooltip, Typography, IconButton } from "@mui/material";
 import { getFechaString } from "@helpers/dates";
 import { formatMoney } from "@helpers/numbers";
@@ -156,6 +157,8 @@ export default function CuentaSocio({ data, mod }) {
       },
     },
   ];
+  const parentData =
+    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -164,8 +167,13 @@ export default function CuentaSocio({ data, mod }) {
           coleccion={`socios/${data?.id}/${subColeccion}`}
           columns={cols}
           order={order}
-          preData={{}}
+          where={[
+            parentData
+              ? ["idUsuario", "==", localStorage.getItem("usermod")]
+              : ["usermod", "==", fuego.auth().currentUser?.uid],
+          ]}
           maxWidth={"md"}
+          preData={{}}
           labelNuevo="agregar Movimiento"
           icono={icono}
           Modelo={ModeloMovimientoCuenta}

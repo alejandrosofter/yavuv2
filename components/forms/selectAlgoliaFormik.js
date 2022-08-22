@@ -72,7 +72,12 @@ const SelectFormikAlgolia = ({
           };
 
           return (
-            <Grid container>
+            <Grid
+              alignItems={"center"}
+              alignContent="center"
+              spacing={2}
+              container
+            >
               <Grid item md={11} sx={{ display: `${showBusca ? "" : "none"}` }}>
                 <AutoCompleteAsync
                   inputRef={
@@ -88,6 +93,7 @@ const SelectFormikAlgolia = ({
                 />
               </Grid>
               <Grid
+                item
                 sx={{ pt: 1, display: `${showBusca ? "" : "none"}` }}
                 md={1}
               >
@@ -109,23 +115,18 @@ const SelectFormikAlgolia = ({
                 <Typography sx={{ pt: 1 }} variant="caption">
                   {label}
                 </Typography>
-                <Typography sx={{ pt: 1 }} variant="h5">
+                <Typography
+                  onClick={clickLabel}
+                  sx={{ pt: 1, color: "blue", cursor: "pointer" }}
+                  variant="h5"
+                >
                   {labelSelect === "undefined" ? "Seleccione..." : labelSelect}
                 </Typography>
               </Grid>
               <Grid
                 sx={{ pt: 3, display: `${!showBusca ? "" : "none"}` }}
                 md={1}
-              >
-                {" "}
-                <IconButton
-                  onClick={clickLabel}
-                  size="small"
-                  variant="outlined"
-                >
-                  <Icon className="fas fa-pencil" />
-                </IconButton>
-              </Grid>
+              ></Grid>
             </Grid>
           );
         }}

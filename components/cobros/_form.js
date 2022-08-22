@@ -5,7 +5,6 @@ import Input from "../forms/input";
 
 import Switch from "../forms/switch";
 
-import SelectEstaticFormik from "../forms/selectEstaticFormik";
 import { useEffect, useState } from "react";
 
 import SeleccionDeuda from "./seleccionDeuda";

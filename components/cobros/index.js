@@ -95,6 +95,7 @@ export default function Modulo({ mod }) {
       <DataGridFirebase
         fnAcciones={fnAcciones}
         titulo={mod.label}
+        parentData={false}
         subTitulo=" generales"
         icono="fas fa-funnel-dollar"
         limit={10}

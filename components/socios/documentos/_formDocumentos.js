@@ -8,7 +8,7 @@ import ImageFormik from "@components/forms/imageFormik";
 import { fuego } from "@nandorojo/swr-firestore";
 import { getModUsuario } from "@helpers/db";
 export default function FormDocumentosSocio({ mod }) {
-  const modSocio = getModUsuario("socios");
+  const modSocio = getModUsuario("socios", localStorage.getItem("usermod"));
   if (!modSocio) return "Aguarde...";
   return (
     <Grid container>

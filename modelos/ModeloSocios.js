@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as yup from "yup";
-
+import { fuego } from "@nandorojo/swr-firestore";
 export default function ModeloSocios() {
   return yup.object().shape({
     nombre: yup.string().required("El NOMBRE del socio es necesario!"),
@@ -16,6 +16,8 @@ export default function ModeloSocios() {
             params: testContext.parent,
           });
           if (!data) return true;
+          console.log(testContext.parent, data);
+
           if (testContext.parent.id === data?.id) return true;
 
           return testContext.createError({
@@ -252,6 +254,12 @@ export function valoresMensualizado(preData) {
     fecha: new Date(),
     fechaInicio: new Date(),
     concepto: "",
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
   };
 }
 export function ModeloMensualizado() {
@@ -303,6 +311,12 @@ export function valoresInicialesMovimiento({ dataInicial }) {
     cantidad: 1,
     importeBonificacion: 0,
     nroRecivo: dataInicial ? dataInicial.nroRecivo : "",
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
   };
 }
 export function ModeloMovimientoCuenta() {

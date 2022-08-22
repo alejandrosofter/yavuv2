@@ -15,7 +15,9 @@ import SelectActividadGrupo from "@components/actividades/selectActividadGrupo";
 import SelectActividades from "@components/actividades/selectActividad";
 import SelectGrupos from "@components/actividades/grupos/select";
 import NuevoDialogCbu from "@components/cuentasCbu/nuevoDialog";
-
+import SelectAlgoliaUserModColeccion from "@components/forms/selectAlgoliaUsermodColeccion";
+import Form from "@components/cuentasCbu/_form";
+import Modelo, { valoresIniciales } from "@modelos/ModeloCuentasCbu";
 export default function FormMensualizado({ values, setFieldValue }) {
   const [openEditarCbu, setOpenEditarCbu] = useState(false);
   const [openNuevoCbu, setOpenNuevoCbu] = useState(false);
@@ -105,9 +107,13 @@ export default function FormMensualizado({ values, setFieldValue }) {
 
       {values.esPorDebitoAutomatico && (
         <Grid item md={8}>
-          <SelectFormikAlgolia
+          <SelectAlgoliaUserModColeccion
             coleccionAlgolia={"cuentasCbu"}
             label="Cuenta CBU"
+            Form={Form}
+            Modelo={Modelo}
+            valoresIniciales={valoresIniciales}
+            coleccion="cuentasCbu"
             labelItems={(opt) =>
               `${opt.titular} - ${opt.cbu} - ${
                 opt.dniTitular ? opt.dniTitular : ""
@@ -120,18 +126,6 @@ export default function FormMensualizado({ values, setFieldValue }) {
             {`CBU: ${values.cbu} BANCO: ${
               values.tipoCuenta ? values.label_tipoCuenta : "-"
             }`}{" "}
-            <IconButton
-              size="small"
-              onClick={clickEditarCbu}
-              className="fas fa-pencil"
-              title="Editar"
-            ></IconButton>
-            <IconButton
-              size="small"
-              onClick={clickNuevoCbu}
-              className="fas fa-plus"
-              title="Agregar Cuenta"
-            ></IconButton>
           </Typography>
         </Grid>
       )}

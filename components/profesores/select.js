@@ -1,23 +1,24 @@
+import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import Select2 from "../forms/select2Formik";
-export default function SelectProfesor({
-  multiple,
-  label,
-  campo,
-  callbackchange,
-}) {
-  const { data: productos } = useCollection("profesores", {
-    where: ["idUsuario", "==", fuego.auth().currentUser.uid],
-  });
-  if (!productos) return "";
+import Modelo, { valoresIniciales } from "@modelos/ModeloProfesores";
+import Form from "@components/profesores/_form";
+export default function Modulo({ multiple, label, campo, callbackchange }) {
   return (
-    <Select2
+    <SelectUserModColeccion
+      coleccion={"profesores"}
+      Modelo={Modelo}
+      parentData={true}
+      valoresIniciales={valoresIniciales}
+      Form={Form}
       callbackchange={callbackchange}
+      extraData={["importe"]}
+      multiple={multiple}
       campo={campo ? campo : "idProfesor"}
       label={label ? label : "Profesor"}
-      lista={productos}
+      icono="fas fa-user"
+      maxWidth="md"
       campoId="id"
-      campoLabel={(row) => `${row.nombre} ${row.apellido}`}
+      campoLabel={(item) => `${item.nombre} ${item.apellido}`}
     />
   );
 }

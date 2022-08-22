@@ -1,42 +1,18 @@
-import { useState, useCallback } from "react";
-import { ModeloMensualizado, valoresMensualizado } from "@modelos/ModeloSocios";
+import { useState } from "react";
+import Modelo, { valoresIniciales } from "@modelos/ModeloCierreCaja";
 import { Icon, Grid } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import { getFechaString } from "@helpers/dates";
-import { formatMoney } from "@helpers/numbers";
 import Tooltip from "@mui/material/Tooltip";
 import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 import ABMColeccion from "@components/forms/ABMcollection";
 import Form from "./_form";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
+import { formatMoney } from "@helpers/numbers";
+import { QueryApi } from "@helpers/queryApi";
+import PagosCierresCaja from "./pagos";
 export const cols = [
-  {
-    field: "esPorDebitoAutomatico",
-    headerName: "",
-    width: 15,
-    renderCell: (params) =>
-      params.value ? (
-        <Tooltip title={`Es por Débito automático`}>
-          <Icon class="fas fa-credit-card" />
-        </Tooltip>
-      ) : (
-        ""
-      ),
-  },
-  // {
-  //   field: "hijo",
-  //   headerName: "",
-  //   width: 20,
-  //   renderCell: (params) =>
-  //     params.value ? (
-  //       <Tooltip title={`${params.value.apellido} ${params.value.nombre}`}>
-  //         <Icon class="fas fa-users" />
-  //       </Tooltip>
-  //     ) : (
-  //       ""
-  //     ),
-  // },
   {
     field: "fecha",
     headerName: "Fecha",
@@ -45,43 +21,45 @@ export const cols = [
     renderCell: (params) => getFechaString(params.value),
   },
   {
-    field: "fechaInicio",
-    headerName: "Inicia",
-    width: 85,
-    type: "date",
-    renderCell: (params) => getFechaString(params.value),
+    field: "importeAbre",
+    headerName: "$ Abre",
+    width: 120,
+    renderCell: (params) => formatMoney(params.value),
   },
 
   {
-    field: "label_idProducto",
-    headerName: "Producto",
+    field: "importeItems",
+    headerName: "$ Items",
     width: 190,
-    renderCell: (params) =>
-      renderCellExpandData(params, (row) => `${row.label_idProducto}`),
+    renderCell: (params) => formatMoney(params.value),
   },
-  // {
-  //   field: "idProducto_importe",
-  //   headerName: "$ Importe",
-  //   width: 110,
-  //   renderCell: (params) => formatMoney(params.value),
-  // },
-
   {
-    field: "label_tipoPeriodo",
-    headerName: "Tipo Periodo",
-    width: 160,
+    field: "total",
+    headerName: "$ TOTAL",
+    width: 120,
     renderCell: (params) =>
-      renderCellExpandData(params, (row) => `${row.label_tipoPeriodo}`),
+      formatMoney(
+        Number(params.row.importeAbre) +
+          (params.row.importeItems ? params.row.importeItems : 0)
+      ),
+  },
+  {
+    field: "estado",
+    headerName: "Estado",
+    width: 100,
   },
 ];
 export default function CuentaSocio({ data, mod }) {
   const order = ["fecha"];
   const subColeccion = "mensualizado";
   const icono = "fas fa-file-invoice-dollar";
-  const titulo = `COMPROMISOS MENSUALES `;
-  const idPlantilla = mod.config?.plantillaMensualizacion;
+  const titulo = `CIERRES DE CAJA`;
+  const idPlantilla = mod.config?.plantillaCierreCaja;
   const [openImpresion, setOpenImpresion] = useState(false);
+  const [dataConsulta, setDataConsulta] = useState();
   const [dataImpresion, setDataImpresion] = useState();
+  const [seleccion, setSeleccion] = useState();
+  const [openPagos, setOpenPagos] = useState();
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,
@@ -90,6 +68,23 @@ export default function CuentaSocio({ data, mod }) {
     if (params.row.suspendida) return "disabled";
   };
   const acciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-check-double",
+      label: "Re-Chequeo",
+      fn: (data) => {
+        setDataConsulta({ url: "/api/cierresCaja/rechequeo", data });
+      },
+    },
+    {
+      esFuncion: true,
+      icono: "fas fa-list",
+      label: "Pagos",
+      fn: (row) => {
+        setSeleccion(row);
+        setOpenPagos(true);
+      },
+    },
     {
       esFuncion: true,
       icono: "fas fa-share-alt",
@@ -107,44 +102,43 @@ export default function CuentaSocio({ data, mod }) {
       <Grid item xs={12}>
         <ABMColeccion
           acciones={acciones}
-          coleccion={`socios/${data?.id}/${subColeccion}`}
+          coleccion={`cierresCaja`}
           columns={cols}
           where={[
             parentData
               ? ["idUsuario", "==", localStorage.getItem("usermod")]
               : ["usermod", "==", fuego.auth().currentUser?.uid],
           ]}
-          labelNuevo="Agregar compromiso mensual"
-          preData={{
-            idSocio: data?.id,
-            apellido: data?.apellido,
-            nombre: data?.nombre,
-            dni: data?.dni,
-            nroSocio: data?.nroSocio,
-          }}
+          labelNuevo="Agregar cierre de caja"
+          preData={{}}
           order={order}
           maxWidth={"md"}
           getRowClassName={getRowClassName}
-          // callbackclick={callbackclick}
           icono={icono}
-          Modelo={ModeloMensualizado}
-          valoresIniciales={valoresMensualizado}
+          Modelo={Modelo}
+          valoresIniciales={valoresIniciales}
           dataForm={{ mod }}
           titulo={titulo}
           Form={Form}
         />
       </Grid>
       <ImpresionDialog
-        titulo="IMPRESIÓN MENSUALIZACION"
+        titulo="IMPRESIÓN CIERRE"
         setOpen={setOpenImpresion}
         open={openImpresion}
-        asunto="MENSUALIZACION "
+        asunto="CIERRE DE CAJA "
         data={dataImpresion}
         plantilla={plantilla}
-        emailDefault={dataImpresion?.socio?.email}
+        // emailDefault={dataImpresion?.socio?.email}
         nombrePlantillaEmail="emailAfiliacion"
         attachments={[{ filename: "AFILIACION.pdf", data: plantilla }]}
       />
+      <PagosCierresCaja
+        open={openPagos}
+        setOpen={setOpenPagos}
+        data={seleccion}
+      />
+      <QueryApi dataConsulta={dataConsulta} />
     </Grid>
   );
 }

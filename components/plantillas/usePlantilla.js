@@ -132,6 +132,9 @@ export function UsePlantilla({ id, data }) {
       return false;
     });
 
+    Handlebars.registerHelper("importeTotalItem", function (importe, cantidad) {
+      return formatMoney(Number(importe) * cantidad);
+    });
     Handlebars.registerHelper("importeTotal", function (data, campo) {
       //suma el campo importe del array data
       const field = campo || "importe";
