@@ -117,6 +117,7 @@ export default function Modulo({ mod }) {
         <List dense={true}>
           {ayuda.map((item) => (
             <ListItem
+              key={item.nro}
               secondaryAction={
                 <IconButton
                   onClick={clickLink.bind(this, item)}
