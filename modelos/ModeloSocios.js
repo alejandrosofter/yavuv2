@@ -211,6 +211,12 @@ export function ModeloTipoSocios() {
     proximoNro: yup.number(),
   });
 }
+export function valoresInicialesTipoSocios() {
+  return {
+    nombre: "",
+    proximoNro: 0,
+  };
+}
 export function ModeloTipoConfig() {
   return yup.object().shape({
     //    fecha: yup.string(),

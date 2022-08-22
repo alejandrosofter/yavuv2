@@ -59,6 +59,7 @@ export default function FormConfig({}) {
               <DataGridFormikItems
                 label="Tipo Socios"
                 Modelo={ModeloTipoSocios}
+                valoresIniciales={valoresInicialesTipoSocios}
                 FormularioItem={FormTipoSocios}
                 campo="itemsTipoSocios"
                 columns={[

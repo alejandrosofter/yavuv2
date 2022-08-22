@@ -20,7 +20,7 @@ export default function Modulo({ mod }) {
     id: idPlantilla,
     data: dataImpresion,
   });
-  const modSocios = getModUsuario("socios");
+  const modSocios = getModUsuario("socios", localStorage.getItem("usermod"));
   const getDetalleCobro = (row) => {
     if (!row.deudas || row.deudas.length === 0) return "-";
     return row.deudas
