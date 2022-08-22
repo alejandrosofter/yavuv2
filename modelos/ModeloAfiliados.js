@@ -4,7 +4,7 @@ import { fuego } from "@nandorojo/swr-firestore";
 import ModeloSocios from "./ModeloSocios";
 export default function ModeloAfiliados() {
   const socio = ModeloSocios();
-  return yup.object().shape({
+  return yup.object({
     socio,
   });
 }
