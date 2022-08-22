@@ -3,8 +3,9 @@ import { valoresIniciales as initSocio } from "./ModeloSocios";
 import { fuego } from "@nandorojo/swr-firestore";
 import ModeloSocios from "./ModeloSocios";
 export default function ModeloAfiliados() {
+  const socio = ModeloSocios();
   return yup.object().shape({
-    // socio: ModeloSocios(),
+    socio,
   });
 }
 export function valoresIniciales() {

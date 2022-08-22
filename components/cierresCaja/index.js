@@ -54,7 +54,7 @@ export default function CuentaSocio({ data, mod }) {
   const subColeccion = "mensualizado";
   const icono = "fas fa-file-invoice-dollar";
   const titulo = `CIERRES DE CAJA`;
-  const idPlantilla = mod.config?.plantillaCierreCaja;
+  const idPlantilla = mod.config?.plantillaCierre;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
   const [dataImpresion, setDataImpresion] = useState();

@@ -162,6 +162,9 @@ export function UsePlantilla({ id, data }) {
     Handlebars.registerHelper("fecha", function (aString) {
       return getFechaString(aString);
     });
+    Handlebars.registerHelper("hora", function (aString) {
+      return getFechaString(aString, "hh:mm");
+    });
 
     Handlebars.registerHelper("fechaHora", function (aString) {
       return getFechaString(aString, "DD/MM/YYYY hh:mm");

@@ -1,6 +1,9 @@
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
+import ABMColeccion from "@components/forms/ABMcollection";
+import Modelo, { valoresIniciales } from "@modelos/ModeloPlantillas";
+import { fuego } from "@nandorojo/swr-firestore";
+import Form from "./_form";
 export default function Modulo({ mod }) {
-  const order = "nombre";
+  const order = ["nombre", "desc"];
   const columns = [
     {
       field: "nombre",
@@ -13,16 +16,27 @@ export default function Modulo({ mod }) {
       width: 120,
     },
   ];
+  const parentData = true;
   return (
-    <DataGridFirebase
-      titulo={mod.label}
-      subTitulo="generales"
-      icono={mod.icono}
-      limit={50}
-      mod={mod}
-      acciones={mod.acciones}
-      orderBy={order}
+    <ABMColeccion
+      coleccion={`plantillas`}
       columns={columns}
+      where={[
+        parentData
+          ? ["idUsuario", "==", localStorage.getItem("usermod")]
+          : ["usermod", "==", fuego.auth().currentUser?.uid],
+      ]}
+      labelNuevo="nueva"
+      preData={{}}
+      order={order}
+      maxWidth={"lg"}
+      // callbackclick={callbackclick}
+      icono={"fas fa-"}
+      Modelo={Modelo}
+      valoresIniciales={valoresIniciales}
+      dataForm={{}}
+      titulo={`PLANTILLAS`}
+      Form={Form}
     />
   );
 }

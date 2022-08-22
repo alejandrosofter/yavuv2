@@ -11,7 +11,6 @@ export default function ListaActividades({ callbackchange, mod }) {
   const order = ["nombreActividad", "asc"];
 
   const cambiaSeleccion = (data) => {
-    console.log(data);
     if (callbackchange) {
       callbackchange(data);
     }

@@ -1,36 +1,22 @@
-import DialogContenido from "@components/forms/dialogContenido";
-import { getModUsuario } from "@helpers/db";
-import { Button, Grid, Icon, Tooltip } from "@mui/material";
-import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import { useState } from "react";
-import Select2 from "../forms/select2Formik";
-import NuevoPaciente from "./nuevo";
-export default function Modulo({ campo, label, callbackchange }) {
-  const parentData = true;
-  const { data } = useCollection("plantillas", {
-    listen: true,
-    where: [
-      "idUsuario",
-      "==",
-      parentData
-        ? localStorage.getItem("usermod")
-        : fuego.auth().currentUser.uid,
-    ],
-  });
-
-  if (!data) return "";
+import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
+import Modelo, { valoresIniciales } from "@modelos/ModeloPlantillas";
+import Form from "@components/plantillas/_form";
+export default function Modulo({ multiple, label, campo, callbackchange }) {
   return (
-    <Grid container>
-      <Grid item xs={10}>
-        <Select2
-          callbackchange={callbackchange}
-          campo={campo ? campo : "plantilla"}
-          label={label ? label : "Plantilla"}
-          lista={data}
-          campoId="id"
-          campoLabel={(item) => `${item.nombre} `}
-        />
-      </Grid>
-    </Grid>
+    <SelectUserModColeccion
+      coleccion={"plantillas"}
+      Modelo={Modelo}
+      parentData={true}
+      valoresIniciales={valoresIniciales}
+      Form={Form}
+      callbackchange={callbackchange}
+      multiple={multiple}
+      campo={campo ? campo : "idPlantilla"}
+      label={label ? label : "Plantilla"}
+      icono="fas fa-file-image"
+      maxWidth="lg"
+      campoId="id"
+      campoLabel="nombre"
+    />
   );
 }

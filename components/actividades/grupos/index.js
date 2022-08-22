@@ -28,7 +28,7 @@ export default function ListaGrupos({ actividad, callbackchange }) {
     {
       field: "nombreGrupo",
       headerName: "Nombre Grupo",
-      width: 150,
+      width: 250,
     },
 
     {

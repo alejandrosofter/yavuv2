@@ -16,17 +16,22 @@ export function useDataModulo({
   const [usuariosGrant, setUsuariosGrant] = useState([
     localStorage.getItem("usermod"),
   ]);
+  const esPadre =
+    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
+
   const [recursosGrant, setRecursosGrant] = useState([]);
   const [where, setWhere] = useState(
-    (allUsers
+    allUsers
       ? []
       : [
-          parentData
+          esPadre
+            ? ["idUsuario", "==", fuego.auth().currentUser?.uid]
+            : parentData
             ? ["idUsuario", "==", localStorage.getItem("usermod")]
             : ["usermod", "==", fuego.auth().currentUser?.uid],
         ]
-    ).concat(condiciones)
   );
+
   const [filtro, setFiltro] = useState({
     limit: limit,
     orderBy: orderBy,
