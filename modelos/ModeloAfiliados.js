@@ -4,10 +4,9 @@ import { fuego } from "@nandorojo/swr-firestore";
 import ModeloSocios from "./ModeloSocios";
 export default function ModeloAfiliados() {
   return yup.object().shape({
-    // socio: yup.object().shape({
-    //   apellido: yup.string().required(),
-    //   nroSocio: yup.number().required(),
-    // }),
+    socio: yup.object().shape({
+      nroSocio: yup.number(),
+    }),
   });
 }
 export function valoresIniciales() {
