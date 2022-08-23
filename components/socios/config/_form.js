@@ -15,6 +15,7 @@ import {
   ModeloTipoPeriodos,
   ModeloMotivos,
   ModeloDifusion,
+  valoresInicialesTipoSocios,
 } from "@modelos/ModeloSocios";
 import TabsFormik, { TabPanel } from "../../forms/tab";
 import Grid from "@mui/material/Grid";

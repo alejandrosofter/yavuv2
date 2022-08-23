@@ -89,7 +89,7 @@ const WebcamFormik = ({ folder, label, campo, w, h, callbackchange }) => {
             props.form.setFieldValue(campo, rutaImagen);
             props.form.setFieldValue(`${campo}_thum`, rutaImagenThum);
           };
-          setValorFoto(eval(`props.form.values?.${campo}`));
+          setValorFoto(props.form.values[campo]);
           const clickOpenSacaFoto = () => {
             setOpenSacaFoto(true);
           };
