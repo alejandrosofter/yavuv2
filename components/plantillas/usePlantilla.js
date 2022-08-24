@@ -100,6 +100,11 @@ export function UsePlantilla({ id, data }) {
       //parse fecha en formato yyyymmdd a formato dd/mm/yyyy
       return getFecha(fecha);
     });
+    Handlebars.registerHelper("agregadoOpcional", function (string) {
+      //parse fecha en formato yyyymmdd a formato dd/mm/yyyy
+      if (!string) return "";
+      return ` - ${string}`;
+    });
     Handlebars.registerHelper("rpad", function (string, length, pad) {
       if (!string) return "-";
       return `${string}`.padStart(length, pad);

@@ -63,8 +63,14 @@ export default function Modulo({ mod }) {
       renderCell: (params) => getFechaString(params.value),
     },
     {
+      field: "nroSocio",
+      headerName: "Nro Socio",
+      width: 90,
+      renderCell: (params) => `${params.row.socio.nroSocio}`.padStart(5, "0"),
+    },
+    {
       field: "socio",
-      headerName: "Socio",
+      headerName: "Nombre/s",
       width: 190,
       renderCell: (params) =>
         `${params.value.apellido.toUpperCase()} ${params.value.nombre}`,

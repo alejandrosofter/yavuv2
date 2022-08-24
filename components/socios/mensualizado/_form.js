@@ -153,7 +153,7 @@ export default function FormMensualizado({ values, setFieldValue }) {
         <SelectProducto />
       </Grid>
       <Grid item md={3}>
-        <Switch label="Agregar a Actividad" campo="agregarActividad" />
+        <Switch label="Enviar a Actividad" campo="agregarActividad" />
       </Grid>
       {values.agregarActividad && (
         <Grid item md={4}>

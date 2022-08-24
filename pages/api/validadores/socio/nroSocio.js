@@ -13,6 +13,7 @@ export default async function handler(req, res) {
     .get()
     .then((snapshot) => {
       const data = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      console.log(data);
       return data;
     })
     .catch((error) => {

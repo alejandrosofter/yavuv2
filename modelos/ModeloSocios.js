@@ -16,9 +16,9 @@ export default function ModeloSocios() {
             params: testContext.parent,
           });
           if (!data) return true;
-          console.log(testContext.parent, data);
+          console.log(testContext, data);
 
-          if (testContext.parent.id === data?.id) return true;
+          if (testContext.parent.dni === data?.dni) return true;
 
           return testContext.createError({
             message: `Socio ${
@@ -46,7 +46,7 @@ export default function ModeloSocios() {
           const res = await (
             await fetch(`/api/validadores/socio/dni/${value}`)
           ).json();
-          if (testContext.parent.id === res.id) return true;
+          if (testContext.parent.dni === res.dni) return true;
           if ("apellido" in res)
             return testContext.createError({
               message: `${res.apellido.toUpperCase()} ${res.nombre.toUpperCase()} (${
