@@ -22,7 +22,7 @@ export default function FormPromocionesGenerales({ setFieldValue, values }) {
         <Input label="Nombre Promo" campo="nombrePromocion" />
       </Grid>
 
-      <Grid item md={2}>
+      <Grid item md={3}>
         <SelectEstaticFormik
           items={["ACTIVO", "INACTIVO"]}
           label="ESTADO"

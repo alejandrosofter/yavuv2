@@ -27,11 +27,13 @@ export default function ShowErrors({ errors, setOpen, open }) {
           {errors &&
             //loop object errors
             Object.keys(errors).map((key) => {
-              return (
-                <Typography key={key} variant="body1">
-                  -{errors[key]}
-                </Typography>
-              );
+              if (typeof key !== "object") {
+                return (
+                  <Typography key={key} variant="body1">
+                    -{errors[key]}
+                  </Typography>
+                );
+              }
             })}
         </DialogContentText>
       </DialogContent>

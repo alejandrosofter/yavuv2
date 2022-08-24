@@ -76,6 +76,7 @@ export default function _FormGenerico({
         validateForm,
         isValidating,
       }) => {
+        console.log(errors);
         return (
           <Grid sx={{ my: 0 }} md={12} item xs={9}>
             <Form onSubmit={handleSubmit}>
@@ -98,12 +99,12 @@ export default function _FormGenerico({
               >
                 ACEPTAR
               </LoadingButton>
-              <ShowErrors
+              {/* <ShowErrors
                 isValidating={isValidating}
                 errors={errors}
                 open={openErrores}
                 setOpen={setOpenErrores}
-              />
+              /> */}
             </Form>
           </Grid>
         );

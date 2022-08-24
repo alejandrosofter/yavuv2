@@ -1,5 +1,7 @@
+import FirestoreConfig from "@config/_firestoreConfig";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { useEffect, useState } from "react";
+import firebase from "firebase/";
 export function getModUsuario(nombreModulo, userMod) {
   const { data } = useCollection("mods", {
     where: [
@@ -29,7 +31,11 @@ export function useModUsuario(nombreModulo) {
   };
   return [mod, setMod];
 }
-
+export function Firebase() {
+  const config = FirestoreConfig();
+  const firestore = firebase.apps[0] ?? firebase.initializeApp(config);
+  return firestore;
+}
 export function getValorDb({ coleccion, idRegistro, campo }) {
   const { data } = useCollection(coleccion, {
     where: [

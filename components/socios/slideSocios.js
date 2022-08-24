@@ -18,7 +18,7 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
   useEffect(() => {
     setAfter(seleccion ? Number(seleccion[campo]) : null);
   }, [seleccion]);
-  console.log(mod);
+
   const tipoSocios = mod?.config?.itemsTipoSocios
     ? mod.config.itemsTipoSocios
     : [];
@@ -101,7 +101,11 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
             color="primary"
             sx={{ width: "20px", p: 1 }}
             onClick={() => {
-              setAfter(data[0][campo] - 20);
+              setAfter(
+                data.length === 0
+                  ? getUltimoTipo(tipoSocio) - 10
+                  : data[0][campo] - 20
+              );
             }}
           >
             {`<`}
@@ -162,7 +166,7 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
             color="secondary"
             sx={{ width: "20px", p: 1 }}
             onClick={() => {
-              setAfter(getUltimoTipo(tipoSocio) - 10);
+              setAfter(getUltimoTipo(tipoSocio));
             }}
           >
             {`>>`}

@@ -80,12 +80,23 @@ export default function FormMensualizado({ values, setFieldValue }) {
 
   return (
     <Grid container sx={{ p: 2 }} spacing={2}>
-      <Grid item md={12}>
-        <Typography variant="caption">
-          ** IMPORTANTE: a partir del campo FECHA INICIO se comenzara a generar
-          la deuda
-        </Typography>
+      <Grid item container>
+        <Grid item md={12}>
+          <Typography variant="caption">
+            ** IMPORTANTE: a partir del campo FECHA INICIO se comenzara a
+            generar la deuda
+          </Typography>
+        </Grid>
+        <Grid item md={12}>
+          {values.suspendida && (
+            <Typography variant="caption">
+              ** IMPORTANTE: el campo FECHA FIN (en caso de suspencion determina
+              la fecha del ultima vez que va a tener que abonar este servicio)
+            </Typography>
+          )}
+        </Grid>
       </Grid>
+
       <Grid item md={3}>
         <SelectFecha label="Fecha " campo="fecha" />
       </Grid>
@@ -96,11 +107,7 @@ export default function FormMensualizado({ values, setFieldValue }) {
       <Grid item md={2}>
         <Switch label="Suspendida" campo="suspendida" />
       </Grid>
-      {values.suspendida && (
-        <Grid item md={7}>
-          <Input label="Motivo" campo="motivoSuspencion" />
-        </Grid>
-      )}
+
       <Grid item md={4}>
         <Switch label="Es Debito Automatico?" campo="esPorDebitoAutomatico" />
       </Grid>
@@ -129,25 +136,40 @@ export default function FormMensualizado({ values, setFieldValue }) {
           </Typography>
         </Grid>
       )}
+      {values.suspendida && (
+        <Grid item md={7}>
+          <Input label="Motivo" campo="motivoSuspencion" />
+        </Grid>
+      )}
+      {values.suspendida && (
+        <Grid item md={4}>
+          <SelectFecha label="Fecha Fin" campo="fechaFin" />
+        </Grid>
+      )}
       <Grid item md={5}>
         <SelectTipoPeriodo callbackchange={cambiaTipoPeriodo} />
       </Grid>
-      {values.esConAsistencia && (
-        <Grid item md={3}>
-          <SelectActividades callbackchange={cambiaActividad} />
-        </Grid>
-      )}
-      {values.esConAsistencia && (
-        <Grid item md={3}>
-          <SelectGrupos idActividad={values.idActividad} />
-        </Grid>
-      )}
       <Grid item md={7}>
         <SelectProducto />
       </Grid>
-      <Grid item md={12}>
+      <Grid item md={3}>
+        <Switch label="Agregar a Actividad" campo="agregarActividad" />
+      </Grid>
+      {values.agregarActividad && (
+        <Grid item md={4}>
+          <SelectActividades callbackchange={cambiaActividad} />
+        </Grid>
+      )}
+      {values.agregarActividad && (
+        <Grid item md={5}>
+          <SelectGrupos idActividad={values.idActividad} />
+        </Grid>
+      )}
+
+      <Grid item md={8}>
         <Input label="Detalle" campo="detalle" />
       </Grid>
+
       <EditarDialogCbu
         idItem={values.idCuentaCbu}
         open={openEditarCbu}

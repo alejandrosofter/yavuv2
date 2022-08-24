@@ -1,22 +1,19 @@
-import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import Select2 from "../forms/select2Formik";
-export default function Modulo({ callbackchange }) {
-  const { data: promociones } = useCollection("promociones", {
-    where: [
-      "idUsuario",
-      "==",
-      localStorage.getItem("usermod")
-        ? localStorage.getItem("usermod")
-        : fuego.auth().currentUser.uid,
-    ],
-  });
-  if (!promociones) return "";
+import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
+import Modelo, { valoresIniciales } from "@modelos/ModeloPromociones";
+import Form from "@components/promociones/_form";
+export default function SelectPromocion({ label, campo, callbackchange }) {
   return (
-    <Select2
+    <SelectUserModColeccion
+      coleccion={"promociones"}
+      Modelo={Modelo}
+      parentData={true}
+      valoresIniciales={valoresIniciales}
+      Form={Form}
       callbackchange={callbackchange}
-      campo="idPromocion"
-      label="Promo Asociada"
-      lista={promociones}
+      campo={campo ? campo : "idPromocion"}
+      label={label ? label : "Promo Asociada"}
+      icono="fas fa-gift"
+      maxWidth="md"
       campoId="id"
       campoLabel="nombrePromocion"
     />
