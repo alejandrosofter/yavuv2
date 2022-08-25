@@ -62,14 +62,14 @@ const WebcamFormik = ({ folder, label, campo, w, h, callbackchange }) => {
     var storageRef = fuego.storage().ref();
     var folderSociosRef = storageRef.child(rutaImagen);
     setLoading(true);
-
+    console.log(rutaImagen);
     try {
       var bufferValue = Buffer.from(
         imageBase64.toString().split(";base64,").pop(),
         "base64"
       );
       folderSociosRef.put(bufferValue).then(async (snapshot) => {
-        setearValores(rutaImagen, rutaImagenThum);
+        setearValores(rutaImagen, rutaImagenThum, snapshot);
         setImagenUrl(rutaImagen);
         setLoading(false);
         console.log("SUBI IMAGEN");
@@ -85,7 +85,7 @@ const WebcamFormik = ({ folder, label, campo, w, h, callbackchange }) => {
     <FormControl fullWidth>
       <Field label={label} name={campo} id={campo}>
         {(props) => {
-          setearValores = (rutaImagen, rutaImagenThum) => {
+          setearValores = (rutaImagen, rutaImagenThum, snapshot) => {
             props.form.setFieldValue(campo, rutaImagen);
             props.form.setFieldValue(`${campo}_thum`, rutaImagenThum);
           };

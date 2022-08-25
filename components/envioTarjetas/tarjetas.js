@@ -2,6 +2,7 @@ import CardSimple from "@components/forms/cardSimple";
 import Dialogo from "@components/forms/dialogo";
 import MuestraImagen from "@components/forms/muestraImagen";
 import TitulosFormularios from "@components/forms/tituloFormularios";
+import { QueryApi } from "@helpers/queryApi";
 import { capitalize } from "@helpers/Strings";
 import {
   Typography,
@@ -13,6 +14,7 @@ import {
   Menu,
   MenuItem,
   Icon,
+  IconButton,
 } from "@mui/material";
 import { useCollection, fuego, useDocument } from "@nandorojo/swr-firestore";
 import axios from "axios";
@@ -30,6 +32,7 @@ export default function TarjetasEnvio({ mod }) {
   const [paginaActual, setPaginaActual] = useState();
   const [campoClave, setCampoClave] = useState("idTarjeta");
   const [openConfirmaElimina, setOpenConfirmaElimina] = useState(false);
+  const [dataConsulta, setDataConsulta] = useState();
   const CANTIDAD_PAGINA = 27;
 
   const router = useRouter();
@@ -74,6 +77,12 @@ export default function TarjetasEnvio({ mod }) {
           null
     );
   };
+  const refrescarTodos = () => {
+    setDataConsulta({
+      url: "/api/tarjetas/refrescarTodos",
+      data: { idEnvio: router.query.idItem },
+    });
+  };
   const clickEditar = () => {
     setContextMenu(null);
     setOpenEditar(true);
@@ -84,20 +93,36 @@ export default function TarjetasEnvio({ mod }) {
   };
   const clickVerCredencial = () => {
     setContextMenu(null);
+
     setOpenVerCredencial(true);
+  };
+  const clickRefrescar = () => {
+    setContextMenu(null);
+    setDataConsulta({
+      url: "/api/tarjetas/refrescarData",
+      data: { ...seleccion, idEnvio: router.query.idItem },
+    });
   };
   const handleClose = () => {
     setContextMenu(null);
   };
   if (!envioTarjeta) return "";
   return (
-    <Grid container>
-      <Grid item md={7} spacing={2} direction="row">
+    <Grid spacing={1} container>
+      <Grid item md={6}>
         <TitulosFormularios
           titulo={`${envioTarjeta.cantidad} CREDENCIALES`}
           subTitulo="para el envio"
           icono="fas fa-credit-card"
         />
+      </Grid>
+      <Grid item md={1}>
+        <IconButton
+          title="REFRESCAR INFO TODOS LOS SOCIOS"
+          onClick={refrescarTodos}
+        >
+          <Icon className="fas fa-refresh" />
+        </IconButton>
       </Grid>
       <Paginador
         cantidadPorPagina={CANTIDAD_PAGINA}
@@ -148,6 +173,10 @@ export default function TarjetasEnvio({ mod }) {
             <Icon sx={{ mr: 1 }} className="fas fa-credit-card" />
             Ver Credencial
           </MenuItem>
+          <MenuItem spacing={2} onClick={clickRefrescar}>
+            <Icon sx={{ mr: 1 }} className="fas fa-refresh" />
+            Refrescar Info Socio
+          </MenuItem>
           <MenuItem spacing={2} onClick={clickEditar}>
             <Icon sx={{ mr: 1 }} className="fas fa-pencil" />
             Editar
@@ -182,6 +211,7 @@ export default function TarjetasEnvio({ mod }) {
         setOpen={setOpenVerCredencial}
         open={openVerCredencial}
       />
+      <QueryApi dataConsulta={dataConsulta} />
     </Grid>
   );
 }

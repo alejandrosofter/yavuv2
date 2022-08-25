@@ -3,7 +3,6 @@ import { TextField } from "formik-mui";
 export default function Input({
   campo,
   label,
-  inputProps,
   type,
   disabled,
   multiline,
@@ -15,13 +14,12 @@ export default function Input({
       name={campo}
       fullWidth
       type={type}
-      onChange={onChange}
+      onKeyUp={onChange}
       multiline={multiline}
       rows={rows}
       disabled={disabled}
       variant="outlined"
       label={label}
-      inputProps={inputProps}
       component={TextField}
     />
   );

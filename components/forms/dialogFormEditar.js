@@ -17,7 +17,7 @@ export default function DialogForm({
   dataForm,
 }) {
   if (!dataForm) return "";
-  console.log(`${coleccion}/${dataForm[campoId]}`);
+
   return (
     <DialogContenido maxWidth={maxWidth} open={open} setOpen={setOpen}>
       <EditarGenerico

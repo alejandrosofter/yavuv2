@@ -57,6 +57,8 @@ export default function FormMensualizado({ values, setFieldValue }) {
         `cantidadAsistenciasMinimas`,
         item.cantidadMinimaAsistencias
       );
+
+      setFieldValue(`agregarActividad`, item.esConAsistencia);
     }
   };
 

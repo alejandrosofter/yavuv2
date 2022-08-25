@@ -7,6 +7,7 @@ import { Editor } from "@tinymce/tinymce-react";
 const RichEditorFormik = ({ label, campo, callbackchange, height }) => {
   const [data, setData] = useState("");
   const editorRef = useRef(null);
+
   useState(() => {}, []);
   return (
     <FormControl fullWidth>

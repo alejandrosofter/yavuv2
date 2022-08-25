@@ -4,7 +4,6 @@ import { Grid, Tab, Icon } from "@mui/material";
 import Input from "@components/forms/input";
 import { ModeloAcciones, valoresInicialesItems } from "@modelos/ModeloModulos";
 
-import CheckboxForm from "@components/forms/checkbox";
 import ItemsModulo from "@components/forms/itemsModulo";
 import _FormItemAccion from "./_formItemAccion";
 
@@ -14,7 +13,67 @@ export default function FormMod({ values, setFieldValue }) {
   const cambiaTab = (event, newValue) => {
     setTabDatos(newValue);
   };
+  const field = "acciones";
+  const label = "ACCIONES";
+  const cols = [
+    {
+      field: "nombre",
+      headerName: "Nombre",
+      editable: false,
+      width: 100,
+    },
 
+    {
+      field: "label",
+      headerName: "Label",
+      editable: false,
+      width: 80,
+    },
+    {
+      field: "icono",
+      headerName: "Icono",
+      width: 80,
+      renderCell: (params) => {
+        return <Icon className={params.formattedValue} />;
+      },
+    },
+    {
+      field: "descripcion",
+      headerName: "Descripcion",
+      editable: false,
+      width: 180,
+    },
+    {
+      field: "url",
+      headerName: "Url",
+      editable: false,
+      width: 280,
+    },
+    {
+      field: "color",
+      headerName: "Color",
+      editable: false,
+      width: 80,
+    },
+    {
+      field: "method",
+      headerName: "Metodo",
+      editable: false,
+      width: 80,
+    },
+    {
+      field: "esRegistro",
+      headerName: "Es Registro?",
+      width: 60,
+      valueFormatter: ({ value }) => (value ? "SI" : "NO"),
+    },
+    {
+      field: "esFuncion",
+      headerName: "Es Funcion?",
+      width: 60,
+      valueFormatter: ({ value }) => (value ? "SI" : "NO"),
+    },
+  ];
   return (
     <TabContext value={tabDatos}>
       <Grid md={12} item xs={9}>
@@ -63,76 +122,18 @@ export default function FormMod({ values, setFieldValue }) {
           <Grid md={12} xs={12}>
             <ItemsModulo
               setFieldValue={setFieldValue}
-              campo="acciones"
-              data={values?.acciones}
+              campo={field}
+              data={values[field]}
               modelo={ModeloAcciones}
-              nombreModulo="ACCIONES"
+              nombreModulo={label}
               fullWidth={true}
               maxWidth={"md"}
-              textoEditar={`Puedes cambiar las acciones de esta accion:`}
-              textoAgregar={`Ingrese los datos de la accion`}
+              textoEditar={`Puedes cambiar las acciones del registro:`}
+              textoAgregar={`Ingrese los datos del registro`}
               valoresIniciales={valoresInicialesItems}
-              form={<_FormItemAccion />}
+              form={<_FormItemAccion mod={mod} />}
               dataModulo={[]}
-              columnas={[
-                {
-                  field: "nombre",
-                  headerName: "Nombre",
-                  editable: false,
-                  width: 100,
-                },
-
-                {
-                  field: "label",
-                  headerName: "Label",
-                  editable: false,
-                  width: 80,
-                },
-                {
-                  field: "icono",
-                  headerName: "Icono",
-                  width: 80,
-                  renderCell: (params) => {
-                    return <Icon className={params.formattedValue} />;
-                  },
-                },
-                {
-                  field: "descripcion",
-                  headerName: "Descripcion",
-                  editable: false,
-                  width: 180,
-                },
-                {
-                  field: "url",
-                  headerName: "Url",
-                  editable: false,
-                  width: 280,
-                },
-                {
-                  field: "color",
-                  headerName: "Color",
-                  editable: false,
-                  width: 80,
-                },
-                {
-                  field: "method",
-                  headerName: "Metodo",
-                  editable: false,
-                  width: 80,
-                },
-                {
-                  field: "esRegistro",
-                  headerName: "Es Registro?",
-                  width: 60,
-                  valueFormatter: ({ value }) => (value ? "SI" : "NO"),
-                },
-                {
-                  field: "esFuncion",
-                  headerName: "Es Funcion?",
-                  width: 60,
-                  valueFormatter: ({ value }) => (value ? "SI" : "NO"),
-                },
-              ]}
+              columnas={cols}
             />
           </Grid>
         </TabPanel>

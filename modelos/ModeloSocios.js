@@ -159,6 +159,8 @@ export function ModeloTarjetas() {
   return yup.object().shape({
     //    fecha: yup.string(),
     detalle: yup.string(),
+    tipo: yup.string().required("Seleccione un tipo de carnet"),
+    estado: yup.string().required("Seleccione un estado por favor"),
   });
 }
 export function ModeloConfig() {
@@ -277,6 +279,14 @@ export function ModeloMensualizado() {
         "Es muy importante que selecciones la FECHA DE INICIO de la mensualizacion"
       ),
     estado: yup.string(),
+    idGrupoActividad: yup.string().when("agregarActividad", {
+      is: true,
+      then: yup.string().required("Debes seleccionar un grupo"),
+    }),
+    idActividad: yup.string().when("agregarActividad", {
+      is: true,
+      then: yup.string().required("Debes seleccionar una actividad"),
+    }),
     tipoPeriodo: yup
       .string()
       .required("Es necesario que selecciones un PERIODO"),

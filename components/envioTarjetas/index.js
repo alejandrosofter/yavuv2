@@ -72,6 +72,7 @@ export default function Modulo({ mod }) {
         icono={mod.icono}
         limit={10}
         mod={mod}
+        parentData={true}
         acciones={mod.acciones}
         orderBy={order}
         columns={columns}

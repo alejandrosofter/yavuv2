@@ -16,15 +16,13 @@ export default function ModeloModulos() {
     }),
   });
 }
+
 export function ModeloAcciones() {
   return yup.object().shape({
-    nombre: yup
-      .string()
-      .required("Es requerido para buscar el componente el las librerias"),
-    label: yup.string().required("Es requerido"),
-    icono: yup.string(),
-
-    descripcion: yup.string(),
+    //    fecha: yup.string(),
+    detalle: yup.string(),
+    nombre: yup.string().required("Seleccione un tipo de carnet"),
+    label: yup.string().required("Seleccione un estado por favor"),
   });
 }
 export function valoresIniciales() {

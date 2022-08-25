@@ -10,7 +10,7 @@ export default function VerCredencial({ data, open, setOpen, idEnvio }) {
   );
   const { data: dataSocio } = useDocument(`/socios/${dataDoc?.idSocio}`);
 
-  const mod = getModUsuario("socios");
+  const mod = getModUsuario("socios", localStorage.getItem("usermod"));
   const dataSalida = { ...dataSocio, ...data };
   const [plantilla, setPlantilla] = UsePlantilla({
     id: mod?.config?.plantillaCredencial,

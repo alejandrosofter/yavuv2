@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Field } from "formik";
+import { ErrorMessage, Field } from "formik";
 
-import { FormControl } from "@mui/material";
+import { FormControl, Typography } from "@mui/material";
 import Select2 from "react-select";
 import { getItemArray } from "@helpers/arrays";
 const SelectFormik = ({
@@ -87,33 +87,39 @@ const SelectFormik = ({
               if (callbackchange) callbackchange(item, registro);
             }
           };
+
           return (
-            <Select2
-              menuPortalTarget={document.body}
-              menuPosition={"fixed"}
-              styles={{
-                ///.....
-                menuPortal: (provided) => ({ ...provided, zIndex: 9999 }),
-                menu: (provided) => ({ ...provided, zIndex: 9999 }),
-                ///.....
-              }}
-              id={`${campo}`}
-              // defaultValue={props.form.values[campo]}
-              defaultValue={
-                props.form.values
-                  ? datos.filter(
-                      (option) => option.value === props.form.values[campo]
-                    )[0]
-                  : null
-              }
-              label={`${label}`}
-              isClearable={true}
-              value={valor}
-              isMulti={multiple}
-              options={datos}
-              placeholder={label}
-              onChange={handleChange}
-            />
+            <>
+              <Select2
+                menuPortalTarget={document.body}
+                menuPosition={"fixed"}
+                styles={{
+                  ///.....
+                  menuPortal: (provided) => ({ ...provided, zIndex: 9999 }),
+                  menu: (provided) => ({ ...provided, zIndex: 9999 }),
+                  ///.....
+                }}
+                id={`${campo}`}
+                // defaultValue={props.form.values[campo]}
+                defaultValue={
+                  props.form.values
+                    ? datos.filter(
+                        (option) => option.value === props.form.values[campo]
+                      )[0]
+                    : null
+                }
+                label={`${label}`}
+                isClearable={true}
+                value={valor}
+                isMulti={multiple}
+                options={datos}
+                placeholder={label}
+                onChange={handleChange}
+              />
+              <Typography variant="caption" color="error">
+                {props.meta?.error}
+              </Typography>
+            </>
           );
         }}
       </Field>

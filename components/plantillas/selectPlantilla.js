@@ -15,6 +15,7 @@ export default function Modulo({ multiple, label, campo, callbackchange }) {
       label={label ? label : "Plantilla"}
       icono="fas fa-file-image"
       maxWidth="lg"
+      modal={false}
       campoId="id"
       campoLabel="nombre"
     />
