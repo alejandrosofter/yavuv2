@@ -10,6 +10,7 @@ export default function SelectAlgoliaUserModColeccion({
   coleccionAlgolia,
   campo,
   callbackchange,
+  values,
   Form,
   icono,
   Modelo,
@@ -19,7 +20,8 @@ export default function SelectAlgoliaUserModColeccion({
   coleccion,
   maxWidth,
 }) {
-  const [seleccion, setSeleccion] = useState();
+  const campoId = "objectID";
+  const [seleccion, setSeleccion] = useState({ [campoId]: values[campo] });
   const [openEditar, setOpenEditar] = useState(false);
   const [openNuevo, setOpenNuevo] = useState(false);
 
@@ -30,7 +32,6 @@ export default function SelectAlgoliaUserModColeccion({
     setOpenNuevo(true);
   };
   const fn = (item, res) => {
-    console.log(item, res);
     setSeleccion(item);
     if (callbackchange) callbackchange(item, res);
   };
@@ -95,7 +96,7 @@ export default function SelectAlgoliaUserModColeccion({
         maxWidth={maxWidth}
         icono={icono}
         Modelo={Modelo}
-        campoId="objectID"
+        campoId={campoId}
         editar={true}
         coleccion={coleccion}
         dataForm={seleccion}

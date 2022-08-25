@@ -7,7 +7,8 @@ export function ModeloTipoCuenta() {
 }
 export default function Modelo() {
   return yup.object().shape({
-    titular: yup.string().required(),
+    titular: yup.string().required("El titular es requerido"),
+    tipoCuenta: yup.string().required("Debes seleccionar el tipo de cuenta"),
     cbu: yup
       .string()
       .test("Cuit invalido", "${path} INVALIDO", async (value, testContext) => {

@@ -120,6 +120,7 @@ export default function FormMensualizado({ values, setFieldValue }) {
             coleccionAlgolia={"cuentasCbu"}
             label="Cuenta CBU"
             Form={Form}
+            values={values}
             Modelo={Modelo}
             valoresIniciales={valoresIniciales}
             coleccion="cuentasCbu"
