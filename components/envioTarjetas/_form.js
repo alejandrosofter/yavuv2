@@ -22,7 +22,7 @@ export default function Form({ mod, setFieldValue, values, nuevo }) {
 
       <Grid item md={2}>
         <SelectEstaticFormik
-          items={["ABIERTO", "ENVIADO", "ENTREGADO", "FINALIZADO"]}
+          items={["ABIERTO", "ENVIADO", "ENTREGADO"]}
           label="Estado"
           campo="estado"
         />

@@ -24,6 +24,23 @@ export const cols = [
         ""
       ),
   },
+  {
+    field: "bajaServicio",
+    headerName: "",
+    width: 15,
+    renderCell: (params) =>
+      params.value ? (
+        <Tooltip
+          title={`Tiene baja del servicio para ${getFechaString(
+            params.row.fechaBaja
+          )}`}
+        >
+          <Icon class="fas fa-bell" />
+        </Tooltip>
+      ) : (
+        ""
+      ),
+  },
   // {
   //   field: "hijo",
   //   headerName: "",

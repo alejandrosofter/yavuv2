@@ -1,10 +1,4 @@
-import {
-  CircularProgress,
-  Grid,
-  MenuItem,
-  Tab,
-  Typography,
-} from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import Input from "@components/forms/input";
 import SelectFormik from "@components/forms/select2Formik";
@@ -32,9 +26,10 @@ export default function FormCambioEstadoSocio(props) {
   return (
     <Grid sx={{ p: 2 }} spacing={2} container>
       <Grid item md={12}>
-        <Typography variant="caption">
-          ** la FECHA FIN es la fecha en que se cobrara la ultima cuota
-        </Typography>
+        <Typography variant="caption"></Typography>
+      </Grid>
+      <Grid item md={4}>
+        <SelectFecha label="Fecha " campo="fecha" />
       </Grid>
       <Grid item md={4}>
         <SelectStaticFormik
@@ -42,14 +37,6 @@ export default function FormCambioEstadoSocio(props) {
           campo="estado"
           items={["ALTA", "BAJA", "SUSPENDIDO"]}
         />
-      </Grid>
-      {values.estado === "BAJA" && (
-        <Grid item md={4}>
-          <SelectFecha label="Fecha Fin" campo="fechaFin" />
-        </Grid>
-      )}
-      <Grid item md={4}>
-        <SelectFecha label="Fecha " campo="fecha" />
       </Grid>
 
       <Grid item md={12}>
@@ -63,7 +50,7 @@ export default function FormCambioEstadoSocio(props) {
       </Grid>
 
       <Grid item md={12}>
-        <Input label="Detalle " campo="detalle" />
+        <Input label="Detalle (opcional)" campo="detalle" />
       </Grid>
     </Grid>
   );

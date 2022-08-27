@@ -1,19 +1,24 @@
-import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import Select2 from "@components/forms/select2Formik";
+import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
+import Modelo, { valoresIniciales } from "@modelos/ModeloGrupos";
+import Form from "@components/actividades/grupos/_form";
 export default function SelectGrupos({
+  idActividad,
   label,
   campo,
   callbackchange,
-  idActividad,
 }) {
-  const { data } = useCollection(`actividades/${idActividad}/grupos`);
-  if (!data) return "";
   return (
-    <Select2
+    <SelectUserModColeccion
+      coleccion={`actividades/${idActividad}/grupos`}
+      Modelo={Modelo}
+      parentData={false}
+      valoresIniciales={valoresIniciales}
+      Form={Form}
       callbackchange={callbackchange}
       campo={campo ? campo : "idGrupoActividad"}
       label={label ? label : "Grupo"}
-      lista={data}
+      icono="fas fa-shopping-cart"
+      maxWidth="sm"
       campoId="id"
       campoLabel={(item) =>
         `${item.nombreGrupo.toUpperCase()} cupo (${

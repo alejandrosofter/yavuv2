@@ -107,6 +107,12 @@ export function valoresInicialesCambioEstado() {
   return {
     estado: "",
     fecha: new Date(),
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
   };
 }
 export function ModeloItemMovimientoCuenta() {
@@ -118,7 +124,7 @@ export function ModeloItemMovimientoCuenta() {
 }
 export function ModeloCambioEstado() {
   return yup.object().shape({
-    estado: yup.string().required(),
+    estado: yup.string().required("Debes seleccionar un estado"),
   });
 }
 export function valoresInicialesDocumentacion() {

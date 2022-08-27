@@ -115,7 +115,7 @@ export default function FormMensualizado({ values, setFieldValue }) {
       </Grid>
 
       {values.esPorDebitoAutomatico && (
-        <Grid item md={8}>
+        <Grid item md={12}>
           <SelectAlgoliaUserModColeccion
             coleccionAlgolia={"cuentasCbu"}
             label="Cuenta CBU"
@@ -139,20 +139,23 @@ export default function FormMensualizado({ values, setFieldValue }) {
           </Typography>
         </Grid>
       )}
-      {values.suspendida && (
+      {/* {values.suspendida && (
         <Grid item md={7}>
           <Input label="Motivo" campo="motivoSuspencion" />
         </Grid>
-      )}
-      {values.suspendida && (
-        <Grid item md={4}>
-          <SelectFecha label="Fecha Fin" campo="fechaFin" />
+      )} */}
+      <Grid item md={3}>
+        <Switch label="Baja Servicio" campo="bajaServicio" />
+      </Grid>
+      {values.bajaServicio && (
+        <Grid item md={3}>
+          <SelectFecha label="Fecha Baja" campo="fechaBaja" />
         </Grid>
       )}
-      <Grid item md={5}>
+      <Grid item md={6}>
         <SelectTipoPeriodo callbackchange={cambiaTipoPeriodo} />
       </Grid>
-      <Grid item md={7}>
+      <Grid item md={12}>
         <SelectProducto />
       </Grid>
       <Grid item md={3}>

@@ -1,31 +1,22 @@
-import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import Select2 from "../forms/select2Formik";
-export default function SelectActividades({
-  multiple,
-  label,
-  campo,
-  callbackchange,
-}) {
-  const { data } = useCollection("actividades", {
-    where: [
-      "idUsuario",
-      "==",
-      localStorage.getItem("usermod")
-        ? localStorage.getItem("usermod")
-        : fuego.auth().currentUser.uid,
-    ],
-  });
-  if (!data) return "";
+import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
+import Modelo, { valoresIniciales } from "@modelos/ModeloActividades";
+import Form from "@components/actividades/_form";
+export default function Modulo({ multiple, label, campo, callbackchange }) {
   return (
-    <Select2
+    <SelectUserModColeccion
+      coleccion={"actividades"}
+      Modelo={Modelo}
+      parentData={false}
+      valoresIniciales={valoresIniciales}
+      Form={Form}
       callbackchange={callbackchange}
-      //   extraData={["importe"]}
       multiple={multiple}
       campo={campo ? campo : "idActividad"}
-      label={label ? label : "Actividad "}
-      lista={data}
+      label={label ? label : "Actividad"}
+      icono="fas fa-shopping-cart"
+      maxWidth="sm"
       campoId="id"
-      campoLabel={(item) => item.nombreActividad.toUpperCase()}
+      campoLabel={(item) => item?.nombreActividad.toUpperCase()}
     />
   );
 }

@@ -1,7 +1,13 @@
 import { Button, Grid, Icon } from "@mui/material";
 import ItemsCobro from "@components/cobros/_items";
+import { useDocument } from "@nandorojo/swr-firestore";
 
 export default function Modulo({ mod, setFieldValue, values }) {
+  const configTarjeta = mod.config;
+  const { data: producto } = useDocument(
+    `productos/${configTarjeta.productoCredencial}`
+  );
+
   const clickTraer = () => {
     let deudas = [];
     if (values.mensualizado)
@@ -18,14 +24,13 @@ export default function Modulo({ mod, setFieldValue, values }) {
 
     if (values.tarjetas?.length > 0)
       for (let tarjeta of values.tarjetas) {
-        const configTarjeta = mod.config;
         deudas.push({
           id: `${tarjeta.id}-${new Date().getTime()}`,
           cantidad: 1,
           label_idProducto: configTarjeta.label_productoCredencial,
 
           idProducto: configTarjeta.productoCredencial,
-          importe: Number(configTarjeta.productoCredencial_importe),
+          importe: Number(producto.importe),
           importeBonificacion: 0,
         });
       }
