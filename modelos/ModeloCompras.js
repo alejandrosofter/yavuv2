@@ -8,7 +8,7 @@ export default function ModeloCompras() {
     idEntidad: yup.string(),
     idUsuario: yup.string(),
     importeTotal: yup.number(),
-    fecha: yup.date(),
+    // fecha: yup.date(),
   });
 }
 export function ModeloItems() {

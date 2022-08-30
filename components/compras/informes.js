@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { IconButton, Stack, Icon } from "@mui/material";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { Fragment, useEffect, useState } from "react";
 import TitulosFormularios from "../forms/tituloFormularios";
@@ -7,7 +7,10 @@ import Filtro from "./_filter";
 import Tabla from "./_reporte";
 import { formatMoney } from "../../helpers/numbers";
 import { getFechaString } from "../../helpers/dates";
+import EditarComprasModal from "./editModal";
 export default ({ mod }) => {
+  const [openEditar, setOpenEditar] = useState(false);
+  const [seleccion, setSeleccion] = useState();
   const [filtro, setFiltro] = useState({
     where: ["idUsuario", "==", fuego.auth().currentUser?.uid],
     orderBy: ["fecha", "desc"],
@@ -76,7 +79,29 @@ export default ({ mod }) => {
             label: "$ Total",
             field: "importeTotal",
           },
+          {
+            label: "",
+            field: "id",
+            fn: (valor, row) => {
+              return (
+                <IconButton
+                  onClick={() => {
+                    console.log(row);
+                    setSeleccion(row);
+                    setOpenEditar(true);
+                  }}
+                >
+                  <Icon className="fas fa-pencil" />
+                </IconButton>
+              );
+            },
+          },
         ]}
+      />
+      <EditarComprasModal
+        open={openEditar}
+        setOpen={setOpenEditar}
+        doc={seleccion}
       />
     </Stack>
   );
