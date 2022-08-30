@@ -38,10 +38,15 @@ const firebaseAuthConfig = {
   credentialHelper: "none",
   callbacks: {
     // https://github.com/firebase/firebaseui-web#signinsuccesswithauthresultauthresult-redirecturl
-    signInSuccessWithAuthResult: () =>
-      // Don't automatically redirect. We handle redirects using
-      // `next-firebase-auth`.
-      false,
+    signInSuccessWithAuthResult: (authResult) => {
+      // console.log(authResult, authResult.user.uid);
+      localStorage.setItem(
+        "credenciales",
+        JSON.stringify(authResult.credentials)
+      );
+      localStorage.setItem("usermod", authResult.user.uid);
+      return false;
+    },
   },
 };
 

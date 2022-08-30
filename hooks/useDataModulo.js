@@ -18,7 +18,11 @@ export function useDataModulo({
   ]);
   const esPadre =
     localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
-
+  console.log(
+    esPadre,
+    localStorage.getItem("usermod"),
+    fuego.auth().currentUser?.uid
+  );
   const [recursosGrant, setRecursosGrant] = useState([]);
   const [where, setWhere] = useState(
     allUsers

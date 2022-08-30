@@ -1,6 +1,9 @@
-import Dgrid from "../forms/datagrid/dataGridFirebase";
-
-import { Icon, Typography, Stack } from "@mui/material";
+import ABMColeccion from "@components/forms/ABMcollection";
+import TitulosFormularios from "@components/forms/tituloFormularios";
+import Modelo, { valoresIniciales } from "@modelos/ModeloModulos";
+import { Icon, Typography, Grid, Stack } from "@mui/material";
+import { fuego } from "@nandorojo/swr-firestore";
+import Form from "./_form";
 export default function Modulo({ mod }) {
   const columns = [
     {
@@ -24,18 +27,32 @@ export default function Modulo({ mod }) {
         params.value ? params.value.map((item) => item.label).join(", ") : "",
     },
   ];
-
+  const order = ["nombre", "asc"];
+  const parentData = true;
   return (
-    <Dgrid
-      titulo="MODULOS"
-      subTitulo="generales"
-      icono="fas fa-cube"
-      limit={50}
-      mod={mod}
-      acciones={mod.acciones}
-      orderBy="label"
-      columns={columns}
-      coleccion={"modulos"}
-    />
+    <Grid container>
+      <Grid item xs={12}>
+        {" "}
+        <TitulosFormularios titulo="MODULOS" icono="fas fa-cube" />
+      </Grid>
+      <Grid item xs={12}>
+        <ABMColeccion
+          coleccion={`modulos`}
+          columns={columns}
+          where={[["idUsuario", "==", fuego.auth().currentUser?.uid]]}
+          labelNuevo="nueva"
+          preData={{}}
+          order={order}
+          maxWidth={"lg"}
+          // callbackclick={callbackclick}
+          icono={"fas fa-"}
+          Modelo={Modelo}
+          valoresIniciales={valoresIniciales}
+          dataForm={{}}
+          titulo={``}
+          Form={Form}
+        />
+      </Grid>
+    </Grid>
   );
 }

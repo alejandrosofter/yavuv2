@@ -59,6 +59,10 @@ const SelectFormik = ({
                 ? `label_${campo}`
                 : campo.replace(".", ".label_");
             if (multiple) {
+              props.form.setFieldValue(
+                `where_${campo}`,
+                item.map((i) => i.value)
+              );
               props.form.setFieldValue(campo, item);
               props.form.setFieldValue(
                 campoLabel,

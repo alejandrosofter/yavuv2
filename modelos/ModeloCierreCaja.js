@@ -5,7 +5,7 @@ export default function Modelo() {
     fecha: yup.date(),
     estado: yup.string(),
     importeAbre: yup.number(),
-    formaPago: yup.string(),
+    formaPago: yup.array(),
   });
 }
 export function valoresIniciales() {

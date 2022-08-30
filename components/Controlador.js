@@ -11,7 +11,10 @@ const Controlador = ({ esInicial, url, moduloEditar }) => {
   const router = useRouter();
   const esEdicion =
     router.query.componente === "editar" && moduloEditar === true;
-
+  console.log(router.query.usermod);
+  if (router.query.usermod) {
+    console.log(`usermod: ${router.query.usermod}`);
+  }
   const mod = esInicial
     ? getModModulo({ auth })
     : getModuloMod({ id: router.query.id });

@@ -34,6 +34,7 @@ export default function Modulo({ mod }) {
       <DataGridFirebase
         fnAcciones={fnAcciones}
         allUsers={true}
+        parentData={true}
         coleccion={mod.coleccion}
         titulo={mod.label}
         subTitulo="generales"

@@ -6,9 +6,9 @@ export default function Modulo({ mod }) {
   const [seleccion, setSeleccion] = useState(
     JSON.parse(localStorage.getItem("socioSeleccion"))
   );
-  useEffect(() => {
-    localStorage.setItem(`usermod`, mod.idUsuario);
-  }, [mod]);
+  // useEffect(() => {
+  //   localStorage.setItem(`usermod`, mod.idUsuario);
+  // }, [mod]);
   const guardarLocalStorage = (socio) => {
     localStorage.setItem("socioSeleccion", JSON.stringify(socio));
   };

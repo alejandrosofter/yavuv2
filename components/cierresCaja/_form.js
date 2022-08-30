@@ -15,12 +15,7 @@ export default function FormMensualizado({ values, setFieldValue }) {
       <Grid item md={3}>
         <SelectFecha label="Fecha " campo="fecha" />
       </Grid>
-      <Grid item md={2}>
-        <Input label="$ Abre " campo="importeAbre" />
-      </Grid>
-      <Grid item md={3}>
-        <SelectFormaPago />
-      </Grid>
+
       <Grid item md={6}>
         <Input label="Detalle (opcional) " campo="detalle" />
       </Grid>

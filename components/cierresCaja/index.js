@@ -20,28 +20,15 @@ export const cols = [
     type: "date",
     renderCell: (params) => getFechaString(params.value),
   },
-  {
-    field: "importeAbre",
-    headerName: "$ Abre",
-    width: 120,
-    renderCell: (params) => formatMoney(params.value),
-  },
 
   {
-    field: "importeItems",
-    headerName: "$ Items",
-    width: 190,
-    renderCell: (params) => formatMoney(params.value),
-  },
-  {
     field: "total",
-    headerName: "$ TOTAL",
-    width: 120,
+    headerName: "Detalle",
+    width: 320,
     renderCell: (params) =>
-      formatMoney(
-        Number(params.row.importeAbre) +
-          (params.row.importeItems ? params.row.importeItems : 0)
-      ),
+      params.value
+        ? `Se registraron ${params.value} pagos en el cierre de caja`
+        : "Aguarde...",
   },
   {
     field: "estado",
@@ -50,6 +37,7 @@ export const cols = [
   },
 ];
 export default function CuentaSocio({ data, mod }) {
+  console.log(localStorage.getItem("usermod"));
   const order = ["fecha"];
   const subColeccion = "mensualizado";
   const icono = "fas fa-file-invoice-dollar";
@@ -66,6 +54,32 @@ export default function CuentaSocio({ data, mod }) {
   });
   const getRowClassName = (params) => {
     if (params.row.suspendida) return "disabled";
+  };
+  const getDataImpresion = async (row) => {
+    let formasDePago = [];
+    await fuego.db
+      .collection(`cierresCaja/${row.id}/cierresFormaPago`)
+      .get()
+      .then(async (docCierre) => {
+        for (let i = 0; i < docCierre.docs.length; i++) {
+          console.log(
+            `cierresCaja/${row.id}/cierresFormaPago/${docCierre.docs[i].id}/items`
+          );
+          const items = await fuego.db
+            .collection(
+              `cierresCaja/${row.id}/cierresFormaPago/${docCierre.docs[i].id}/items`
+            )
+            .get()
+            .then((docItems) => {
+              return docItems.docs.map((doc) => doc.data());
+            });
+          formasDePago.push({
+            ...docCierre.docs[i].data(),
+            items,
+          });
+        }
+      });
+    return formasDePago;
   };
   const acciones = [
     {
@@ -89,8 +103,10 @@ export default function CuentaSocio({ data, mod }) {
       esFuncion: true,
       icono: "fas fa-share-alt",
       label: "Compartir",
-      fn: (row) => {
-        setDataImpresion(row);
+      fn: async (row) => {
+        const formasDePago = await getDataImpresion(row);
+
+        setDataImpresion({ ...row, formasDePago });
         setOpenImpresion(true);
       },
     },

@@ -27,7 +27,7 @@ export default function MenuModulosInvitado({}) {
               <Link
                 passHref
                 key={`link_${items.idMod}`}
-                href={"/mod/" + items.idMod}
+                href={`/mod/${items.idMod}?usermod`}
               >
                 <ListItem button>
                   <ListItemIcon>
