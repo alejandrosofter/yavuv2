@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export default async function handler(req, res) {
-  const { id } = req.query;
   const url = `${process.env.URL_FUNCTIONS}/listeningData-aplicar`;
 
   // const output = await (await fetch(url)).json();

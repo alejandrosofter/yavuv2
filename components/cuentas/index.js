@@ -50,6 +50,7 @@ export default function Modulo({ mod }) {
         titulo={mod.label}
         subTitulo="generales"
         icono={mod.icono}
+        parentData={true}
         limit={20}
         mod={mod}
         acciones={mod.acciones}

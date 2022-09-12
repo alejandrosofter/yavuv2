@@ -27,7 +27,7 @@ export default function Modulo({ mod }) {
     },
     {
       field: "label_idCentroCosto",
-      headerName: "CC",
+      headerName: "Grupo $",
       width: 150,
     },
     {

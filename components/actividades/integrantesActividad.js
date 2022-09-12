@@ -1,6 +1,8 @@
 import DataGrid2 from "@components/forms/datagrid/dataGrid2";
 import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
+import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { getFechaString } from "@helpers/dates";
+import { useState } from "react";
 const columns = [
   {
     field: "fechaInicio",
@@ -26,6 +28,14 @@ const columns = [
   },
 ];
 export function IntegrantesActividad({ item }) {
+  const idPlantilla = mod.config?.plantillaAsistencias;
+  const [openImpresion, setOpenImpresion] = useState(false);
+  const [dataImpresion, setDataImpresion] = useState();
+
+  const [plantilla, setPlantilla] = UsePlantilla({
+    id: idPlantilla,
+    data: dataImpresion,
+  });
   if (!item) return "Cargando...";
   return (
     <DataGrid2

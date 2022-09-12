@@ -19,11 +19,14 @@ export default function SelectUserModColeccion({
   valoresIniciales,
   parentData,
   maxWidth,
+  limit,
 }) {
   const [seleccion, setSeleccion] = useState();
   const [openEditar, setOpenEditar] = useState(false);
   const [openNuevo, setOpenNuevo] = useState(false);
+
   const { data } = useCollection(coleccion, {
+    limit,
     where: parentData
       ? ["idUsuario", "==", localStorage.getItem("usermod")]
       : ["usermod", "==", fuego.auth().currentUser?.uid],

@@ -65,20 +65,6 @@ export default function FormMensualizado({ values, setFieldValue }) {
   const cambiaActividad = (valor, item) => {
     if (item) setActividadSeleccion(item);
   };
-  const cambiaPromo = (valor, registro) => {
-    let importe = 0;
-    if (registro)
-      registro.items.map((item) => {
-        console.log(item, values.idProducto);
-        if (item.idProducto === values.idProducto.value) {
-          importe = importe + Number(item.importe);
-          importe =
-            importe +
-            Number(values.idProducto_importe) * Number(item.porcentaje / 100);
-        }
-      });
-    setFieldValue("importePromocion", importe.toFixed(2));
-  };
 
   return (
     <Grid container sx={{ p: 2 }} spacing={2}>
@@ -104,7 +90,7 @@ export default function FormMensualizado({ values, setFieldValue }) {
       </Grid>
 
       <Grid item md={3}>
-        <SelectFecha label="Fecha Inicio" campo="fechaInicio" />
+        <SelectFecha label="Fecha Inicio/Prox. cuota" campo="fechaInicio" />
       </Grid>
       <Grid item md={2}>
         <Switch label="Suspendida" campo="suspendida" />

@@ -18,11 +18,7 @@ export function useDataModulo({
   ]);
   const esPadre =
     localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
-  console.log(
-    esPadre,
-    localStorage.getItem("usermod"),
-    fuego.auth().currentUser?.uid
-  );
+
   const [recursosGrant, setRecursosGrant] = useState([]);
   const [where, setWhere] = useState(
     allUsers
@@ -75,11 +71,7 @@ export function useDataModulo({
   };
   const { data, error, loading } = useCollection(coleccionDb, {
     ...filtro,
-    where: [
-      parentData
-        ? ["idUsuario", "==", localStorage.getItem("usermod")]
-        : ["usermod", "==", fuego.auth().currentUser?.uid],
-    ],
+    where,
   });
   const dataPost = data ? data : [];
   // if(error)return "Aguarde..."

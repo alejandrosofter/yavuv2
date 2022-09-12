@@ -13,10 +13,13 @@ export default function Form({ setFieldValue, values }) {
   };
   return (
     <Grid spacing={2} container>
-      <Grid item md={3}>
+      <Grid item md={4}>
         <Input label="Nombre" campo="nombre" />
       </Grid>
-
+      <Grid item md={1}>
+        <Input label="Size" campo="size" />
+        <Typography variant="caption">*MIN 1 - MAX 12</Typography>
+      </Grid>
       <Grid item md={3}>
         <SelecListeningData callbackchange={cambiaListening} />
       </Grid>
@@ -27,7 +30,7 @@ export default function Form({ setFieldValue, values }) {
           campo="estado"
         />
       </Grid>
-      <Grid item md={2}>
+      <Grid item md={3}>
         <SelectEstaticFormik
           items={["MENSUAL", "DIARIO", "ANUAL"]}
           label="Periodicidad"
@@ -35,13 +38,29 @@ export default function Form({ setFieldValue, values }) {
         />
       </Grid>
       <Grid item md={3}>
+        <Input
+          label="Campo Periodo (desglosador del periodo - fecha)"
+          campo="campoFecha"
+        />
+        <Typography variant="caption">
+          *Al no poner nada, se calcula con la fecha actual
+        </Typography>
+      </Grid>
+      <Grid item md={2}>
+        <SelectEstaticFormik
+          items={["DONUT", "PLOT", "LINE"]}
+          label="Tipo Grafica"
+          campo="tipoGrafica"
+        />
+      </Grid>
+      {/* <Grid item md={3}>
         <Switch label="Comienza Acumulado" campo="comienzaAcumulado" />
         <Typography variant="caption">
           Al seleccionar esta opcion, se comenzara el periodo con el conteo
           total historico
         </Typography>
-      </Grid>
-      <Grid item md={9}>
+      </Grid> */}
+      <Grid item md={7}>
         <Input label="Detalle" campo="detalle" />
       </Grid>
     </Grid>

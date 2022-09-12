@@ -31,7 +31,12 @@ export function valoresIniciales() {
     primerVto: new Date(),
     segundoVto: new Date(),
     tercerVto: new Date(),
-    idUsuario: fuego.auth().currentUser.uid,
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
   };
 }
 export function ModeloItems() {

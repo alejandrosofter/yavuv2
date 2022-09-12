@@ -6,14 +6,16 @@ import { withAuthUser, useAuthUser, AuthAction } from "next-firebase-auth";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { updateField } from "../config/db";
+import { fuego } from "@nandorojo/swr-firestore";
 const Controlador = ({ esInicial, url, moduloEditar }) => {
   const auth = useAuthUser();
   const router = useRouter();
   const esEdicion =
     router.query.componente === "editar" && moduloEditar === true;
-  console.log(router.query.usermod);
-  if (router.query.usermod) {
-    console.log(`usermod: ${router.query.usermod}`);
+
+  if (router.query?.usermod) {
+    // console.log(`usermod: ${router.query?.usermod}`);
+    localStorage.setItem("usermod", router.query?.usermod);
   }
   const mod = esInicial
     ? getModModulo({ auth })

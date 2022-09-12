@@ -2,70 +2,88 @@ import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
 import { useState } from "react";
 import { getFechaString } from "@helpers/dates";
 import { QueryApi } from "@helpers/queryApi";
+import { fuego, useCollection, useDocument } from "@nandorojo/swr-firestore";
+import { Grid, Typography } from "@mui/material";
+import GraphEstadistica from "./graph";
+import EditarEstadistica from "./editar";
+import ConfirmDialog from "@components/forms/confirmDialog";
 export default function Modulo({ mod }) {
   const [dataConsulta, setDataConsulta] = useState();
 
-  const [openEnviar, setOpenEnviar] = useState(false);
-  const [dataSeleccion, setDataSeleccion] = useState();
-  const [openDeudas, setOpenDeudas] = useState();
-  const order = ["updated", "desc"];
-
-  const columns = [
-    {
-      field: "updated",
-      headerName: "Ultima Actualizacion",
-      width: 150,
-      renderCell: (params) => getFechaString(params.value, "DD/MM/YYYY HH:mm"),
-    },
-    {
-      field: "nombre",
-      headerName: "Nombre",
-      width: 120,
-    },
-    {
-      field: "periodicidad",
-      headerName: "Periodo",
-      width: 120,
-    },
-    {
-      field: "campos",
-      headerName: "Campos",
-      width: 420,
-      renderCell: (params) =>
-        //return comma separated list of campos
-        params.value
-          ? params.value
-              .map((campo) => `${campo.nombre} (${campo.asignacion})`)
-              .join(", ")
-          : "sin campos",
-    },
-    {
-      field: "estado",
-      headerName: "Estado",
-      width: 80,
-    },
+  const [open, setOpen] = useState(false);
+  const [openDialogo, setOpenDialogo] = useState(false);
+  const [doc, setDoc] = useState(false);
+  const parentData =
+    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
+  const wheres = [
+    parentData
+      ? ["idUsuario", "==", localStorage.getItem("usermod")]
+      : ["usermod", "==", fuego.auth().currentUser?.uid],
   ];
+  const { deleteDocument } = useDocument(`estadisticas/${doc?.id}`);
+  const { data: estadisticas } = useCollection(`estadisticas`, {
+    wheres,
+    listen: true,
+  });
+  const callbacksuccess = (data) => {
+    setOpenDialogo(false);
+    setOpen(false);
+    console.log(`estadisticas/${doc?.id}`, doc);
+    deleteDocument();
+  };
 
   let fnAcciones = {
     aplicar: (data) => {
       setDataConsulta({ url: "/api/estadisticas/aplicar", data });
     },
   };
+
+  if (!estadisticas || estadisticas.length === 0)
+    return (
+      <Grid spacing={2} container>
+        <Grid item md={12}>
+          <Typography variant="caption">
+            Debes ingresar alguna estadistica!
+          </Typography>{" "}
+        </Grid>
+      </Grid>
+    );
   return (
-    <>
-      <DataGridFirebase
-        fnAcciones={fnAcciones}
-        coleccion={mod.coleccion}
-        titulo={mod.label}
-        subTitulo=""
-        icono={mod.icono}
-        limit={10}
-        mod={mod}
-        acciones={mod.acciones}
-        orderBy={order}
-        columns={columns}
+    <Grid spacing={1} alignItems="center" container>
+      {estadisticas.map((item) => (
+        <Grid key={item.id} item md={item.size ? item.size : 4}>
+          <GraphEstadistica
+            acciones={[
+              {
+                icon: "fas fa-pencil",
+                nombre: "Editar",
+                fn: () => {
+                  setOpen(true);
+                  setDoc(item);
+                },
+              },
+              {
+                icon: "fas fa-trash",
+                nombre: "Quitar",
+                fn: () => {
+                  setDoc(item);
+                  setOpenDialogo(true);
+                },
+              },
+            ]}
+            estadistica={item}
+          />
+        </Grid>
+      ))}
+      <EditarEstadistica doc={doc} open={open} setOpen={setOpen} />
+      <ConfirmDialog
+        open={openDialogo}
+        titulo="Confirmas?"
+        mensaje={"Realmente deseas eliminar este registro?"}
+        setOpen={setOpenDialogo}
+        callbacksuccess={callbacksuccess}
       />
       <QueryApi dataConsulta={dataConsulta} />
-    </>
+    </Grid>
   );
 }

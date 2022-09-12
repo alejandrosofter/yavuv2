@@ -13,11 +13,24 @@ export default function Form({ mod, setFieldValue, values }) {
         <Input label="Coleccion" campo="coleccion" />
       </Grid>
       <Grid item md={2}>
+        <Input label="Campo Order (coleccion)" campo="campoOrder" />
+      </Grid>
+      <Grid item md={2}>
+        <Switch label="Es Number?" campo="orderIsNumber" />
+      </Grid>
+      <Grid item md={2}>
         <Input label="Cantidad Lote" campo="cantidadLote" />
+      </Grid>
+      <Grid item md={5}>
+        <Input label="Wheres (eval)" campo="wheres" />
       </Grid>
 
       <Grid item md={2}>
-        <Input label="Nombre Topic" campo="topicName" />
+        <SelectEstaticFormik
+          items={["ALGOLIACBU", "MENSUALIZADOSCHECK"]}
+          label="TOPIC NAME"
+          campo="topicName"
+        />
       </Grid>
       <Grid item md={2}>
         <SelectEstaticFormik

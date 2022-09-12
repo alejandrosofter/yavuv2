@@ -7,7 +7,7 @@ import ListaCierreAsistenciasGrupo from "./cierreAsistencias";
 import ABMColeccion from "@components/forms/ABMcollection";
 import Modelo, { valoresIniciales } from "@modelos/ModeloGrupos";
 import Form from "./_form";
-export default function ListaGrupos({ actividad, callbackchange }) {
+export default function ListaGrupos({ actividad, callbackchange, mod }) {
   const order = ["nombreGrupo", "asc"];
   const [seleccion, setSeleccion] = useState(null);
   const [openCierreAsistencias, setOpenCierreAsistencias] = useState(null);
@@ -107,6 +107,7 @@ export default function ListaGrupos({ actividad, callbackchange }) {
         open={openInscriptos}
         setOpen={setOpenInscriptos}
         actividad={actividad}
+        mod={mod}
         grupo={seleccion}
       />
       <ListaAsistenciaGrupo

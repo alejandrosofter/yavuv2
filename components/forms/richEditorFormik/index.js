@@ -15,7 +15,6 @@ const RichEditorFormik = ({ label, campo, callbackchange, height }) => {
       <Field label={label} name={campo} id={campo}>
         {(props) => {
           const handleChange = (e) => {
-            console.log(e.target.getContent());
             props.form.setFieldValue(campo, e.target.getContent());
             if (callbackchange) callbackchange(e.target.getContent());
           };
@@ -33,6 +32,7 @@ const RichEditorFormik = ({ label, campo, callbackchange, height }) => {
                 height: height ? height : 500,
                 language: "es",
                 menubar: true,
+
                 // content_css: ["/css/credencialSocio.css"],
                 extended_valid_elements: "style,link[href|rel]",
                 custom_elements: "style,link,~link",

@@ -16,6 +16,7 @@ export default function ColeccionTable({
   callbackclick,
   checkboxSelection,
   initialValuesChecks,
+  callbackchangedata,
 }) {
   const { data, error, update } = useCollection(coleccion, {
     where,
@@ -48,6 +49,9 @@ export default function ColeccionTable({
         shallow: true,
       });
   };
+  useEffect(() => {
+    if (callbackchangedata) callbackchangedata(data);
+  }, [data]);
   useEffect(() => {
     const aux = columns;
     const actions = (params) => {

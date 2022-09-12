@@ -11,6 +11,7 @@ import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { formatMoney } from "@helpers/numbers";
 import { QueryApi } from "@helpers/queryApi";
+import TitulosFormularios from "@components/forms/tituloFormularios";
 export const cols = [
   {
     field: "esPorDebitoAutomatico",
@@ -42,25 +43,27 @@ export const cols = [
         ""
       ),
   },
+
   {
-    field: "fecha",
-    headerName: "Fecha",
-    width: 85,
+    field: "fechaInicio",
+    headerName: "Proxima Cuota",
+    width: 120,
     type: "date",
     renderCell: (params) => getFechaString(params.value),
   },
   {
-    field: "fechaInicio",
-    headerName: "Inicia",
-    width: 85,
+    field: "socio",
+    headerName: "SOCIO",
+    width: 220,
     type: "date",
-    renderCell: (params) => getFechaString(params.value),
+    renderCell: (params) =>
+      `${params.row?.apellido} ${params.row?.nombre}`.toUpperCase(),
   },
 
   {
     field: "label_idProducto",
     headerName: "Producto",
-    width: 190,
+    width: 290,
     renderCell: (params) =>
       renderCellExpandData(params, (row) => `${row.label_idProducto}`),
   },
@@ -74,8 +77,8 @@ export const cols = [
   },
 ];
 export default function MensualizadosIndex({ data, mod }) {
-  const order = ["proximaCuota", "desc"];
-  const icono = "fas fa-file-invoice-dollar";
+  const order = ["fechaInicio_timestamp", "desc"];
+  const icono = "fas fa-stopwatch";
   const titulo = `MENSUALIZADOS`;
   const idPlantilla = mod.config?.plantillaCierre;
   const [openImpresion, setOpenImpresion] = useState(false);
@@ -101,30 +104,34 @@ export default function MensualizadosIndex({ data, mod }) {
     //   },
     // },
   ];
+  console.log(localStorage.getItem("usermod"), fuego.auth().currentUser?.uid);
   const parentData =
     localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
   return (
     <Grid container>
       <Grid item xs={12}>
+        <TitulosFormularios titulo={titulo} icono={icono} />
+      </Grid>
+      <Grid item xs={12}>
         <ABMColeccion
           acciones={acciones}
-          coleccion={`mensualizaciones`}
+          coleccion={`mensualizados`}
           columns={cols}
           where={[
             parentData
               ? ["idUsuario", "==", localStorage.getItem("usermod")]
               : ["usermod", "==", fuego.auth().currentUser?.uid],
           ]}
-          labelNuevo="Agregar cierre de caja"
+          hideNew={true}
           preData={{}}
-          order={order}
+          orderBy={order}
           maxWidth={"md"}
           getRowClassName={getRowClassName}
           icono={icono}
           Modelo={Modelo}
           valoresIniciales={valoresIniciales}
           dataForm={{ mod }}
-          titulo={titulo}
+          // titulo={titulo}
           Form={Form}
         />
       </Grid>

@@ -17,6 +17,7 @@ export default function ABMColeccion({
   subTitulo,
   dataForm,
   orderBy,
+  hideNew,
   where,
   columns,
   acciones,
@@ -85,15 +86,17 @@ export default function ABMColeccion({
         </Typography>
       </Grid>
       <Grid item md={3}>
-        <Button
-          variant="outlined"
-          size="small"
-          color="primary"
-          onClick={() => setOpenNuevo(true)}
-        >
-          <Icon fontSize="small" className="fas fa-plus" />
-          {labelNuevo ? labelNuevo : "Nuevo"}
-        </Button>
+        {!hideNew && (
+          <Button
+            variant="outlined"
+            size="small"
+            color="primary"
+            onClick={() => setOpenNuevo(true)}
+          >
+            <Icon fontSize="small" className="fas fa-plus" />
+            {labelNuevo ? labelNuevo : "Nuevo"}
+          </Button>
+        )}
       </Grid>
       <Grid item md={12}>
         <ColeccionTable

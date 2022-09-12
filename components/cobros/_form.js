@@ -11,6 +11,7 @@ import SeleccionDeuda from "./seleccionDeuda";
 import ItemsCobro from "./_items";
 import SelectFormikAlgolia from "../forms/selectAlgoliaFormik";
 import PersonalizarComprobante from "./_personalizarComprobante";
+import SelectSocioSimple from "@components/socios/selectSocioSimple";
 export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
   useEffect(() => {
     // setFieldValue("deudas", []);
@@ -33,6 +34,9 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
     setFieldValue("deudas", auxDeuda);
     setDeudas(auxDeuda);
   };
+  const cambiaSocio2 = (val, socio) => {
+    setClienteSeleccion({ socio, obejctID: socio.id });
+  };
   const cambiaSocio = (socio) => {
     setClienteSeleccion(socio);
   };
@@ -48,7 +52,8 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
         md={6}
       >
         <Grid item md={8}>
-          <SelectFormikAlgolia
+          <SelectSocioSimple campo="cliente" callbackchange={cambiaSocio2} />
+          {/* <SelectFormikAlgolia
             coleccionAlgolia={"socios"}
             label="Socio"
             callbackchange={cambiaSocio}
@@ -56,7 +61,7 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
               `${opt.apellido} ${opt.nombre} - ${opt.dni} - ${opt.nroSocio}`
             }
             campo="cliente"
-          />
+          /> */}
         </Grid>
 
         <Grid item md={3}>

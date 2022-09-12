@@ -10,37 +10,32 @@ export default function Form({ mod, setFieldValue, values }) {
         <Input label="Nombre" campo="nombre" />
       </Grid>
       <Grid item md={3}>
-        <Input label="Campo" campo="campo" />
-      </Grid>
-      <Grid item md={2}>
-        <Input label="Valor Historico" campo="valorHistorico" />
+        <Input label="Campo Valor" campo="campoValue" />
       </Grid>
       <Grid item md={3}>
-        <SelectEstaticFormik
-          items={["SUMATORIA", "CONTADOR", "PROMEDIO"]}
-          label="Asignacion"
-          campo="asignacion"
-        />
+        <Input label="Campo Label" campo="campoLabel" />
       </Grid>
-      {values.asignacion === "SUMATORIA" && (
-        <Grid item md={3}>
-          <Input label="Nombre Campo incremento" campo="campoIncremento" />
-          <Typography variant="caption">
-            ** es solo util para el caso de los campos de tipo SUMATORIA
-          </Typography>
+
+      <Grid item md={3}>
+        <Switch label="Tiene Condicion" campo="tieneCondicion" />
+      </Grid>
+      {values.tieneCondicion && (
+        <Grid item md={12}>
+          <Input label="Condicion" campo="condicion" />
         </Grid>
       )}
 
-      <Grid item md={3}>
-        <Switch label="Es Campo Array" campo="esCampoArray" />
-      </Grid>
-      {values.esCampoArray && (
-        <Grid item md={4}>
-          <Input label="Nombre campo array" campo="nombreCampoArray" />
-        </Grid>
-      )}
       <Grid item md={12}>
-        <Input label="Condicion" campo="condicion" />
+        <Input label="On Create (operacion asignacion)" campo="onCreate" />
+      </Grid>
+      <Grid item md={12}>
+        <Input label="On Delete (operacion asignacion)" campo="onDelete" />
+      </Grid>
+      <Grid item md={12}>
+        <Input label="On Update (operacion asignacion)" campo="onUpdate" />
+      </Grid>
+      <Grid item md={4}>
+        <Input label="Acumulado TOTAL" campo="acumulado" />
       </Grid>
       {/* <Grid item md={4}>
         <Input label="Condicion Desde" campo="condicionDesde" />

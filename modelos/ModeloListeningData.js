@@ -13,7 +13,12 @@ export function valoresIniciales() {
     nombre: "",
     coleccion: "",
     campoDestino: "",
-    idUsuario: fuego.auth().currentUser.uid,
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
   };
 }
 //////////////////

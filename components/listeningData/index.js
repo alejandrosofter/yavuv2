@@ -19,16 +19,24 @@ export default function Modulo({ mod }) {
     },
 
     {
-      field: "comienzaAcumulado",
-      headerName: "Comienza Acumulado",
-      width: 150,
-      renderCell: (params) => (params.value ? "Si" : "No"),
+      field: "campoOrder",
+      headerName: "Campo Order",
+      width: 120,
     },
     {
-      field: "guardaRegistros",
-      headerName: "Guarda Registros?",
-      width: 150,
-      renderCell: (params) => (params.value ? "Si" : "No"),
+      field: "campoValue",
+      headerName: "Campo Valor",
+      width: 120,
+    },
+    {
+      field: "campoLabel",
+      headerName: "Campo Label",
+      width: 120,
+    },
+    {
+      field: "cantidadProcesada",
+      headerName: "Procesados",
+      width: 100,
     },
     {
       field: "estado",
@@ -38,7 +46,7 @@ export default function Modulo({ mod }) {
     },
   ];
   let fnAcciones = {
-    aplicar: (data) => {
+    checkTodos: (data) => {
       setDataConsulta({ url: "/api/listeningData/chequear", data });
     },
     stopProceso: (data) => {
@@ -52,6 +60,7 @@ export default function Modulo({ mod }) {
         titulo={mod.label}
         subTitulo="para recoleccion de data"
         icono={mod.icono}
+        parentData={true}
         limit={10}
         mod={mod}
         acciones={mod.acciones}

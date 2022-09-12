@@ -95,7 +95,7 @@ export default function Modulo({ mod }) {
         titulo={mod.label}
         subTitulo="al club"
         icono={mod.icono}
-        limit={10}
+        limit={100}
         mod={mod}
         acciones={mod.acciones}
         orderBy={order}
