@@ -52,8 +52,8 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
         md={6}
       >
         <Grid item md={8}>
-          <SelectSocioSimple campo="cliente" callbackchange={cambiaSocio2} />
-          {/* <SelectFormikAlgolia
+          {/* <SelectSocioSimple campo="cliente" callbackchange={cambiaSocio2} /> */}
+          <SelectFormikAlgolia
             coleccionAlgolia={"socios"}
             label="Socio"
             callbackchange={cambiaSocio}
@@ -61,7 +61,7 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
               `${opt.apellido} ${opt.nombre} - ${opt.dni} - ${opt.nroSocio}`
             }
             campo="cliente"
-          /> */}
+          />
         </Grid>
 
         <Grid item md={3}>
