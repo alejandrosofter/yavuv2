@@ -4,6 +4,7 @@ import SelectFecha from "@components/forms/selectorFecha";
 import { Grid, Stack } from "@mui/material";
 import { useState } from "react";
 import Input from "../forms/input";
+import Switch from "../forms/switch";
 import TarjetasEnvio from "./tarjetas";
 
 export default function Form({ mod, setFieldValue, values, nuevo }) {
@@ -19,6 +20,14 @@ export default function Form({ mod, setFieldValue, values, nuevo }) {
       <Grid item md={2}>
         <SelectFecha label="Fecha" campo="fecha" />
       </Grid>
+      <Grid item md={2}>
+        <Switch label="Recibidas?" campo="recibidas" />
+      </Grid>
+      {values.recibidas && (
+        <Grid item md={2}>
+          <SelectFecha label="Fecha Recibidas" campo="fechaRecibidas" />
+        </Grid>
+      )}
 
       <Grid item md={2}>
         <SelectEstaticFormik

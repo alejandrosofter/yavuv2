@@ -14,6 +14,7 @@ import SelecListeningData from "./selectListening";
 import SelectData from "./selectData";
 import FormData from "./_formData";
 export default function Form({ mod, setFieldValue, values }) {
+  const callbackacepta = (values) => {};
   return (
     <Grid spacing={2} container>
       <Grid item md={2}>
@@ -29,12 +30,7 @@ export default function Form({ mod, setFieldValue, values }) {
       <Grid item md={2}>
         <Input label="Coleccion" campo="coleccion" />
       </Grid>
-      <Grid item md={2}>
-        <Input label="Path" campo="path" />
-      </Grid>
-      <Grid item md={3}>
-        <SelectData Form={FormData} label="Data Save" campo="dataSave" />
-      </Grid>
+
       <Grid item md={2}>
         <Input label="Campo Order" campo="campoOrder" />
         <Typography variant="caption">
@@ -49,7 +45,15 @@ export default function Form({ mod, setFieldValue, values }) {
           CHECK TODOS)
         </Typography>
       </Grid>
-
+      <Grid item md={5}>
+        <SelectData
+          values={values}
+          Form={FormData}
+          label="Data Save"
+          setFieldValue={setFieldValue}
+          campo="dataSave"
+        />
+      </Grid>
       {/* <Grid item md={3}>
         <Switch label="Comienza Acumulado" campo="comienzaAcumulado" />
         <Typography variant="caption">
@@ -58,14 +62,14 @@ export default function Form({ mod, setFieldValue, values }) {
         </Typography>
       </Grid> */}
 
-      <Grid item md={2}>
+      {/* <Grid item md={2}>
         <SelectEstaticFormik
           items={["ANUAL", "MENSUAL", "DIARIO"]}
           campo="tipoPeriodo"
           label="Tipo Periodo"
         />
-      </Grid>
-      <Grid item md={2}>
+      </Grid> */}
+      {/* <Grid item md={2}>
         <Input label="Campo Valor" campo="campoValue" />
       </Grid>
       <Grid item md={2}>
@@ -76,32 +80,7 @@ export default function Form({ mod, setFieldValue, values }) {
         <Typography variant="caption">
           ** PARA SACAR PERIDO, Si no se selecciona nada, se pone fecha del dia
         </Typography>
-      </Grid>
-      <Grid item md={4}>
-        <SelecListeningData label="Listening Padre" campo="idListeningPadre" />
-      </Grid>
-
-      {/* <Grid item md={2}>
-        <Switch label="Tiene Condicion" campo="tieneCondicion" />
-      </Grid>
-      {values.tieneCondicion && (
-        <Grid item md={8}>
-          <Input label="Condicion" campo="condicion" />
-        </Grid>
-      )} */}
-
-      <Grid item md={12}>
-        <Input label="On Create (operacion asignacion)" campo="onCreate" />
-      </Grid>
-      <Grid item md={12}>
-        <Input label="On Delete (operacion asignacion)" campo="onDelete" />
-      </Grid>
-      <Grid item md={12}>
-        <Input label="On Update (operacion asignacion)" campo="onUpdate" />
-      </Grid>
-      <Grid item md={4}>
-        <Input label="Acumulado TOTAL" campo="acumulado" />
-      </Grid>
+      </Grid> */}
 
       {/* <Grid item md={12}>
         <TabsFormik

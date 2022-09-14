@@ -1,29 +1,70 @@
-import { Grid, Stack, Typography } from "@mui/material";
+import { findPath, getPath } from "@helpers/objects";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import Input from "../forms/input";
-export default function FormData({ mod, setFieldValue, values }) {
+export default function FormData({
+  campo,
+
+  values,
+  seleccion,
+  path,
+  callbackacepta,
+}) {
+  const field = path;
+  // const field = !seleccion ? `${campo}.root` : `${seleccion.path}`;
+
+  // const field =
+  //   findPath(values, seleccion ? seleccion.path : "root") === campo
+  //     ? `${campo}.root.children`
+  //     : `${campo}.${findPath(
+  //         values,
+  //         seleccion ? seleccion.path : "root"
+  //       )}.children`;
+
+  console.log(values);
   return (
     <Grid spacing={2} container>
-      <Grid item md={2}>
-        <Input label="Campo Valor" campo="campoValue" />
+      <Grid item md={4}>
+        <Input label="Nombre" campo={`${field}.nombre`} />
       </Grid>
-      <Grid item md={2}>
-        <Input label="Campo Label" campo="campoLabel" />
+
+      <Grid item md={4}>
+        <Input label="Path" campo={`${field}.path`} />
       </Grid>
-      <Grid item md={2}>
-        <Input label="Campo Fecha" campo="campoFecha" />
+      <Grid item md={4}>
+        <Input label="Campo Valor" campo={`${field}.campoValue`} />
+      </Grid>
+      <Grid item md={4}>
+        <Input label="Campo Label" campo={`${field}.campoLabel`} />
+      </Grid>
+      <Grid item md={4}>
+        <Input label="Campo Fecha" campo={`${field}.campoFecha`} />
         <Typography variant="caption">
           ** PARA SACAR PERIDO, Si no se selecciona nada, se pone fecha del dia
         </Typography>
       </Grid>
 
       <Grid item md={12}>
-        <Input label="On Create (operacion asignacion)" campo="onCreate" />
+        <Input
+          label="On Create (operacion asignacion)"
+          campo={`${field}.onCreate`}
+        />
       </Grid>
       <Grid item md={12}>
-        <Input label="On Delete (operacion asignacion)" campo="onDelete" />
+        <Input
+          label="On Delete (operacion asignacion)"
+          campo={`${field}.onDelete`}
+        />
       </Grid>
       <Grid item md={12}>
-        <Input label="On Update (operacion asignacion)" campo="onUpdate" />
+        <Input
+          label="On Update (operacion asignacion)"
+          campo={`${field}.onUpdate`}
+        />
+      </Grid>
+      <Grid item md={12}>
+        <Button variant="contained" onClick={callbackacepta} color="primary">
+          ACEPTAR
+        </Button>
       </Grid>
     </Grid>
   );

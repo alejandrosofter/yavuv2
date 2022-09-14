@@ -27,6 +27,7 @@ export default function SelectUserModColeccion({
 
   const { data } = useCollection(coleccion, {
     limit,
+    listen: true,
     where: parentData
       ? ["idUsuario", "==", localStorage.getItem("usermod")]
       : ["usermod", "==", fuego.auth().currentUser?.uid],

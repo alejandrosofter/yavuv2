@@ -23,6 +23,12 @@ export default function FormConfig({}) {
               </Grid>
               <Grid item md={6}>
                 <SelectPlantilla
+                  campo="tarjetasImpresas"
+                  label="Informe Tarjetas Impresas"
+                />
+              </Grid>
+              <Grid item md={6}>
+                <SelectPlantilla
                   campo="plantillaFrenteCredencial"
                   label="Plantilla Frente de Credencial"
                 />
