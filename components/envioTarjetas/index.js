@@ -70,6 +70,7 @@ export default function Modulo({ mod }) {
   const getTarjetas = async (data) => {
     return await fuego.db
       .collection(`envioTarjetas/${data.id}/tarjetas`)
+      .orderBy("apellido")
       .get()
       .then((querySnapshot) => {
         return querySnapshot.docs.map((doc) => {
