@@ -149,9 +149,11 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
       esFuncion: true,
       icono: "fas fa-share-alt",
       label: "Compartir",
-      fn: (row) => {
+      fn: async (row) => {
         setSeleccion(row);
-        setDataImpresion(row);
+
+        console.log("PACIENTE", paciente);
+        setDataImpresion({ ...row, paciente });
         setOpenImpresion(true);
       },
     },
@@ -223,10 +225,10 @@ export function FichaPaciente({ paciente, mod }) {
       <Grid item md={12}>
         <DataPaciente paciente={paciente} />
       </Grid>
-      <Grid item md={6}>
+      <Grid item md={5}>
         <TurnosPaciente paciente={paciente} />
       </Grid>
-      <Grid item md={6}>
+      <Grid item md={7}>
         <ListaRecetas mod={mod} paciente={paciente} />
       </Grid>
     </Grid>
