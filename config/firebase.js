@@ -265,6 +265,19 @@ export async function findOneField(coleccion, { campo, valor }) {
   if (sal.length > 0) return sal[0];
   return null;
 }
+export async function findWhereArray(colection, arrWhere) {
+  let q = Firestore().collection(colection);
+  arrWhere.forEach((w) => {
+    q = q.where(w.campo, "==", w.valor);
+  });
+  return await q.get().then((querySnapshot) => {
+    let salida = [];
+    querySnapshot.forEach((doc) => {
+      salida.push({ ...doc.data(), id: doc.id });
+    });
+    return salida;
+  });
+}
 export async function findWhere(coleccion, whereArr, soloUno) {
   var query = Firestore().collection(coleccion);
   whereArr.map((w) => {

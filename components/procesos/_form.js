@@ -27,7 +27,12 @@ export default function Form({ mod, setFieldValue, values }) {
 
       <Grid item md={2}>
         <SelectEstaticFormik
-          items={["ALGOLIACBU", "MENSUALIZADOSCHECK"]}
+          items={[
+            "ALGOLIACBU",
+            "MENSUALIZADOSCHECK",
+            "IMPORTBIGQUERY",
+            "EXPORTSOCIOBQ",
+          ]}
           label="TOPIC NAME"
           campo="topicName"
         />

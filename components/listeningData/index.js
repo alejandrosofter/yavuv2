@@ -19,20 +19,16 @@ export default function Modulo({ mod }) {
     },
 
     {
+      field: "agrupa",
+      headerName: "Agrupa por...",
+      width: 180,
+    },
+    {
       field: "campoOrder",
       headerName: "Campo Order",
       width: 120,
     },
-    {
-      field: "campoValue",
-      headerName: "Campo Valor",
-      width: 120,
-    },
-    {
-      field: "campoLabel",
-      headerName: "Campo Label",
-      width: 120,
-    },
+
     {
       field: "cantidadProcesada",
       headerName: "Procesados",

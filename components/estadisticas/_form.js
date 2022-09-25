@@ -12,17 +12,27 @@ export default function Form({ setFieldValue, values }) {
     }
   };
   return (
-    <Grid spacing={2} container>
+    <Grid spacing={3} container>
       <Grid item md={4}>
         <Input label="Nombre" campo="nombre" />
       </Grid>
-      <Grid item md={1}>
-        <Input label="Size" campo="size" />
-        <Typography variant="caption">*MIN 1 - MAX 12</Typography>
-      </Grid>
       <Grid item md={3}>
-        <SelecListeningData callbackchange={cambiaListening} />
+        <Switch label="Formato valor contable" campo="formatoValorContable" />
       </Grid>
+
+      <Grid item md={3}>
+        <SelectEstaticFormik
+          items={[
+            "TOTAL SOCIOS CATEGORIA",
+            "TOTAL SOCIOS SEXO",
+            "SERVICIOS",
+            "COBROS MES",
+          ]}
+          label="Datos"
+          campo="datos"
+        />
+      </Grid>
+
       <Grid item md={2}>
         <SelectEstaticFormik
           items={["ACTIVA", "INACTIVA"]}
@@ -30,22 +40,7 @@ export default function Form({ setFieldValue, values }) {
           campo="estado"
         />
       </Grid>
-      <Grid item md={3}>
-        <SelectEstaticFormik
-          items={["MENSUAL", "DIARIO", "ANUAL"]}
-          label="Periodicidad"
-          campo="periodicidad"
-        />
-      </Grid>
-      <Grid item md={3}>
-        <Input
-          label="Campo Periodo (desglosador del periodo - fecha)"
-          campo="campoFecha"
-        />
-        <Typography variant="caption">
-          *Al no poner nada, se calcula con la fecha actual
-        </Typography>
-      </Grid>
+
       <Grid item md={2}>
         <SelectEstaticFormik
           items={["DONUT", "PLOT", "LINE"]}
@@ -60,9 +55,6 @@ export default function Form({ setFieldValue, values }) {
           total historico
         </Typography>
       </Grid> */}
-      <Grid item md={7}>
-        <Input label="Detalle" campo="detalle" />
-      </Grid>
     </Grid>
   );
 }

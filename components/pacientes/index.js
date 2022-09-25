@@ -1,51 +1,25 @@
-import DataGridFirebase from '../forms/datagrid/dataGridFirebase';
-export default function Modulo({mod}) {
-const order="apellido"
-const columns=[
-
-      {
-            field: 'apellido', 
-            headerName: 'Apellido',
-            width:120,
-            
-          },
-          {
-            field: 'nombre', 
-            headerName: 'Nombre',
-            width:120,
-            
-          },
-          {
-            field: 'dni', 
-            headerName: 'D.N.I',
-            width:120,
-            
-          },
-          {
-            field: 'telefono', 
-            headerName: 'Teléfono',
-            width:100,
-            
-          },
-          {
-            field: 'label_obraSocial', 
-            headerName: 'Obra Social',
-            width:160,
-            
-          },
-          {
-            field: 'estado', 
-            headerName: 'Estado',
-            width:120,
-            
-          },
-          
-  
-]
-      return (
-        <DataGridFirebase titulo={mod.label} subTitulo="generales" icono={mod.icono}
-        limit={10} mod={mod} acciones={mod.acciones} orderBy={order}
-       columns={columns} />
-      )
-
+import { Typography, Grid } from "@mui/material";
+import { useState } from "react";
+import { FichaPaciente } from "./fichaPaciente";
+import SelectPaciente from "./selectPaciente";
+export default function Modulo({ mod }) {
+  const [seleccion, setSeleccion] = useState();
+  const cambiaPaciente = (select, item) => {
+    if (item) setSeleccion(item);
+  };
+  return (
+    <Grid container>
+      <Grid item xs={8}>
+        {seleccion && <FichaPaciente mod={mod} paciente={seleccion} />}
+        {!seleccion && (
+          <Typography variant="h6" gutterBottom component="div">
+            Selecciona un paciente para poder mostrar su ficha
+          </Typography>
+        )}
+      </Grid>
+      <Grid item md={4}>
+        <SelectPaciente callbackchange={cambiaPaciente} />
+      </Grid>
+    </Grid>
+  );
 }

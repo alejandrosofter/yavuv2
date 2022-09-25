@@ -1,23 +1,44 @@
+import FiltroDashboard from "@components/dashboard/filtroDashboard";
 import ChartDonut from "@components/forms/charts/donut";
 import MenuAccion from "@components/forms/menuAcccion";
+import { QueryApi } from "@helpers/queryApi";
 import { Grid, Typography, Paper, Stack } from "@mui/material";
 import { useCollection, useDocument } from "@nandorojo/swr-firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectorEstadisticaItem from "./selectorEstadistica";
 
 export default function GraphEstadistica({ estadistica, acciones }) {
   const { statSeleccion, setStatSeleccion } = useState();
   const [labels, setLabels] = useState([]);
   const [series, setSeries] = useState([]);
-  const { data } = useDocument(`listeningData/${estadistica?.idListeningData}`);
-  const { data: dataEstadistica } = useCollection(
-    `listeningData/${estadistica?.idListeningData}/estadistica`,
-    { listen: true }
-  );
-  const cambia = (values, data) => {
-    if (data.datos) {
-      setLabels(Object.keys(data.datos));
-      setSeries(Object.values(data.datos));
+  const [dataConsulta, setDataConsulta] = useState();
+  const [filtro, setFiltro] = useState();
+  const [dataEstadistica, setDataEstadistica] = useState();
+
+  useEffect(() => {
+    setDataEstadistica(estadistica);
+    setDataConsulta({
+      url: "/api/bigquery/querysql",
+      data: { ...estadistica, filtro },
+    });
+  }, [estadistica]);
+  useEffect(() => {
+    setDataConsulta({
+      url: "/api/bigquery/querysql",
+      data: { ...estadistica, filtro },
+    });
+  }, [filtro]);
+
+  const callbackFiltro = (values, data) => {
+    setFiltro(data);
+  };
+  const successInfo = (data, info) => {
+    if (info.data.length > 0) {
+      console.log(info.data);
+      setLabels(
+        info.data.map((item) => (item["label"] ? item["label"] : "Sin asignar"))
+      );
+      setSeries(info.data.map((item) => item["value"]));
     }
   };
 
@@ -26,13 +47,17 @@ export default function GraphEstadistica({ estadistica, acciones }) {
       <Stack alignItems="center" direction="row" spacing={1}>
         <MenuAccion acciones={acciones} />
         <Typography variant="caption">{estadistica.nombre}</Typography>
-        <SelectorEstadisticaItem
-          callbackchange={cambia}
-          data={dataEstadistica}
-        />
+
+        <Grid item md={4}>
+          <FiltroDashboard
+            tipoFiltro={estadistica.filtro}
+            callbackchange={callbackFiltro}
+          />
+        </Grid>
       </Stack>
 
-      <ChartDonut labels={labels} series={series} />
+      <ChartDonut estadistica={estadistica} labels={labels} series={series} />
+      <QueryApi dataConsulta={dataConsulta} callbackSuccess={successInfo} />
     </Paper>
   );
 }

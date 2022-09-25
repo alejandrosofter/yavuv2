@@ -1,7 +1,7 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
-import Modelo, { valoresIniciales } from "@modelos/ModeloPlantillas";
-import Form from "@components/plantillas/_form";
-export default function SelectPlantilla({
+import Modelo, { valoresIniciales } from "@modelos/ModeloDashboard";
+import Form from "@components/dashboard/_form";
+export default function SelectDashboard({
   multiple,
   label,
   campo,
@@ -9,20 +9,21 @@ export default function SelectPlantilla({
 }) {
   return (
     <SelectUserModColeccion
-      coleccion={"plantillas"}
+      coleccion={"dashboards"}
       Modelo={Modelo}
       parentData={true}
       valoresIniciales={valoresIniciales}
       Form={Form}
       callbackchange={callbackchange}
+      extraData={["importe"]}
       multiple={multiple}
-      campo={campo ? campo : "idPlantilla"}
-      label={label ? label : "Plantilla"}
-      icono="fas fa-file-image"
-      maxWidth="lg"
-      modal={false}
+      campo={campo ? campo : "idDashboard"}
+      label={label ? label : "Dashboard"}
+      icono="fas fa-chart-line"
+      maxWidth="md"
       campoId="id"
       campoLabel="nombre"
+      esForm={false}
     />
   );
 }

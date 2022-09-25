@@ -12,8 +12,10 @@ export function valoresIniciales() {
     estado: "PENDIENTE",
     nombre: "",
     coleccion: "",
-    id: new Date().getTime(),
-    dataSave: {},
+    dataSave: {
+      id: new Date().getTime(),
+      nombre: "Inicial",
+    },
     campoDestino: "",
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")

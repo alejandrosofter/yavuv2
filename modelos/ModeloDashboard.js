@@ -5,10 +5,19 @@ export default function Modelo() {
     nombre: yup.string().required(),
   });
 }
+export function ModeloItems() {
+  return yup.object().shape({
+    nombre: yup.string().required(),
+  });
+}
+export function valoresInicialesItems() {
+  return {
+    nombre: "",
+  };
+}
 export function valoresIniciales() {
   return {
     nombre: "",
-    detalle: "",
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,

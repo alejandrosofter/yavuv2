@@ -13,6 +13,8 @@
 //     </div>
 //   );
 // }
+import { formatMoney } from "@helpers/numbers";
+import { FormatListNumbered } from "@material-ui/icons";
 import React, { Component, useEffect } from "react";
 import Chart from "react-apexcharts";
 
@@ -22,9 +24,23 @@ class ChartDonut extends Component {
   }
 
   render() {
+    const formato = this.props.estadistica.formatoValorContable;
     return (
       <Chart
-        options={{ labels: this.props.labels }}
+        options={{
+          yaxis: {
+            labels: {
+              formatter: function (val, index) {
+                if (formato) return formatMoney(val);
+                return val;
+              },
+            },
+          },
+          labels: this.props.labels,
+          formatter: function (val, index) {
+            return val.toFixed(2);
+          },
+        }}
         series={this.props.series}
         type="donut"
       />

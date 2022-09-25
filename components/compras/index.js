@@ -45,7 +45,7 @@ export default function Modulo({ mod }) {
       subTitulo="generales"
       parentData={true}
       icono={mod.icono}
-      limit={10}
+      limit={100}
       mod={mod}
       acciones={mod.acciones}
       orderBy={order}

@@ -1,5 +1,6 @@
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import Select2 from "@components/forms/select2Formik";
+import SelectSimple from "@components/forms/select2Simple";
 import { IconButton, Grid } from "@mui/material";
 import { useState } from "react";
 import DialogForm from "./dialogForm";
@@ -20,6 +21,7 @@ export default function SelectUserModColeccion({
   parentData,
   maxWidth,
   limit,
+  esForm = true,
 }) {
   const [seleccion, setSeleccion] = useState();
   const [openEditar, setOpenEditar] = useState(false);
@@ -51,16 +53,30 @@ export default function SelectUserModColeccion({
   return (
     <Grid container spacing={2}>
       <Grid item md={10}>
-        <Select2
-          callbackchange={fn}
-          extraData={extraData}
-          multiple={multiple}
-          campo={campo}
-          label={label}
-          lista={data}
-          campoId={campoId}
-          campoLabel={campoLabel}
-        />
+        {esForm && (
+          <Select2
+            callbackchange={fn}
+            extraData={extraData}
+            multiple={multiple}
+            campo={campo}
+            label={label}
+            lista={data}
+            campoId={campoId}
+            campoLabel={campoLabel}
+          />
+        )}
+        {!esForm && (
+          <SelectSimple
+            callbackchange={fn}
+            extraData={extraData}
+            multiple={multiple}
+            campo={campo}
+            label={label}
+            lista={data}
+            campoId={campoId}
+            campoLabel={campoLabel}
+          />
+        )}
       </Grid>
       {seleccion && (
         <Grid item md={1}>

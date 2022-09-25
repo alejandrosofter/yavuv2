@@ -1,19 +1,30 @@
-import Select2Simple from "@components/forms/select2Simple";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-
-export default function SelectorEstadisticaItem({ data, callbackchange }) {
-  if (!data) return null;
+import Select2 from "@components/forms/select2Formik";
+export default function SelectEstadistica({
+  multiple,
+  label,
+  campo,
+  callbackchange,
+}) {
+  const parentData =
+    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
+  const { data } = useCollection("estadisticas", {
+    where: [
+      parentData
+        ? ["idUsuario", "==", localStorage.getItem("usermod")]
+        : ["usermod", "==", fuego.auth().currentUser?.uid],
+    ],
+  });
+  if (!data) return "";
   return (
-    <Select2Simple
+    <Select2
       callbackchange={callbackchange}
-      campo="estadisitica"
-      label="Estadistica"
-      campoId="id"
-      campoLabel={(item) => {
-        return item.id;
-      }}
-      //   defaultValue={campoClave}
+      multiple={multiple}
+      campo={campo ? campo : "idEstadistica"}
+      label={label ? label : "Estadistica"}
       lista={data}
+      campoId="id"
+      campoLabel="nombre"
     />
   );
 }

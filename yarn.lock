@@ -4688,6 +4688,11 @@
     "make-dir" "^3.0.2"
     "pkg-dir" "^4.1.0"
 
+"find-object-paths@^1.0.2":
+  "integrity" "sha512-V6gO/vcQnimA/1H1XqYyfJEn+QxEkQqnUwc0WZJ1TJcNVOYD5JNfMTmEHKGUB93iMgebRXBi0WjsPITzK0HIWA=="
+  "resolved" "https://registry.npmjs.org/find-object-paths/-/find-object-paths-1.0.2.tgz"
+  "version" "1.0.2"
+
 "find-root@^1.1.0":
   "integrity" "sha512-NKfW6bec6GfKc0SGx1e07QZY9PE99u0Bft/0rzSD5k3sO/vwkVUpDUKVm5Gpp5Ue3YfShPFTX2070tDs5kB9Ng=="
   "resolved" "https://registry.npmjs.org/find-root/-/find-root-1.1.0.tgz"

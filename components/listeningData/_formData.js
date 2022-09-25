@@ -36,13 +36,10 @@ export default function FormData({
       <Grid item md={4}>
         <Input label="Campo Label" campo={`${field}.campoLabel`} />
       </Grid>
-      <Grid item md={4}>
-        <Input label="Campo Fecha" campo={`${field}.campoFecha`} />
-        <Typography variant="caption">
-          ** PARA SACAR PERIDO, Si no se selecciona nada, se pone fecha del dia
-        </Typography>
+      <Grid item md={8}>
+        <Input label="Agrupa por..." campo={`${field}.agrupa`} />
+        <Typography variant="caption"></Typography>
       </Grid>
-
       <Grid item md={12}>
         <Input
           label="On Create (operacion asignacion)"

@@ -54,6 +54,10 @@ export default function Form({ mod, setFieldValue, values }) {
           campo="dataSave"
         />
       </Grid>
+      <Grid item md={4}>
+        <Input label="Agrupa por..." campo={`agrupa`} />
+        <Typography variant="caption"></Typography>
+      </Grid>
       {/* <Grid item md={3}>
         <Switch label="Comienza Acumulado" campo="comienzaAcumulado" />
         <Typography variant="caption">
