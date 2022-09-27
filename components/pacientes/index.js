@@ -18,7 +18,7 @@ export default function Modulo({ mod }) {
         )}
       </Grid>
       <Grid item md={4}>
-        <SelectPaciente callbackchange={cambiaPaciente} />
+        <SelectPaciente esForm={false} callbackchange={cambiaPaciente} />
       </Grid>
     </Grid>
   );
