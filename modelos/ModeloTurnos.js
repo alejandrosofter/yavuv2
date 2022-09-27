@@ -3,7 +3,7 @@ import { fuego } from "@nandorojo/swr-firestore";
 export default function Modelo() {
   return yup.object().shape({
     consultorio: yup.string().required("El consultorio es requerido"),
-    // tipoTurno: yup.string().required("El tipo de turno es requerido"),
+    paciente: yup.string().required("Debes seleccionar un paciente"),
     detalle: yup.string(),
     estado: yup.string(),
   });

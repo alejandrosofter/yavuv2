@@ -24,6 +24,7 @@ import SwitchFormik from "@components/forms/switch";
 export default function Form({ mod, setFieldValue, values, callbackElimina }) {
   const [tipoTurno, setTipoTurno] = useState();
   const [consultorio, setConsultorio] = useState();
+
   const cambiaTipo = (value, item) => {
     setTipoTurno(item);
     if (item) {

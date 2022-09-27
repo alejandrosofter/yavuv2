@@ -22,7 +22,6 @@ export default function SelectPaciente({
       maxWidth="md"
       campoId="id"
       campoLabel={(item) => `${item.nombre} ${item.apellido} ${item.dni}`}
-      esForm={false}
     />
   );
 }
