@@ -18,10 +18,6 @@ export default function FormPromocionesGenerales({ setFieldValue, values }) {
 
   return (
     <Grid sx={{ pt: 1, mb: 2 }} container rowSpacing={2} spacing={2}>
-      <Grid item md={5}>
-        <Input label="Nombre Promo" campo="nombrePromocion" />
-      </Grid>
-
       <Grid item md={3}>
         <SelectEstaticFormik
           items={["ACTIVO", "INACTIVO"]}
@@ -29,7 +25,20 @@ export default function FormPromocionesGenerales({ setFieldValue, values }) {
           campo="estado"
         />
       </Grid>
+      <Grid item md={5}>
+        <Input label="Nombre Promo" campo="nombrePromocion" />
+      </Grid>
 
+      <Grid item md={3}>
+        <Input campo="importeFijo" label="Importe Fijo" />
+      </Grid>
+      <Grid item md={3}>
+        <Input campo="importe" label="Aplica Importe..." />
+      </Grid>
+      <Grid item md={3}>
+        <Input campo="porcentaje" label="Aplica %..." />
+      </Grid>
+      {/* 
       <Grid item xs={12}>
         <ItemsModulo
           setFieldValue={setFieldValue}
@@ -56,7 +65,7 @@ export default function FormPromocionesGenerales({ setFieldValue, values }) {
             { field: "porcentaje", headerName: "Aplica %", width: 120 },
           ]}
         />
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }

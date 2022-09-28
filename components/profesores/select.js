@@ -7,7 +7,7 @@ export default function Modulo({ multiple, label, campo, callbackchange }) {
     <SelectUserModColeccion
       coleccion={"profesores"}
       Modelo={Modelo}
-      parentData={true}
+      // parentData={true}
       valoresIniciales={valoresIniciales}
       Form={Form}
       callbackchange={callbackchange}

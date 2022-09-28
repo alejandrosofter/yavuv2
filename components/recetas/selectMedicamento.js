@@ -23,7 +23,13 @@ export default function SelectMedicamentos({
       icono="fas fa-book-medical"
       maxWidth="md"
       campoId="id"
-      campoLabel="nombre"
+      campoLabel={(item) =>
+        `${item.nombre} ${
+          item.label_idAccionTerapeutica
+            ? `(${item.label_idAccionTerapeutica})`
+            : ""
+        }`
+      }
     />
   );
 }

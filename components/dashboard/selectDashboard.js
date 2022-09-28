@@ -11,7 +11,7 @@ export default function SelectDashboard({
     <SelectUserModColeccion
       coleccion={"dashboards"}
       Modelo={Modelo}
-      parentData={true}
+      // parentData={true}
       valoresIniciales={valoresIniciales}
       Form={Form}
       callbackchange={callbackchange}

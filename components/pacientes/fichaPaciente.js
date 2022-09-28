@@ -168,6 +168,7 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
           coleccion={`recetas`}
           columns={columns}
           where={[
+            ["paciente", "==", paciente.id],
             parentData
               ? ["idUsuario", "==", localStorage.getItem("usermod")]
               : ["usermod", "==", fuego.auth().currentUser?.uid],
@@ -197,28 +198,7 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
     </Grid>
   );
 }
-export function RecetasPaciente({ paciente }) {
-  const addReceta = () => {
-    console.log("add receta");
-  };
-  return (
-    <Grid container spacing={2}>
-      <Grid item md={12}>
-        <Paper elevation={8} sx={{ p: 2 }}>
-          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-            RECETAS
-          </Typography>
-          <IconButton onClick={addReceta} sx={{ float: "right" }}>
-            <Icon fontSize="5px" className="fas fa-plus" />
-          </IconButton>
-        </Paper>
-      </Grid>
-      <Grid item md={12}>
-        <Typography variant="caption" sx={{ fontWeight: "bold" }}></Typography>
-      </Grid>
-    </Grid>
-  );
-}
+
 export function FichaPaciente({ paciente, mod }) {
   return (
     <Grid container spacing={3}>

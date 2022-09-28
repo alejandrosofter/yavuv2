@@ -23,7 +23,8 @@ export default function ModeloCobros() {
             });
           const importeItems = contador2(
             testContext.parent.deudas,
-            (item) => Number(item.importe) * item.cantidad
+            (item) =>
+              Number(item.importe) * item.cantidad - item.importeBonificacion
           );
           const importeFormaPagos = contador(testContext.parent?.formasDePago);
           if (importeItems !== importeFormaPagos)

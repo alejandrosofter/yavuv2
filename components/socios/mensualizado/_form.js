@@ -157,8 +157,15 @@ export default function FormMensualizado({ values, setFieldValue }) {
           <SelectGrupos idActividad={values.idActividad} />
         </Grid>
       )}
-
-      <Grid item md={8}>
+      <Grid item md={2}>
+        <Switch label="Promocion" campo="promocion" />
+      </Grid>
+      {values.promocion && (
+        <Grid item md={5}>
+          <SelectPromocion />
+        </Grid>
+      )}
+      <Grid item md={10}>
         <Input label="Detalle" campo="detalle" />
       </Grid>
 

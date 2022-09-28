@@ -14,7 +14,7 @@ export function valoresIniciales() {
     fechaVto: new Date(),
     modDeuda: "",
     concepto: "",
-    estado: "PENDIENTE",
+    estado: "ACTIVO",
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,
@@ -37,7 +37,9 @@ export function ModeloItems() {
 export function valoresInicialesItems() {
   return {
     detalle: "",
+    estado: "ACTIVO",
     importe: 0,
     porcentaje: 0,
+    importeFijo: 0,
   };
 }

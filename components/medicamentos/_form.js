@@ -3,6 +3,8 @@ import Input from "../forms/input";
 import Switch from "@components/forms/switch";
 import ItemsModulo from "@components/forms/itemsModulo";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
+import SelectPosologias from "./selectPosologia";
+import SelectAccionTerapeutica from "./selectAccionTerapeutica";
 export default function Form({ mod, setFieldValue, values }) {
   const callbackacepta = (values) => {};
   return (
@@ -23,8 +25,14 @@ export default function Form({ mod, setFieldValue, values }) {
       <Grid item md={3}>
         <Input label="Presentacion" campo="presentacion" />
       </Grid>
-      <Grid item md={12}>
-        <Input label="Posología" campo="posologia" />
+      <Grid item md={3}>
+        <Input label="Laboratorio" campo="laboratorio" />
+      </Grid>
+      <Grid item md={6}>
+        <SelectPosologias />
+      </Grid>
+      <Grid item md={6}>
+        <SelectAccionTerapeutica />
       </Grid>
     </Grid>
   );

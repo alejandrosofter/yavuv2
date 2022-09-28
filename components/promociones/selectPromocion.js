@@ -6,7 +6,7 @@ export default function SelectPromocion({ label, campo, callbackchange }) {
     <SelectUserModColeccion
       coleccion={"promociones"}
       Modelo={Modelo}
-      parentData={true}
+      // parentData={true}
       valoresIniciales={valoresIniciales}
       Form={Form}
       callbackchange={callbackchange}
