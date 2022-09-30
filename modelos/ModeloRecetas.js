@@ -23,7 +23,7 @@ export function valoresIniciales() {
 export function ModeloEstudios() {
   return yup.object().shape({
     fecha: yup.string().required(),
-    idEstudio: yup.string().required(),
+    idEstudio: yup.string().required("Selecciona un estudio!"),
   });
 }
 export function valoresInicialesEstudios() {
@@ -43,7 +43,7 @@ export function valoresInicialesEstudios() {
 export function ModeloMedicamentos() {
   return yup.object().shape({
     fecha: yup.string().required(),
-    idMedicamento: yup.string().required(),
+    idMedicamento: yup.string().required("Selecciona un medicamento!"),
   });
 }
 export function valoresInicialesMedicamentos() {
@@ -62,7 +62,7 @@ export function valoresInicialesMedicamentos() {
 
 export function ModeloPrestaciones() {
   return yup.object().shape({
-    idPrestacion: yup.string().required(),
+    idPrestacion: yup.string().required("Selecciona una prestacion!"),
   });
 }
 export function valoresInicialesPrestaciones() {

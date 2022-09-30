@@ -95,7 +95,22 @@ export function groupBy(list, keyGetter) {
   });
   return map;
 }
+export function parseMaptoArray(map) {
+  let arr = [];
+  map.forEach((value, key) => {
+    arr.push({ key, value });
+  });
+  return arr;
+}
 
+export function getSubArray(arr, field) {
+  let aux = [];
+  if (!arr) return [];
+  arr.forEach((item) => {
+    aux.push(item[field]);
+  });
+  return aux;
+}
 export function getIndexItemArray({ data, valor, campoId }) {
   if (data) {
     campoId = campoId ? campoId : "id";

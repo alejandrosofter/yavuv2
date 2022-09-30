@@ -24,7 +24,8 @@ export default function ModeloCobros() {
           const importeItems = contador2(
             testContext.parent.deudas,
             (item) =>
-              Number(item.importe) * item.cantidad - item.importeBonificacion
+              Number(item.importe) * item.cantidad -
+              Number(item.importeBonificacion ? item.importeBonificacion : 0)
           );
           const importeFormaPagos = contador(testContext.parent?.formasDePago);
           if (importeItems !== importeFormaPagos)
@@ -54,6 +55,7 @@ export function valoresIniciales(data) {
     tipoComprobanteNoFiscal: data ? data.tipoComprobanteNoFiscal : "",
     estado: "CANCELADA",
     fecha: new Date(),
+    fecha_timestamp: new Date().getTime(),
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,
@@ -74,7 +76,7 @@ export function valoresInicialesItems() {
     cantidad: 1,
     detalle: "",
     importe: "",
-    importeBonifica: 0,
+    importeBonificacion: 0,
     importeTotal: 0,
   };
 }

@@ -28,7 +28,7 @@ export default function SelectMedicamentos({
           item.label_idAccionTerapeutica
             ? `(${item.label_idAccionTerapeutica})`
             : ""
-        }`
+        } ${item.laboratorio ? item.laboratorio : ""}`
       }
     />
   );

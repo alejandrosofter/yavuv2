@@ -4,6 +4,12 @@ import moment from "moment";
 export function parseTimestamp(date) {
   return new Date();
 }
+export const getFechasWhere = (fecha, esDateTime) => {
+  const f = esDateTime ? new Date(fecha._seconds * 1000) : fecha;
+  const fechaDesde = moment(f).startOf("day");
+  const fechaHasta = moment(fechaDesde).add(1, "days");
+  return [fechaDesde.toDate(), fechaHasta.toDate()];
+};
 
 export function getFechaString(fecha, format) {
   const formato = format ? format : "DD/MM/YY";

@@ -5,12 +5,14 @@ import { renderCellExpandData } from "../forms/datagrid/renderCellExpand";
 import ImpresionDialog from "@components/forms/impresion";
 import { useState } from "react";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
-import { Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { parse } from "handlebars";
+import CajaDelDia from "./cajaDelDia";
 export default function Modulo({ mod }) {
   const idPlantilla = mod.config?.plantillaCobro;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
+  const [openCajaDelDia, setOpenCajaDelDia] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
@@ -43,6 +45,10 @@ export default function Modulo({ mod }) {
     compartir: (data) => {
       setOpenImpresion(true);
       setDataImpresion(data);
+    },
+    verCajaDiaria: (data) => {
+      setOpenCajaDelDia(true);
+      console.log(data);
     },
   };
   const columns = [
@@ -91,7 +97,13 @@ export default function Modulo({ mod }) {
     },
   ];
   return (
-    <>
+    <Grid container>
+      <Grid item md={10}></Grid>
+      <Grid item md={2}>
+        <Button variant="contained" onClick={() => setOpenCajaDelDia(true)}>
+          Caja del dia
+        </Button>
+      </Grid>
       <DataGridFirebase
         fnAcciones={fnAcciones}
         titulo={mod.label}
@@ -116,6 +128,7 @@ export default function Modulo({ mod }) {
         nombrePlantillaEmail="emailAfiliacion"
         attachments={[{ filename: "AFILIACION.pdf", data: plantilla }]}
       />
-    </>
+      <CajaDelDia open={openCajaDelDia} setOpen={setOpenCajaDelDia} />
+    </Grid>
   );
 }
