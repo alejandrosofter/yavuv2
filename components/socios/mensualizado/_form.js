@@ -92,10 +92,21 @@ export default function FormMensualizado({ values, setFieldValue }) {
       <Grid item md={3}>
         <SelectFecha label="Fecha Inicio/Prox. cuota" campo="fechaInicio" />
       </Grid>
-      <Grid item md={2}>
+      {/* <Grid item md={2}>
         <Switch label="Suspendida" campo="suspendida" />
+      </Grid> */}
+      <Grid item md={3}>
+        <SelectEstaticFormik
+          items={["ALTA", "BAJA", "SUSPENDIDA"]}
+          label="Estado"
+          campo="estado"
+        />
       </Grid>
-
+      {values.estado === "BAJA" && (
+        <Grid item md={3}>
+          <Switch label="Cobrar Mes actual" campo="cobrarMesActual" />
+        </Grid>
+      )}
       <Grid item md={4}>
         <Switch label="Es Debito Automatico?" campo="esPorDebitoAutomatico" />
       </Grid>
@@ -130,14 +141,14 @@ export default function FormMensualizado({ values, setFieldValue }) {
           <Input label="Motivo" campo="motivoSuspencion" />
         </Grid>
       )} */}
-      <Grid item md={3}>
+      {/* <Grid item md={3}>
         <Switch label="Baja Servicio" campo="bajaServicio" />
       </Grid>
       {values.bajaServicio && (
         <Grid item md={3}>
           <SelectFecha label="Fecha Baja" campo="fechaBaja" />
         </Grid>
-      )}
+      )} */}
       <Grid item md={6}>
         <SelectTipoPeriodo callbackchange={cambiaTipoPeriodo} />
       </Grid>

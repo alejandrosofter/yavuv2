@@ -12,6 +12,7 @@ export default function ABMColeccion({
   Modelo,
   coleccion,
   icono,
+  limit,
   label,
   maxWidth,
   subTitulo,
@@ -102,6 +103,7 @@ export default function ABMColeccion({
         <ColeccionTable
           acciones={accions}
           where={where}
+          limit={limit}
           callbackclick={callbackclick}
           columns={columns}
           orderBy={orderBy}

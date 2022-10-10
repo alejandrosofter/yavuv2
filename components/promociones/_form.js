@@ -25,17 +25,17 @@ export default function FormPromocionesGenerales({ setFieldValue, values }) {
           campo="estado"
         />
       </Grid>
-      <Grid item md={5}>
+      <Grid item md={4}>
         <Input label="Nombre Promo" campo="nombrePromocion" />
       </Grid>
 
-      <Grid item md={3}>
+      {/* <Grid item md={3}>
         <Input campo="importeFijo" label="Importe Fijo" />
-      </Grid>
-      <Grid item md={3}>
+      </Grid> */}
+      <Grid item md={2}>
         <Input campo="importe" label="Aplica Importe..." />
       </Grid>
-      <Grid item md={3}>
+      <Grid item md={2}>
         <Input campo="porcentaje" label="Aplica %..." />
       </Grid>
       {/* 

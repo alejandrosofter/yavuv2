@@ -8,6 +8,7 @@ const SelectFormik = ({
   label,
   campo,
   lista,
+  disabled,
   campoLabel,
   campoId,
   callbackchange,
@@ -97,6 +98,7 @@ const SelectFormik = ({
               <Select2
                 menuPortalTarget={document.body}
                 menuPosition={"fixed"}
+                isDisabled={disabled}
                 styles={{
                   ///.....
                   menuPortal: (provided) => ({ ...provided, zIndex: 9999 }),

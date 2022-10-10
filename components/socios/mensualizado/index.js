@@ -10,6 +10,8 @@ import ABMColeccion from "@components/forms/ABMcollection";
 import Form from "./_form";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
+import { pink } from "@mui/material/colors";
+import { QueryApi } from "@helpers/queryApi";
 export const cols = [
   {
     field: "esPorDebitoAutomatico",
@@ -24,22 +26,40 @@ export const cols = [
         ""
       ),
   },
+
   {
-    field: "bajaServicio",
+    field: "estado",
     headerName: "",
-    width: 15,
-    renderCell: (params) =>
-      params.value ? (
-        <Tooltip
-          title={`Tiene baja del servicio para ${getFechaString(
-            params.row.fechaBaja
-          )}`}
-        >
-          <Icon class="fas fa-bell" />
-        </Tooltip>
-      ) : (
-        ""
-      ),
+    width: 0,
+    renderCell: (params) => {
+      switch (params.value) {
+        case "BAJA":
+          return (
+            <Icon
+              title={`Mensualizacion de BAJA`}
+              className="fas fa-dot-circle"
+              sx={{ color: "red" }}
+            />
+          );
+
+        case "ALTA":
+          return (
+            <Icon
+              title={`Mensualizacion ACTIVA`}
+              className="fas fa-dot-circle"
+              sx={{ color: "green" }}
+            />
+          );
+        case "SUSPENDIDA":
+          return (
+            <Icon
+              title={`Mensualizacion SUSPENDIDA`}
+              className="fas fa-dot-circle"
+              sx={{ color: "orange" }}
+            />
+          );
+      }
+    },
   },
   // {
   //   field: "hijo",
@@ -54,16 +74,23 @@ export const cols = [
   //       ""
   //     ),
   // },
+  // {
+  //   field: "fecha",
+  //   headerName: "Fecha",
+  //   width: 85,
+  //   type: "date",
+  //   renderCell: (params) => getFechaString(params.value),
+  // },
   {
-    field: "fecha",
-    headerName: "Fecha",
+    field: "ultimaCuota",
+    headerName: "Ult.cuota",
     width: 85,
     type: "date",
     renderCell: (params) => getFechaString(params.value),
   },
   {
     field: "fechaInicio",
-    headerName: "Inicia",
+    headerName: "Prox.Cuota",
     width: 85,
     type: "date",
     renderCell: (params) => getFechaString(params.value),
@@ -99,12 +126,13 @@ export default function CuentaSocio({ data, mod }) {
   const idPlantilla = mod.config?.plantillaMensualizacion;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
+  const [dataConsulta, setDataConsulta] = useState();
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,
   });
   const getRowClassName = (params) => {
-    if (params.row.suspendida) return "disabled";
+    // if (params.row.suspendida) return "disabled";
   };
   const acciones = [
     {
@@ -114,6 +142,19 @@ export default function CuentaSocio({ data, mod }) {
       fn: (row) => {
         setDataImpresion(row);
         setOpenImpresion(true);
+      },
+    },
+
+    {
+      esFuncion: true,
+      icono: "fas fa-envelope",
+      label: "Re-Enviar a su Actividad",
+      fn: (row) => {
+        console.log(row);
+        setDataConsulta({
+          url: "/api/mensualizados/reEnviarActividad",
+          data: row,
+        });
       },
     },
   ];
@@ -162,6 +203,7 @@ export default function CuentaSocio({ data, mod }) {
         nombrePlantillaEmail="emailAfiliacion"
         attachments={[{ filename: "AFILIACION.pdf", data: plantilla }]}
       />
+      <QueryApi dataConsulta={dataConsulta} />
     </Grid>
   );
 }

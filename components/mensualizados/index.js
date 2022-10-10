@@ -77,7 +77,7 @@ export const cols = [
   },
 ];
 export default function MensualizadosIndex({ data, mod }) {
-  const order = ["fechaInicio_timestamp", "desc"];
+  const order = ["fechaInicio_timestamp", "asc"];
   const icono = "fas fa-stopwatch";
   const titulo = `MENSUALIZADOS`;
   const idPlantilla = mod.config?.plantillaCierre;
@@ -124,6 +124,7 @@ export default function MensualizadosIndex({ data, mod }) {
           ]}
           hideNew={true}
           preData={{}}
+          limit={50}
           orderBy={order}
           maxWidth={"md"}
           getRowClassName={getRowClassName}

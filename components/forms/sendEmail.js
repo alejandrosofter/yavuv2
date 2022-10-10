@@ -31,7 +31,10 @@ export function SendEmail({
       destinatario: inputEmail,
       asunto,
       estado: "PENDIENTE",
-      idUsuario: fuego.auth().currentUser.uid,
+      idUsuario:
+        localStorage.getItem("usermod") === fuego.auth().currentUser?.uid
+          ? fuego.auth().currentUser.uid
+          : localStorage.getItem("usermod"),
     };
 
     await add(data);

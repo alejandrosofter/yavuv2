@@ -13,6 +13,7 @@ import FamiliaresSocio from "./familiares";
 import PromocionesSocio from "./promociones";
 import DebitosAutomaticosSocio from "./debitoAutomatico";
 import Mensualizado from "./mensualizado";
+import EstadoCuentaSocio from "./estadoCuenta";
 function BadgeIcono({ icono, cantidad, label }) {
   const labCantidad = cantidad ? `(${cantidad})` : "";
   const auxLabel = `${label} ${labCantidad}`;
@@ -122,12 +123,12 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
             }
             {...a11yProps(6)}
           /> */}
-          <Tab
+          {/* <Tab
             icon={<Icon className="fas fa-gift" />}
             iconPosition="top"
             label={<BadgeIcono label="Promociones" icono="fas fa-gift" />}
             {...a11yProps(3)}
-          />
+          /> */}
           <Tab
             icon={<Icon className="fas fa-heart" />}
             iconPosition="top"
@@ -144,7 +145,7 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
       </Grid>
       <Grid item md={11}>
         <TabPanel value={value} index={0}>
-          <MovimientosCuentaSocio mod={mod} data={dataSocio} />
+          <EstadoCuentaSocio mod={mod} data={dataSocio} />
         </TabPanel>
         {/* 
         <TabPanel value={value} index={1}>
@@ -160,13 +161,13 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
         {/* <TabPanel value={value} index={5}>
           <FamiliaresSocio mod={mod} data={dataSocio} />
         </TabPanel> */}
-        <TabPanel value={value} index={3}>
+        {/* <TabPanel value={value} index={3}>
           <PromocionesSocio mod={mod} auth={auth} data={dataSocio} />
-        </TabPanel>
-        <TabPanel value={value} index={4}>
+        </TabPanel> */}
+        <TabPanel value={value} index={3}>
           <CambiosEstadoSocio mod={mod} data={dataSocio} />
         </TabPanel>
-        <TabPanel value={value} index={5}>
+        <TabPanel value={value} index={4}>
           <Mensualizado mod={mod} data={dataSocio} />
         </TabPanel>
       </Grid>

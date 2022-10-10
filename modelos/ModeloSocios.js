@@ -122,6 +122,13 @@ export function ModeloItemMovimientoCuenta() {
     importe: yup.string().required(),
   });
 }
+export function ModeloEstadoCuenta() {
+  return yup.object().shape({
+    detalle: yup.string().required(),
+    tipo: yup.string().required(),
+    importeTotal: yup.string().required(),
+  });
+}
 export function ModeloCambioEstado() {
   return yup.object().shape({
     estado: yup.string().required("Debes seleccionar un estado"),
@@ -264,7 +271,8 @@ export function ModeloDebitoAutomatico() {
 export function valoresMensualizado(preData) {
   return {
     ...preData,
-    estado: "",
+    estado: "ALTA",
+    fechaUpdateEstado_timestamp: new Date().getTime(),
     fecha: new Date(),
     fechaInicio: new Date(),
     concepto: "",
@@ -324,7 +332,7 @@ export function ModeloCobros() {
   });
 }
 ////////////////////////////
-export function valoresInicialesMovimiento({ dataInicial }) {
+export function valoresInicialesMovimiento() {
   return {
     importe: 0,
     fecha: new Date(),
@@ -332,7 +340,23 @@ export function valoresInicialesMovimiento({ dataInicial }) {
     estado: "PENDIENTE",
     cantidad: 1,
     importeBonificacion: 0,
-    nroRecivo: dataInicial ? dataInicial.nroRecivo : "",
+    // nroRecivo: dataInicial ? dataInicial.nroRecivo : "",
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
+  };
+}
+export function valoresInicialesEstadoCuenta({ dataInicial }) {
+  return {
+    fecha: new Date(),
+    fecha_timestamp: new Date().getTime(),
+    importeSaldo: 0,
+    importeTotal: 0,
+    detalle: "",
+    tipo: "MANUAL",
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,

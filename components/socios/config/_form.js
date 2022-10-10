@@ -16,6 +16,7 @@ import {
   ModeloMotivos,
   ModeloDifusion,
   valoresInicialesTipoSocios,
+  valoresInicialesMotivos,
 } from "@modelos/ModeloSocios";
 import TabsFormik, { TabPanel } from "../../forms/tab";
 import Grid from "@mui/material/Grid";
@@ -108,6 +109,7 @@ export default function FormConfig({}) {
               <DataGridFormikItems
                 label="Motivos Estados"
                 Modelo={ModeloMotivos}
+                valoresIniciales={valoresInicialesMotivos}
                 FormularioItem={FormMotivos}
                 campo="itemsMotivosEstados"
                 columns={[
