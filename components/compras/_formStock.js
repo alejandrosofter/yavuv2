@@ -1,7 +1,9 @@
+import SelectCategoriaProducto from "@components/productos/categoriaProducto";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 import Input from "../forms/input";
-
+import ImageFormik from "../forms/imageFormik";
+import { fuego } from "@nandorojo/swr-firestore";
 export default function FormItem({ values }) {
   const [total, setTotal] = useState(0);
 
@@ -10,6 +12,16 @@ export default function FormItem({ values }) {
   }, [values]);
   return (
     <Grid container spacing={2}>
+      <Grid item md={2}>
+        <ImageFormik
+          w={300}
+          h={300}
+          iconDefault="fas fa-images"
+          folder={`users/${fuego.auth().currentUser?.uid}/productos`}
+          label="Foto "
+          campo={`foto`}
+        />
+      </Grid>
       <Grid item md={1}>
         <Input campo="codigo" label="Codigo" />
       </Grid>
@@ -21,7 +33,10 @@ export default function FormItem({ values }) {
       </Grid>
 
       <Grid item md={2}>
-        <Input campo="importe" label="Importe" />
+        <Input campo="importeVenta" label="$ Venta" />
+      </Grid>
+      <Grid item md={3}>
+        <SelectCategoriaProducto />
       </Grid>
       <Grid item md={2}>
         TOTAL {total}

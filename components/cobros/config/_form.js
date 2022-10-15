@@ -21,10 +21,19 @@ export default function FormConfig({}) {
           vista: (
             <Grid spacing={2} container>
               <Grid item md={5}>
+                <Input campo="coleccionClientes" label="Coleccion Clientes" />
+              </Grid>
+              <Grid item md={5}>
                 <Input campo="maximoConfirma" label="$ MAX Confirma" />
               </Grid>
               <Grid item md={5}>
                 <Switch campo="imprimirAlcrear" label="Imprimir al crear" />
+              </Grid>
+              <Grid item md={5}>
+                <Switch
+                  campo="mostrarAddCliente"
+                  label="Mostrar agregar Cliente"
+                />
               </Grid>
               <Grid item md={5}>
                 <SelectTipoComprobante

@@ -25,7 +25,17 @@ const videoConstraints = {
   facingMode: "user",
 };
 
-const WebcamFormik = ({ folder, label, campo, w, h, callbackchange }) => {
+const WebcamFormik = ({
+  variantIcon,
+  folder,
+  label,
+  campo,
+  w,
+  h,
+  wIcon,
+  hIcon,
+  iconDefault,
+}) => {
   const [loading, setLoading] = useState(false);
   const [openSacaFoto, setOpenSacaFoto] = useState(false);
   const [openEditar, setOpenEditar] = useState(false);
@@ -62,7 +72,6 @@ const WebcamFormik = ({ folder, label, campo, w, h, callbackchange }) => {
     var storageRef = fuego.storage().ref();
     var folderSociosRef = storageRef.child(rutaImagen);
     setLoading(true);
-    console.log(rutaImagen);
     try {
       var bufferValue = Buffer.from(
         imageBase64.toString().split(";base64,").pop(),
@@ -72,7 +81,6 @@ const WebcamFormik = ({ folder, label, campo, w, h, callbackchange }) => {
         setearValores(rutaImagen, rutaImagenThum, snapshot);
         setImagenUrl(rutaImagen);
         setLoading(false);
-        console.log("SUBI IMAGEN");
         setOpenAdjuntar(false);
         setOpenSacaFoto(false);
       });
@@ -196,7 +204,13 @@ const WebcamFormik = ({ folder, label, campo, w, h, callbackchange }) => {
                 />
               </Stack>
               <Typography variant="caption">{label}</Typography>
-              <MuestraImagen pathImagen={imagenUrl} />
+              <MuestraImagen
+                w={wIcon}
+                variantIcon={variantIcon}
+                h={hIcon}
+                icon={iconDefault}
+                pathImagen={imagenUrl}
+              />
             </Stack>
           );
         }}

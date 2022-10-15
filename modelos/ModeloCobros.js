@@ -10,31 +10,31 @@ export default function ModeloCobros() {
     importeTotal: yup.number(),
     importeBonifica: yup.number(),
     importePaga: yup.number(),
-    formasDePago: yup
-      .array()
-      .required("Debes Ingresar por lo menos un pago!")
-      .test(
-        "Debe coincidir la sumatoria de los items con los pagos",
-        "${path} EXISTENTE",
-        (value, testContext) => {
-          if (!value || !testContext.parent.deudas)
-            return testContext.createError({
-              message: `Deben haber items!`,
-            });
-          const importeItems = contador2(
-            testContext.parent.deudas,
-            (item) =>
-              Number(item.importe) * item.cantidad -
-              Number(item.importeBonificacion ? item.importeBonificacion : 0)
-          );
-          const importeFormaPagos = contador(testContext.parent?.formasDePago);
-          if (importeItems !== importeFormaPagos)
-            return testContext.createError({
-              message: `Debe coincidir la sumatoria de los items con los pagos`,
-            });
-          return true;
-        }
-      ),
+    // formasDePago: yup
+    //   .array()
+    //   .required("Debes Ingresar por lo menos un pago!")
+    //   .test(
+    //     "Debe coincidir la sumatoria de los items con los pagos",
+    //     "${path} EXISTENTE",
+    //     (value, testContext) => {
+    //       if (!value || !testContext.parent.deudas)
+    //         return testContext.createError({
+    //           message: `Deben haber items!`,
+    //         });
+    //       const importeItems = contador2(
+    //         testContext.parent.deudas,
+    //         (item) =>
+    //           Number(item.importe) * item.cantidad -
+    //           Number(item.importeBonificacion ? item.importeBonificacion : 0)
+    //       );
+    //       const importeFormaPagos = contador(testContext.parent?.formasDePago);
+    //       if (importeItems !== importeFormaPagos)
+    //         return testContext.createError({
+    //           message: `Debe coincidir la sumatoria de los items con los pagos`,
+    //         });
+    //       return true;
+    //     }
+    //   ),
   });
 }
 export function valoresIniciales(data) {
@@ -53,6 +53,7 @@ export function valoresIniciales(data) {
     comprobante_domicilio: data ? data.comprobante_domicilio : "",
     comprobante_tipoConcepto: data ? data.comprobante_tipoConcepto : "",
     tipoComprobanteNoFiscal: data ? data.tipoComprobanteNoFiscal : "",
+    coleccionClientes: data ? data.coleccionClientes : "",
     estado: "CANCELADA",
     fecha: new Date(),
     fecha_timestamp: new Date().getTime(),

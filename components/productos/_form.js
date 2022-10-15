@@ -4,6 +4,7 @@ import Input from "@components//forms/input";
 import SelectEstaticFormik from "../forms/selectEstaticFormik";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import SelectCentroCosto from "@components/centroCostos/select";
+import SelectCategoriaProducto from "./categoriaProducto";
 export default function Form({ mod, setFieldValue, values }) {
   const { data: centrosCosto } = useCollection("centroCostos", {
     where: ["idUsuario", "==", fuego.auth().currentUser.uid],
@@ -39,8 +40,11 @@ export default function Form({ mod, setFieldValue, values }) {
               campo="estado"
             />
           </Grid>
-          <Grid item md={3}>
+          {/* <Grid item md={3}>
             <SelectCentroCosto />
+          </Grid> */}
+          <Grid item md={3}>
+            <SelectCategoriaProducto />
           </Grid>
           <Grid item md={12}>
             <Input label="Detalle" campo="detalle" />

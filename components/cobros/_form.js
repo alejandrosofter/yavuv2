@@ -12,6 +12,8 @@ import ItemsCobro from "./_items";
 import SelectFormikAlgolia from "../forms/selectAlgoliaFormik";
 import PersonalizarComprobante from "./_personalizarComprobante";
 import SelectSocioSimple from "@components/socios/selectSocioSimple";
+import { capitalize } from "@helpers/Strings";
+import NuevoCliente from "@components/clientes/nuevo";
 export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
   useEffect(() => {
     // setFieldValue("deudas", []);
@@ -40,6 +42,9 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
   const cambiaSocio = (socio) => {
     setClienteSeleccion(socio);
   };
+  const coleccionClientes = mod.config.coleccionClientes
+    ? mod.config.coleccionClientes
+    : "socios";
 
   return (
     <Grid sx={{ pt: 2, p: 3 }} spacing={2} container>
@@ -54,18 +59,21 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
         <Grid item md={8}>
           {/* <SelectSocioSimple campo="cliente" callbackchange={cambiaSocio2} /> */}
           <SelectFormikAlgolia
-            coleccionAlgolia={"socios"}
-            label="Socio"
+            coleccionAlgolia={coleccionClientes}
+            label={capitalize(coleccionClientes)}
             callbackchange={cambiaSocio}
             labelItems={(opt) =>
-              `${opt.apellido} ${opt.nombre} - ${opt.dni} - ${opt.nroSocio}`
+              coleccionClientes === "socios"
+                ? `${opt.apellido} ${opt.nombre} - ${opt.dni} - ${opt.nroSocio}`
+                : `${opt.nombre} - ${opt.apellido}`
             }
             campo="cliente"
           />
         </Grid>
 
-        <Grid item md={3}>
+        <Grid item md={2}>
           <SeleccionDeuda
+            coleccionClientes={coleccionClientes}
             enabled={clienteSeleccion}
             fnChange={cambianItemsDeuda}
             abre={openDeuda}
@@ -73,28 +81,27 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
           />
         </Grid>
       </Grid>
-      <Grid
-        justifyContent="flex-end"
-        alignItems="flex-start"
-        item
-        container
-        spacing={2}
-        xs={6}
-      >
-        <Grid item md={3}>
-          <SelectFecha label="Fecha" campo="fecha" />
+      {mod.config.mostrarAddCliente && (
+        <Grid item md={1}>
+          <NuevoCliente mod={mod} />
         </Grid>
-        <Grid item md={3}>
-          <Switch label="Es Fiscal?" campo="esFiscal" />
-        </Grid>
-        {values.esFiscal && (
-          <Grid item md={5}>
-            <Button onClick={() => setOpenPersonalizar(true)}>
-              {values.comprobante_razonSocial}
-            </Button>
-          </Grid>
-        )}
+      )}
+
+      <Grid item md={2}>
+        <SelectFecha label="Fecha" campo="fecha" />
       </Grid>
+      <Grid item md={2}>
+        <Switch label="Es Fiscal?" campo="esFiscal" />
+      </Grid>
+      {values.esFiscal && (
+        <Grid item md={1}>
+          <Button onClick={() => setOpenPersonalizar(true)}>
+            {values.comprobante_razonSocial
+              ? values.comprobante_razonSocial
+              : "Seleccionar..."}
+          </Button>
+        </Grid>
+      )}
 
       <PersonalizarComprobante
         open={openPersonalizar}

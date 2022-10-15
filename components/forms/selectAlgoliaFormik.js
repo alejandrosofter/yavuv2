@@ -6,6 +6,7 @@ import AutoCompleteAsync from "../forms/autocompleteAsync";
 
 import { Field } from "formik";
 import { FormControl, TextField } from "@mui/material";
+import { fuego } from "@nandorojo/swr-firestore";
 
 const SelectFormikAlgolia = ({
   label,
@@ -43,6 +44,7 @@ const SelectFormikAlgolia = ({
                 analytics: false,
                 enableABTest: false,
                 hitsPerPage: 20,
+                facetFilters: [["idUsuario", fuego.auth().currentUser.uid]],
                 attributesToRetrieve: "*",
                 attributesToSnippet: "*:20",
                 snippetEllipsisText: "…",

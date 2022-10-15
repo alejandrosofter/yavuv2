@@ -10,7 +10,13 @@ import CheckListFormik from "../forms/checkListFormik";
 import { getFechaString } from "../../helpers/dates";
 import TooltipHtml from "@components/forms/tooltipHtml";
 import randomId from "random-id";
-export default function Modulo({ cliente, enabled, fnChange, abre }) {
+export default function Modulo({
+  cliente,
+  enabled,
+  fnChange,
+  abre,
+  coleccionClientes = "socios",
+}) {
   const [deudaSocio, setDeudaSocio] = useState([]);
   const [deudaSeleccion, setDeudaSeleccion] = useState([]);
   const [open, setOpen] = useState(false);
@@ -24,11 +30,11 @@ export default function Modulo({ cliente, enabled, fnChange, abre }) {
   const getWhereFamilares = async (socio, idSocioPrimario) => {
     let wheres = [idSocioPrimario];
     const refSocio = await fuego.db
-      .collection("socios")
+      .collection(coleccionClientes)
       .doc(socio.objectID)
       .get()
       .then((doc) => doc.data());
-    console.log(refSocio, socio.objectID);
+
     refSocio.familiares?.forEach(async (familiar) => {
       wheres.push(familiar.socio);
     });
@@ -38,7 +44,9 @@ export default function Modulo({ cliente, enabled, fnChange, abre }) {
     if (cliente) {
       const arrSocios = await getWhereFamilares(cliente, cliente.objectID);
       fuego.db
-        .collection(`socios/${cliente.objectID}/movimientosCuenta`)
+        .collection(
+          `${coleccionClientes}/${cliente.objectID}/movimientosCuenta`
+        )
 
         .where("estado", "==", "PENDIENTE")
         .get()
