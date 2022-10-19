@@ -50,10 +50,16 @@ export function TurnosPaciente({ paciente, callbackchange }) {
   };
   const columns = [
     {
-      field: "fecha",
+      field: "fechaTurno",
       headerName: "Fecha",
       width: 200,
       renderCell: (params) => getFechaString(params.value, "DD/MM/YYYY HH:mm"),
+    },
+    {
+      field: "nombreConsultorio",
+      headerName: "Consltorio",
+      width: 300,
+      // renderCell: (params) => getFechaString(params.value, "DD/MM/YYYY HH:mm"),
     },
   ];
   const order = ["fecha", "desc"];
@@ -61,8 +67,8 @@ export function TurnosPaciente({ paciente, callbackchange }) {
     localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
   return (
     <Grid container spacing={2}>
-      <Grid item md={12}>
-        <Paper elevation={8} sx={{ p: 2 }}>
+      <Grid sx={{ height: "100vh" }} item md={12}>
+        <Paper elevation={8} sx={{ p: 2, height: "100%" }}>
           <ABMColeccion
             hideNew={true}
             acciones={[]}
@@ -115,7 +121,7 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
     data: dataImpresion,
   });
   const [openImpresion, setOpenImpresion] = useState(false);
-  const order = ["fecha", "desc"];
+  const order = ["fecha_timestamp", "desc"];
 
   const cambiaSeleccion = (data) => {
     if (callbackchange) {
@@ -160,22 +166,22 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
   ];
   const parentData =
     localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
+
   return (
     <Grid container>
       <Grid item md={12}>
         <ABMColeccion
           acciones={acciones}
-          coleccion={`recetas`}
+          coleccion={`pacientes/${paciente.id}/recetas`}
           columns={columns}
           where={[
-            ["paciente", "==", paciente.id],
             parentData
               ? ["idUsuario", "==", localStorage.getItem("usermod")]
               : ["usermod", "==", fuego.auth().currentUser?.uid],
           ]}
-          labelNuevo="nueva"
-          preData={{}}
-          order={order}
+          labelNuevo="nueva receta"
+          preData={{ paciente }}
+          orderBy={order}
           maxWidth={"md"}
           callbackchange={cambiaSeleccion}
           // callbackclick={callbackclick}
@@ -205,10 +211,10 @@ export function FichaPaciente({ paciente, mod }) {
       <Grid item md={12}>
         <DataPaciente paciente={paciente} />
       </Grid>
-      <Grid item md={5}>
+      <Grid item md={6}>
         <TurnosPaciente paciente={paciente} />
       </Grid>
-      <Grid item md={7}>
+      <Grid item md={6}>
         <ListaRecetas mod={mod} paciente={paciente} />
       </Grid>
     </Grid>

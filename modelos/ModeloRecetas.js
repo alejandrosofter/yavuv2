@@ -6,10 +6,14 @@ export default function Modelo() {
     tipo: yup.string().required(),
   });
 }
-export function valoresIniciales() {
+export function valoresIniciales({ paciente }) {
   return {
-    fecha: "",
+    fecha: new Date(),
+    fecha_timestamp: new Date().getTime(),
     tipo: "",
+    idPaciente: paciente.id,
+    label_obraSocial: paciente.label_obraSocial,
+    obraSocial: paciente.obraSocial,
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,
@@ -69,6 +73,27 @@ export function valoresInicialesPrestaciones() {
   return {
     fecha: new Date(),
     idEstudio: "",
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
+  };
+}
+
+////////////////////////?INDICACIONES
+
+export function ModeloIndicacion() {
+  return yup.object().shape({
+    idIndicacion: yup.string().required("Selecciona una indicacion!"),
+  });
+}
+export function valoresInicialesIndicacion() {
+  return {
+    fecha: new Date(),
+    fecha_timestamp: new Date().getTime(),
+    idIndicacion: "",
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,

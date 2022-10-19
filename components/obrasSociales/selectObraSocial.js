@@ -1,11 +1,23 @@
-import { useCollection,fuego } from '@nandorojo/swr-firestore';
-import Select2 from "../forms/select2Formik"
-export default function Modulo({label,campo,callbackchange}){
-    const {data}=useCollection("obrasSociales",{where:["idUsuario","==",fuego.auth().currentUser.uid]})
-    if(!data) return ""
-    return(
-        <Select2 callbackchange={callbackchange} campo={campo?campo:"obraSocial"} label={label?label:"Obra Social"}
-         lista={data} campoId="id" 
-            campoLabel="nombre" />
-    )
+import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
+import { useCollection, fuego } from "@nandorojo/swr-firestore";
+import Modelo, { valoresIniciales } from "@modelos/ModeloObrasSociales";
+import Form from "@components/obrasSociales/_form";
+export default function Modulo({ multiple, label, campo, callbackchange }) {
+  return (
+    <SelectUserModColeccion
+      coleccion={"obrasSociales"}
+      Modelo={Modelo}
+      valoresIniciales={valoresIniciales}
+      Form={Form}
+      callbackchange={callbackchange}
+      parentData={true}
+      multiple={multiple}
+      campo={campo ? campo : "obraSocial"}
+      label={label ? label : "Obra Social"}
+      icono="fas fa-user"
+      maxWidth="md"
+      campoId="id"
+      campoLabel="nombre"
+    />
+  );
 }

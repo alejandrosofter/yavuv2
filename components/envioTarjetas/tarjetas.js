@@ -147,7 +147,7 @@ export default function TarjetasEnvio({ mod }) {
             >
               <MuestraImagen w={80} h={80} pathImagen={item.foto} />
               <Grid item sx={{ width: 100 }}>
-                <Typography variant="caption">{`${item.apellido.toUpperCase()} ${capitalize(
+                <Typography variant="caption">{`${item.apellido?.toUpperCase()} ${capitalize(
                   item.nombre
                 )}`}</Typography>
               </Grid>

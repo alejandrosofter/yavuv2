@@ -101,8 +101,7 @@ export default function ColeccionTable({
   if (!data) return "Cargando...";
   return (
     <Grid
-      coleccion
-      height="60vh"
+      height={"90%"}
       sx={{
         "& .disabled": {
           bgcolor: (theme) => "text.disabled",

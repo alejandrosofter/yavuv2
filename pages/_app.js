@@ -9,6 +9,7 @@ import { FuegoProvider } from "@nandorojo/swr-firestore";
 import { ErrorBoundary } from "react-error-boundary";
 import SnackbarFirebase from "../helpers/snackBarFirebase";
 import { useEffect } from "react";
+import ContextAcciones from "context/accionesContext";
 
 const theme = createTheme({
   palette: {
@@ -56,19 +57,11 @@ export default function app({ Component, pageProps }) {
   const fuego = new Fuego(config());
 
   return (
-    <ErrorBoundary
-      FallbackComponent={SnackbarFirebase}
-      onError={(error, errorInfo) => console.log({ error, errorInfo })}
-      onReset={() => {
-        // reset the state of your app
-      }}
-    >
-      <FuegoProvider fuego={fuego}>
-        <ThemeProvider theme={theme}>
-          {" "}
-          <Component {...pageProps} />{" "}
-        </ThemeProvider>
-      </FuegoProvider>
-    </ErrorBoundary>
+    <FuegoProvider fuego={fuego}>
+      <ThemeProvider theme={theme}>
+        {" "}
+        <Component {...pageProps} />{" "}
+      </ThemeProvider>
+    </FuegoProvider>
   );
 }

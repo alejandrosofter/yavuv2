@@ -4,12 +4,14 @@ import EditarMod from "./mod/editar";
 import getModModulo, { getModuloMod } from "../helpers/mods";
 import { withAuthUser, useAuthUser, AuthAction } from "next-firebase-auth";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { updateField } from "../config/db";
 import { fuego } from "@nandorojo/swr-firestore";
+import ContextAcciones from "context/accionesContext";
 const Controlador = ({ esInicial, url, moduloEditar }) => {
   const auth = useAuthUser();
   const router = useRouter();
+
   const esEdicion =
     router.query.componente === "editar" && moduloEditar === true;
 

@@ -85,6 +85,12 @@ export default function TarjetasSocio({ data, mod }) {
       icono: "fas fa-share",
       label: "Enviar Impresion Terceros",
       fn: (row) => {
+        console.log({
+          idTarjeta: row.id,
+          idSocio: data.id,
+          tk: data.idUsuario,
+          ...row,
+        });
         setDataSeleccion(row);
         setDataConsulta({
           url: "/api/envioTarjetas/sendTarjeta",
@@ -92,7 +98,9 @@ export default function TarjetasSocio({ data, mod }) {
             idTarjeta: row.id,
             idSocio: data.id,
             tk: data.idUsuario,
-            ...data,
+            ...row,
+            idUsuario: data.idUsuario,
+            usermod: data.usermod,
           },
         });
       },

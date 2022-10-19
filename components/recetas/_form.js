@@ -9,6 +9,7 @@ import DataGridFormikItems from "@components/forms/dataGridFormik";
 import FormMedicamentos from "./_formMedicamentos";
 import FormEstudios from "./_formEstudios";
 import FormPrestaciones from "./_formPrestaciones";
+import FormIndicaciones from "./_formIndicaciones";
 import {
   ModeloEstudios,
   valoresInicialesEstudios,
@@ -16,7 +17,10 @@ import {
   valoresInicialesMedicamentos,
   ModeloPrestaciones,
   valoresInicialesPrestaciones,
+  valoresInicialesIndicacion,
+  ModeloIndicacion,
 } from "@modelos/ModeloRecetas";
+
 import TabsFormik from "@components/forms/tab";
 export default function Form({ mod, setFieldValue, values }) {
   return (
@@ -90,6 +94,7 @@ export default function Form({ mod, setFieldValue, values }) {
                 <Grid item md={12}>
                   <DataGridFormikItems
                     label=""
+                    preData={{ obraSocial: values.obraSocial }}
                     Modelo={ModeloPrestaciones}
                     valoresIniciales={valoresInicialesPrestaciones}
                     FormularioItem={FormPrestaciones}
@@ -104,6 +109,29 @@ export default function Form({ mod, setFieldValue, values }) {
                         field: "detalle",
                         headerName: "Detalle",
                         width: 350,
+                      },
+                    ]}
+                  />
+                </Grid>
+              ),
+            },
+            {
+              label: "INDICACIONES",
+              nro: 3,
+              vista: (
+                <Grid item md={12}>
+                  <DataGridFormikItems
+                    label=""
+                    // preData={{ }}
+                    Modelo={ModeloIndicacion}
+                    valoresIniciales={valoresInicialesIndicacion}
+                    FormularioItem={FormIndicaciones}
+                    campo="indicaciones"
+                    columns={[
+                      {
+                        field: "label_idIndicacion",
+                        headerName: "Indicacion",
+                        width: 450,
                       },
                     ]}
                   />

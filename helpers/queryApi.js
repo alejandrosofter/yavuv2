@@ -23,9 +23,10 @@ export function QueryApi({ dataConsulta, method = "get", callbackSuccess }) {
           if (callbackSuccess) callbackSuccess(dataConsulta, data);
         })
         .catch((err) => {
+          console.log(err);
           setLoading(false);
           setOpenMensaje(true);
-          setMensaje(err.response.data.msg);
+          setMensaje(err.response?.data?.msg);
         });
     else
       axios

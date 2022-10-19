@@ -1,14 +1,16 @@
 import ColeccionTable from "@components/forms/coleccionTable";
 
 import { useState } from "react";
-import { Button, Grid, Icon, Typography } from "@mui/material";
+import { Button, Grid, Icon, IconButton, Typography } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import { ABMCollection_nuevo } from "./nuevo";
 import { ABMCollection_editar } from "./editar";
 import Dialogo from "../dialogo";
+import { QueryApi } from "@helpers/queryApi";
 
 export default function ABMColeccion({
   valoresIniciales,
+  showExport = false,
   Modelo,
   coleccion,
   icono,
@@ -57,6 +59,7 @@ export default function ABMColeccion({
   const [seleccion, setSeleccion] = useState(null);
   const [openEditar, setOpenEditar] = useState(null);
   const [openNuevo, setOpenNuevo] = useState(null);
+  const [dataConsulta, setDataConsulta] = useState();
   const [openConfirma, setOpenConfirma] = useState(null);
   const [accions, setAcctions] = useState(
     accionesABM.concat(acciones ? acciones : [])
@@ -72,20 +75,32 @@ export default function ABMColeccion({
   const quitarDocumento = (doc) => {
     return fuego.db.collection(coleccion).doc(doc.id).delete();
   };
-
+  const callbackQuery = (data, response) => {
+    window.open(response.data?.url, "_blank");
+  };
   const cambiaSeleccion = (data) => {
     if (callbackchange) {
       callbackchange(data);
     }
   };
-
+  const clickExcel = () => {
+    setDataConsulta({
+      url: "/api/bigquery/exportarColeccion",
+      data: {
+        token: fuego.auth().currentUser.uid,
+        coleccion,
+        tk: new Date().getTime(),
+      },
+    });
+  };
   return (
     <Grid container>
       <Grid item md={9}>
-        <Typography variant="h6" gutterBottom>
-          {titulo}
+        <Typography variant="h3" gutterBottom>
+          <Icon className={icono} /> {titulo}
         </Typography>
       </Grid>
+
       <Grid item md={3}>
         {!hideNew && (
           <Button
@@ -99,6 +114,18 @@ export default function ABMColeccion({
           </Button>
         )}
       </Grid>
+      {showExport && (
+        <Grid item md={1}>
+          <IconButton
+            variant="outlined"
+            size="small"
+            color="primary"
+            onClick={clickExcel}
+          >
+            <Icon fontSize="small" className="fas fa-file-excel" />
+          </IconButton>
+        </Grid>
+      )}
       <Grid item md={12}>
         <ColeccionTable
           acciones={accions}
@@ -150,6 +177,7 @@ export default function ABMColeccion({
         open={openConfirma}
         setOpen={setOpenConfirma}
       />
+      <QueryApi callbackSuccess={callbackQuery} dataConsulta={dataConsulta} />
     </Grid>
   );
 }

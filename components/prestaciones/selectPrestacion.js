@@ -7,10 +7,12 @@ export default function SelectPrestaciones({
   label,
   campo,
   callbackchange,
+  obraSocial,
 }) {
+  console.log(`obrasSociales/${obraSocial}/prestaciones`);
   return (
     <SelectUserModColeccion
-      coleccion={"productos"}
+      coleccion={`obrasSociales/${obraSocial}/prestaciones`}
       Modelo={Modelo}
       parentData={true}
       valoresIniciales={valoresIniciales}
@@ -22,7 +24,7 @@ export default function SelectPrestaciones({
       icono="fas fa-medical"
       maxWidth="md"
       campoId="id"
-      campoLabel={(item) => `${item.nombre} - ${item.codigo}`}
+      campoLabel={(item) => `${item.nombre} - ${item.codigoInterno}`}
     />
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Modelo, { valoresIniciales } from "@modelos/ModeloCierreCaja";
-import { Icon, Grid } from "@mui/material";
+import { Icon, Grid, Backdrop, CircularProgress } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import { getFechaString } from "@helpers/dates";
 import Tooltip from "@mui/material/Tooltip";
@@ -48,6 +48,7 @@ export default function CuentaSocio({ data, mod }) {
   const [dataImpresion, setDataImpresion] = useState();
   const [seleccion, setSeleccion] = useState();
   const [openPagos, setOpenPagos] = useState();
+  const [loading, setLoading] = useState();
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,
@@ -61,10 +62,8 @@ export default function CuentaSocio({ data, mod }) {
       .collection(`cierresCaja/${row.id}/cierresFormaPago`)
       .get()
       .then(async (docCierre) => {
+        setLoading(true);
         for (let i = 0; i < docCierre.docs.length; i++) {
-          console.log(
-            `cierresCaja/${row.id}/cierresFormaPago/${docCierre.docs[i].id}/items`
-          );
           const items = await fuego.db
             .collection(
               `cierresCaja/${row.id}/cierresFormaPago/${docCierre.docs[i].id}/items`
@@ -78,6 +77,7 @@ export default function CuentaSocio({ data, mod }) {
             items,
           });
         }
+        setLoading(false);
       });
     return formasDePago;
   };
@@ -155,6 +155,12 @@ export default function CuentaSocio({ data, mod }) {
         data={seleccion}
       />
       <QueryApi dataConsulta={dataConsulta} />
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Grid>
   );
 }

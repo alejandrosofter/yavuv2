@@ -66,7 +66,7 @@ export default function Modulo({ mod, parentData }) {
         coleccion={`productos`}
         columns={columns}
         acciones={acciones}
-        order={order}
+        orderBy={order}
         maxWidth="lg"
         where={[
           parentData

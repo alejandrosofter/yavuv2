@@ -42,8 +42,8 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
   const cambiaSocio = (socio) => {
     setClienteSeleccion(socio);
   };
-  const coleccionClientes = mod.config.coleccionClientes
-    ? mod.config.coleccionClientes
+  const coleccionClientes = mod.config?.coleccionClientes
+    ? mod.config?.coleccionClientes
     : "socios";
 
   return (
@@ -81,7 +81,7 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
           />
         </Grid>
       </Grid>
-      {mod.config.mostrarAddCliente && (
+      {mod.config?.mostrarAddCliente && (
         <Grid item md={1}>
           <NuevoCliente mod={mod} />
         </Grid>

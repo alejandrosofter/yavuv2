@@ -55,6 +55,9 @@ export default function FormConfig({}) {
                   label="Plantilla Cobro"
                 />
               </Grid>
+              <Grid item md={8}>
+                <SelectPlantilla campo="plantillaMail" label="Plantilla Mail" />
+              </Grid>
             </Grid>
           ),
         },

@@ -1,4 +1,4 @@
-import { Grid, Stack } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import Input from "@components/forms/input";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import SelectFecha from "@components/forms/selectorFecha";
@@ -29,7 +29,7 @@ export default function Form({ mod, setFieldValue, values }) {
               campo="estado"
             />
           </Grid>
-          <Grid item md={2}>
+          <Grid item md={4}>
             <UploadAnyFormik
               folder={`users/${
                 fuego.auth().currentUser.uid
@@ -37,6 +37,11 @@ export default function Form({ mod, setFieldValue, values }) {
               label="Archivo"
               campo="archivo"
             />
+          </Grid>
+          <Grid item md={12}>
+            <Typography variant="caption">
+              IMPORTANTE! el archivo debe ser .XLSX (no es lo mismo XLS)!
+            </Typography>
           </Grid>
         </Grid>
       </Stack>

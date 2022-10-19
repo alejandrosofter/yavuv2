@@ -13,6 +13,7 @@ const DataGridFormikItems = ({
   Modelo,
   valoresIniciales,
   FormularioItem,
+  preData,
   mod,
 }) => {
   return (
@@ -34,7 +35,7 @@ const DataGridFormikItems = ({
                 textoEditar={`Puedes cambiar las acciones de esta accion:`}
                 textoAgregar={`Ingrese los datos de la accion`}
                 valoresIniciales={valoresIniciales}
-                form={<FormularioItem mod={mod} />}
+                form={<FormularioItem mod={mod} {...preData} />}
                 dataModulo={[]}
                 columnas={columns}
               />

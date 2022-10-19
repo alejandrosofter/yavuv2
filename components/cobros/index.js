@@ -8,10 +8,16 @@ import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { Button, Grid, Typography } from "@mui/material";
 import { parse } from "handlebars";
 import CajaDelDia from "./cajaDelDia";
-export default function Modulo({ mod }) {
+import { fuego } from "@nandorojo/swr-firestore";
+import Modelo, { valoresIniciales } from "@modelos/ModeloCobros";
+import ABMColeccion from "@components/forms/ABMcollection";
+import Form from "./_form";
+export default function Modulo({ mod, parentData }) {
   const idPlantilla = mod.config?.plantillaCobro;
+  const plantillaEmail = mod.config?.plantillaMail;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
+  const [socio, setSocio] = useState();
   const [openCajaDelDia, setOpenCajaDelDia] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
   const [plantilla, setPlantilla] = UsePlantilla({
@@ -41,16 +47,39 @@ export default function Modulo({ mod }) {
     parse;
     return aux;
   };
-  let fnAcciones = {
-    compartir: (data) => {
-      setOpenImpresion(true);
-      setDataImpresion(data);
-    },
-    verCajaDiaria: (data) => {
-      setOpenCajaDelDia(true);
-      console.log(data);
-    },
+  const setSocioCobro = async (row) => {
+    const { cliente } = row;
+    fuego.db
+      .collection("socios")
+      .doc(cliente)
+      .get()
+      .then((doc) => {
+        console.log(doc.data());
+        setSocio(doc.data());
+      });
   };
+  let fnAcciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-share-alt",
+      label: "Compartir",
+
+      fn: (data) => {
+        setOpenImpresion(true);
+        setSocioCobro(data);
+        setDataImpresion(data);
+      },
+    },
+    // {
+    //   esFuncion: true,
+    //   icono: "fas fa-users",
+    //   label: "Inscriptos",
+
+    //   fn: (data) => {
+    //     setOpenCajaDelDia(true);
+    //   },
+    // },
+  ];
   const columns = [
     {
       field: "fecha",
@@ -96,6 +125,7 @@ export default function Modulo({ mod }) {
       },
     },
   ];
+
   return (
     <Grid container>
       <Grid item md={10}></Grid>
@@ -104,29 +134,35 @@ export default function Modulo({ mod }) {
           Caja del dia
         </Button>
       </Grid>
-      <DataGridFirebase
-        fnAcciones={fnAcciones}
-        titulo={mod.label}
-        parentData={false}
-        subTitulo=" generales"
-        icono="fas fa-funnel-dollar"
-        limit={10}
-        mod={mod}
-        acciones={mod.acciones}
-        orderBy={["fecha", "desc"]}
+      <ABMColeccion
+        coleccion={`cobros`}
         columns={columns}
+        hideNew={true}
+        acciones={fnAcciones}
+        orderBy={["fecha_timestamp", "desc"]}
+        maxWidth="lg"
+        where={[
+          parentData
+            ? ["idUsuario", "==", localStorage.getItem("usermod")]
+            : ["usermod", "==", fuego.auth().currentUser?.uid],
+        ]}
+        // callbackclick={callbackclick}
+        icono={"fas fa-users"}
+        Modelo={Modelo}
+        valoresIniciales={valoresIniciales}
+        titulo={`COBROS`}
+        Form={Form}
       />
-
       <ImpresionDialog
         titulo="PANEL COMPARTIR COBRO"
         setOpen={setOpenImpresion}
         open={openImpresion}
-        asunto="COBRO "
-        data={dataImpresion}
+        asunto="COMPROBANTE DE PAGO"
+        data={{ ...dataImpresion, socio, email: socio?.email }}
         plantilla={plantilla}
-        emailDefault={dataImpresion?.socio?.email}
-        nombrePlantillaEmail="emailAfiliacion"
-        attachments={[{ filename: "AFILIACION.pdf", data: plantilla }]}
+        emailDefault={socio?.email}
+        plantillaEmail={plantillaEmail}
+        attachments={[{ filename: "COBRO.pdf", data: plantilla }]}
       />
       <CajaDelDia open={openCajaDelDia} setOpen={setOpenCajaDelDia} />
     </Grid>
