@@ -15,12 +15,13 @@ const SelectFormikAlgolia = ({
   coleccionAlgolia,
   callbackchange,
   labelItems,
+  initLabel,
 }) => {
   const [datos, setDatos] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const containerRef = React.useRef(null);
   const [showBusca, setShowBusca] = React.useState(false);
-  const [labelSelect, setLabel] = React.useState();
+  const [labelSelect, setLabel] = React.useState(initLabel);
   React.useEffect(() => {}, []);
   return (
     <FormControl fullWidth>
@@ -122,7 +123,11 @@ const SelectFormikAlgolia = ({
                   sx={{ pt: 1, color: "blue", cursor: "pointer" }}
                   variant="h5"
                 >
-                  {labelSelect === "undefined" ? "Seleccione..." : labelSelect}
+                  {labelSelect === "undefined"
+                    ? initLabel
+                      ? initLabel
+                      : "Seleccione..."
+                    : labelSelect}
                 </Typography>
               </Grid>
               <Grid

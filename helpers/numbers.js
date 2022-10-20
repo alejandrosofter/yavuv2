@@ -1,3 +1,4 @@
+import numeros_a_letras from "numeros_a_letras";
 export function formatMoney(number, symbol) {
   const simb = symbol ? symbol : "$";
   if (!number) return `${simb}0.00`;
@@ -8,4 +9,8 @@ export function formatMoney(number, symbol) {
 export function formatPorcentual(number, decimal = 2) {
   if (isNaN(number)) return "0%";
   return `${Number(number).toFixed(decimal)}%`;
+}
+export function numeroLetra(numero) {
+  if (!numero) return "-";
+  return numeros_a_letras(numero);
 }

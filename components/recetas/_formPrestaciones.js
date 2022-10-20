@@ -9,13 +9,22 @@ export default function FormPrestaciones({
   values,
   obraSocial,
 }) {
+  const cambiaPrestacion = (valor, item) => {
+    if (item) {
+      setFieldValue("codigo", `${item.codigoInterno}`);
+      setFieldValue("nombre", `${item.nombre}`);
+    }
+  };
   return (
     <Grid container spacing={2}>
       <Grid item md={2}>
-        <SelectFecha label="Fecha" campo="fecha" />
+        <Input label="Cantidad" campo="cantidad" />
       </Grid>
       <Grid item md={8}>
-        <SelectPrestaciones obraSocial={obraSocial} />
+        <SelectPrestaciones
+          callbackchange={cambiaPrestacion}
+          obraSocial={obraSocial}
+        />
       </Grid>
       <Grid item md={12}>
         <Input label="Detalle" campo="detalle" />

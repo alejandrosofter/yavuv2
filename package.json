@@ -57,6 +57,7 @@
     "next": "^12.0.4",
     "next-firebase-auth": "0.13.5-alpha.0",
     "nextjs-progressbar": "^0.0.13",
+    "numeros_a_letras": "^1.0.7",
     "qz-tray": "^2.2.1",
     "random-id": "^1.0.4",
     "react": "^17.0.2",

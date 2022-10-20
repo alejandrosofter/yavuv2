@@ -105,13 +105,14 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
 
   const getDetalleReceta = (receta) => {
     let detalle = "";
-    receta.medicamentos.forEach((medicamento) => {
+    receta.medicamentos?.forEach((medicamento) => {
       detalle += ` ${medicamento.label_idMedicamento},`;
     });
-    receta.estudios.forEach((estudio) => {
+
+    receta.estudios?.forEach((estudio) => {
       detalle += ` ${estudio.label_idEstudio},`;
     });
-    receta.prestaciones.forEach((prestacion) => {
+    receta.prestaciones?.forEach((prestacion) => {
       detalle += ` ${prestacion.label_idPrestacion},`;
     });
     return detalle;
@@ -132,8 +133,13 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
     {
       field: "fecha",
       headerName: "Fecha",
-      width: 100,
+      width: 80,
       renderCell: (params) => getFechaString(params.value),
+    },
+    {
+      field: "tipo",
+      headerName: "Tipo Receta",
+      width: 130,
     },
     {
       field: "detalle",
@@ -198,6 +204,8 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
         setOpen={setOpenImpresion}
         open={openImpresion}
         asunto="RECETA "
+        plantillaEmail={mod.config?.plantillaEmailReceta}
+        attachments={[{ filename: "RECETAS.pdf", data: plantilla }]}
         data={dataImpresion}
         plantilla={plantilla}
       />

@@ -3,17 +3,22 @@ import { fuego } from "@nandorojo/swr-firestore";
 export default function Modelo() {
   return yup.object().shape({
     fecha: yup.string().required(),
-    tipo: yup.string().required(),
+    tipo: yup.string(),
   });
 }
-export function valoresIniciales({ paciente }) {
+export function valoresIniciales({ paciente, receta }) {
+  if (receta) return { ...receta };
   return {
     fecha: new Date(),
     fecha_timestamp: new Date().getTime(),
-    tipo: "",
-    idPaciente: paciente.id,
-    label_obraSocial: paciente.label_obraSocial,
-    obraSocial: paciente.obraSocial,
+    fechaReceta: new Date(),
+    fechaReceta_timestamp: new Date().getTime(),
+    fechaDiagnostico: new Date(),
+    fechaDiagnostico_timestamp: new Date().getTime(),
+    tipo: "MEDICAMENTO",
+    idPaciente: paciente ? paciente.id : "",
+    label_obraSocial: paciente ? paciente.label_obraSocial : "",
+    obraSocial: paciente ? paciente.obraSocial : "",
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,

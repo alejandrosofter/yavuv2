@@ -1,6 +1,6 @@
 import { fuego, useDocument } from "@nandorojo/swr-firestore";
 import { useEffect, useState } from "react";
-import { formatMoney } from "@helpers/numbers";
+import { formatMoney, numeroLetra } from "@helpers/numbers";
 import { getFechaString } from "@helpers/dates";
 import Handlebars from "handlebars";
 import { getImagen } from "@helpers/imagenes";
@@ -50,6 +50,16 @@ export function UsePlantilla({ id, data }) {
       if (!tipoComprobante) return "-";
       const palabras = tipoComprobante.split(" ");
       return palabras[palabras.length - 1];
+    });
+    Handlebars.registerHelper("numeroLetra", function (numero) {
+      console.log(numero);
+      return numeroLetra(Number(numero));
+    });
+    Handlebars.registerHelper("equal", function (valor, valor2) {
+      if (valor === valor2) {
+        return true;
+      }
+      return false;
     });
     Handlebars.registerHelper("qr", function (data) {
       const auxData = {
@@ -129,6 +139,11 @@ export function UsePlantilla({ id, data }) {
     Handlebars.registerHelper("esAlta", function (estado) {
       //SUMO el importe de actividades que sean por debito
       if (estado === "ALTA") return true;
+      return false;
+    });
+    Handlebars.registerHelper("existeColeccion", function (coleccion) {
+      if (!coleccion) return false;
+      if (coleccion.length > 0) return true;
       return false;
     });
     Handlebars.registerHelper("esBaja", function (estado) {

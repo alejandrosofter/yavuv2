@@ -25,5 +25,6 @@ export function valoresInicialesCredenciales() {
   return {
     apellido: "",
     nombre: "",
+    nroSocio: "",
   };
 }

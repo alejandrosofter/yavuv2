@@ -6494,6 +6494,11 @@
   "resolved" "https://registry.npmjs.org/number-is-nan/-/number-is-nan-1.0.1.tgz"
   "version" "1.0.1"
 
+"numeros_a_letras@^1.0.7":
+  "integrity" "sha512-1fJUTETNmiDRQTBQBwWsdfLpk9AKLutRp9H5Pmu63TAMKTH+rPsaC95qxejw0gnt8ONEJSDlO4rehxFh6Hq7mA=="
+  "resolved" "https://registry.npmjs.org/numeros_a_letras/-/numeros_a_letras-1.0.7.tgz"
+  "version" "1.0.7"
+
 "object-assign@^4.1.0", "object-assign@^4.1.1":
   "integrity" "sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM="
   "resolved" "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"

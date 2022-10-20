@@ -47,13 +47,13 @@ export function SendEmail({
           ? fuego.auth().currentUser.uid
           : localStorage.getItem("usermod"),
     };
-
+    console.log(data);
     await add(data);
     setLoading(false);
     setOpen(false);
   };
   const cambiaEmail = (event) => {
-    setInputEmail(event.target.value)``;
+    setInputEmail(event.target?.value);
   };
   return (
     <DialogContenido

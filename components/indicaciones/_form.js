@@ -8,7 +8,7 @@ export default function Form({ mod, setFieldValue, values }) {
         <Input label="Nombre" campo="nombre" />
       </Grid>
       <Grid item md={12}>
-        <RichEditor label="Descripcion" campo="detalle" />
+        <Input rows={10} multiline={true} label="Descripcion" campo="detalle" />
       </Grid>
     </Grid>
   );

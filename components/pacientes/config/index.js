@@ -68,10 +68,16 @@ export default function ConfigActividadad({ mod }) {
               nro: 1,
               vista: (
                 <Grid item md={12}>
-                  <Grid item md={8}>
+                  <Grid item md={6}>
                     <SelectPlantilla
                       campo="plantillaRecetas"
                       label="Plantilla Receta"
+                    />
+                  </Grid>
+                  <Grid item md={6}>
+                    <SelectPlantilla
+                      campo="plantillaEmailReceta"
+                      label="Plantilla Email Receta"
                     />
                   </Grid>
                 </Grid>
