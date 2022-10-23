@@ -4,7 +4,13 @@ import axios from "axios";
 
 import { useEffect, useState } from "react";
 
-export function QueryApi({ dataConsulta, method = "get", callbackSuccess }) {
+export function QueryApi({
+  backdropActive = true,
+  dataConsulta,
+  method = "get",
+  callbackSuccess,
+  callbackLoading,
+}) {
   const [loading, setLoading] = useState(false);
   const [openMensaje, setOpenMensaje] = useState(false);
   const [mensaje, setMensaje] = useState("");
@@ -12,18 +18,20 @@ export function QueryApi({ dataConsulta, method = "get", callbackSuccess }) {
     if (dataConsulta) enviarSolicitud(dataConsulta.url, dataConsulta.data);
   }, [dataConsulta]);
   const enviarSolicitud = (url, data) => {
-    setLoading(true);
+    if (backdropActive) setLoading(true);
+    if (callbackLoading) callbackLoading(true);
     if (method === "get")
       axios
         .get(url, {
           params: data,
         })
         .then((data) => {
+          if (callbackLoading) callbackLoading(false);
           setLoading(false);
           if (callbackSuccess) callbackSuccess(dataConsulta, data);
         })
         .catch((err) => {
-          console.log(err);
+          if (callbackLoading) callbackLoading(false);
           setLoading(false);
           setOpenMensaje(true);
           setMensaje(err.response?.data?.msg);
@@ -34,9 +42,11 @@ export function QueryApi({ dataConsulta, method = "get", callbackSuccess }) {
           params: data,
         })
         .then(() => {
+          if (callbackLoading) callbackLoading(false);
           setLoading(false);
         })
         .catch((err) => {
+          if (callbackLoading) callbackLoading(false);
           setLoading(false);
           setOpenMensaje(true);
           setMensaje(err.response.data.msg);
