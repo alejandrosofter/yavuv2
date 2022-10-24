@@ -27,11 +27,6 @@ export default function StatusWhatsapp({ onchangeSession }) {
           {dataSesion.estado}
         </Typography>
       </Grid>
-      <Grid item md={6}>
-        <Button disabled={loading} onClick={checkEstado} variant="outlined">
-          CHEQUEAR ESTADO
-        </Button>
-      </Grid>
       <QueryApi
         callbackLoading={(loading) => setLoading(loading)}
         backdropActive={false}

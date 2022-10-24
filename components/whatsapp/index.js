@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import { useState } from "react";
+import CreateSessionWhatsapp from "./crearSession";
 import QrWhatsapp from "./qr";
 import StatusWhatsapp from "./status";
 import TestMessage from "./testMesage";
@@ -13,6 +14,8 @@ export default function WhatsApp() {
     <Grid container>
       <Grid item md={12}>
         <StatusWhatsapp onchangeSession={cambiaSesion} />
+
+        <CreateSessionWhatsapp />
         <QrWhatsapp dataSesion={dataSesion} />
         <TestMessage />
       </Grid>
