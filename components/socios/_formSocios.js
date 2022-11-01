@@ -34,7 +34,7 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
   const cambiaTipoSocio = (valor, item) => {
     if (item) {
       setTipoSocioSeleccion(item);
-      setFieldValue(getFieldName(field, `nroSocio`), item.proximoNro);
+      // setFieldValue(getFieldName(field, `nroSocio`), item.proximoNro);
     }
 
     // setFieldValue(getFieldName(field, `nroSocio`), item ? item.proximoNro : "");
