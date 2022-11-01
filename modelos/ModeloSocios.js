@@ -16,9 +16,9 @@ export default function ModeloSocios() {
             params: testContext.parent,
           });
           if (!data) return true;
-          console.log(testContext, data);
 
-          if (testContext.parent.dni === data?.dni) return true;
+          // console.log(testContext.parent, data);
+          if (testContext.parent.id === data?.id) return true;
 
           return testContext.createError({
             message: `Socio ${
