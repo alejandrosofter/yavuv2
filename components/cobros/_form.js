@@ -108,6 +108,7 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
       )}
 
       <PersonalizarComprobante
+        setFieldValue={setFieldValue}
         open={openPersonalizar}
         setOpen={setOpenPersonalizar}
       />

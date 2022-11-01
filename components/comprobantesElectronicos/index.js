@@ -22,7 +22,7 @@ export default function Modulo({ mod, parentData = false }) {
     id: idPlantilla,
     data: dataImpresion,
   });
-  const order = ["fecha", "desc"];
+
   const columns = [
     {
       field: "fecha",
@@ -36,11 +36,11 @@ export default function Modulo({ mod, parentData = false }) {
       headerName: "Razon Social",
       width: 200,
     },
-    {
-      field: "label_tipoComprobante",
-      headerName: "Tipo Comprobante",
-      width: 150,
-    },
+    // {
+    //   field: "label_tipoComprobante",
+    //   headerName: "Tipo Comprobante",
+    //   width: 150,
+    // },
 
     {
       field: "nroCae",
@@ -90,7 +90,7 @@ export default function Modulo({ mod, parentData = false }) {
         icono={"fas fa-users"}
         Modelo={Modelo}
         valoresIniciales={valoresIniciales}
-        titulo={`COMPROBNTES ELECTRONICOS`}
+        titulo={`COMPROBANTES ELECTRONICOS`}
         Form={Form}
       />
       <ImpresionDialog

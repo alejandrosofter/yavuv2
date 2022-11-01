@@ -30,6 +30,7 @@ export default function CajaDelDia({ open, setOpen, parentData }) {
   const dataGroup = parseMaptoArray(
     groupBy(getSubArray(data, "formasDePago").flat(), (item) => item.formaPago)
   );
+
   return (
     <Drawer anchor="right" open={open} onClose={close}>
       <Grid sx={{ p: 3, width: 400 }} container>

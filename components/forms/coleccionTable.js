@@ -97,7 +97,7 @@ export default function ColeccionTable({
   };
 
   useEffect(() => {
-    setInitial();
+    // setInitial();
   }, []);
   useEffect(() => {
     if (callbackchangedata) callbackchangedata(data);
