@@ -11,7 +11,6 @@ export default function DataNotificacionCliente({ mod, dataCliente }) {
     <Grid container>
       <Grid item md={12}>
         <IconButton
-          title={`${dataCliente?.telefonoMobil} - ${dataCliente?.email}`}
           color="primary"
           onClick={() => setOpen(true)}
           disabled={!dataCliente}

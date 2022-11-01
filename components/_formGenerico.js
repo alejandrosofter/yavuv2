@@ -99,12 +99,12 @@ export default function _FormGenerico({
               >
                 ACEPTAR
               </LoadingButton>
-              <ShowErrors
+              {/* <ShowErrors
                 isValidating={isValidating}
                 errors={errors}
                 open={openErrores}
                 setOpen={setOpenErrores}
-              />
+              /> */}
             </Form>
           </Grid>
         );

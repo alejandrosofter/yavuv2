@@ -26,9 +26,9 @@ export default function CajaDelDia({ open, setOpen, parentData }) {
     orderBy: ["fecha_timestamp", "desc"],
     // limit: 10,
   });
-
+  if (!data) return "..";
   const dataGroup = parseMaptoArray(
-    groupBy(getSubArray(data, "formasDePago").flat(), (item) => item.formaPago)
+    groupBy(getSubArray(data, "formasDePago").flat(), (item) => item?.formaPago)
   );
 
   return (

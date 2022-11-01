@@ -30,7 +30,12 @@ export default function ShowErrors({ errors, setOpen, open }) {
               if (typeof key !== "object") {
                 return (
                   <Typography key={key} variant="body1">
-                    -{errors[key]}
+                    -
+                    {
+                      typeof (errors[key] === "object"
+                        ? JSON.stringify(errors[key])
+                        : errors[key])
+                    }
                   </Typography>
                 );
               }

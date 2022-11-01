@@ -73,6 +73,7 @@ export function valoresIniciales() {
     localidad: "",
     telefono: "",
     email: "",
+    telefonoMobil: "",
     estadoCivil: "Otros",
 
     estado: "ALTA",
