@@ -155,16 +155,19 @@ export function UsePlantilla({ id, data }) {
     Handlebars.registerHelper("importeTotalItem", function (importe, cantidad) {
       return formatMoney(Number(importe) * cantidad);
     });
-    Handlebars.registerHelper("importeTotal", function (data, campo) {
-      //suma el campo importe del array data
-      const field = campo || "importe";
-      let total = 0;
-      if (data)
-        data.forEach((item) => {
-          total += Number(item[field]);
-        });
-      return formatMoney(total);
-    });
+    Handlebars.registerHelper(
+      "importeTotal",
+      function (data, campo, conCantidad) {
+        //suma el campo importe del array data
+        const field = campo || "importe";
+        let total = 0;
+        if (data)
+          data.forEach((item) => {
+            total += Number(item[field]) * (conCantidad ? item.cantidad : 1);
+          });
+        return formatMoney(total);
+      }
+    );
 
     Handlebars.registerHelper("importeTotalDebitos", function (data) {
       //suma el campo importe del array data

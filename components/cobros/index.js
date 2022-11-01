@@ -149,6 +149,7 @@ export default function Modulo({ mod, parentData }) {
         // callbackclick={callbackclick}
         icono={"fas fa-users"}
         Modelo={Modelo}
+        limit={100}
         valoresIniciales={valoresIniciales}
         titulo={`COBROS`}
         Form={Form}

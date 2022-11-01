@@ -37,7 +37,7 @@ export default function ColeccionTable({
     refreshWhenOffline: false,
     refreshInterval: 0,
     where,
-    limit: rowsPerPage,
+    limit,
     parseDates: [
       "fecha",
       "fechaVto",
