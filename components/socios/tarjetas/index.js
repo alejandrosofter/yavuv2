@@ -114,7 +114,8 @@ export default function TarjetasSocio({ data, mod }) {
           coleccion={`socios/${data?.id}/${subColeccion}`}
           columns={cols}
           order={order}
-          // callbackclick={callbackclick}
+          rowsPerPage={100}
+          hidePaginador={true}
           icono={icono}
           labelNuevo="agregar credencial"
           acciones={acciones}

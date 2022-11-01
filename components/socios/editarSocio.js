@@ -1,45 +1,34 @@
+import EditarGenerico2 from "@components/EditarGenerico2";
 import DialogContenido from "@components/forms/dialogContenido";
-import NuevoGenerico from "@components/NuevoGenerico2";
-import Modelo, { valoresIniciales } from "@modelos/ModeloClientes";
+import Modelo, { valoresIniciales } from "@modelos/ModeloSocios";
 import { Button } from "@mui/material";
 import { useState } from "react";
 
-import Form from "./_form";
+import Form from "./_formSocios";
 
-export default function NuevoCliente({ mod }) {
-  const [open, setOpen] = useState(false);
+export default function EditarSocio({ dataSocio, mod, open, setOpen }) {
   const callbackSuccess = (data) => {
     setOpen(false);
   };
-
+  console.log(dataSocio);
   return (
     <>
       <DialogContenido
         fullWidth={true}
-        maxWidth="md"
+        maxWidth="lg"
         open={open}
         setOpen={setOpen}
       >
-        <NuevoGenerico
-          coleccion="clientes"
+        <EditarGenerico2
+          coleccion={`socios/${dataSocio?.objectID}`}
           callbackSuccess={callbackSuccess}
           valoresIniciales={valoresIniciales}
           mod={mod}
           modelo={Modelo}
         >
           <Form subTitulo={mod.label} icono={mod.icono} />
-        </NuevoGenerico>
+        </EditarGenerico2>
       </DialogContenido>
-      <Button
-        size="small"
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        + Cliente
-      </Button>
     </>
   );
 }

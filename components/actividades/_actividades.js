@@ -32,6 +32,8 @@ export default function ListaActividades({ callbackchange, mod }) {
           acciones={acciones}
           coleccion={`actividades`}
           columns={columns}
+          hidePaginador={true}
+          rowsPerPage={100}
           where={[
             parentData
               ? ["idUsuario", "==", localStorage.getItem("usermod")]

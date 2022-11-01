@@ -5,7 +5,9 @@ export default function SelectTipoComprobantes({
   campo,
   callbackchange,
 }) {
-  const idUsuario = fuego.auth().currentUser.uid;
+  const idUsuario = localStorage.getItem("usermod")
+    ? localStorage.getItem("usermod")
+    : fuego.auth().currentUser.uid;
   const { data } = useCollection(
     `certificadosDigitales/${idUsuario}/tipoComprobantes`
   );

@@ -13,13 +13,17 @@ export default function TestMessage() {
     await add({ estado: "PENDIENTE", mensaje, nro, fecha: new Date() });
   };
   return (
-    <Grid container>
-      <Grid item md={12}>
+    <Grid spacing={2} container>
+      <Grid item md={4}>
         <TextField
           onKeyUp={(e) => setMensaje(e.target.value)}
           label="Mensaje"
         />
+      </Grid>
+      <Grid item md={4}>
         <TextField onKeyUp={(e) => setNro(e.target.value)} label="Nro" />
+      </Grid>
+      <Grid item md={1}>
         <Button onClick={enviarMensaje} variant="outlined">
           Enviar
         </Button>

@@ -1,3 +1,4 @@
+import ABMColeccion from "@components/forms/ABMcollection";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { contadorMoney } from "@helpers/arrays";
@@ -5,9 +6,13 @@ import { getFechaString } from "@helpers/dates";
 import { formatMoney } from "@helpers/numbers";
 import { QueryApi } from "@helpers/queryApi";
 import { useState } from "react";
+import Modelo, {
+  valoresIniciales,
+} from "@modelos/ModeloComprobantesElectronicos";
 import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
-
-export default function Modulo({ mod }) {
+import { fuego } from "@nandorojo/swr-firestore";
+import Form from "./_form";
+export default function Modulo({ mod, parentData = false }) {
   const [dataConsulta, setDataConsulta] = useState();
   const [dataImpresion, setDataImpresion] = useState();
   const [openImpresion, setOpenImpresion] = useState(false);
@@ -54,25 +59,39 @@ export default function Modulo({ mod }) {
       width: 100,
     },
   ];
-  let fnAcciones = {
-    compartir: (data) => {
-      setOpenImpresion(true);
-      setDataImpresion(data);
+  let fnAcciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-share-alt",
+      label: "Compartir",
+
+      fn: (data) => {
+        setOpenImpresion(true);
+        setDataImpresion(data);
+      },
     },
-  };
+  ];
+
   return (
     <>
-      <DataGridFirebase
-        fnAcciones={fnAcciones}
-        coleccion={mod.coleccion}
-        titulo={mod.label}
-        subTitulo=""
-        icono={mod.icono}
-        limit={10}
-        mod={mod}
-        acciones={mod.acciones}
-        orderBy={order}
+      <ABMColeccion
+        coleccion={`comprobantesElectronicos`}
         columns={columns}
+        hideNew={true}
+        acciones={fnAcciones}
+        orderBy={["fecha_timestamp", "desc"]}
+        maxWidth="lg"
+        where={[
+          parentData
+            ? ["idUsuario", "==", localStorage.getItem("usermod")]
+            : ["usermod", "==", fuego.auth().currentUser?.uid],
+        ]}
+        // callbackclick={callbackclick}
+        icono={"fas fa-users"}
+        Modelo={Modelo}
+        valoresIniciales={valoresIniciales}
+        titulo={`COMPROBNTES ELECTRONICOS`}
+        Form={Form}
       />
       <ImpresionDialog
         titulo="IMPRESIÓN COMPROBANTE"

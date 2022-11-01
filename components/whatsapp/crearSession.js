@@ -3,7 +3,8 @@ import { Grid, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { fuego, useCollection, useDocument } from "@nandorojo/swr-firestore";
 import { getFechaString } from "@helpers/dates";
-export default function CreateSessionWhatsapp({}) {
+import QrWhatsapp from "./qr";
+export default function CreateSessionWhatsapp({ dataSesion }) {
   const [loading, setLoading] = useState();
   const { add } = useCollection(
     `whatsapp/${fuego.auth().currentUser?.uid}/session`,
@@ -32,11 +33,11 @@ export default function CreateSessionWhatsapp({}) {
   return (
     <Grid container>
       <Grid item md={6}>
-        <Typography>{data.estado}</Typography>
+        <QrWhatsapp dataSesion={dataSesion} />
       </Grid>
       <Grid item md={6}>
         <Button disabled={loading} onClick={newSession} variant="outlined">
-          SOLICITAR
+          LOGIN
         </Button>
         <Button disabled={loading} onClick={newLogout} variant="outlined">
           LOGOUT

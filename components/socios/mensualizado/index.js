@@ -167,6 +167,8 @@ export default function CuentaSocio({ data, mod }) {
           acciones={acciones}
           coleccion={`socios/${data?.id}/${subColeccion}`}
           columns={cols}
+          rowsPerPage={100}
+          hidePaginador={true}
           where={[
             parentData
               ? ["idUsuario", "==", localStorage.getItem("usermod")]

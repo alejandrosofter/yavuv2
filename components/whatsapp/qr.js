@@ -9,6 +9,13 @@ export default function QrWhatsapp({ dataSesion }) {
     return (
       <Grid container>
         <Grid item md={12}>
+          <Typography variant="h6">({dataSesion.estado})</Typography>
+          <Typography variant="caption">
+            Debes scanear con la app del celular que quieras asociar con el
+            sistema YAVU
+          </Typography>
+        </Grid>
+        <Grid item md={12}>
           <QRCode value={dataSesion.qr} />
         </Grid>
       </Grid>

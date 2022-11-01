@@ -14,6 +14,7 @@ import PersonalizarComprobante from "./_personalizarComprobante";
 import SelectSocioSimple from "@components/socios/selectSocioSimple";
 import { capitalize } from "@helpers/Strings";
 import NuevoCliente from "@components/clientes/nuevo";
+import DataNotificacionCliente from "./notificacionCliente";
 export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
   useEffect(() => {
     // setFieldValue("deudas", []);
@@ -71,7 +72,7 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
           />
         </Grid>
 
-        <Grid item md={2}>
+        <Grid item md={1}>
           <SeleccionDeuda
             coleccionClientes={coleccionClientes}
             enabled={clienteSeleccion}
@@ -79,6 +80,9 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
             abre={openDeuda}
             cliente={clienteSeleccion}
           />
+        </Grid>
+        <Grid item md={1}>
+          <DataNotificacionCliente mod={mod} dataCliente={clienteSeleccion} />
         </Grid>
       </Grid>
       {mod.config?.mostrarAddCliente && (

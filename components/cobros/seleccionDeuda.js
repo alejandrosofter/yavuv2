@@ -1,4 +1,11 @@
-import { Grid, Icon, Button, Stack, Typography } from "@mui/material/";
+import {
+  Grid,
+  Icon,
+  Button,
+  Stack,
+  Typography,
+  IconButton,
+} from "@mui/material/";
 import Badge from "@mui/material/Badge";
 
 import * as React from "react";
@@ -97,14 +104,13 @@ export default function Modulo({
   };
   return (
     <>
-      <Button
+      <IconButton
         disabled={!enabled}
         variant="outlined"
         color="primary"
+        className="fas fa-search-dollar"
         onClick={() => setOpen(true)}
-      >
-        <Icon className="fas fa-search-dollar" />
-      </Button>
+      />
 
       <DialogContenido
         titulo="DEUDAS DEL SOCIO"

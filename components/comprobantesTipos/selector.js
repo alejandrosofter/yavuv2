@@ -6,12 +6,15 @@ export default function Modulo({
   callbackchange,
   soloElectronicas,
 }) {
+  const idUsuario = localStorage.getItem("usermod")
+    ? localStorage.getItem("usermod")
+    : fuego.auth().currentUser.uid;
   const where = soloElectronicas
     ? [
         ["esFacturaElectronica", "==", true],
-        ["idUsuario", "==", fuego.auth().currentUser.uid],
+        ["idUsuario", "==", idUsuario],
       ]
-    : [["idUsuario", "==", fuego.auth().currentUser.uid]];
+    : [["idUsuario", "==", idUsuario]];
   const { data } = useCollection("comprobantesTipos", {
     where,
   });

@@ -1,17 +1,35 @@
-import Modelo,{valoresIniciales} from "../../modelos/ModeloClientes"
-import { useRouter } from "next/router"
+import EditarGenerico2 from "@components/EditarGenerico2";
+import DialogContenido from "@components/forms/dialogContenido";
+import Modelo, { valoresIniciales } from "@modelos/ModeloClientes";
+import { Button } from "@mui/material";
+import { useState } from "react";
 
-import EditarGenerico from "../EditarGenerico"
+import Form from "./_form";
 
-import Form from "./_form"
+export default function EditarCliente({ mod }) {
+  const [open, setOpen] = useState(false);
+  const callbackSuccess = (data) => {
+    setOpen(false);
+  };
 
-export default function Modulo({mod}) {
-      return (
-      <EditarGenerico valoresIniciales={valoresIniciales} mod={mod} modelo={Modelo}  >
-         
-            <Form titulo="Editar" subTitulo={mod.label} icono="fas fa-pencil" />
-       
-      </EditarGenerico>
-      ) 
-
+  return (
+    <>
+      <DialogContenido
+        fullWidth={true}
+        maxWidth="md"
+        open={open}
+        setOpen={setOpen}
+      >
+        <EditarGenerico2
+          coleccion="clientes"
+          callbackSuccess={callbackSuccess}
+          valoresIniciales={valoresIniciales}
+          mod={mod}
+          modelo={Modelo}
+        >
+          <Form subTitulo={mod.label} icono={mod.icono} />
+        </EditarGenerico2>
+      </DialogContenido>
+    </>
+  );
 }

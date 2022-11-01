@@ -61,7 +61,7 @@ export function valoresIniciales(data) {
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,
     usermod: localStorage.getItem("usermod")
-      ? fuego.auth().currentUser.uid
+      ? fuego.auth().currentUser?.uid
       : null,
   };
 }

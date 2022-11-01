@@ -92,6 +92,8 @@ export default function ListaGrupos({ actividad, callbackchange, mod }) {
             columns={columns}
             acciones={acciones}
             order={order}
+            rowsPerPage={100}
+            hidePaginador={true}
             callbackclick={callbackclick}
             icono={"fas fa-users"}
             Modelo={Modelo}

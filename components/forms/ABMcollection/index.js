@@ -1,7 +1,14 @@
 import ColeccionTable from "@components/forms/coleccionTable";
 
 import { useState } from "react";
-import { Button, Grid, Icon, IconButton, Typography } from "@mui/material";
+import {
+  Backdrop,
+  Button,
+  Grid,
+  Icon,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import { ABMCollection_nuevo } from "./nuevo";
 import { ABMCollection_editar } from "./editar";
@@ -10,6 +17,9 @@ import { QueryApi } from "@helpers/queryApi";
 
 export default function ABMColeccion({
   valoresIniciales,
+  hidePaginador,
+
+  rowsPerPage,
   showExport = false,
   Modelo,
   coleccion,
@@ -58,6 +68,7 @@ export default function ABMColeccion({
   ];
   const [seleccion, setSeleccion] = useState(null);
   const [openEditar, setOpenEditar] = useState(null);
+
   const [openNuevo, setOpenNuevo] = useState(null);
   const [dataConsulta, setDataConsulta] = useState();
   const [openConfirma, setOpenConfirma] = useState(null);
@@ -128,6 +139,8 @@ export default function ABMColeccion({
       )}
       <Grid item md={12}>
         <ColeccionTable
+          hidePaginador={hidePaginador}
+          rowsPerPage={rowsPerPage}
           acciones={accions}
           where={where}
           limit={limit}
@@ -177,6 +190,7 @@ export default function ABMColeccion({
         open={openConfirma}
         setOpen={setOpenConfirma}
       />
+
       <QueryApi callbackSuccess={callbackQuery} dataConsulta={dataConsulta} />
     </Grid>
   );

@@ -110,9 +110,6 @@ export default function MensualizadosIndex({ data, mod }) {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <TitulosFormularios titulo={titulo} icono={icono} />
-      </Grid>
-      <Grid item xs={12}>
         <ABMColeccion
           acciones={acciones}
           coleccion={`mensualizados`}
@@ -132,7 +129,7 @@ export default function MensualizadosIndex({ data, mod }) {
           Modelo={Modelo}
           valoresIniciales={valoresIniciales}
           dataForm={{ mod }}
-          // titulo={titulo}
+          titulo={"SOCIOS MENSUALIZADOS"}
           Form={Form}
         />
       </Grid>

@@ -1,20 +1,15 @@
-import useSWR from "swr";
 import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
-import FormSubitemColeccion from "../../forms/editarSubitemColeccion";
+import FormSubitemColeccion from "@components/forms/editarSubitemColeccion";
 
-import { useRouter } from "next/router";
-import DataGridFormikItems from "../../forms/dataGridFormik";
+import DataGridFormikItems from "@components/forms/dataGridFormik";
 import FormItem from "./_form";
+import Input from "@components/forms/input";
+import Switch from "@components/forms/switch";
 import FormCategoria from "./_formCategoria";
-import {
-  ModeloConfig,
-  ModeloTipoConfig,
-  ModeloTipoSocios,
-} from "../../../modelos/ModeloSocios";
-import TabsFormik, { TabPanel } from "../../forms/tab";
-import TitulosFormularios from "../../forms/tituloFormularios";
+import { ModeloConfig } from "@modelos/ModeloSocios";
+import TabsFormik, { TabPanel } from "@components/forms/tab";
+import TitulosFormularios from "@components/forms/tituloFormularios";
 import SelectPlantilla from "@components/plantillas/selectPlantilla";
 export default function ConfigActividadad({ mod }) {
   const campo = "config";
@@ -100,6 +95,26 @@ export default function ConfigActividadad({ mod }) {
                     { field: "duracion", headerName: "Duracion", width: 80 },
                   ]}
                 />
+              ),
+            },
+            {
+              label: "Notificaciones",
+              nro: 3,
+              vista: (
+                <Grid spacing={2} container>
+                  <Grid item md={3}>
+                    <Switch
+                      label="Notificar por Whatsapp"
+                      campo="whatsapp_notificar"
+                    />
+                  </Grid>
+                  <Grid item md={2}>
+                    <Input
+                      label="Dias antes del turno"
+                      campo="whatsapp_diasAntesTurno"
+                    />
+                  </Grid>
+                </Grid>
               ),
             },
           ]}

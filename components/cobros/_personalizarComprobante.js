@@ -6,7 +6,17 @@ import SelectorTipoConceptos from "@components/comprobantesElectronicos/selector
 import { Grid, Typography } from "@mui/material";
 import Input from "@components/forms/input";
 import { useEffect } from "react";
-export default function PersonalizarComprobante({ open, setOpen }) {
+export default function PersonalizarComprobante({
+  open,
+  setOpen,
+  setFieldValue,
+}) {
+  const cambiaTipo = (item) => {
+    setFieldValue("label_tipoComprobante", item.label);
+  };
+  const cambiaDocumento = (item) => {
+    setFieldValue("label_tipoDocumento", item.label);
+  };
   return (
     <DialogContenido
       titulo="COMPROBANTE ELECTRONICO"
@@ -29,7 +39,10 @@ export default function PersonalizarComprobante({ open, setOpen }) {
           <Input campo="comprobante_domicilio" label="Domicilio" />
         </Grid>
         <Grid item md={4}>
-          <SelectTipoComprobante campo="comprobante_tipoComprobante" />
+          <SelectTipoComprobante
+            callbackchange={cambiaTipo}
+            campo="comprobante_tipoComprobante"
+          />
         </Grid>
 
         <Grid item md={4}>
@@ -37,7 +50,10 @@ export default function PersonalizarComprobante({ open, setOpen }) {
         </Grid>
 
         <Grid item md={3}>
-          <SelectorTipoDocumentos campo="comprobante_tipoDocumento" />
+          <SelectorTipoDocumentos
+            callbackchange={cambiaDocumento}
+            campo="comprobante_tipoDocumento"
+          />
         </Grid>
 
         <Grid item md={4}>

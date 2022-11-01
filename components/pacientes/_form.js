@@ -4,6 +4,7 @@ import WebcamFormik from "@components/forms/imageFormik";
 import SelectEstaticFormik from "../forms/selectEstaticFormik";
 import SelectObraSocial from "@components/obrasSociales/selectObraSocial";
 import { fuego } from "@nandorojo/swr-firestore";
+import InputTelefono from "@components/forms/inputTelefono";
 export default function Form({ mod, setFieldValue, values }) {
   return (
     <Grid container spacing={2}>
@@ -27,8 +28,8 @@ export default function Form({ mod, setFieldValue, values }) {
         <Grid item md={2}>
           <Input label="Nro Afiliado" campo="nroAfiliado" />
         </Grid>
-        <Grid item md={2}>
-          <Input label="Teléfono" campo="telefono" />
+        <Grid item md={3}>
+          <InputTelefono label="Teléfono" campo="telefono" />
         </Grid>
         <Grid item md={4}>
           <Input label="Email" campo="email" />

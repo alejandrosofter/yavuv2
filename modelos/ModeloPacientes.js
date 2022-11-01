@@ -16,8 +16,8 @@ export default function Modelo() {
             params: testContext.parent,
           });
           if (!data) return true;
-          console.log(testContext.parent, data);
-          if (testContext.parent.dni === data?.dni) return true;
+
+          if (Number(testContext.parent.dni) === Number(data?.dni)) return true;
 
           return testContext.createError({
             message: `Paciente ya registrado ${data.apellido.toUpperCase()} ${data.nombre.toUpperCase()} (${

@@ -52,7 +52,8 @@ export default function DocumentacionSocio({ data, mod }) {
           columns={cols}
           order={order}
           labelNuevo="Agregar documentacion"
-          // callbackclick={callbackclick}
+          rowsPerPage={100}
+          hidePaginador={true}
           icono={icono}
           Modelo={ModeloDocumentos}
           valoresIniciales={valoresInicialesDocumentacion}

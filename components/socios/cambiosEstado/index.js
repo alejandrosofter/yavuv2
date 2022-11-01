@@ -75,6 +75,8 @@ export default function CambiosEstadoSocio({ data, mod }) {
           columns={cols}
           order={order}
           icono={icono}
+          rowsPerPage={100}
+          hidePaginador={true}
           Modelo={ModeloCambioEstado}
           valoresIniciales={valoresInicialesCambioEstado}
           dataForm={{ seleccion, mod }}

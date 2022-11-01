@@ -41,7 +41,7 @@ export function valoresInicialesFormaPago() {
 export function valoresIniciales() {
   return {
     fecha: new Date(),
-
+    fecha_timestamp: new Date().getTime(),
     estado: "PENDIENTE",
     nroDocumento: "",
     razonSocial: "",

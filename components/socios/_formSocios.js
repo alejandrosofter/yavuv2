@@ -32,8 +32,11 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
       setFieldValue(getFieldName(field, `tipoSocio`), seleccion.id);
   }, [setFieldValue, values]);
   const cambiaTipoSocio = (valor, item) => {
-    // console.log(valor, item);
-    setTipoSocioSeleccion(item);
+    if (item) {
+      setTipoSocioSeleccion(item);
+      setFieldValue(getFieldName(field, `nroSocio`), item.proximoNro);
+    }
+
     // setFieldValue(getFieldName(field, `nroSocio`), item ? item.proximoNro : "");
   };
   const cambiaCliente = (cliente) => {
@@ -48,7 +51,7 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
     const esActivo = values.esActivo;
     setFieldValue(getFieldName(field, `edad`), edad);
     const c = getCategoriaCondicion(edad, values.esActivo);
-    console.log(c, categoriaSocios);
+
     setFieldValue(getFieldName(field, `categoriaSocio`), c);
   };
   const getCategoriaCondicion = (edad, esActivo) => {

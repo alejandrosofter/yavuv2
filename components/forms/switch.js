@@ -22,7 +22,7 @@ const SwitchFormik = ({ label, campo, callbackChange }) => {
                   onChange={handleChange}
                 />
               }
-              label={`${label}`}
+              label={label}
             />
           );
         }}
