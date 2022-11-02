@@ -1,19 +1,22 @@
+import SelectorFechaSimple from "@components/forms/selectorFechaSimple";
+import Tabla from "@components/forms/tabla";
 import {
   contador,
   getSubArray,
   groupBy,
   parseMaptoArray,
 } from "@helpers/arrays";
-import { getFechasWhere } from "@helpers/dates";
+import { getFechaString, getFechasWhere } from "@helpers/dates";
 import { formatMoney } from "@helpers/numbers";
 import { Drawer, Grid, Icon, Typography } from "@mui/material";
 import { fuego, useCollection } from "@nandorojo/swr-firestore";
 import * as React from "react";
 export default function CajaDelDia({ open, setOpen, parentData }) {
+  const [fecha, setFecha] = React.useState(new Date());
   const close = () => {
     setOpen(false);
   };
-  const [fechaDesde, fechaHasta] = getFechasWhere(new Date());
+  const [fechaDesde, fechaHasta] = getFechasWhere(fecha);
 
   const { data, error } = useCollection("cobros", {
     where: [
@@ -24,49 +27,79 @@ export default function CajaDelDia({ open, setOpen, parentData }) {
         : ["usermod", "==", fuego.auth().currentUser?.uid],
     ],
     orderBy: ["fecha_timestamp", "desc"],
-    // limit: 10,
+    listen: true,
   });
   if (!data) return "..";
-  const dataGroup = parseMaptoArray(
-    groupBy(getSubArray(data, "formasDePago").flat(), (item) => item?.formaPago)
+  const dataGroup = groupBy(
+    getSubArray(data, "formasDePago").flat(),
+    (item) => item?.label_formaPago,
+    true
   );
 
+  //cast object to array
+  const dataFormaPagos = Object.keys(dataGroup).map((key) => {
+    return {
+      label_formaPago: key,
+      items: dataGroup[key],
+      importe: dataGroup[key].reduce((a, b) => a + b.importe, 0),
+    };
+  });
+  console.log(dataFormaPagos);
+  const cambiaFecha = (fecha) => {
+    setFecha(fecha);
+  };
   return (
     <Drawer anchor="right" open={open} onClose={close}>
       <Grid sx={{ p: 3, width: 400 }} container>
         <Grid item xs={12}>
           <Typography variant="h4" gutterBottom component="div">
             <Icon className="fas fa-money-bill" /> CAJA DIARIA{" "}
-            {`${fechaDesde.getDate()}/${
-              fechaDesde.getMonth() + 1
-            }/${fechaDesde.getFullYear()}`}
+            <SelectorFechaSimple callbackChange={cambiaFecha} />
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6">COBROS</Typography>
-          {data &&
-            data.map((item) => {
-              return (
-                <Typography
-                  key={item.id}
-                  variant="body"
-                  gutterBottom
-                  component="div"
-                >
-                  {item.label_cliente} - {formatMoney(item.importe)}
-                </Typography>
-              );
-            })}
+          <Tabla
+            data={data}
+            cols={[
+              {
+                field: "label_cliente",
+                label: "Cliente",
+                fn: (data) => {
+                  return String(data).toUpperCase();
+                },
+              },
+              {
+                field: "importe",
+                label: "Importe",
+                align: "right",
+                fn: (row) => {
+                  return formatMoney(row);
+                },
+              },
+            ]}
+          />
           <Typography variant="h6">FORMAS DE PAGO</Typography>
-          {dataGroup.map(function ({ key, value }) {
-            const importeTotal = contador(value, "importe");
-            const label = value[0].label_formaPago;
-            return (
-              <Typography key={key} variant="body" gutterBottom component="div">
-                {label} - {formatMoney(importeTotal)}
-              </Typography>
-            );
-          })}
+          <Tabla
+            data={dataFormaPagos}
+            cols={[
+              {
+                field: "label_formaPago",
+                label: "Forma de Pago",
+                fn: (data) => {
+                  return String(data).toUpperCase();
+                },
+              },
+              {
+                field: "importe",
+                label: "Importe",
+                align: "right",
+                fn: (row) => {
+                  return formatMoney(row);
+                },
+              },
+            ]}
+          />
         </Grid>
       </Grid>
     </Drawer>

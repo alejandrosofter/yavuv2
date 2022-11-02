@@ -160,10 +160,16 @@ export function UsePlantilla({ id, data }) {
       function (data, campo, conCantidad) {
         //suma el campo importe del array data
         const field = campo || "importe";
+
         let total = 0;
         if (data)
           data.forEach((item) => {
-            total += Number(item[field]) * (conCantidad ? item.cantidad : 1);
+            const bonificacion = Number(item.bonificacion) || 0;
+            const cantidad = Number(
+              conCantidad ? (item.cantidad ? item.cantidad : 1) : 1
+            );
+            const importe = Number(item[field]);
+            total += importe * cantidad - bonificacion;
           });
         return formatMoney(total);
       }
