@@ -82,7 +82,7 @@ export function localstorageParser(key) {
   }
   return;
 }
-export function groupBy(list, keyGetter) {
+export function groupBy(list, keyGetter, returnObject = false) {
   const map = new Map();
   list.forEach((item) => {
     const key = keyGetter(item);
@@ -93,6 +93,8 @@ export function groupBy(list, keyGetter) {
       collection.push(item);
     }
   });
+  if (returnObject) return Object.fromEntries(map);
+
   return map;
 }
 export function parseMaptoArray(map) {

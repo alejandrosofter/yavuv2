@@ -12,6 +12,7 @@ import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { formatMoney } from "@helpers/numbers";
 import { QueryApi } from "@helpers/queryApi";
 import PagosCierresCaja from "./pagos";
+import { groupBy, orderArray } from "@helpers/arrays";
 export const cols = [
   {
     field: "fecha",
@@ -37,8 +38,7 @@ export const cols = [
   },
 ];
 export default function CuentaSocio({ data, mod }) {
-  console.log(localStorage.getItem("usermod"));
-  const order = ["fecha"];
+  const order = ["fecha_timestamp", "desc"];
   const subColeccion = "mensualizado";
   const icono = "fas fa-file-invoice-dollar";
   const titulo = `CIERRES DE CAJA`;
@@ -58,24 +58,28 @@ export default function CuentaSocio({ data, mod }) {
   };
   const getDataImpresion = async (row) => {
     let formasDePago = [];
+    setLoading(true);
     await fuego.db
       .collection(`cierresCaja/${row.id}/cierresFormaPago`)
       .get()
       .then(async (docCierre) => {
-        setLoading(true);
         for (let i = 0; i < docCierre.docs.length; i++) {
-          const items = await fuego.db
-            .collection(
-              `cierresCaja/${row.id}/cierresFormaPago/${docCierre.docs[i].id}/items`
-            )
-            .get()
-            .then((docItems) => {
-              return docItems.docs.map((doc) => doc.data());
-            });
           formasDePago.push({
             ...docCierre.docs[i].data(),
-            items,
+            id: docCierre.docs[i].id,
           });
+          // const items = await fuego.db
+          //   .collection(
+          //     `cierresCaja/${row.id}/cierresFormaPago/${docCierre.docs[i].id}/items`
+          //   )
+          //   .get()
+          //   .then((docItems) => {
+          //     return docItems.docs.map((doc) => doc.data());
+          //   });
+          // formasDePago.push({
+          //   ...docCierre.docs[i].data(),
+          //   items,
+          // });
         }
         setLoading(false);
       });
@@ -90,23 +94,40 @@ export default function CuentaSocio({ data, mod }) {
         setDataConsulta({ url: "/api/cierresCaja/rechequeo", data });
       },
     },
-    {
-      esFuncion: true,
-      icono: "fas fa-list",
-      label: "Pagos",
-      fn: (row) => {
-        setSeleccion(row);
-        setOpenPagos(true);
-      },
-    },
+    // {
+    //   esFuncion: true,
+    //   icono: "fas fa-list",
+    //   label: "Pagos",
+    //   fn: (row) => {
+    //     setSeleccion(row);
+    //     setOpenPagos(true);
+    //   },
+    // },
     {
       esFuncion: true,
       icono: "fas fa-share-alt",
       label: "Compartir",
       fn: async (row) => {
         const formasDePago = await getDataImpresion(row);
+        const data = groupBy(
+          formasDePago,
+          (item) => {
+            return item.label_formaPago;
+          },
+          true
+        );
+        let items = [];
+        //loop object data
+        for (const [key, value] of Object.entries(data)) {
+          items.push({
+            label_formaPago: key,
+            items: orderArray(value, "fecha"),
+            importe: value.reduce((a, b) => a + b.importe, 0),
+            total: value.reduce((a, b) => a + b.importeTotal, 0),
+          });
+        }
 
-        setDataImpresion({ ...row, formasDePago });
+        setDataImpresion({ ...row, items });
         setOpenImpresion(true);
       },
     },
@@ -127,7 +148,7 @@ export default function CuentaSocio({ data, mod }) {
           ]}
           labelNuevo="Agregar cierre de caja"
           preData={{}}
-          order={order}
+          orderBy={order}
           maxWidth={"md"}
           getRowClassName={getRowClassName}
           icono={icono}
