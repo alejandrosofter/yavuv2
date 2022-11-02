@@ -164,7 +164,7 @@ export function UsePlantilla({ id, data }) {
         let total = 0;
         if (data)
           data.forEach((item) => {
-            const bonificacion = Number(item.bonificacion) || 0;
+            const bonificacion = Number(item.importeBonificacion) || 0;
             const cantidad = Number(
               conCantidad ? (item.cantidad ? item.cantidad : 1) : 1
             );
