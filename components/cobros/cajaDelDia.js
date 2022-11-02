@@ -37,6 +37,7 @@ export default function CajaDelDia({ open, setOpen, parentData }) {
   );
 
   //cast object to array
+  console.log(dataGroup);
   const dataFormaPagos = Object.keys(dataGroup).map((key) => {
     return {
       label_formaPago: key,
@@ -70,7 +71,7 @@ export default function CajaDelDia({ open, setOpen, parentData }) {
                 },
               },
               {
-                field: "importe",
+                field: "importePaga",
                 label: "Importe",
                 align: "right",
                 fn: (row) => {
