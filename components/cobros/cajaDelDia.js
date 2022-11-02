@@ -42,7 +42,7 @@ export default function CajaDelDia({ open, setOpen, parentData }) {
     return {
       label_formaPago: key,
       items: dataGroup[key],
-      importe: dataGroup[key].reduce((a, b) => a + b.importe, 0),
+      importe: dataGroup[key].reduce((a, b) => a + b?.importe, 0),
     };
   });
   console.log(dataFormaPagos);
