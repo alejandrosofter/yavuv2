@@ -24,6 +24,7 @@ export function SendEmail({
 }) {
   const [inputEmail, setInputEmail] = useState();
   useEffect(() => {
+    console.log(`cambia email`);
     setInputEmail(email);
   }, [email]);
   const [loading, setLoading] = useState(false);

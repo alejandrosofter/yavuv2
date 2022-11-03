@@ -5,11 +5,14 @@ import NuevoGenerico from "@components/NuevoGenerico";
 import Form from "./_form";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { useRouter } from "next/router";
+import { fuego } from "@nandorojo/swr-firestore";
 
 export default function Modulo({ mod }) {
   const idPlantilla = mod.config?.plantillaCobro;
+  const plantillaEmail = mod.config?.plantillaMail;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
+  const [socio, setSocio] = useState();
   const router = useRouter();
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
@@ -20,11 +23,18 @@ export default function Modulo({ mod }) {
     const url = `/mod/${mod.id}/nuevo`;
     router.push(url, url, { shallow: true });
   };
-  const success = (data, idCobro) => {
+  const success = async (data, idCobro) => {
+    await setSocioCobro(data);
     setDataImpresion(data);
     setOpenImpresion(true);
   };
-
+  const setSocioCobro = async (data) => {
+    const refSocio = await fuego.db
+      .collection("socios")
+      .doc(data?.cliente)
+      .get();
+    setSocio(refSocio.data());
+  };
   return (
     <>
       <NuevoGenerico
@@ -37,15 +47,17 @@ export default function Modulo({ mod }) {
       >
         <Form subTitulo={mod.label} icono={mod.icono} />
       </NuevoGenerico>
+
       <ImpresionDialog
         titulo="PANEL COMPARTIR COBRO"
         setOpen={setOpenImpresion}
         open={openImpresion}
-        asunto="COBRO"
-        data={dataImpresion}
+        asunto="COMPROBANTE DE PAGO"
+        data={{ ...dataImpresion, socio, email: socio?.email }}
         plantilla={plantilla}
-        callbackClose={closePrint}
-        nombrePlantillaEmail="emailCobro"
+        emailDefault={socio?.email}
+        plantillaEmail={plantillaEmail}
+        attachments={[{ filename: "COBRO.pdf", data: plantilla }]}
       />
     </>
   );

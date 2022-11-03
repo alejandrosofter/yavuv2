@@ -13,7 +13,7 @@ export default function SelectSocio({
       initLabel={initLabel}
       callbackchange={callbackchange}
       labelItems={(opt) =>
-        `${opt.apellido} ${opt.nombre} - ${opt.dni} - ${opt.nroSocio}`
+        `${opt.apellido} ${opt.nombre} - ${opt.dni} - ${opt.nroSocio} | ${opt.estado}`
       }
       campo={campo}
     />

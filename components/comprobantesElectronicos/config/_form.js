@@ -136,7 +136,7 @@ export default function FormConfig({ values }) {
                 {values.certificado?.nombreUser}
                 <UploadAnyFormik
                   folder={`comprobantesElectronicos/${
-                    fuego.auth().currentUser.uid
+                    fuego.auth().currentUser?.uid
                   }/`}
                   label="Certificado"
                   campo="certificado"

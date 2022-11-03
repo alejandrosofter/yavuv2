@@ -8,9 +8,11 @@ import { getImagen } from "@helpers/imagenes";
 export function UsePlantilla({ id, data }) {
   const { data: dataTemplate } = useDocument(`plantillas/${id}`);
   const [html, setHtml] = useState("");
+  const [idPlantilla, setIdPlantilla] = useState(id);
 
   useEffect(() => {
     init();
+    setIdPlantilla(id);
   }, [id, data]);
 
   const init = async () => {
@@ -159,8 +161,8 @@ export function UsePlantilla({ id, data }) {
       "importeTotal",
       function (data, campo, conCantidad) {
         //suma el campo importe del array data
-        const field = campo || "importe";
-
+        const field = campo ? campo : "importe";
+        console.log(campo);
         let total = 0;
         if (data)
           data.forEach((item) => {
@@ -170,6 +172,7 @@ export function UsePlantilla({ id, data }) {
             );
             const importe = Number(item[field]);
             total += importe * cantidad - bonificacion;
+            console.log(bonificacion, cantidad, importe, total);
           });
         return formatMoney(total);
       }

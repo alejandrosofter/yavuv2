@@ -122,12 +122,12 @@ export default function CuentaSocio({ data, mod }) {
           items.push({
             label_formaPago: key,
             items: orderArray(value, "fecha"),
-            importe: value.reduce((a, b) => a + b.importe, 0),
-            total: value.reduce((a, b) => a + b.importeTotal, 0),
+            importe: value.reduce((a, b) => a + Number(b.importe), 0),
+            total: value.reduce((a, b) => a + Number(b.importeTotal), 0),
           });
         }
-
-        setDataImpresion({ ...row, items });
+        console.log(fuego.auth().currentUser);
+        setDataImpresion({ ...row, items, user: fuego.auth().currentUser });
         setOpenImpresion(true);
       },
     },

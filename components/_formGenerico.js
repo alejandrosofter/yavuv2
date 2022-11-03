@@ -40,10 +40,10 @@ export default function _FormGenerico({
   const clickForm = async (values, propsForm) => {
     if (fnUpdate)
       fnUpdate(quitarValoresNull(values))
-        .then((res) => {
+        .then(async (res) => {
           setLoad(false);
           if (callbackSuccess) {
-            callbackSuccess(values, res);
+            await callbackSuccess(values, res);
           } else {
             router.back({ shallow: true });
           }

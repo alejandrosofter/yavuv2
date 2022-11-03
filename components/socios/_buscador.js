@@ -43,7 +43,7 @@ export default function BuscadorSociosInput({
     if (callBackCambia) callBackCambia(item);
   };
   const labelItems = (option) =>
-    `${option.apellido} ${option.nombre}  ${option.nroSocio} (${option.dni})`;
+    `${option.apellido} ${option.nombre}  ${option.nroSocio} (${option.dni}) | ${option.estado}`;
 
   return (
     <AutoCompleteAsync
