@@ -12,6 +12,7 @@ export default function Modulo({ mod }) {
   const plantillaEmail = mod.config?.plantillaMail;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
+  const [preData, setPreData] = useState(mod?.config);
   const [socio, setSocio] = useState();
   const router = useRouter();
   const [plantilla, setPlantilla] = UsePlantilla({
@@ -38,7 +39,7 @@ export default function Modulo({ mod }) {
   return (
     <>
       <NuevoGenerico
-        preData={mod?.config}
+        preData={preData}
         valoresIniciales={valoresIniciales}
         mod={mod}
         removeTitle={true}
@@ -53,6 +54,7 @@ export default function Modulo({ mod }) {
         setOpen={setOpenImpresion}
         open={openImpresion}
         asunto="COMPROBANTE DE PAGO"
+        callbackClose={closePrint}
         data={{ ...dataImpresion, socio, email: socio?.email }}
         plantilla={plantilla}
         emailDefault={socio?.email}
