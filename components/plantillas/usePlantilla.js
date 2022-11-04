@@ -63,6 +63,12 @@ export function UsePlantilla({ id, data }) {
       }
       return false;
     });
+    Handlebars.registerHelper("exists", function (valor) {
+      if (!valor) return false;
+      if (valor === "") return false;
+
+      return true;
+    });
     Handlebars.registerHelper("qr", function (data) {
       const auxData = {
         ver: 1,
@@ -210,9 +216,7 @@ export function UsePlantilla({ id, data }) {
           0,
           arguments.length - 1
         );
-        return new Handlebars.SafeString(
-          "No encuentro: " + options.name + "(" + args + ")"
-        );
+        return new Handlebars.SafeString("---");
       }
     );
     Handlebars.registerHelper(

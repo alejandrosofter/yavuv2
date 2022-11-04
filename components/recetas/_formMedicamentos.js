@@ -7,7 +7,6 @@ import SelectPosologias from "@components/medicamentos/selectPosologia";
 export default function FormMedicamentos({ mod, setFieldValue, values }) {
   const cambiaMedicamento = (valor, item) => {
     if (item) {
-      setFieldValue("idPosologia", item.idPosologia);
       setFieldValue("nombreMedicamento", `${item.nombre}`);
       setFieldValue("nombreGenerico", `${item.nombreGenerico}`);
       setFieldValue("laboratorio", `${item.laboratorio}`);

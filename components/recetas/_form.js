@@ -138,9 +138,6 @@ export default function Form({ mod, setFieldValue, values }) {
         </Grid>
       )}
 
-      <Grid item md={2}>
-        <SelectFecha label="Fecha Diagnostico" campo="fechaDiagnostico" />
-      </Grid>
       <Grid item md={12}>
         <Input label="Diagnostico" campo="diagnostico" />
       </Grid>
