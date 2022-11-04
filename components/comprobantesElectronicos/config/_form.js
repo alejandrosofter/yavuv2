@@ -13,6 +13,7 @@ import { useState } from "react";
 import { fuego } from "@nandorojo/swr-firestore";
 import UploadAnyFormik from "@components/forms/fileAnyUploadFormik";
 import SelectTipoComprobantes from "@components/comprobantesTipos/selector";
+import SelectCertificadoElectronico from "@components/certificadosElectronicos/selectCertificadoElectronico";
 export default function FormConfig({ values }) {
   const [dataConsulta, setDataConsulta] = useState();
 
@@ -80,97 +81,19 @@ export default function FormConfig({ values }) {
                   label="Tipo Consumidor Final"
                 />
               </Grid>
-            </Grid>
-          ),
-        },
-        {
-          label: "AFIP",
-          nro: 1,
-          vista: (
-            <Grid spacing={2} container>
-              <QueryApi dataConsulta={dataConsulta} />
-              <Grid item md={3}>
-                <SelectFecha label="Fecha VTO" campo="fechaVto" />
-              </Grid>
-              <Grid item md={2}>
-                <Input label="CUIT" campo="cuit" />
-              </Grid>
-              <Grid item md={2}>
-                <Input label="Nro Punto Venta" campo="nroPuntoVenta" />
-              </Grid>
-              {!values.dataCrt && (
-                <Grid item md={3}>
-                  <Button
-                    onClick={clickPedido}
-                    variant="contained"
-                    color="primary"
-                  >
-                    Generar ARCHIVO PARA AFIP (pedido)
-                  </Button>
-                </Grid>
-              )}
-              {values.dataCrt && (
-                <Grid item alignItems={"self-end"} md={12}>
-                  <Button
-                    onClick={clickBorrarPedido}
-                    variant="contained"
-                    color="secondary"
-                  >
-                    Borrar ARCHIVO PARA AFIP (pedido)
-                  </Button>
-                </Grid>
-              )}
-              {!values.certificado && (
-                <Grid item md={3}>
-                  <Button
-                    onClick={clickDescargarPedido}
-                    variant="contained"
-                    color="primary"
-                  >
-                    DESCARGAR PEDIDO
-                  </Button>
-                </Grid>
-              )}
-
-              <Grid item md={3}>
-                {values.certificado?.nombreUser}
-                <UploadAnyFormik
-                  folder={`comprobantesElectronicos/${
-                    fuego.auth().currentUser?.uid
-                  }/`}
-                  label="Certificado"
-                  campo="certificado"
+              <Grid item md={8}>
+                <SelectCertificadoElectronico
+                  campo="certificadoElectronico"
+                  label="Certificado Electronico"
                 />
               </Grid>
-              {values.certificado && (
-                <Grid item md={3}>
-                  <Button
-                    onClick={clickAsentar}
-                    variant="contained"
-                    color="primary"
-                  >
-                    ASENTAR CERTIFICADOS
-                  </Button>
-                </Grid>
-              )}
-
-              {values.certificado && (
-                <Grid item md={2}>
-                  <Button
-                    onClick={clickSync}
-                    variant="contained"
-                    color="primary"
-                  >
-                    sincronizar info
-                  </Button>
-                </Grid>
-              )}
             </Grid>
           ),
         },
+
         {
           label: "Impresiones",
-          nro: 2,
+          nro: 1,
           vista: (
             <Grid container>
               <Grid item md={8}>

@@ -4,7 +4,11 @@ import Modelo, {
 } from "@modelos/ModeloCertificadosElectronicos";
 import Form from "@components/certificadosElectronicos/_form";
 import { getFechaString } from "@helpers/dates";
-export default function Modulo({ multiple, label, campo, callbackchange }) {
+export default function SelectCertificadoElectronico({
+  label,
+  campo,
+  callbackchange,
+}) {
   return (
     <SelectUserModColeccion
       coleccion={"certificadosElectronicos"}
