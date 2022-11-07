@@ -115,6 +115,12 @@ export default function FormComprobantesElectronicos({
           campo="estado"
         />
       </Grid>
+      <Grid item md={3}>
+        <Input campo="email" label="Email" />
+      </Grid>
+      <Grid item md={3}>
+        <Input campo="telefono" label="Telefono" />
+      </Grid>
       <Grid item xs={12}>
         <ItemsModulo
           setFieldValue={setFieldValue}

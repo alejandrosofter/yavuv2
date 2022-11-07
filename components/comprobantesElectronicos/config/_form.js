@@ -102,6 +102,12 @@ export default function FormConfig({ values }) {
                   label="Plantilla Comprobante Digital"
                 />
               </Grid>
+              <Grid item md={8}>
+                <SelectPlantilla
+                  campo="emailComprobanteDigital"
+                  label="Plantilla Email"
+                />
+              </Grid>
             </Grid>
           ),
         },

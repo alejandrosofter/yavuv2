@@ -9,15 +9,15 @@ import { useState } from "react";
 import Modelo, {
   valoresIniciales,
 } from "@modelos/ModeloComprobantesElectronicos";
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
 import { fuego } from "@nandorojo/swr-firestore";
 import Form from "./_form";
+import Dialogo from "@components/forms/dialogo";
 export default function Modulo({ mod, parentData = false }) {
   const [dataConsulta, setDataConsulta] = useState();
   const [dataImpresion, setDataImpresion] = useState();
   const [openImpresion, setOpenImpresion] = useState(false);
   const idPlantilla = mod.config?.planillaComprobanteDigital;
-
+  const plantillaEmail = mod.config?.emailComprobanteDigital;
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,
@@ -27,7 +27,7 @@ export default function Modulo({ mod, parentData = false }) {
     {
       field: "fecha",
       headerName: "Fecha",
-      width: 100,
+      width: 80,
       renderCell: (params) => getFechaString(params.value ? params.value : ""),
     },
 
@@ -42,6 +42,11 @@ export default function Modulo({ mod, parentData = false }) {
     //   width: 150,
     // },
 
+    {
+      field: "email",
+      headerName: "Email",
+      width: 190,
+    },
     {
       field: "nroCae",
       headerName: "CAE",
@@ -60,6 +65,17 @@ export default function Modulo({ mod, parentData = false }) {
     },
   ];
   let fnAcciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-file-invoice",
+      label: "Subir AFIP",
+      fn: (data) => {
+        setDataConsulta({
+          url: "/api/comprobantesElectronicos/subirAfip",
+          data,
+        });
+      },
+    },
     {
       esFuncion: true,
       icono: "fas fa-share-alt",
@@ -93,16 +109,17 @@ export default function Modulo({ mod, parentData = false }) {
         titulo={`COMPROBANTES ELECTRONICOS`}
         Form={Form}
       />
+
       <ImpresionDialog
-        titulo="IMPRESIÓN COMPROBANTE"
+        titulo="COMPARTIR COMPROBANTE"
         setOpen={setOpenImpresion}
         open={openImpresion}
-        asunto="COMPROBANTE DIGITAL "
-        data={dataImpresion}
+        asunto="COMPROBANTE DE PAGO"
+        data={{ ...dataImpresion, email: dataImpresion?.email }}
         plantilla={plantilla}
-        emailDefault={dataImpresion?.socio?.email}
-        nombrePlantillaEmail="emailAfiliacion"
-        attachments={[{ filename: "AFILIACION.pdf", data: plantilla }]}
+        emailDefault={dataImpresion?.email}
+        plantillaEmail={plantillaEmail}
+        attachments={[{ filename: "COMPROBANTE.pdf", data: plantilla }]}
       />
       <QueryApi dataConsulta={dataConsulta} />
     </>

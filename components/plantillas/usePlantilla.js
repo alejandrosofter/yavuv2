@@ -40,6 +40,11 @@ export function UsePlantilla({ id, data }) {
       if (!aString) return "";
       return `${aString}`.toUpperCase();
     });
+    Handlebars.registerHelper("gettext", function (aString) {
+      console.log(aString);
+      if (!aString) return "";
+      return `${aString}`;
+    });
     Handlebars.registerHelper("numero", function (aString) {
       if (!aString) return "";
       return `${aString}`.toFixed(2);
@@ -160,9 +165,16 @@ export function UsePlantilla({ id, data }) {
       return false;
     });
 
-    Handlebars.registerHelper("importeTotalItem", function (importe, cantidad) {
-      return formatMoney(Number(importe) * cantidad);
-    });
+    Handlebars.registerHelper(
+      "importeTotalItem",
+      function (importe, cantidad, importeBonificacion) {
+        console.log(`importeBonificacion: ${importeBonificacion}`);
+        return formatMoney(
+          Number(importe) * cantidad -
+            (importeBonificacion ? Number(importeBonificacion) : 0)
+        );
+      }
+    );
     Handlebars.registerHelper(
       "importeTotal",
       function (data, campo, conCantidad) {

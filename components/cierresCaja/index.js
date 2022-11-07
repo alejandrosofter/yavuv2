@@ -13,6 +13,7 @@ import { formatMoney } from "@helpers/numbers";
 import { QueryApi } from "@helpers/queryApi";
 import PagosCierresCaja from "./pagos";
 import { groupBy, orderArray } from "@helpers/arrays";
+import Dialogo from "@components/forms/dialogo";
 export const cols = [
   {
     field: "fecha",
@@ -44,6 +45,7 @@ export default function CuentaSocio({ data, mod }) {
   const titulo = `CIERRES DE CAJA`;
   const idPlantilla = mod.config?.plantillaCierre;
   const [openImpresion, setOpenImpresion] = useState(false);
+  const [openConfirma, setOpenConfirma] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
   const [dataImpresion, setDataImpresion] = useState();
   const [seleccion, setSeleccion] = useState();
@@ -85,7 +87,22 @@ export default function CuentaSocio({ data, mod }) {
       });
     return formasDePago;
   };
+  const confirmaGeneracion = async () => {
+    setDataConsulta({
+      url: "/api/cierresCaja/generarFacturas",
+      data: seleccion,
+    });
+  };
   const acciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-file-invoice",
+      label: "Generar Facturas",
+      fn: (data) => {
+        setSeleccion(data);
+        setOpenConfirma(true);
+      },
+    },
     {
       esFuncion: true,
       icono: "fas fa-check-double",
@@ -126,7 +143,7 @@ export default function CuentaSocio({ data, mod }) {
             total: value.reduce((a, b) => a + Number(b.importeTotal), 0),
           });
         }
-        console.log(fuego.auth().currentUser);
+        // console.log({ ...row, items, user: fuego.auth().currentUser });
         setDataImpresion({ ...row, items, user: fuego.auth().currentUser });
         setOpenImpresion(true);
       },
@@ -159,6 +176,15 @@ export default function CuentaSocio({ data, mod }) {
           Form={Form}
         />
       </Grid>
+      <Dialogo
+        open={openConfirma}
+        setOpen={setOpenConfirma}
+        titulo="Confirmar"
+        callbackAcepta={confirmaGeneracion}
+        detalle={
+          "Relamente deseas generar los comprobantes para este cierre de caja? ... al hacerlo se imputaran los comprobantes y se enviaran por correo"
+        }
+      />
       <ImpresionDialog
         titulo="IMPRESIÓN CIERRE"
         setOpen={setOpenImpresion}
