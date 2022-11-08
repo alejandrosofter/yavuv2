@@ -1,6 +1,7 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
 import { contador, contador2, contadorMoney } from "@helpers/arrays";
+import moment from "moment";
 export default function ModeloCobros() {
   return yup.object().shape({
     cliente: yup.string().required("Debes seleccionar el socio!"),
@@ -55,8 +56,8 @@ export function valoresIniciales(data) {
     tipoComprobanteNoFiscal: data ? data.tipoComprobanteNoFiscal : "",
     coleccionClientes: data ? data.coleccionClientes : "",
     estado: "CANCELADA",
-    fecha: new Date(),
-    fecha_timestamp: new Date().getTime(),
+    fecha: moment.utc().startOf("day"),
+    fecha_timestamp: moment.utc().startOf("day").unix(),
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,
