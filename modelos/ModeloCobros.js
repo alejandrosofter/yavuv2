@@ -56,8 +56,8 @@ export function valoresIniciales(data) {
     tipoComprobanteNoFiscal: data ? data.tipoComprobanteNoFiscal : "",
     coleccionClientes: data ? data.coleccionClientes : "",
     estado: "CANCELADA",
-    fecha: new Date(),
-    fecha_timestamp: new Date().getTime(),
+    fecha: moment.utc().startOf("day"),
+    fecha_timestamp: moment.utc().startOf("day").unix(),
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,

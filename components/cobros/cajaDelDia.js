@@ -17,10 +17,11 @@ export default function CajaDelDia({ open, setOpen, parentData }) {
     setOpen(false);
   };
   const [fechaDesde, fechaHasta] = getFechasWhere(fecha);
-
+  console.log("fechaDesde", fechaDesde.getTime());
+  console.log("fechaHasta", fechaHasta.getTime());
   const { data, error } = useCollection("cobros", {
     where: [
-      ["fecha_timestamp", ">", fechaDesde.getTime()],
+      ["fecha_timestamp", ">=", fechaDesde.getTime()],
       ["fecha_timestamp", "<=", fechaHasta.getTime()],
       parentData
         ? ["idUsuario", "==", localStorage.getItem("usermod")]
