@@ -7,6 +7,7 @@ import SelectStaticFormik from "@components/forms/selectEstaticFormik";
 import SelectFecha from "@components/forms/selectorFecha";
 import _FormItem from "@components/forms/subColeccion/_formItem";
 import Switch from "@components/forms/switch";
+import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 
 export default function FormCambioEstadoSocio(props) {
   const { values, setFieldValue, mod } = props;
@@ -32,11 +33,12 @@ export default function FormCambioEstadoSocio(props) {
       <Grid item md={4}>
         <SelectFecha label="Fecha " campo="fecha" />
       </Grid>
+
       <Grid item md={4}>
-        <SelectStaticFormik
-          label="estado"
-          campo="estado"
+        <SelectEstaticFormik
           items={["ALTA", "BAJA", "SUSPENDIDO"]}
+          label="Estado"
+          campo="estado"
         />
       </Grid>
       {values.estado === "BAJA" && (

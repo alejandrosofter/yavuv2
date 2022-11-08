@@ -161,6 +161,7 @@ export function UsePlantilla({ id, data }) {
     });
     Handlebars.registerHelper("esBaja", function (estado) {
       //SUMO el importe de actividades que sean por debito
+      console.log(estado);
       if (estado === "BAJA") return true;
       return false;
     });
