@@ -1,13 +1,13 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
-export default function ModeloCompras() {
+export default function ModeloComprobantesElectronicos() {
   return yup.object().shape({
     fecha: yup.date().required("Fecha es requerida"),
     estado: yup.string(),
     nroDocumento: yup.string(),
     razonSocial: yup.string(),
     idUsuario: yup.string(),
-    domicilio: yup.number(),
+    domicilio: yup.string(),
   });
 }
 /////

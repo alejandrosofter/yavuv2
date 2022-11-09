@@ -67,7 +67,7 @@ export default function ItemsModulo_agregar({
           </DialogContentText>
           <Formik
             initialValues={initialValues}
-            validationSchema={modelo()}
+            validationSchema={modelo ? modelo() : null}
             onSubmit={handleAceptar}
             validateOnChange={true}
             validateOnBlur={true}
