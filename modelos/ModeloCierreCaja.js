@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import moment from "moment";
 export default function Modelo() {
   return yup.object().shape({
     fecha: yup.date(),
@@ -10,8 +11,8 @@ export default function Modelo() {
 }
 export function valoresIniciales() {
   return {
-    fecha: new Date(),
-    fecha_timestamp: new Date().getTime(),
+    fecha: moment.utc().startOf("day"),
+    fecha_timestamp: moment.utc().startOf("day").unix(),
     estado: "PENDIENTE",
     importeAbre: 0,
     formaPago: "",
