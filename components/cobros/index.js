@@ -84,9 +84,9 @@ export default function Modulo({ mod, parentData }) {
     {
       field: "fecha",
       headerName: "Fecha",
-      width: 100,
+      width: 120,
       renderCell: (params) => {
-        return getFechaString(params.value);
+        return getFechaString(params.value, "DD/MM | hh:mm");
       },
     },
     {

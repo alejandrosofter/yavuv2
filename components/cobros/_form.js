@@ -26,10 +26,7 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
   const [deudas, setDeudas] = useState([]);
 
   const [openDeuda, setOpenDeuda] = useState();
-  const [openPersonalizar, setOpenPersonalizar] = useState();
-  const cambiaPersonalizar = (value) => {
-    setOpenPersonalizar(value);
-  };
+
   const cambianItemsDeuda = (items) => {
     let auxDeuda = values.deudas ? values.deudas : [];
     auxDeuda = auxDeuda.concat(items);
@@ -94,24 +91,12 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
       <Grid item md={2}>
         <SelectFecha label="Fecha" campo="fecha" />
       </Grid>
-      <Grid item md={2}>
-        <Switch label="Es Fiscal?" campo="esFiscal" />
+      <Grid item md={4}>
+        <PersonalizarComprobante
+          setFieldValue={setFieldValue}
+          values={values}
+        />
       </Grid>
-      {values.esFiscal && (
-        <Grid item md={1}>
-          <Button onClick={() => setOpenPersonalizar(true)}>
-            {values.comprobante_razonSocial
-              ? values.comprobante_razonSocial
-              : "Seleccionar..."}
-          </Button>
-        </Grid>
-      )}
-
-      <PersonalizarComprobante
-        setFieldValue={setFieldValue}
-        open={openPersonalizar}
-        setOpen={setOpenPersonalizar}
-      />
       <Grid item md={12}>
         <ItemsCobro
           values={values}

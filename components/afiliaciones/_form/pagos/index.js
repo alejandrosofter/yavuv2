@@ -1,8 +1,11 @@
 import { Button, Grid, Icon } from "@mui/material";
 import ItemsCobro from "@components/cobros/_items";
 import { useDocument } from "@nandorojo/swr-firestore";
+import PersonalizarComprobante from "@components/cobros/_personalizarComprobante";
+import { useState } from "react";
 
 export default function Modulo({ mod, setFieldValue, values }) {
+  const [openPersonalizar, setOpenPersonalizar] = useState();
   const configTarjeta = mod.config;
   const { data: producto } = useDocument(
     `productos/${configTarjeta.productoCredencial}`
@@ -37,8 +40,18 @@ export default function Modulo({ mod, setFieldValue, values }) {
 
     setFieldValue("deudas", deudas);
   };
+
   return (
     <Grid justifyContent="flex-end" alignItems="flex-end" container>
+      <Grid item xs={4}>
+        <PersonalizarComprobante
+          field="comprobante"
+          setFieldValue={setFieldValue}
+          open={openPersonalizar}
+          setOpen={setOpenPersonalizar}
+          values={values}
+        />
+      </Grid>
       <Grid item xs={2}>
         <Button onClick={clickTraer} variant="contained">
           <Icon className="fas fa-dollar" /> TRAER ITEMS

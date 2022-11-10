@@ -59,8 +59,8 @@ export default function Modulo({ mod }) {
     {
       field: "fecha",
       headerName: "Fecha",
-      width: 80,
-      renderCell: (params) => getFechaString(params.value),
+      width: 100,
+      renderCell: (params) => getFechaString(params.value, `DD/MM | hh:mm`),
     },
     {
       field: "nroSocio",
