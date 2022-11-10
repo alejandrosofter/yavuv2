@@ -21,6 +21,9 @@ export default function FormItem({ values }) {
         <Input campo="importe" label="Importe" />
       </Grid>
       <Grid item md={2}>
+        <Input campo="importeBonificacion" label="$ Bonif." />
+      </Grid>
+      <Grid item md={2}>
         TOTAL {total}
       </Grid>
       <Grid item md={12}>

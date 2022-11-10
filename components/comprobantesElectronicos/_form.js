@@ -160,6 +160,12 @@ export default function FormComprobantesElectronicos({
               renderCell: (params) => formatMoney(params.value),
             },
             {
+              field: "importeBonificacion",
+              headerName: "$ Bonif.",
+              width: 80,
+              renderCell: (params) => formatMoney(params.value),
+            },
+            {
               field: "total",
               headerName: "$ Total",
               width: 80,

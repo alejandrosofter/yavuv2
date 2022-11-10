@@ -15,6 +15,7 @@ export function QueryApi({
   const [openMensaje, setOpenMensaje] = useState(false);
   const [mensaje, setMensaje] = useState("");
   useEffect(() => {
+    console.log(dataConsulta);
     if (dataConsulta) enviarSolicitud(dataConsulta.url, dataConsulta.data);
   }, [dataConsulta]);
   const enviarSolicitud = (url, data) => {

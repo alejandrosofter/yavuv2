@@ -22,7 +22,15 @@ export default function Modulo({ mod, parentData = false }) {
     id: idPlantilla,
     data: dataImpresion,
   });
-
+  const getImporteTotal = (items) => {
+    let total = 0;
+    for (let i = 0; i < items.length; i++) {
+      total +=
+        Number(items[i].importe) * Number(items[i].cantidad) -
+        Number(items[i].importeBonificacion ? items[i].importeBonificacion : 0);
+    }
+    return formatMoney(total);
+  };
   const columns = [
     {
       field: "fecha",
@@ -56,7 +64,7 @@ export default function Modulo({ mod, parentData = false }) {
       field: "items",
       headerName: "$ Importe",
       width: 100,
-      renderCell: (params) => contadorMoney(params.value ? params.value : []),
+      renderCell: (params) => getImporteTotal(params.value ? params.value : []),
     },
     {
       field: "estado",

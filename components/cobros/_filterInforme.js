@@ -1,6 +1,7 @@
 import FilterGenerico from "@components/filterGenerico";
 import SelectFecha from "@components/forms/selectorFecha";
-import { Grid } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { Grid, Icon } from "@mui/material";
 
 export default function FiltroInformeCobros({
   callbackBuscar,
@@ -10,14 +11,21 @@ export default function FiltroInformeCobros({
     <FilterGenerico
       icon="fas fa-search"
       callbackSuccess={callbackBuscar}
+      hideSubmit={true}
       valoresIniciales={valoresIniciales}
     >
-      <Grid container>
+      <Grid spacing={2} container>
         <Grid item md={2}>
           <SelectFecha label="Desde" campo="fechaDesde" />
         </Grid>
         <Grid item md={2}>
           <SelectFecha label="Hasta" campo="fechaHasta" />
+        </Grid>
+        <Grid item md={2}>
+          <LoadingButton color="secondary" variant="contained" type="submit">
+            <Icon size="small" sx={{ mr: 1 }} className={"fas fa-search"} />{" "}
+            BUSCAR
+          </LoadingButton>
         </Grid>
       </Grid>
     </FilterGenerico>

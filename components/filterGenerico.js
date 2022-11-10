@@ -11,6 +11,7 @@ export default function FilterGenerico({
   callbackSuccess,
   valoresIniciales,
   children,
+  hideSubmit,
   icon,
   mod,
 }) {
@@ -41,10 +42,15 @@ export default function FilterGenerico({
               setFieldValue: setFieldValue,
               mod: mod,
             })}
-
-            <LoadingButton color="secondary" variant="contained" type="submit">
-              <Icon size="small" sx={{ mr: 1 }} className={icon} /> BUSCAR
-            </LoadingButton>
+            {!hideSubmit && (
+              <LoadingButton
+                color="secondary"
+                variant="contained"
+                type="submit"
+              >
+                <Icon size="small" sx={{ mr: 1 }} className={icon} /> BUSCAR
+              </LoadingButton>
+            )}
           </Form>
         );
       }}
