@@ -38,7 +38,11 @@ export default function Modulo({ mod, parentData = false }) {
       width: 80,
       renderCell: (params) => getFechaString(params.value ? params.value : ""),
     },
-
+    {
+      field: "nombreTipoComprobante",
+      headerName: "Tipo Comp.",
+      width: 150,
+    },
     {
       field: "razonSocial",
       headerName: "Razon Social",

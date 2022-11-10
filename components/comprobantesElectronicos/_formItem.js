@@ -2,19 +2,23 @@ import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 import Input from "../forms/input";
 import SelectProducto from "@components/productos/selectProducto";
-export default function FormItem({ values }) {
+export default function FormItem({ values, setFieldValue }) {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    setTotal((values.cantidad * values.importe).toFixed(2));
+    // console.log(values);
+    if (values) setTotal((values.cantidad * values.importe).toFixed(2));
   }, [values]);
+  const cambiaProducto = (data, item) => {
+    if (item) setFieldValue("importe", Number(item.importe) * values.cantidad);
+  };
   return (
     <Grid container spacing={2}>
       <Grid item md={1}>
         <Input campo="cantidad" label="Cant" />
       </Grid>
       <Grid item md={6}>
-        <SelectProducto label="Producto" />
+        <SelectProducto callbackchange={cambiaProducto} label="Producto" />
       </Grid>
 
       <Grid item md={2}>

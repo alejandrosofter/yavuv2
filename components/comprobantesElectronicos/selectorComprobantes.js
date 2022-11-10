@@ -1,8 +1,15 @@
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import Select from "../forms/select2Formik";
-export default function SelectorComprobantes({ label, campo, callbackchange }) {
+export default function SelectorComprobantes({
+  label,
+  campo,
+  callbackchange,
+  parentData,
+}) {
   const { data } = useCollection("comprobantesElectronicos", {
-    where: ["idUsuario", "==", fuego.auth().currentUser.uid],
+    where: parentData
+      ? ["idUsuario", "==", localStorage.getItem("usermod")]
+      : ["usermod", "==", fuego.auth().currentUser?.uid],
   });
   if (!data) return "";
   return (

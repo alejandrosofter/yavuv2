@@ -30,8 +30,9 @@ export default function FormComprobantesElectronicos({
   console.log(values);
   const cambiaTipoComprobante = (item, row) => {
     if (!item) return;
-
+    console.log(item, row);
     setFieldValue("esNotaCredito", row.esNotaCredito ? true : false);
+    setFieldValue("CbteTipo", row.tipoComprobanteFiscal);
   };
   const cambiaTipoCliente = (data) => {
     // if (!data && esNuevo) {
