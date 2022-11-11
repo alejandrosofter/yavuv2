@@ -63,6 +63,7 @@ export function UsePlantilla({ id, data }) {
       return numeroLetra(Number(numero));
     });
     Handlebars.registerHelper("equal", function (valor, valor2) {
+      console.log(valor, valor2);
       if (valor === valor2) {
         return true;
       }

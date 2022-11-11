@@ -60,7 +60,8 @@ export default function CambiosEstadoSocio({ data, mod }) {
       label: "Compartir",
       fn: (row) => {
         const socio = localstorageParser("socioSeleccion");
-        setDataImpresion({ ...row, ...socio });
+
+        setDataImpresion({ ...row, socio });
         setOpenImpresion(true);
       },
     },
