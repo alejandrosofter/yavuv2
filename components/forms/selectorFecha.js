@@ -29,8 +29,8 @@ const SelectFecha = ({ label, campo, callbackChange }) => {
           const handleChange = (newValue) => {
             //set hours to 0
             if (newValue) {
-              newValue.setHours(0);
-              newValue.setMinutes(0);
+              // newValue.setHours(0);
+              // newValue.setMinutes(0);
               props.form.setFieldValue(campo, newValue);
               props.form.setFieldValue(
                 `${campo}_timestamp`,
