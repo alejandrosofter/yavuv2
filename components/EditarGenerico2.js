@@ -1,7 +1,7 @@
 import TitulosFormularios from "./forms/tituloFormularios";
 import _FormGenerico from "./_formGenerico";
 import { useCollection, fuego, useDocument } from "@nandorojo/swr-firestore";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 export default function EditarGenerico2({
   preData,
   removeTitle,
@@ -11,6 +11,7 @@ export default function EditarGenerico2({
   coleccion,
   modelo,
   label,
+  id,
   children,
   dataForm,
   icono,
@@ -22,11 +23,18 @@ export default function EditarGenerico2({
   return (
     <Grid container>
       {!removeTitle && (
-        <TitulosFormularios
-          titulo={titulo ? titulo : "EDITAR"}
-          subTitulo={subTitulo ? subTitulo : label}
-          icono={icono}
-        />
+        <Grid item container xs={12}>
+          <Grid item xs={10}>
+            <TitulosFormularios
+              titulo={titulo ? titulo : `EDITAR`}
+              subTitulo={subTitulo ? subTitulo : label}
+              icono={icono}
+            />
+          </Grid>
+          <Grid item xs={2}>
+            <Typography variant="caption">{`ref: ${id}`}</Typography>
+          </Grid>
+        </Grid>
       )}
       <_FormGenerico
         preData={preData}

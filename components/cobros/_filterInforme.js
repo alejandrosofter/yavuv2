@@ -22,9 +22,8 @@ export default function FiltroInformeCobros({
           <SelectFecha label="Hasta" campo="fechaHasta" />
         </Grid>
         <Grid item md={2}>
-          <LoadingButton color="secondary" variant="contained" type="submit">
-            <Icon size="small" sx={{ mr: 1 }} className={"fas fa-search"} />{" "}
-            BUSCAR
+          <LoadingButton variant="contained" type="submit">
+            <Icon sx={{ mr: 2 }} className={"fas fa-scroll"} /> Descarga
           </LoadingButton>
         </Grid>
       </Grid>

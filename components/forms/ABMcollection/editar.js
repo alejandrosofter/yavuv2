@@ -31,6 +31,7 @@ export function ABMCollection_editar({
         callbackSuccess={cb}
         valoresIniciales={valoresIniciales}
         icono={icono}
+        id={doc.id}
         coleccion={`${coleccion}/${doc.id}`}
         label={label}
         modelo={Modelo}

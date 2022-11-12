@@ -20,7 +20,7 @@ export const cols = [
     headerName: "Fecha",
     width: 85,
     type: "date",
-    renderCell: (params) => getFechaString(params.value),
+    renderCell: (params) => getFechaString(params.value, "DD/MM hh:mm"),
   },
 
   {

@@ -101,12 +101,19 @@ export default function AbrirAgendaMes({
           >
             HORARIOS CONFIGURADOS
           </Typography>
-          {consultorio.horarios.map((horario) => (
-            <Typography key={horario.id} variant="caption" ht>
-              {horario.desde} - {horario.hasta} los dias{" "}
-              {parse(getDias(horario.dias))}
+          {!consultorio.horarios && (
+            <Typography variant="caption">
+              No hay horarios configurados para este consultorio
             </Typography>
-          ))}
+          )}
+
+          {consultorio.horarios &&
+            consultorio.horarios.map((horario) => (
+              <Typography key={horario.id} variant="caption" ht>
+                {horario.desde} - {horario.hasta} los dias{" "}
+                {parse(getDias(horario.dias))}
+              </Typography>
+            ))}
         </Stack>
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
