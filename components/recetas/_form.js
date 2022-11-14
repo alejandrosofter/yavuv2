@@ -22,7 +22,7 @@ import {
 } from "@modelos/ModeloRecetas";
 
 import TabsFormik from "@components/forms/tab";
-export default function Form({ mod, setFieldValue, values }) {
+export default function Form({ mod, setFieldValue, values, paciente }) {
   return (
     <Grid container spacing={2}>
       <Grid item md={2}>
@@ -33,7 +33,7 @@ export default function Form({ mod, setFieldValue, values }) {
       </Grid>
       <Grid item md={3}>
         <SelectEstaticFormik
-          items={["MEDICAMENTO", "ESTUDIO", "PRESTACION", "INDICACION"]}
+          items={["MEDICAMENTO", "PRESTACION", "INDICACION"]}
           label="Tipo Receta"
           campo="tipo"
         />
@@ -93,7 +93,7 @@ export default function Form({ mod, setFieldValue, values }) {
         <Grid item md={12}>
           <DataGridFormikItems
             label=""
-            // preData={{ }}
+            preData={{ paciente }}
             Modelo={ModeloIndicacion}
             valoresIniciales={valoresInicialesIndicacion}
             FormularioItem={FormIndicaciones}
@@ -124,7 +124,7 @@ export default function Form({ mod, setFieldValue, values }) {
                 width: 80,
               },
               {
-                field: "label_idPrestacion",
+                field: "nombre",
                 headerName: "Prestacion",
                 width: 450,
               },

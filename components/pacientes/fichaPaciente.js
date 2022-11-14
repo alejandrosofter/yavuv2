@@ -108,6 +108,9 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
     receta.medicamentos?.forEach((medicamento) => {
       detalle += ` ${medicamento.label_idMedicamento},`;
     });
+    receta.indicaciones?.forEach((indicacion) => {
+      detalle += ` ${indicacion.label_idIndicacion},`;
+    });
 
     receta.estudios?.forEach((estudio) => {
       detalle += ` ${estudio.label_idEstudio},`;
@@ -186,6 +189,7 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
               : ["usermod", "==", fuego.auth().currentUser?.uid],
           ]}
           labelNuevo="nueva receta"
+          dataForm={{ paciente }}
           preData={{ paciente }}
           orderBy={order}
           maxWidth={"md"}

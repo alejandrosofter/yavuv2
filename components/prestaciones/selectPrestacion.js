@@ -9,7 +9,6 @@ export default function SelectPrestaciones({
   callbackchange,
   obraSocial,
 }) {
-  console.log(`obrasSociales/${obraSocial}/prestaciones`);
   return (
     <SelectUserModColeccion
       coleccion={`obrasSociales/${obraSocial}/prestaciones`}

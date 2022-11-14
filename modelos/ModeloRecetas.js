@@ -72,12 +72,14 @@ export function valoresInicialesMedicamentos() {
 export function ModeloPrestaciones() {
   return yup.object().shape({
     idPrestacion: yup.string().required("Selecciona una prestacion!"),
+    cantidad: yup.number().required("Cantidad?"),
   });
 }
 export function valoresInicialesPrestaciones() {
   return {
     fecha: new Date(),
     idEstudio: "",
+    cantidad: 1,
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,
@@ -92,11 +94,13 @@ export function valoresInicialesPrestaciones() {
 export function ModeloIndicacion() {
   return yup.object().shape({
     idIndicacion: yup.string().required("Selecciona una indicacion!"),
+    detalle: yup.string().required("Escribe el detalle!"),
   });
 }
 export function valoresInicialesIndicacion() {
   return {
     fecha: new Date(),
+    detalle: "",
     fecha_timestamp: new Date().getTime(),
     idIndicacion: "",
     idUsuario: localStorage.getItem("usermod")
