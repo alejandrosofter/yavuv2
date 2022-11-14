@@ -30,7 +30,7 @@ export default function FormPrestaciones({
         <Input label="Cantidad" campo="cantidad" />
       </Grid>
       <Grid item md={8}>
-        {refObraSocial.exists && (
+        {refObraSocial && refObraSocial.exists && (
           <Typography variant="caption" sx={{ mt: 1, mb: 1 }}>
             ULTIMA ACTUALIZACION:{" "}
             {getFechaString(refObraSocial.lastUpdateNomencladores)}
