@@ -1,20 +1,37 @@
-import React, { useState, useRef } from "react";
-import { Field } from "formik";
+import React, { useState, useRef, useEffect } from "react";
+import { Field, useFormikContext } from "formik";
 import { FormControl, InputLabel } from "@mui/material";
 
 import { Editor } from "@tinymce/tinymce-react";
 
-const RichEditorFormik = ({ label, campo, callbackchange, height }) => {
+const RichEditorFormik = ({
+  label,
+  menubar = true,
+  toolbar = `undo redo | formatselect | 
+bold italic backcolor | alignleft aligncenter 
+alignright alignjustify | bullist numlist outdent indent | 
+removeformat | image`,
+  campo,
+  callbackchange,
+  height,
+}) => {
   const [data, setData] = useState("");
-  const editorRef = useRef(null);
+  //useFormik
+  const { values } = useFormikContext();
 
-  useState(() => {}, []);
+  const editorRef = useRef(null);
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.setContent(values[campo]);
+    }
+  }, [values[campo]]);
   return (
     <FormControl fullWidth>
       <Field type="hidden" name={`label_${campo}`} id={`label_${campo}`} />
       <Field label={label} name={campo} id={campo}>
         {(props) => {
           const handleChange = (e) => {
+            setData(e.target.getContent());
             props.form.setFieldValue(campo, e.target.getContent());
             if (callbackchange) callbackchange(e.target.getContent());
           };
@@ -24,6 +41,8 @@ const RichEditorFormik = ({ label, campo, callbackchange, height }) => {
               apiKey="gputhj5znmo5xfj4sk36ytr94jire1ti7tvaagar85gp9w4g"
               onInit={(evt, editor) => {
                 setTimeout(() => {
+                  setData(props.form.values[campo]);
+                  editorRef.current = editor;
                   editor.setContent(props.form.values[campo]);
                 }, 500);
               }}
@@ -31,7 +50,7 @@ const RichEditorFormik = ({ label, campo, callbackchange, height }) => {
               init={{
                 height: height ? height : 500,
                 language: "es",
-                menubar: true,
+                menubar,
 
                 // content_css: ["/css/credencialSocio.css"],
                 extended_valid_elements: "style,link[href|rel]",
@@ -88,11 +107,7 @@ const RichEditorFormik = ({ label, campo, callbackchange, height }) => {
                   "insertdatetime media table paste code help wordcount",
                 ],
 
-                toolbar:
-                  "undo redo | formatselect | " +
-                  "bold italic backcolor | alignleft aligncenter " +
-                  "alignright alignjustify | bullist numlist outdent indent | " +
-                  "removeformat | image",
+                toolbar,
                 //  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
               }}
             />

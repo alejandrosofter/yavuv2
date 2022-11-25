@@ -63,6 +63,7 @@ export function TurnosPaciente({ paciente, callbackchange }) {
     },
   ];
   const order = ["fecha", "desc"];
+
   const parentData =
     localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
   return (
@@ -151,6 +152,13 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
       renderCell: (params) => renderCellExpandData(params, getDetalleReceta),
     },
   ];
+  const setIndicaciones = (indicaciones) => {
+    let aux = indicaciones;
+    for (let i = 0; i < aux.length; i++)
+      aux[i].detalle = aux[i].detalle.replace(/\n/g, "<br>");
+
+    return aux;
+  };
   const acciones = [
     {
       esFuncion: true,
@@ -165,9 +173,11 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
       icono: "fas fa-share-alt",
       label: "Compartir",
       fn: async (row) => {
+        // if (row.label_tipo === "INDICACION")
+        //   row.indicaciones = setIndicaciones(row.indicaciones);
         setSeleccion(row);
 
-        console.log("PACIENTE", paciente);
+        console.log("row", row);
         setDataImpresion({ ...row, paciente });
         setOpenImpresion(true);
       },

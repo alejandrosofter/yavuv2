@@ -49,7 +49,7 @@ export const cols = [
   {
     field: "detalle",
     headerName: "Detalle",
-    width: 405,
+    width: 455,
     renderCell: (params) =>
       renderCellExpandData(
         params,
@@ -63,12 +63,12 @@ export const cols = [
     width: 90,
     renderCell: (params) => formatMoney(params.value),
   },
-  {
-    field: "importeSaldo",
-    headerName: "$ Saldo",
-    width: 90,
-    renderCell: (params) => formatMoney(params.value ? params.value : 0),
-  },
+  // {
+  //   field: "importeSaldo",
+  //   headerName: "$ Saldo",
+  //   width: 90,
+  //   renderCell: (params) => formatMoney(params.value ? params.value : 0),
+  // },
 ];
 export default function EstadoCuentaSocio({ data, mod }) {
   const [openStatusDebito, setOpenStatusDebito] = useState(false);
@@ -94,9 +94,12 @@ export default function EstadoCuentaSocio({ data, mod }) {
       },
     },
   ];
-  const parentData =
-    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
-  //agregar
+  const where = [
+    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid
+      ? ["idUsuario", "==", localStorage.getItem("usermod")]
+      : ["usermod", "==", fuego.auth().currentUser?.uid],
+  ];
+  console.log(where);
   return (
     <Grid container>
       {/* <Grid item xs={10}></Grid> */}
@@ -111,11 +114,7 @@ export default function EstadoCuentaSocio({ data, mod }) {
           coleccion={`socios/${data?.id}/${subColeccion}`}
           columns={cols}
           orderBy={order}
-          where={[
-            parentData
-              ? ["idUsuario", "==", localStorage.getItem("usermod")]
-              : ["usermod", "==", fuego.auth().currentUser?.uid],
-          ]}
+          where={where}
           maxWidth={"md"}
           preData={{}}
           labelNuevo="agregar estado"

@@ -50,7 +50,7 @@ export function QueryApi({
           if (callbackLoading) callbackLoading(false);
           setLoading(false);
           setOpenMensaje(true);
-          setMensaje(JSON.stringify(err.response.data));
+          setMensaje(JSON.stringify(err.response));
         });
   };
   return (

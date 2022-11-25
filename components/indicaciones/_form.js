@@ -1,6 +1,7 @@
-import { Grid, Stack } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import Input from "@components/forms/input";
 import RichEditor from "@components/forms/richEditorFormik";
+import RichEditorFormik from "@components/forms/richEditorFormik";
 export default function Form({ mod, setFieldValue, values }) {
   return (
     <Grid container spacing={2}>
@@ -8,7 +9,20 @@ export default function Form({ mod, setFieldValue, values }) {
         <Input label="Nombre" campo="nombre" />
       </Grid>
       <Grid item md={12}>
-        <Input rows={10} multiline={true} label="Descripcion" campo="detalle" />
+        <Typography variant="caption">
+          Variables disponibles {`{{paciente.nombre}}`},
+          {`{{paciente.apellido}}`},{`{{paciente.dni}}`},
+          {`{{paciente.domicilio}}`},{`{{paciente.telefono}}`},
+          {`{{paciente.email}}`}
+        </Typography>
+        <RichEditorFormik
+          toolbar="bold italic | alignleft aligncenter 
+          alignright alignjustify "
+          height={300}
+          menubar={false}
+          label="Detalle"
+          campo="detalle"
+        />
       </Grid>
     </Grid>
   );

@@ -3,6 +3,7 @@ import Input from "@components/forms/input";
 import SelectFecha from "@components/forms/selectorFecha";
 import SelectIndicacion from "./selectIndicacion";
 import Handlebars from "handlebars";
+import RichEditorFormik from "@components/forms/richEditorFormik";
 export default function FormIndicaciones({
   mod,
   setFieldValue,
@@ -19,13 +20,21 @@ export default function FormIndicaciones({
       setFieldValue("detalle", template(data));
     }
   };
+
   return (
     <Grid container spacing={2}>
       <Grid item md={8}>
         <SelectIndicacion callbackchange={cambiaIndicacion} />
       </Grid>
       <Grid item md={12}>
-        <Input multiline={true} rows={15} label="Detalle" campo="detalle" />
+        <RichEditorFormik
+          toolbar="bold italic | alignleft aligncenter 
+          alignright alignjustify "
+          height={300}
+          menubar={false}
+          label="Detalle"
+          campo="detalle"
+        />
       </Grid>
     </Grid>
   );
