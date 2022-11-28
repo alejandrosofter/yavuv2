@@ -24,7 +24,7 @@ export default function Form({ mod, setFieldValue, values }) {
           </Grid>
           <Grid item md={2}>
             <SelectEstaticFormik
-              items={["PENDIENTE", "SUBIDO"]}
+              items={["PENDIENTE", "FINALIZADO"]}
               label="Estado"
               campo="estado"
             />

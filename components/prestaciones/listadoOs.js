@@ -1,27 +1,9 @@
-import ColeccionTable from "@components/forms/coleccionTable";
 import DialogContenido from "@components/forms/dialogContenido";
-import ImpresionDialog from "@components/forms/impresion";
-import NuevoGenerico from "@components/NuevoGenerico2";
-import { UsePlantilla } from "@components/plantillas/usePlantilla";
-import PerfilSocio from "@components/socios/perfilSocio";
-import { getModUsuario } from "@helpers/db";
+
 import { formatMoney } from "@helpers/numbers";
 import Form from "./_form";
-import Modelo, { valoresIniciales } from "@modelos/ModeloGrupos";
-import {
-  Grid,
-  Typography,
-  Button,
-  Icon,
-  Menu,
-  List,
-  ListSubheader,
-  ListItemIcon,
-  ListItemText,
-  ListItemButton,
-  AppBar,
-} from "@mui/material";
-import { useCollection, useDocument } from "@nandorojo/swr-firestore";
+import Modelo, { valoresIniciales } from "@modelos/ModeloPrestaciones";
+import { Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import ABMColeccion from "@components/forms/ABMcollection";
 export default function PrestacionesListado({

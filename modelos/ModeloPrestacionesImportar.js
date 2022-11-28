@@ -10,6 +10,7 @@ export default function Modelo() {
 export function valoresIniciales() {
   return {
     fecha: new Date(),
+    fecha_timestamp: new Date().getTime(),
     estado: "PENDIENTE",
     obraSocial: "",
     idUsuario: fuego.auth().currentUser.uid,

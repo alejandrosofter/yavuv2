@@ -1,7 +1,21 @@
-import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
+import ABMColeccion from "@components/forms/ABMcollection";
+import Form from "./_form";
+import Modelo, { valoresIniciales } from "@modelos/ModeloPrestacionesImportar";
+
+import { useState } from "react";
 import { getFechaString } from "@helpers/dates";
+import { QueryApi } from "@helpers/queryApi";
+import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 export default function Modulo({ mod }) {
-  const order = ["fecha", "desc"];
+  const [seleccion, setSeleccion] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [dataConsulta, setDataConsulta] = useState();
+  const order = ["fecha_timestamp", "desc"];
+  const getDetalleArchivo = (row) => {
+    return `${
+      row?.archivo?.nombreUser ? row?.archivo?.nombreUser : "SIN ARCHIVO!"
+    }`;
+  };
   const columns = [
     {
       field: "fecha",
@@ -14,23 +28,51 @@ export default function Modulo({ mod }) {
       headerName: "Obra Social",
       width: 320,
     },
-
+    {
+      field: "archivo",
+      headerName: "Archivo",
+      width: 280,
+      renderCell: (params) => renderCellExpandData(params, getDetalleArchivo),
+    },
     {
       field: "estado",
       headerName: "Estado",
       width: 100,
     },
   ];
+  const acciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-refresh",
+      label: "Re-Procesar archivo",
+
+      fn: (data) => {
+        setDataConsulta({
+          url: "/api/prestaciones/recalcularPrestacionHttp",
+          data,
+        });
+      },
+    },
+  ];
   return (
-    <DataGridFirebase
-      titulo={mod.label}
-      subTitulo="generales"
-      icono={mod.icono}
-      limit={10}
-      mod={mod}
-      acciones={mod.acciones}
-      orderBy={order}
-      columns={columns}
-    />
+    <>
+      <ABMColeccion
+        coleccion={`prestacionesImportar`}
+        columns={columns}
+        acciones={acciones}
+        orderBy={order}
+        maxWidth="lg"
+        rowsPerPage={100}
+        hidePaginador={true}
+        // callbackclick={callbackclick}
+        icono={"fas fa-users"}
+        Modelo={Modelo}
+        valoresIniciales={valoresIniciales}
+        dataForm={{}}
+        titulo={`OBRAS SOCIALES`}
+        Form={Form}
+      />
+      <QueryApi dataConsulta={dataConsulta} />
+    </>
   );
 }
