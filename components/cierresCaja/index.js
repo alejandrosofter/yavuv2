@@ -28,7 +28,9 @@ export const cols = [
     headerName: "Detalle",
     width: 320,
     renderCell: (params) =>
-      params.value
+      params.value === 0
+        ? "No hay registros de cobros"
+        : params.value
         ? `Se registraron ${params.value} pagos en el cierre de caja`
         : "Aguarde...",
   },

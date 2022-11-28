@@ -34,6 +34,7 @@ export function QueryApi({
         .catch((err) => {
           if (callbackLoading) callbackLoading(false);
           setLoading(false);
+          if (err.code === "FUNCTION_INVOCATION_TIMEOUT") return;
           setOpenMensaje(true);
           setMensaje(JSON.stringify(err?.response));
         });
