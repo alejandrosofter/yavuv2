@@ -1,7 +1,7 @@
 import TitulosFormularios from "@components/forms/tituloFormularios";
 import { QueryApi } from "@helpers/queryApi";
 import { Button, Grid, Icon, Typography } from "@mui/material";
-import { fuego } from "@nandorojo/swr-firestore";
+import { fuego, useCollection } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import FiltroInformeCobros from "@components/cobros/_filterInforme";
 import Dialogo from "@components/forms/dialogo";
@@ -10,29 +10,45 @@ export default function InformesCobros({ mod }) {
   const coleccion = "socios";
   const [dataConsulta, setDataConsulta] = useState();
   const [openDialogo, setOpenDialogo] = useState();
+  const { add } = useCollection(`descargas`);
   const listarSocios = (values) => {
-    setDataConsulta({
-      url: "/api/colecciones/informes",
-      data: {
-        coleccion,
-        token: fuego.auth().currentUser.uid,
-        titulo: "INFORME DE SOCIOS",
-        usermod: localStorage.getItem("usermod"),
-        tk: new Date().getTime(),
-      },
+    // setDataConsulta({
+    //   url: "/api/colecciones/informes",
+    //   data
+    // });
+    const data = {
+      coleccion,
+      token: fuego.auth().currentUser.uid,
+      titulo: "INFORME DE SOCIOS",
+      usermod: localStorage.getItem("usermod"),
+      tk: new Date().getTime(),
+    };
+    add(data).then((res) => {
+      setOpenDialogo(true);
     });
   };
   const cambiosEstado = (values) => {
-    setDataConsulta({
-      url: "/api/colecciones/informes",
-      data: {
-        ...values,
-        coleccion: "cambiosEstado",
-        titulo: "INFORME ESTADOS SOCIOS",
-        token: fuego.auth().currentUser.uid,
-        usermod: localStorage.getItem("usermod"),
-        tk: new Date().getTime(),
-      },
+    // setDataConsulta({
+    //   url: "/api/colecciones/informes",
+    //   data: {
+    //     ...values,
+    //     coleccion: "cambiosEstado",
+    //     titulo: "INFORME ESTADOS SOCIOS",
+    //     token: fuego.auth().currentUser.uid,
+    //     usermod: localStorage.getItem("usermod"),
+    //     tk: new Date().getTime(),
+    //   },
+    // });
+    const data = {
+      ...values,
+      coleccion: "cambiosEstado",
+      titulo: "INFORME ESTADOS SOCIOS",
+      token: fuego.auth().currentUser.uid,
+      usermod: localStorage.getItem("usermod"),
+      tk: new Date().getTime(),
+    };
+    add(data).then((res) => {
+      setOpenDialogo(true);
     });
   };
 

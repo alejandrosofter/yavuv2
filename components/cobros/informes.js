@@ -2,26 +2,31 @@ import Dialogo from "@components/forms/dialogo";
 import TitulosFormularios from "@components/forms/tituloFormularios";
 import { QueryApi } from "@helpers/queryApi";
 import { Grid } from "@mui/material";
-import { fuego } from "@nandorojo/swr-firestore";
+import { fuego, useCollection, useDocument } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import FiltroInformeCobros from "./_filterInforme";
 
 export default function InformesCobros({ mod }) {
+  const { add } = useCollection(`descargas`);
   const coleccion = "cobros";
   const [dataConsulta, setDataConsulta] = useState();
   const [openDialogo, setOpenDialogo] = useState();
   const buscar = (values) => {
-    setDataConsulta({
-      url: "/api/colecciones/informes",
-      data: {
-        ...values,
-        coleccion,
-        token: fuego.auth().currentUser.uid,
-        titulo: "INFORME DE COBROS",
-        usermod: localStorage.getItem("usermod"),
-        tk: new Date().getTime(),
-      },
+    const data = {
+      ...values,
+      coleccion,
+      token: fuego.auth().currentUser.uid,
+      titulo: "INFORME DE COBROS",
+      usermod: localStorage.getItem("usermod"),
+      tk: new Date().getTime(),
+    };
+    add(data).then((res) => {
+      setOpenDialogo(true);
     });
+    // setDataConsulta({
+    //   url: "/api/colecciones/informes",
+    //   data,
+    // });
   };
 
   const callbackQuery = (data, response) => {
