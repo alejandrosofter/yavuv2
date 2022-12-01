@@ -21,10 +21,18 @@ import SelectorFechaTime from "@components/forms/fechaTimeFormik";
 import SelectCategoriaTurnos from "./selectCategoriaTurno";
 import EliminarTurno from "./eliminarTurno";
 import SwitchFormik from "@components/forms/switch";
+import ImpresionDialog from "@components/forms/impresion";
+import { UsePlantilla } from "@components/plantillas/usePlantilla";
 export default function Form({ mod, setFieldValue, values, callbackElimina }) {
   const [tipoTurno, setTipoTurno] = useState();
   const [consultorio, setConsultorio] = useState();
 
+  const [plantilla, setPlantilla] = UsePlantilla({
+    id: mod.config?.impresionTurno,
+    data: values,
+  });
+  // console.log(values);
+  const [openImpresion, setOpenImpresion] = useState(false);
   const cambiaTipo = (value, item) => {
     setTipoTurno(item);
     if (item) {
@@ -97,8 +105,21 @@ export default function Form({ mod, setFieldValue, values, callbackElimina }) {
         </Grid>
       </Grid>
       {values.id && (
-        <EliminarTurno callbacksuccess={handleElimina} idItem={values?.id} />
+        <>
+          {" "}
+          <EliminarTurno callbacksuccess={handleElimina} idItem={values?.id} />
+          <Button onClick={() => setOpenImpresion(true)}>Imprimir</Button>
+        </>
       )}
+      <ImpresionDialog
+        titulo="IMPRESIÓN TURNO"
+        setOpen={setOpenImpresion}
+        open={openImpresion}
+        asunto="TURNO "
+        plantillaEmail={mod.config?.plantillaTurno}
+        data={values}
+        plantilla={plantilla}
+      />
     </Grid>
   );
 }

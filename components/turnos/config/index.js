@@ -43,19 +43,28 @@ export default function ConfigActividadad({ mod }) {
           label="Configs"
           vistas={[
             {
-              label: "Datos",
+              label: "impresion",
               nro: 0,
               vista: (
                 <Grid spacing={2} container>
                   <Grid item md={3}>
                     <Typography variant="caption" component="div" gutterBottom>
-                      Plantilla Turno{" "}
+                      Impresion Turno{" "}
+                    </Typography>
+                    <SelectPlantilla
+                      campo="impresionTurno"
+                      label="Impresion Turno"
+                    />
+                  </Grid>
+                  <Grid item md={3}>
+                    <Typography variant="caption" component="div" gutterBottom>
+                      Email Nuevo Turno{" "}
                     </Typography>
                     <SelectPlantilla campo="plantillaTurno" label="Plantilla" />
                   </Grid>
                   <Grid item md={3}>
                     <Typography variant="caption" component="div" gutterBottom>
-                      Plantilla Elimina{" "}
+                      Email Elimina Turno{" "}
                     </Typography>
                     <SelectPlantilla
                       campo="plantillaElimina"

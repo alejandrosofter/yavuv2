@@ -162,8 +162,8 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
   const acciones = [
     {
       esFuncion: true,
-      icono: "fas fa-save",
-      label: "Guardar Modelo de Receta",
+      icono: "fas fa-copy",
+      label: "Copiar Receta...",
       fn: (row) => {
         setSeleccion(row);
       },
@@ -185,12 +185,16 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
   ];
   const parentData =
     localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
-
+  const callbackNuevaReceta = (data) => {
+    setDataImpresion({ ...data, paciente });
+    setOpenImpresion(true);
+  };
   return (
     <Grid container>
       <Grid item md={12}>
         <ABMColeccion
           acciones={acciones}
+          callbackSuccessNew={callbackNuevaReceta}
           coleccion={`pacientes/${paciente.id}/recetas`}
           columns={columns}
           where={[

@@ -28,3 +28,20 @@ export function valoresIniciales() {
     idUsuario: fuego.auth().currentUser.uid,
   };
 }
+/////////////////////////////////
+export function ModeloCategoria() {
+  return yup.object().shape({
+    nombre: yup.string().required(),
+  });
+}
+export function inicialesCategoria() {
+  return {
+    nombre: "",
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
+  };
+}

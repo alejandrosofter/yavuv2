@@ -13,6 +13,8 @@ import { getHorariosDia } from "@helpers/horarios";
 import ItemTurno from "./itemTurno";
 import AbrirAgendaMes from "./abrirAgendaMes";
 import moment from "moment";
+import ImpresionDialog from "@components/forms/impresion";
+import { UsePlantilla } from "@components/plantillas/usePlantilla";
 const ConsultorioTurnos = ({
   mod,
   fechaBusca,
@@ -21,20 +23,33 @@ const ConsultorioTurnos = ({
   muestra,
 }) => {
   useEffect(() => {
-    console.log(`buscando en ${moment(fechaBusca).format("YYYY-MM-DD")}`);
+    // console.log(`buscando en ${moment(fechaBusca).format("YYYY-MM-DD")}`);
     setHorariosDisponibles();
   }, [fechaBusca]);
+  // console.log(mod.config);
+  const [seleccion, setSeleccion] = useState(null);
+  const [dataImpresion, setDataImpresion] = useState();
+  const [plantilla, setPlantilla] = UsePlantilla({
+    id: mod.config?.impresionTurno,
+    data: dataImpresion,
+  });
+
+  const [openImpresion, setOpenImpresion] = useState(false);
   const [dataHorarios, setDataHorarios] = useState();
+
   const [horarios, setHorarios] = useState([]);
   const [openNuevoTurno, setOpenNuevoTurno] = useState(false);
   const [openUpdateTurno, setOpenUpdateTurno] = useState(false);
   const [preData, setPredata] = useState();
   //esta funcion recibe una fecha y devuelve 2 fechas que son desde que comienza el dia hasta que termina
 
-  const handleNuevoTurno = () => {
+  const handleNuevoTurno = (data) => {
     setOpenNuevoTurno(false);
     setOpenUpdateTurno(false);
     setHorariosDisponibles();
+    console.log(data);
+    setDataImpresion({ ...data });
+    setOpenImpresion(true);
   };
 
   const handleChange = (item) => {
@@ -137,6 +152,15 @@ const ConsultorioTurnos = ({
           callbackSuccess={handleNuevoTurno}
         />
       </DialogContenido>
+      <ImpresionDialog
+        titulo="IMPRESIÓN TURNO"
+        setOpen={setOpenImpresion}
+        open={openImpresion}
+        asunto="TURNO "
+        plantillaEmail={mod.config?.plantillaTurno}
+        data={dataImpresion}
+        plantilla={plantilla}
+      />
     </Grid>
   );
 };

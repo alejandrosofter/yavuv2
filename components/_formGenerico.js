@@ -76,7 +76,6 @@ export default function _FormGenerico({
         validateForm,
         isValidating,
       }) => {
-        console.log(values, errors);
         return (
           <Grid sx={{ my: 0 }} md={12} item xs={9}>
             <Form onSubmit={handleSubmit}>

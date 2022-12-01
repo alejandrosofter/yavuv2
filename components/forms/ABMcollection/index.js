@@ -41,6 +41,7 @@ export default function ABMColeccion({
   getRowClassName,
   onSelectionModelChange,
   callbackchange,
+  callbackSuccessNew,
 }) {
   const accionesABM = [
     {
@@ -159,6 +160,7 @@ export default function ABMColeccion({
         dataForm={dataForm}
         coleccion={coleccion}
         valoresIniciales={valoresIniciales}
+        callbackSuccess={callbackSuccessNew}
         Modelo={Modelo}
         icono={icono}
         label={label}

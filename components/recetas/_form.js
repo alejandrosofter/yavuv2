@@ -1,6 +1,7 @@
 import { Grid, Stack } from "@mui/material";
 import CheckboxForm from "@components//forms/checkbox";
-import Input from "@components//forms/input";
+import Input from "@components/forms/input";
+import Switch from "@components/forms/switch";
 import SelectEstaticFormik from "../forms/selectEstaticFormik";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import SelectCentroCosto from "@components/centroCostos/select";
@@ -39,32 +40,37 @@ export default function Form({ mod, setFieldValue, values, paciente }) {
         />
       </Grid>
       {values.tipo == "MEDICAMENTO" && (
-        <Grid item md={12}>
-          <DataGridFormikItems
-            label="Medicamentos"
-            Modelo={ModeloMedicamentos}
-            valoresIniciales={valoresInicialesMedicamentos}
-            FormularioItem={FormMedicamentos}
-            campo="medicamentos"
-            columns={[
-              {
-                field: "cantidad",
-                headerName: "Cantidad",
-                width: 80,
-              },
-              {
-                field: "label_idMedicamento",
-                headerName: "Nombre Medicamento",
-                width: 290,
-              },
-              {
-                field: "label_idPosologia",
-                headerName: "Posologia",
-                width: 190,
-              },
-            ]}
-          />
-        </Grid>
+        <>
+          <Grid item md={3}>
+            <Switch label="Agregar Indicacion" campo="agregarIndicacion" />
+          </Grid>
+          <Grid item md={12}>
+            <DataGridFormikItems
+              label="Medicamentos"
+              Modelo={ModeloMedicamentos}
+              valoresIniciales={valoresInicialesMedicamentos}
+              FormularioItem={FormMedicamentos}
+              campo="medicamentos"
+              columns={[
+                {
+                  field: "cantidad",
+                  headerName: "Cantidad",
+                  width: 80,
+                },
+                {
+                  field: "label_idMedicamento",
+                  headerName: "Nombre Medicamento",
+                  width: 290,
+                },
+                {
+                  field: "label_idPosologia",
+                  headerName: "Posologia",
+                  width: 190,
+                },
+              ]}
+            />
+          </Grid>
+        </>
       )}
       {values.tipo == "ESTUDIO" && (
         <Grid item md={12}>

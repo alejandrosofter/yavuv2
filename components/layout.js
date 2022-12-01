@@ -24,6 +24,7 @@ import MenuModulos from "./menuModulos";
 import MenuModulosInvitado from "./menuModulosInvitado";
 import MenuAccionesBarra from "./menuAccionesBarra";
 import MenuCuenta from "./menuCuenta";
+import MenuNotificaciones from "./menuNotificaciones";
 
 const drawerWidth = 240;
 
@@ -137,45 +138,34 @@ export default function Layout({ children, mod, auth }) {
           >
             <MenuIcon />
           </IconButton>
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: "flex",
-              flexDirection: "row",
-              p: 0,
-              m: 0,
-            }}
-          >
-            <Box sx={{ flexGrow: 1 }}>
-              <Stack
-                sx={{ alignContent: "center" }}
-                direction="row"
-                spacing={2}
-              >
-                <Typography
-                  sx={{
-                    mt: "auto",
-                    mb: "auto",
-                    textTransform: "uppercase",
-                    fontWeight: "bolder",
-                  }}
-                  variant="h5"
-                >
-                  <Icon className={mod ? mod.icono : ""} />{" "}
-                  {mod ? mod.label : ""}
-                </Typography>
 
-                <IconButton color="inherit" onClick={clickConfig}>
-                  <Icon size="small" className="fas fa-cog" />
-                </IconButton>
-
-                <MenuAccionesBarra
-                  mod={mod}
-                  acciones={mod?.acciones ? mod.acciones : []}
-                />
-              </Stack>
-            </Box>
+          <Box sx={{ display: "inline-flex" }}>
+            <Icon sx={{ mr: 1 }} className={mod ? mod.icono : ""} />
+            <Typography
+              sx={{
+                mt: "auto",
+                mb: "auto",
+                textTransform: "uppercase",
+                fontWeight: "bolder",
+              }}
+              variant="h5"
+            >
+              {mod ? mod.label : ""}
+            </Typography>
           </Box>
+
+          <IconButton
+            sx={{ ml: 2, mr: 2 }}
+            color="inherit"
+            onClick={clickConfig}
+          >
+            <Icon size="small" className="fas fa-cog" />
+          </IconButton>
+
+          <MenuAccionesBarra
+            mod={mod}
+            acciones={mod?.acciones ? mod.acciones : []}
+          />
 
           <MenuCuenta acciones={accionesCuenta} auth={auth} />
         </Toolbar>
