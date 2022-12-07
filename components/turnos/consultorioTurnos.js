@@ -62,6 +62,8 @@ const ConsultorioTurnos = ({
         fechaTurno: moment(item.value.seconds * 1000).toDate(),
         consultorio: consultorio.id,
         nombreConsultorio: consultorio.nombre,
+        direccionConsultorio: consultorio.direccion,
+        telefonoConsultorio: consultorio.telefono,
       };
       setPredata(aux);
       setOpenNuevoTurno(true);

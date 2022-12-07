@@ -33,6 +33,7 @@ export default function Form({ mod, setFieldValue, values, callbackElimina }) {
   });
   // console.log(values);
   const [openImpresion, setOpenImpresion] = useState(false);
+  const [dataImpresion, setDataImpresion] = useState();
   const cambiaTipo = (value, item) => {
     setTipoTurno(item);
     if (item) {
@@ -46,6 +47,8 @@ export default function Form({ mod, setFieldValue, values, callbackElimina }) {
   };
   const cambiaConsultorio = (value, item) => {
     setConsultorio(item);
+    setFieldValue("direccionConsultorio", item.direccion);
+    setFieldValue("telefonoConsultorio", item.telefono);
     // setHorariosDisponibles(values.fecha,tipoTurno)
   };
   const handleElimina = (res) => {
@@ -117,7 +120,7 @@ export default function Form({ mod, setFieldValue, values, callbackElimina }) {
         open={openImpresion}
         asunto="TURNO "
         plantillaEmail={mod.config?.plantillaTurno}
-        data={values}
+        data={{ ...values, dataImpresion }}
         plantilla={plantilla}
       />
     </Grid>
