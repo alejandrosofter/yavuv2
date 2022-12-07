@@ -1,7 +1,7 @@
 import TitulosFormularios from "@components/forms/tituloFormularios";
 import { QueryApi } from "@helpers/queryApi";
 import { Grid } from "@mui/material";
-import { fuego } from "@nandorojo/swr-firestore";
+import { fuego, useCollection } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import FiltroInformeCobros from "@components/cobros/_filterInforme";
 import Dialogo from "@components/forms/dialogo";
@@ -9,18 +9,19 @@ import Dialogo from "@components/forms/dialogo";
 export default function InformesCobros({ mod }) {
   const coleccion = "comprobantesElectronicos";
   const [dataConsulta, setDataConsulta] = useState();
+  const { add } = useCollection(`descargas`);
   const [openDialogo, setOpenDialogo] = useState();
   const buscar = (values) => {
-    setDataConsulta({
-      url: "/api/colecciones/informes",
-      data: {
-        ...values,
-        coleccion,
-        titulo: "INFORME DE COMPROBANTES ELECTRONICOS",
-        token: fuego.auth().currentUser.uid,
-        usermod: localStorage.getItem("usermod"),
-        tk: new Date().getTime(),
-      },
+    const data = {
+      ...values,
+      coleccion,
+      titulo: "INFORME DE COMPROBANTES ELECTRONICOS",
+      token: fuego.auth().currentUser.uid,
+      usermod: localStorage.getItem("usermod"),
+      tk: new Date().getTime(),
+    };
+    add(data).then((res) => {
+      setOpenDialogo(true);
     });
   };
 
