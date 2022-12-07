@@ -21,7 +21,7 @@ export function addQueryApi(fnName, data) {
     const aux = deleteUndefinedValue(data);
     return fuego.db.collection("queryApi").add({
       idUsuario: fuego.auth().currentUser?.uid,
-      usermod: localstorage.getItem("usermod"),
+      usermod: localStorage.getItem("usermod"),
       fnName,
       data: aux,
       estado: "PENDIENTE",
