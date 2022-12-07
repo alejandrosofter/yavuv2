@@ -2,6 +2,7 @@ import FirestoreConfig from "@config/_firestoreConfig";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { useEffect, useState } from "react";
 import firebase from "firebase/";
+import { deleteUndefinedValue, localstorageParser } from "./arrays";
 export function getModUsuario(nombreModulo, userMod) {
   const { data } = useCollection("mods", {
     where: [
@@ -12,6 +13,29 @@ export function getModUsuario(nombreModulo, userMod) {
   if (!data) return false;
   if (data.length == 0) return false;
   return data[0];
+}
+
+export function addQueryApi(fnName, data) {
+  //add row collection fuego
+  if (data) {
+    const aux = deleteUndefinedValue(data);
+    return fuego.db.collection("queryApi").add({
+      idUsuario: fuego.auth().currentUser?.uid,
+      usermod: localstorage.getItem("usermod"),
+      fnName,
+      data: aux,
+      estado: "PENDIENTE",
+    });
+  }
+}
+export function getCuentaFirestore() {
+  const { data } = useCollection("cuentas", {
+    where: [["idUsuarioFirestore", "==", fuego.auth().currentUser?.uid]],
+  });
+
+  if (data && data.length > 0) {
+    return data[0];
+  }
 }
 export function useModUsuario(nombreModulo) {
   const [mod, setMod] = useState(null);

@@ -1,8 +1,11 @@
+import { getCuentaFirestore } from "@helpers/db";
 import { Grid, Typography, Icon } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import Ayuda from "./ayuda";
 
 export default function DashboardInit() {
+  const usuarioCuenta = getCuentaFirestore();
+
   return (
     <Grid container spacing={2}>
       <Grid item md={12}>
@@ -18,7 +21,7 @@ export default function DashboardInit() {
         </Typography>
       </Grid>
       <Grid item md={4}>
-        <Ayuda />
+        {usuarioCuenta && <Ayuda idPlan={usuarioCuenta.plan} />}
       </Grid>
     </Grid>
   );

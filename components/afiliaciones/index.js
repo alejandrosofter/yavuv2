@@ -8,7 +8,7 @@ import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { QueryApi } from "@helpers/queryApi";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { getModUsuario } from "@helpers/db";
+import { addQueryApi, getModUsuario } from "@helpers/db";
 export default function Modulo({ mod }) {
   const order = ["fecha", "desc"];
   const idPlantilla = mod.config?.plantillaAfiliacion;
@@ -30,7 +30,8 @@ export default function Modulo({ mod }) {
 
   let fnAcciones = {
     aplicar: (data) => {
-      setDataConsulta({ url: "/api/afiliaciones/aplicar", data });
+      // setDataConsulta({ url: "/api/afiliaciones/aplicar", data });
+      addQueryApi("aplicarAfiliacion", data);
     },
     irSocio: (data) => {
       if (data.idSocio) {

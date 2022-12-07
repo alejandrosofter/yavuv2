@@ -12,6 +12,7 @@ import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { pink } from "@mui/material/colors";
 import { QueryApi } from "@helpers/queryApi";
+import { localstorageParser } from "@helpers/arrays";
 export const cols = [
   {
     field: "esPorDebitoAutomatico",
@@ -140,7 +141,9 @@ export default function CuentaSocio({ data, mod }) {
       icono: "fas fa-share-alt",
       label: "Compartir",
       fn: (row) => {
-        setDataImpresion(row);
+        const socio = JSON.parse(localStorage.getItem("socioSeleccion"));
+
+        setDataImpresion({ ...row, socio });
         setOpenImpresion(true);
       },
     },

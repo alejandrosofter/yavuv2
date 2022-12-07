@@ -14,6 +14,7 @@ import { QueryApi } from "@helpers/queryApi";
 import PagosCierresCaja from "./pagos";
 import { groupBy, orderArray } from "@helpers/arrays";
 import Dialogo from "@components/forms/dialogo";
+import { addQueryApi } from "@helpers/db";
 export const cols = [
   {
     field: "fecha",
@@ -90,10 +91,11 @@ export default function CuentaSocio({ data, mod }) {
     return formasDePago;
   };
   const confirmaGeneracion = async () => {
-    setDataConsulta({
-      url: "/api/cierresCaja/generarFacturas",
-      data: seleccion,
-    });
+    // setDataConsulta({
+    //   url: "/api/cierresCaja/generarFacturas",
+    //   data: seleccion,
+    // });
+    if (seleccion) addQueryApi("generarFacturas", seleccion);
   };
   const acciones = [
     {
