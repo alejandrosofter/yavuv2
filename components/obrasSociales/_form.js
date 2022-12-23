@@ -4,7 +4,9 @@ import Input from "../forms/input";
 import SelectEstaticFormik from "../forms/selectEstaticFormik";
 import { ModeloAcciones } from "@modelos/ModeloPacientes";
 import FormAccionesWeb from "./_formAccionesWeb";
+import Switch from "@components/forms/switch";
 import TabsFormik from "@components/forms/tab";
+import SelectRutinasWebObraSocial from "./selectRutinaWeb";
 export default function Form({ mod, setFieldValue, values }) {
   return (
     <TabsFormik
@@ -18,12 +20,6 @@ export default function Form({ mod, setFieldValue, values }) {
               <Grid item md={4}>
                 <Input label="Nombre" campo="nombre" />
               </Grid>
-              <Grid item md={2}>
-                <Input label="Usuario WEB" campo="usuarioWeb" />
-              </Grid>
-              <Grid item md={2}>
-                <Input label="Clave Web" campo="claveWeb" />
-              </Grid>
 
               <Grid item md={2}>
                 <SelectEstaticFormik
@@ -32,25 +28,42 @@ export default function Form({ mod, setFieldValue, values }) {
                   campo="estado"
                 />
               </Grid>
-              <Grid item md={12}>
-                <Input label="Detalle" campo="detalle" />
+              <Grid item md={2}>
+                <Switch label="Validacion WEB" campo="tieneValidacionWeb" />
               </Grid>
-              <Grid item md={12}>
-                <DataGridFormikItems
-                  label="Acciones Web"
-                  Modelo={ModeloAcciones}
-                  FormularioItem={FormAccionesWeb}
-                  campo="entradas"
-                  columns={[
-                    {
-                      field: "label_bootWeb",
-                      headerName: "Boot Web",
-                      editable: false,
-                      width: 120,
-                    },
-                  ]}
-                />
-              </Grid>
+              {values.tieneValidacionWeb && (
+                <Grid item md={2}>
+                  <SelectEstaticFormik
+                    items={["WEB", "PCPOS"]}
+                    label="Tipo Validacion"
+                    campo="tipoValidacion"
+                  />
+                </Grid>
+              )}
+              {values.tipoValidacion === "WEB" && values.tieneValidacionWeb && (
+                <>
+                  <Grid item md={2}>
+                    <Input label="Usuario WEB" campo="usuarioWeb" />
+                  </Grid>
+                  <Grid item md={2}>
+                    <Input label="Clave Web" campo="claveWeb" />
+                  </Grid>
+                  <Grid item md={3}>
+                    <SelectRutinasWebObraSocial />
+                  </Grid>
+                  <Grid item md={3}>
+                    <Input label="Selector" campo="selector1" />
+                  </Grid>
+                  <Grid item md={3}>
+                    <Input label="Selector 2" campo="selector2" />
+                  </Grid>
+                </>
+              )}
+              {values.tipoValidacion === "PCPOS" && values.tieneValidacionWeb && (
+                <Grid item md={2}>
+                  <Input label="CUIT" campo="cuit" />
+                </Grid>
+              )}
             </Grid>
           ),
         },

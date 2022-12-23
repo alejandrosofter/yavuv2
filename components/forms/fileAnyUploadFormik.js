@@ -14,7 +14,13 @@ import DialogContenido from "./dialogContenido";
 import UpdateField from "./uploadField";
 import MenuRapido from "./speedDial";
 
-const UploadAnyFormik = ({ folder, label, campo, callbackchange }) => {
+const UploadAnyFormik = ({
+  folder,
+  label,
+  campo,
+  callbackchange,
+  acceptFiles,
+}) => {
   const [loading, setLoading] = useState(false);
 
   const [openAdjuntar, setOpenAdjuntar] = useState(false);
@@ -70,6 +76,7 @@ const UploadAnyFormik = ({ folder, label, campo, callbackchange }) => {
                 <Stack>
                   <UpdateField
                     esImagen={false}
+                    acceptFiles={acceptFiles}
                     callBackCambia={(file) => setFile(file)}
                     label="Subir Archivo"
                   />

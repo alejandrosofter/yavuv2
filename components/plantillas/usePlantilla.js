@@ -219,7 +219,7 @@ export function UsePlantilla({ id, data }) {
     });
 
     Handlebars.registerHelper("fechaHora", function (aString) {
-      return getFechaString(aString, "DD/MM/YYYY hh:mm");
+      return getFechaString(aString, "DD/MM/YYYY HH:mm");
     });
     Handlebars.registerHelper(
       "helperMissing",

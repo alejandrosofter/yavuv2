@@ -1,7 +1,14 @@
 import MuestraImagen from "@components/forms/muestraImagen";
 import { capitalize } from "@helpers/Strings";
-import { Grid, Icon, IconButton, Paper, Typography } from "@mui/material";
-import { fuego } from "@nandorojo/swr-firestore";
+import {
+  Grid,
+  Icon,
+  Button,
+  IconButton,
+  Paper,
+  Typography,
+} from "@mui/material";
+import { fuego, useDocument } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import {
   Modelo as ModeloRecetas,
@@ -17,9 +24,31 @@ import ModeloTurnos, {
 } from "@modelos/ModeloTurnos";
 import FormTurnos from "@components/turnos/_form";
 import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
+import { addQueryApi } from "@helpers/db";
+import Dialogo from "@components/forms/dialogo";
 export function DataPaciente({ paciente }) {
+  const [showMensajeCheck, setShowMensajeCheck] = useState();
+  const checkPaciente = () => {
+    setShowMensajeCheck(true);
+    addQueryApi("verificacionPaciente", {
+      ...paciente,
+    });
+  };
+  const { data: obraSocial } = useDocument(
+    `obrasSociales/${paciente.obraSocial}`,
+    {
+      listen: true,
+    }
+  );
+
   return (
     <Grid container spacing={2}>
+      <Dialogo
+        open={showMensajeCheck}
+        setOpen={setShowMensajeCheck}
+        titulo="AGUARDE ... VALIDANDO PACIENTE"
+        detalle="Se enviaron los datos del paciente a la obra social, aguarde y en las notifiaciones se le informará cuando la obra social haya validado los datos del paciente."
+      />
       <Grid item md={1}>
         <MuestraImagen border={3} w={70} h={70} pathImagen={paciente.foto} />
       </Grid>
@@ -38,6 +67,13 @@ export function DataPaciente({ paciente }) {
             {paciente.email}
           </Typography>
         </Grid>
+        {obraSocial?.tieneValidacionWeb && (
+          <Grid item md={12}>
+            <Button onClick={checkPaciente} variant="outlined">
+              validar {obraSocial?.tipoValidacion}
+            </Button>
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );

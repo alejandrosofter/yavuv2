@@ -24,7 +24,7 @@ import MenuModulos from "./menuModulos";
 import MenuModulosInvitado from "./menuModulosInvitado";
 import MenuAccionesBarra from "./menuAccionesBarra";
 import MenuCuenta from "./menuCuenta";
-import MenuNotificaciones from "./menuNotificaciones";
+import MenuNotificaciones from "./notificaciones/menuNotificaciones";
 
 const drawerWidth = 240;
 

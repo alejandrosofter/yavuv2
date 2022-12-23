@@ -43,6 +43,9 @@ export default function Form({ mod, setFieldValue, values }) {
           {/* <Grid item md={3}>
             <SelectCentroCosto />
           </Grid> */}
+          <Grid item md={2}>
+            <Input label="Codigo Contable" campo="codigoContable" />
+          </Grid>
           <Grid item md={3}>
             <SelectCategoriaProducto />
           </Grid>

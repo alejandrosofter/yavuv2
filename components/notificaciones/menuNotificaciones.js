@@ -12,10 +12,12 @@ import {
 } from "@mui/material";
 import { fuego, useCollection, useDocument } from "@nandorojo/swr-firestore";
 import { useState } from "react";
+import { NotificaValidaPaciente } from "./validarPaciente";
 
 export default function MenuNotificaciones({ parentData }) {
   const [seleccion, setSeleccion] = useState();
   const [anchorElNav, setAnchorElNav] = useState();
+  const [showValidarPaciente, setShowValidarPaciente] = useState();
   const [anchorElUser, setAnchorElUser] = useState();
   const { update } = useDocument(`notificaciones/${seleccion?.id}`);
   const { data, error } = useCollection(`notificaciones`, {
@@ -41,15 +43,21 @@ export default function MenuNotificaciones({ parentData }) {
     setAnchorElUser(null);
   };
   const clickNotifica = (notificacion) => {
-    console.log(notificacion);
     if (notificacion)
       fuego.db
         .doc(`notificaciones/${notificacion?.id}`)
         .update({ leido: true });
-
-    if (notificacion.tipo === "DESCARGA") {
-      if (notificacion.data) window.open(notificacion.data.url, "_blank");
-      else console.log("no hay archivo");
+    setSeleccion(notificacion);
+    switch (notificacion.tipo) {
+      case "DESCARGA": {
+        if (notificacion.data) window.open(notificacion.data.url, "_blank");
+        else console.log("no hay archivo");
+        break;
+      }
+      case "verificacionPaciente": {
+        setShowValidarPaciente(true);
+        break;
+      }
     }
   };
   const getCantidadNoLeidos = () => {
@@ -62,6 +70,11 @@ export default function MenuNotificaciones({ parentData }) {
   if (!data) return "";
   return (
     <Grid item xs={11}>
+      <NotificaValidaPaciente
+        open={showValidarPaciente}
+        setOpen={setShowValidarPaciente}
+        notificacion={seleccion}
+      />
       <Badge badgeContent={getCantidadNoLeidos()} color="secondary">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           <Icon sx={{ color: "white" }} className="fas fa-bell" />

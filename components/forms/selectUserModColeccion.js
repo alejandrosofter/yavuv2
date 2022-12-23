@@ -22,6 +22,8 @@ export default function SelectUserModColeccion({
   maxWidth,
   limit,
   esForm = true,
+  allData = false,
+  hideABM = false,
 }) {
   const [seleccion, setSeleccion] = useState();
   const [openEditar, setOpenEditar] = useState(false);
@@ -30,7 +32,9 @@ export default function SelectUserModColeccion({
   const { data } = useCollection(coleccion, {
     limit,
     listen: true,
-    where: parentData
+    where: allData
+      ? []
+      : parentData
       ? ["idUsuario", "==", localStorage.getItem("usermod")]
       : ["usermod", "==", fuego.auth().currentUser?.uid],
   });
@@ -78,26 +82,31 @@ export default function SelectUserModColeccion({
           />
         )}
       </Grid>
+
       {seleccion && (
+        <Grid item md={1}>
+          {hideABM || (
+            <IconButton
+              size="small"
+              onClick={clickEditar}
+              color="secondary"
+              className="fas fa-pencil"
+              title={`Editar ${label}`}
+            ></IconButton>
+          )}
+        </Grid>
+      )}
+      {hideABM || (
         <Grid item md={1}>
           <IconButton
             size="small"
-            onClick={clickEditar}
+            onClick={clickNuevo}
             color="secondary"
-            className="fas fa-pencil"
-            title={`Editar ${label}`}
+            className="fas fa-plus"
+            title={`Agregar ${label}`}
           ></IconButton>
         </Grid>
       )}
-      <Grid item md={1}>
-        <IconButton
-          size="small"
-          onClick={clickNuevo}
-          color="secondary"
-          className="fas fa-plus"
-          title={`Agregar ${label}`}
-        ></IconButton>
-      </Grid>
       <DialogForm
         open={openNuevo}
         setOpen={setOpenNuevo}

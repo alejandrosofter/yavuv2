@@ -13,7 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Grid, Icon, Stack } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
-import MenuNotificaciones from "./menuNotificaciones";
+import MenuNotificaciones from "./notificaciones/menuNotificaciones";
 const MenuUsuario = ({ mod, auth }) => {
   const [anchorElNav, setAnchorElNav] = React.useState();
   const [anchorElUser, setAnchorElUser] = React.useState();

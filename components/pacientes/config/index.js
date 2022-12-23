@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import FormSubitemColeccion from "../../forms/editarSubitemColeccion";
-
+import Input from "@components/forms/input";
 import DataGridFormikItems from "../../forms/dataGridFormik";
 import FormItem from "./_form";
 import { ModeloBootWeb } from "@modelos/ModeloPacientes";
@@ -40,27 +40,17 @@ export default function ConfigActividadad({ mod }) {
           label="Configs"
           vistas={[
             {
-              label: "Acciones Web",
+              label: "GRAL",
               nro: 0,
               vista: (
-                <DataGridFormikItems
-                  label="Acciones WEB"
-                  Modelo={ModeloBootWeb}
-                  FormularioItem={FormItem}
-                  campo="itemsBootsWeb"
-                  columns={[
-                    {
-                      field: "label_bootWeb",
-                      headerName: "Boot Web",
-                      width: 150,
-                    },
-                    {
-                      field: "parametros",
-                      headerName: "Parametros",
-                      width: 350,
-                    },
-                  ]}
-                />
+                <Grid item md={12}>
+                  <Grid item md={6}>
+                    <Input campo="cuitPrestador" label="CUIT PRESTADOR" />
+                    <Typography variant="caption" component="div" gutterBottom>
+                      IMPORTANTE PARA VALIDACION WEB!
+                    </Typography>
+                  </Grid>
+                </Grid>
               ),
             },
             {

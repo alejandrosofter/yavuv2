@@ -35,6 +35,7 @@ export default function Form({ mod, setFieldValue, values }) {
                 fuego.auth().currentUser.uid
               }/prestacionesImportar`}
               label="Archivo"
+              acceptFiles={".xlsx"}
               campo="archivo"
             />
           </Grid>

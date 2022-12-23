@@ -21,6 +21,18 @@ export default function Modulo({ mod }) {
       renderCell: (params) => getFechaString(params.value),
     },
     {
+      field: "tipoValidacion",
+      headerName: "Validacion...",
+      width: 120,
+    },
+    {
+      field: "label_rutinaWeb",
+      headerName: "Rutina WEB",
+      width: 140,
+      renderCell: (params) =>
+        params.row.tipoValidacion === "WEB" ? params.value : "-",
+    },
+    {
       field: "estado",
       headerName: "Estado",
       width: 120,

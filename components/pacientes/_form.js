@@ -25,10 +25,13 @@ export default function Form({ mod, setFieldValue, values }) {
         <Grid item md={2}>
           <Input label="D.N.I" campo="dni" />
         </Grid>
-        <Grid item md={2}>
+        <Grid item md={3}>
           <Input label="Nro Afiliado" campo="nroAfiliado" />
         </Grid>
         <Grid item md={3}>
+          <Input label="Nro Credencial" campo="nroCredencial" />
+        </Grid>
+        <Grid sx={{ pr: 1 }} item md={4}>
           <InputTelefono label="Teléfono" campo="telefono" />
         </Grid>
         <Grid item md={4}>
