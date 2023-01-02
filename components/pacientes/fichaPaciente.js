@@ -10,8 +10,7 @@ import {
 } from "@mui/material";
 import { fuego, useDocument } from "@nandorojo/swr-firestore";
 import { useState } from "react";
-import {
-  Modelo as ModeloRecetas,
+import ModeloRecetas, {
   valoresIniciales as valoresInicialesRecetas,
 } from "@modelos/ModeloRecetas";
 import ABMColeccion from "@components/forms/ABMcollection";
