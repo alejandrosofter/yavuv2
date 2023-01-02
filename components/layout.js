@@ -76,10 +76,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function Layout({ children, mod, auth }) {
   const theme = useTheme();
+  const auth2 = useAuthUser();
   const [open, setOpen] = useState(false);
-  if (!auth) {
-    auth = useAuthUser();
-  }
+  if (!auth) auth = auth2;
   const [dialogSalir, setdialogSalir] = useState(false);
   const [openConsultas, setOpenConsultas] = React.useState(true);
   const router = useRouter();

@@ -1,7 +1,7 @@
 import Modelo, {
   valoresIniciales,
 } from "@modelos/ModeloComprobantesElectronicos";
-import NuevoGenerico from "../NuevoGenerico";
+import NuevoGenerico from "@components/NuevoGenerico";
 import Form from "./_form";
 
 export default function Modulo({ mod }) {

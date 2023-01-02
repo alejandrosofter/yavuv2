@@ -98,10 +98,10 @@ export default function Modulo({ mod }) {
         // }}
         tableInstanceRef={tableInstanceRef}
         positionActionsColumn="last"
-        renderRowActionMenuItems={(row, index) => [
-          <MenuItem onClick={() => console.info("Edit")}>Edit</MenuItem>,
-          <MenuItem onClick={() => console.info("Delete")}>Delete</MenuItem>,
-        ]}
+        // renderRowActionMenuItems={(row, index) => [
+        //   <MenuItem onClick={() => console.info("Edit")}>Edit</MenuItem>,
+        //   <MenuItem onClick={() => console.info("Delete")}>Delete</MenuItem>,
+        // ]}
       />
       <QueryApi dataConsulta={dataConsulta} />
     </Grid>
