@@ -1,7 +1,6 @@
 import ABMColeccion from "@components/forms/ABMcollection";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
-import { contadorMoney } from "@helpers/arrays";
 import { getFechaString } from "@helpers/dates";
 import { formatMoney } from "@helpers/numbers";
 import { QueryApi } from "@helpers/queryApi";
@@ -11,8 +10,10 @@ import Modelo, {
 } from "@modelos/ModeloComprobantesElectronicos";
 import { fuego } from "@nandorojo/swr-firestore";
 import Form from "./_form";
-import Dialogo from "@components/forms/dialogo";
-export default function Modulo({ mod, parentData = false }) {
+import { getModUsuario } from "@helpers/db";
+import Layout2 from "@components/layout2";
+export default function Modulo({ parentData = false }) {
+  const mod = getModUsuario("comprobantesElectronicos");
   const [dataConsulta, setDataConsulta] = useState();
   const [dataImpresion, setDataImpresion] = useState();
   const [openImpresion, setOpenImpresion] = useState(false);
@@ -36,7 +37,8 @@ export default function Modulo({ mod, parentData = false }) {
       field: "fecha",
       headerName: "Fecha",
       width: 100,
-      renderCell: (params) => getFechaString(params.value ? params.value : ""),
+      Cell: ({ cell }) =>
+        getFechaString(cell.getValue() ? cell.getValue() : ""),
     },
     {
       field: "nombreTipoComprobante",
@@ -68,7 +70,8 @@ export default function Modulo({ mod, parentData = false }) {
       field: "items",
       headerName: "$ Importe",
       width: 100,
-      renderCell: (params) => getImporteTotal(params.value ? params.value : ""),
+      Cell: ({ cell }) =>
+        getImporteTotal(cell.getValue() ? cell.getValue() : ""),
     },
     {
       field: "estado",
@@ -101,7 +104,7 @@ export default function Modulo({ mod, parentData = false }) {
   ];
 
   return (
-    <>
+    <Layout2 mod={mod}>
       <ABMColeccion
         coleccion={`comprobantesElectronicos`}
         columns={columns}
@@ -135,6 +138,6 @@ export default function Modulo({ mod, parentData = false }) {
         attachments={[{ filename: "COMPROBANTE.pdf", data: plantilla }]}
       />
       <QueryApi dataConsulta={dataConsulta} />
-    </>
+    </Layout2>
   );
 }

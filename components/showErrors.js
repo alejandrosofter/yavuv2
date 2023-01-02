@@ -12,6 +12,17 @@ export default function ShowErrors({ errors, setOpen, open }) {
     setOpen(false);
   };
 
+  const showError = (errors) =>
+    Object.keys(errors).map((key) => {
+      if (typeof key !== "object") {
+        return (
+          <Typography key={key} variant="body1">
+            {`${key}: ${errors[key]}`}
+          </Typography>
+        );
+      } else showError(errors[key]);
+    });
+
   return (
     <Dialog
       open={open}
@@ -19,27 +30,12 @@ export default function ShowErrors({ errors, setOpen, open }) {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        {"ERRORES DE VALIDACION"}
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-title">{"VALIDACION"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           {errors &&
             //loop object errors
-            Object.keys(errors).map((key) => {
-              if (typeof key !== "object") {
-                return (
-                  <Typography key={key} variant="body1">
-                    -
-                    {
-                      typeof (errors[key] === "object"
-                        ? JSON.stringify(errors[key])
-                        : errors[key])
-                    }
-                  </Typography>
-                );
-              }
-            })}
+            showError(errors)}
         </DialogContentText>
       </DialogContent>
       <DialogActions>

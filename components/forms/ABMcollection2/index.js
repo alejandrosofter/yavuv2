@@ -14,10 +14,9 @@ import { ABMCollection_nuevo } from "./nuevo";
 import { ABMCollection_editar } from "./editar";
 import Dialogo from "../dialogo";
 import { QueryApi } from "@helpers/queryApi";
+import ColeccionTable2 from "../collectionTable2";
 
-import ColeccionTable3 from "../collectionTable3";
-
-export default function ABMColeccion({
+export default function ABMColeccion2({
   valoresIniciales,
   hidePaginador,
 
@@ -141,7 +140,7 @@ export default function ABMColeccion({
         </Grid>
       )}
       <Grid item md={12}>
-        <ColeccionTable
+        <ColeccionTable2
           hidePaginador={hidePaginador}
           rowsPerPage={rowsPerPage}
           acciones={accions}

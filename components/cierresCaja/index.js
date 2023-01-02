@@ -1,10 +1,8 @@
 import { useState } from "react";
 import Modelo, { valoresIniciales } from "@modelos/ModeloCierreCaja";
-import { Icon, Grid, Backdrop, CircularProgress } from "@mui/material";
+import { Grid } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import { getFechaString } from "@helpers/dates";
-import Tooltip from "@mui/material/Tooltip";
-import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 import ABMColeccion from "@components/forms/ABMcollection";
 import Form from "./_form";
 import ImpresionDialog from "@components/forms/impresion";
@@ -20,7 +18,6 @@ export const cols = [
     field: "fecha",
     headerName: "Fecha",
     width: 85,
-    type: "date",
     renderCell: (params) => getFechaString(params.value, "DD/MM hh:mm"),
   },
 

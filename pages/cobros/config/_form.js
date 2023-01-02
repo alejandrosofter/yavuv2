@@ -87,7 +87,6 @@ export default function FormConfig({}) {
               <Grid item md={3}>
                 <Input campo="comprobante_domicilio" label="Domicilio" />
               </Grid>
-
               <Grid item md={2}>
                 <SelectorTipoConceptos campo="comprobante_tipoConcepto" />
               </Grid>

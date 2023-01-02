@@ -1,8 +1,8 @@
 import { Form } from "formik";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Grid, Tab, Icon } from "@mui/material";
-import Input from "../forms/input";
+import Input from "@components/forms/input";
 import Modelo, {
   valoresInicialesItems,
   ModeloItems,
@@ -21,25 +21,18 @@ import SelectorTipoConceptos from "./selectorTipoConceptos";
 import SelectorTipoDocumentos from "@components/comprobantesTipos/selectorTipoDocumentos";
 import SelectorTipoCliente from "./selectorTipoCliente";
 import SelectorComprobantes from "./selectorComprobantes";
-import SelectPuntoVenta from "./selectorPuntoVenta";
 export default function FormComprobantesElectronicos({
   values,
   setFieldValue,
   mod,
   esNuevo,
 }) {
+  console.log(values);
   const cambiaTipoComprobante = (item, row) => {
     if (!item) return;
     console.log(item, row);
     setFieldValue("esNotaCredito", row.esNotaCredito ? true : false);
     setFieldValue("CbteTipo", row.tipoComprobanteFiscal);
-  };
-  useEffect(() => {
-    setFieldValue("puntoVenta", localStorage.getItem("comprobante_puntoVenta"));
-  }, []);
-  const cambiaPuntoVenta = (item, row) => {
-    if (!item) return;
-    localStorage.setItem("comprobante_puntoVenta", row.id);
   };
   const cambiaTipoCliente = (data) => {
     // if (!data && esNuevo) {
@@ -89,13 +82,6 @@ export default function FormComprobantesElectronicos({
       </Grid>
       <Grid item md={2}>
         <SelectorTipoCliente callbackchange={cambiaTipoCliente} />
-      </Grid>
-      <Grid item md={3}>
-        <SelectPuntoVenta
-          callbackchange={cambiaPuntoVenta}
-          campo="puntoVenta"
-          label="Punto Venta"
-        />
       </Grid>
       <Grid item md={3}>
         <SelectorTipoComprobante

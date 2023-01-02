@@ -6,7 +6,7 @@ import "firebase/auth";
 import config from "../config/_firestoreConfig";
 import Fuego from "../config/fuego";
 import { FuegoProvider } from "@nandorojo/swr-firestore";
-import { ErrorBoundary } from "react-error-boundary";
+
 import SnackbarFirebase from "../helpers/snackBarFirebase";
 import { useEffect } from "react";
 import ContextAcciones from "context/accionesContext";

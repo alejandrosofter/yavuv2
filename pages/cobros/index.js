@@ -1,7 +1,5 @@
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
-import { getFechaString } from "../../helpers/dates";
-import { formatMoney } from "../../helpers/numbers";
-import { renderCellExpandData } from "../forms/datagrid/renderCellExpand";
+import { getFechaString } from "@helpers/dates";
+import { formatMoney } from "@helpers/numbers";
 import ImpresionDialog from "@components/forms/impresion";
 import { useState } from "react";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
@@ -12,7 +10,10 @@ import { fuego } from "@nandorojo/swr-firestore";
 import Modelo, { valoresIniciales } from "@modelos/ModeloCobros";
 import ABMColeccion from "@components/forms/ABMcollection";
 import Form from "./_form";
-export default function Modulo({ mod, parentData }) {
+import { getModUsuario } from "@helpers/db";
+import Layout2 from "@components/layout2";
+export default function Modulo({ parentData }) {
+  const mod = getModUsuario("cobros");
   const idPlantilla = mod.config?.plantillaCobro;
   const plantillaEmail = mod.config?.plantillaMail;
   const [openImpresion, setOpenImpresion] = useState(false);
@@ -85,8 +86,8 @@ export default function Modulo({ mod, parentData }) {
       field: "fecha",
       headerName: "Fecha",
       width: 120,
-      renderCell: (params) => {
-        return getFechaString(params.value, "DD/MM | hh:mm");
+      Cell: ({ cell }) => {
+        return getFechaString(cell.getValue(), "DD/MM | hh:mm");
       },
     },
     {
@@ -100,7 +101,7 @@ export default function Modulo({ mod, parentData }) {
       headerName: "Detalle",
       width: 300,
       filterFn: "startsWith",
-      renderCell: (params) => getDetalle(params.row),
+      Cell: ({ cell }) => getDetalle(cell.row.original),
     },
     {
       field: "importe",
@@ -114,60 +115,62 @@ export default function Modulo({ mod, parentData }) {
       field: "importeBonificacion",
       headerName: "$ Bonif.",
       width: 150,
-      renderCell: (params) => {
-        return formatMoney(params.value);
+      Cell: ({ cell }) => {
+        return formatMoney(cell.getValue());
       },
     },
     {
       field: "importePaga",
       headerName: "$ Paga.",
       width: 150,
-      renderCell: (params) => {
-        return formatMoney(params.value);
+      Cell: ({ cell }) => {
+        return formatMoney(cell.getValue());
       },
     },
   ];
 
   return (
-    <Grid container>
-      <Grid item md={10}></Grid>
-      <Grid item md={2}>
-        <Button variant="contained" onClick={() => setOpenCajaDelDia(true)}>
-          Caja del dia
-        </Button>
+    <Layout2 mod={mod}>
+      <Grid container>
+        <Grid item md={10}></Grid>
+        <Grid item md={2}>
+          <Button variant="contained" onClick={() => setOpenCajaDelDia(true)}>
+            Caja del dia
+          </Button>
+        </Grid>
+        <ABMColeccion
+          coleccion={`cobros`}
+          columns={columns}
+          hideNew={true}
+          acciones={fnAcciones}
+          orderBy={["fecha_timestamp", "desc"]}
+          maxWidth="lg"
+          where={[
+            parentData
+              ? ["idUsuario", "==", localStorage.getItem("usermod")]
+              : ["usermod", "==", fuego.auth().currentUser?.uid],
+          ]}
+          // callbackclick={callbackclick}
+          icono={"fas fa-users"}
+          Modelo={Modelo}
+          limit={100}
+          valoresIniciales={valoresIniciales}
+          titulo={`COBROS`}
+          Form={Form}
+        />
+        <ImpresionDialog
+          titulo="PANEL COMPARTIR COBRO"
+          setOpen={setOpenImpresion}
+          open={openImpresion}
+          asunto="COMPROBANTE DE PAGO"
+          data={{ ...dataImpresion, socio, email: socio?.email }}
+          plantilla={plantilla}
+          emailDefault={socio?.email}
+          plantillaEmail={plantillaEmail}
+          attachments={[{ filename: "COBRO.pdf", data: plantilla }]}
+        />
+        <CajaDelDia open={openCajaDelDia} setOpen={setOpenCajaDelDia} />
       </Grid>
-      <ABMColeccion
-        coleccion={`cobros`}
-        columns={columns}
-        hideNew={true}
-        acciones={fnAcciones}
-        orderBy={["fecha_timestamp", "desc"]}
-        maxWidth="lg"
-        where={[
-          parentData
-            ? ["idUsuario", "==", localStorage.getItem("usermod")]
-            : ["usermod", "==", fuego.auth().currentUser?.uid],
-        ]}
-        // callbackclick={callbackclick}
-        icono={"fas fa-users"}
-        Modelo={Modelo}
-        limit={100}
-        valoresIniciales={valoresIniciales}
-        titulo={`COBROS`}
-        Form={Form}
-      />
-      <ImpresionDialog
-        titulo="PANEL COMPARTIR COBRO"
-        setOpen={setOpenImpresion}
-        open={openImpresion}
-        asunto="COMPROBANTE DE PAGO"
-        data={{ ...dataImpresion, socio, email: socio?.email }}
-        plantilla={plantilla}
-        emailDefault={socio?.email}
-        plantillaEmail={plantillaEmail}
-        attachments={[{ filename: "COBRO.pdf", data: plantilla }]}
-      />
-      <CajaDelDia open={openCajaDelDia} setOpen={setOpenCajaDelDia} />
-    </Grid>
+    </Layout2>
   );
 }

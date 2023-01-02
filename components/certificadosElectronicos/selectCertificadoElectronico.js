@@ -13,6 +13,7 @@ export default function SelectCertificadoElectronico({
     <SelectUserModColeccion
       coleccion={"certificadosElectronicos"}
       Modelo={Modelo}
+      parentData={true}
       valoresIniciales={valoresIniciales}
       Form={Form}
       callbackchange={callbackchange}
@@ -23,7 +24,7 @@ export default function SelectCertificadoElectronico({
       maxWidth="md"
       campoId="id"
       campoLabel={(item) => {
-        return item.cuit + " - " + getFechaString(item.fechaVto);
+        return item.nombre + " - vto." + getFechaString(item.fechaVto);
       }}
     />
   );

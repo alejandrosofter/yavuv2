@@ -10,7 +10,14 @@ export default function ModeloCobros() {
 
     importeTotal: yup.number(),
     importeBonifica: yup.number(),
+    esFiscal: yup.boolean(),
     importePaga: yup.number(),
+    comprobante_puntoVenta: yup.string().when("esFiscal", {
+      is: true,
+      then: yup
+        .string()
+        .required("el punto de venta es vital para la carga del comprobante!"),
+    }),
     // formasDePago: yup
     //   .array()
     //   .required("Debes Ingresar por lo menos un pago!")

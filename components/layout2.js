@@ -74,7 +74,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function Layout({ children, mod, auth }) {
+export default function Layout2({ children, mod, auth }) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   if (!auth) {

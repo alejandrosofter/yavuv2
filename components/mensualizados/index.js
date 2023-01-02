@@ -64,16 +64,12 @@ export const cols = [
     field: "label_idProducto",
     headerName: "Producto",
     width: 290,
-    renderCell: (params) =>
-      renderCellExpandData(params, (row) => `${row.label_idProducto}`),
   },
 
   {
     field: "label_tipoPeriodo",
     headerName: "Tipo Periodo",
     width: 160,
-    renderCell: (params) =>
-      renderCellExpandData(params, (row) => `${row.label_tipoPeriodo}`),
   },
 ];
 export default function MensualizadosIndex({ data, mod }) {

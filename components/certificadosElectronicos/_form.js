@@ -10,6 +10,9 @@ export default function FormCertificadosElectronicos({ values }) {
       <Grid item md={2}>
         <SelectFecha label="Fecha VTO" campo="fechaVto" />
       </Grid>
+      <Grid item md={3}>
+        <Input label="Nombre" campo="nombre" />
+      </Grid>
       <Grid item md={2}>
         <Input label="CUIT" campo="cuit" />
       </Grid>

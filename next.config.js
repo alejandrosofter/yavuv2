@@ -14,6 +14,9 @@ module.exports = {
     if (!isServer) {
       config.resolve.fallback.fs = false;
     }
+
+    //add alias handlebars
+    config.resolve.alias.handlebars = "handlebars/dist/handlebars.min.js";
     return config;
   },
 };
