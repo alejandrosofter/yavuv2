@@ -5,30 +5,30 @@ import SelectFecha from "@components/forms/selectorFecha";
 import SelectObraSocial from "@components/obrasSociales/selectObraSocial";
 import UploadAnyFormik from "@components/forms/fileAnyUploadFormik";
 import { fuego } from "@nandorojo/swr-firestore";
+import SelectProducto from "@components/productos/selectProducto";
 export default function Form({ mod, setFieldValue, values }) {
   return (
-    <Grid>
-      <Stack>
-        <Grid
-          sx={{ pt: 1, pb: 1 }}
-          md={12}
-          container
-          rowSpacing={2}
-          spacing={2}
-        >
-          <Grid item md={2}>
-            <SelectFecha label="Fecha" campo="fecha" />
-          </Grid>
+    <Grid container spacing={2}>
+      <Grid item md={3}>
+        <SelectFecha label="Fecha" campo="fecha" />
+      </Grid>
 
-          <Grid item md={2}>
-            <SelectEstaticFormik
-              items={["PENDIENTE", "FINALIZADO"]}
-              label="Estado"
-              campo="estado"
-            />
-          </Grid>
-        </Grid>
-      </Stack>
+      <Grid item md={3}>
+        <SelectEstaticFormik
+          items={["PENDIENTE", "FINALIZADO"]}
+          label="Estado"
+          campo="estado"
+        />
+      </Grid>
+      <Grid item md={6}>
+        <SelectProducto label="Producto" campo="idProducto" />
+      </Grid>
+      <Grid item md={2}>
+        <Input label="Importe" campo="importe" />
+      </Grid>
+      <Grid item md={2}>
+        <Input label="Importe Bonif." campo="importeBonificacion" />
+      </Grid>
     </Grid>
   );
 }

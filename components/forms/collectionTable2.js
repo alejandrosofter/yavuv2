@@ -3,16 +3,13 @@ import { MenuItem } from "@mui/material";
 import { fuego, useCollection } from "@nandorojo/swr-firestore";
 import { useEffect, useMemo, useRef, useState } from "react";
 import MaterialReactTable from "material-react-table";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
+
 export function ColeccionTable({
   coleccion,
   where,
   columns,
   orderBy,
+  gridOptions,
   limit,
   acciones,
   callbackchangedata,
@@ -88,7 +85,8 @@ export function ColeccionTable({
   return (
     <Grid sx={{ mb: 10 }} item xs={12}>
       <MaterialReactTable
-        columns={columnas}
+        {...gridOptions}
+        columns={columns}
         data={data ? data : []}
         enablePagination={true} //disable a default feature
         enableRowActions
@@ -128,10 +126,12 @@ export function ColeccionTable({
           toggleDensity: "Alternar relleno denso",
           toggleFullScreen: "Alternar pantalla completa",
           toggleSelectAll: "Seleccionar todo",
+          rowsPerPage: "Filas por pág.",
+          of: "de",
           toggleSelectRow: "Seleccionar fila",
           ungroupByColumn: "Desagrupar por {column}",
         }}
-        memoMode="rows"
+        // memoMode="rows"
         muiSearchTextFieldProps={{
           variant: "outlined",
           placeholder: "busca...",
@@ -174,11 +174,27 @@ export function ColeccionTable({
           )
         }
       />
-
+      {/* <MaterialReactTable
+        {...gridOptions}
+        columns={columns}
+        data={data ? data : []}
+        enablePagination={false} //disable a default feature
+        enableRowActions={false}
+        enableColumnResizing
+        // onRowSelectionChange={(row, index) => {
+        //   setSeleccion(tableInstanceRef.current?.getSelectedRowModel().rows);
+        // }}
+        // tableInstanceRef={tableInstanceRef}
+        positionActionsColumn="last"
+        // renderRowActionMenuItems={(row, index) => [
+        //   <MenuItem onClick={() => console.info("Edit")}>Edit</MenuItem>,
+        //   <MenuItem onClick={() => console.info("Delete")}>Delete</MenuItem>,
+        // ]}
+      />
       <Backdrop
         open={loading}
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      />
+      /> */}
     </Grid>
   );
 }
@@ -188,15 +204,23 @@ export default function ColeccionTable2({
   columns,
   orderBy,
   limit,
+  gridOptions,
   acciones,
   callbackchangedata,
+  enableRowSelection,
+  filterFns,
+  initialState,
 }) {
   return (
     <ColeccionTable
       coleccion={coleccion}
       where={where}
+      gridOptions={gridOptions}
       columns={columns}
       orderBy={orderBy}
+      enableRowSelection
+      filterFns
+      initialState
       // limit={10}
       acciones={acciones}
       callbackchangedata={callbackchangedata}

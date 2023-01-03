@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { Alert, Button, Grid } from "@mui/material";
+import { Alert, Backdrop, Button, CircularProgress, Grid } from "@mui/material";
 import { Form, Formik, useFormikContext } from "formik";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -38,15 +38,16 @@ export default function _FormGenerico({
     }
   };
   const clickForm = async (values, propsForm) => {
+    setLoad(true);
     if (fnUpdate)
       fnUpdate(quitarValoresNull(values))
         .then(async (res) => {
-          setLoad(false);
           if (callbackSuccess) {
             await callbackSuccess(values, res);
           } else {
             router.back({ shallow: true });
           }
+          setLoad(false);
         })
         .catch((error) => {
           setLoad(false);
@@ -98,6 +99,15 @@ export default function _FormGenerico({
               >
                 ACEPTAR
               </LoadingButton>
+              {/* <Backdrop
+                sx={{
+                  color: "#fff",
+                  zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={load}
+              >
+                <CircularProgress color="inherit" />
+              </Backdrop> */}
               <ShowErrors
                 isValidating={isValidating}
                 errors={errors}
