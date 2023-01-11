@@ -15,6 +15,7 @@ const DataGridFormikItems = ({
   FormularioItem,
   preData,
   mod,
+  hideAgregar,
 }) => {
   return (
     <FormControl fullWidth>
@@ -25,6 +26,7 @@ const DataGridFormikItems = ({
               <ItemsModulo
                 setFieldValue={props.form.setFieldValue}
                 titulo={label}
+                hideAgregar={hideAgregar}
                 icono={icono}
                 campo={campo}
                 data={props.form.values[campo] ? props.form.values[campo] : []}

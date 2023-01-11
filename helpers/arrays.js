@@ -119,6 +119,13 @@ export function deleteUndefinedValue(obj) {
   }
   return obj;
 }
+export function objectToArray(obj) {
+  let arr = [];
+  for (const key in obj) {
+    arr.push(obj[key]);
+  }
+  return arr;
+}
 export function getIndexItemArray({ data, valor, campoId }) {
   if (data) {
     campoId = campoId ? campoId : "id";

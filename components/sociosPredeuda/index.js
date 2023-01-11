@@ -4,16 +4,24 @@ import Modelo, { valoresIniciales } from "@modelos/ModeloPredeudaSocios";
 import { useEffect, useRef, useState } from "react";
 import { QueryApi } from "@helpers/queryApi";
 import { fuego, useCollection } from "@nandorojo/swr-firestore";
-import { Button, Grid, MenuItem, TextField } from "@mui/material";
+import { Button, Grid, Icon } from "@mui/material";
 
 import ABMColeccion2 from "@components/forms/ABMcollection2";
+import NuevoMovimiento from "./nuevoMovimiento";
+import Drawer from "@components/forms/drawerPerosnalizado";
+import DrawerPersonalizado from "@components/forms/drawerPerosnalizado";
+import MovimientosPredeuda from "./movimientos";
+
 export default function Modulo({ parentData }) {
+  const tipoOperacion = "actividades";
+  const [openNuevoMovimiento, setOpenNuevoMovimiento] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [seleccion, setSeleccion] = useState();
   const [dataConsulta, setDataConsulta] = useState();
 
   const tableInstanceRef = useRef();
   const order = ["fecha_timestamp", "desc"];
   const [filtroActividadSeleccion, setFiltroActividadSeleccion] = useState();
-  const { data } = useCollection(`socios_predeudas`);
 
   const { data: productos } = useCollection(`productos`, {
     where: parentData
@@ -97,10 +105,14 @@ export default function Modulo({ parentData }) {
     },
   ];
   const aceptarDeudas = () => {
-    console.log(tableInstanceRef.current?.getSelectedRowModel().rows);
+    setSeleccion(tableInstanceRef.current?.getSelectedRowModel().rows);
+    setOpenNuevoMovimiento(true);
   };
-  console.log(data);
-  if (!data) return "Cargando...";
+  const cargoMovimiento = () => {
+    setOpenDrawer(true);
+    setOpenNuevoMovimiento(false);
+  };
+
   return (
     <Grid container>
       <ABMColeccion2
@@ -108,12 +120,28 @@ export default function Modulo({ parentData }) {
         columns={columns}
         acciones={acciones}
         maxWidth={"md"}
+        where={[
+          parentData
+            ? ["idUsuario", "==", localStorage.getItem("usermod")]
+            : ["usermod", "==", fuego.auth().currentUser?.uid],
+          ["esActividad", "==", true],
+          ["estado", "==", "PENDIENTE"],
+        ]}
         gridOptions={{
           renderTopToolbarCustomActions: () => (
             <Grid container>
               <Grid item xs={12} md={4}>
-                <Button variant="contained" onClick={aceptarDeudas}>
+                <Button onClick={aceptarDeudas}>
+                  <Icon sx={{ mr: 1 }} className="fas fa-check-circle" />{" "}
                   aceptar seleccion
+                </Button>
+                <Button
+                  onClick={() => {
+                    setOpenDrawer(true);
+                  }}
+                >
+                  <Icon sx={{ mr: 1 }} className="fas fa-book" />
+                  operaciones
                 </Button>
               </Grid>
             </Grid>
@@ -147,39 +175,21 @@ export default function Modulo({ parentData }) {
         titulo={`PREDEUDA`}
         Form={Form}
       />
-      {/* <MaterialReactTable
-        columns={columns}
-        data={data}
-        filterFns={{
-          filtroFecha: (row, id, filterValue) => {
-            const date = new Date(row.original[id].seconds * 1000);
-            const dateFiltro = new Date(filterValue);
-            console.log(date, dateFiltro);
-            //si es fecha invalida
-            if (isNaN(dateFiltro.getTime())) return true;
-            //comparo fechas
-            return (
-              date.getDate() === dateFiltro.getDate() &&
-              date.getMonth() === dateFiltro.getMonth() &&
-              date.getFullYear() === dateFiltro.getFullYear()
-            );
-          },
-        }}
-        initialState={{ showColumnFilters: true }}
-        enablePagination={false} //disable a default feature
-        enableRowActions={false}
-        enableRowSelection
-        enableColumnResizing
-        // onRowSelectionChange={(row, index) => {
-        //   setSeleccion(tableInstanceRef.current?.getSelectedRowModel().rows);
-        // }}
-        tableInstanceRef={tableInstanceRef}
-        positionActionsColumn="last"
-        // renderRowActionMenuItems={(row, index) => [
-        //   <MenuItem onClick={() => console.info("Edit")}>Edit</MenuItem>,
-        //   <MenuItem onClick={() => console.info("Delete")}>Delete</MenuItem>,
-        // ]}
-      /> */}
+      <NuevoMovimiento
+        open={openNuevoMovimiento}
+        callbackSuccess={cargoMovimiento}
+        tipoOperacion={tipoOperacion}
+        setOpen={setOpenNuevoMovimiento}
+        seleccion={seleccion?.map((item) => item.original)}
+      />
+      <DrawerPersonalizado
+        anchor={"right"}
+        open={openDrawer}
+        width={450}
+        setOpen={setOpenDrawer}
+      >
+        <MovimientosPredeuda tipoOperacion={tipoOperacion} />
+      </DrawerPersonalizado>
       <QueryApi dataConsulta={dataConsulta} />
     </Grid>
   );

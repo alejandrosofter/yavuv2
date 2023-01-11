@@ -48,3 +48,17 @@ export const findPath = (ob, key, value) => {
 
   return path.join(".");
 };
+export const quitarValoresNull = (obj) => {
+  console.log(obj);
+  for (let key in obj) {
+    if (obj[key] === null || obj[key] === undefined) {
+      delete obj[key];
+    }
+  }
+  return obj;
+};
+
+export const quitarValoresNullArray = (arr) => {
+  if (!arr) return [];
+  return arr.map((item) => quitarValoresNull(item));
+};

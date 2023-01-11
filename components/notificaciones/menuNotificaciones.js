@@ -76,7 +76,11 @@ export default function MenuNotificaciones({ parentData }) {
         notificacion={seleccion}
       />
       <Badge badgeContent={getCantidadNoLeidos()} color="secondary">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+        <IconButton
+          title="Notificaciones"
+          onClick={handleOpenUserMenu}
+          sx={{ p: 0 }}
+        >
           <Icon sx={{ color: "white" }} className="fas fa-bell" />
         </IconButton>
       </Badge>

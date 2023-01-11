@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Grid, Icon, Stack } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import MenuNotificaciones from "./notificaciones/menuNotificaciones";
+import MenuCajaDiaria from "./cobros/menuCajaDiaria";
 const MenuUsuario = ({ mod, auth }) => {
   const [anchorElNav, setAnchorElNav] = React.useState();
   const [anchorElUser, setAnchorElUser] = React.useState();
@@ -34,7 +35,11 @@ const MenuUsuario = ({ mod, auth }) => {
   if (!auth) return "";
   return (
     <Grid container justifyContent="center" alignItems="center">
-      <Grid item xs={10}></Grid>
+      <Grid item xs={9}></Grid>
+
+      <Grid item xs={1}>
+        <MenuCajaDiaria />
+      </Grid>
       <Grid item xs={1}>
         <MenuNotificaciones auth={auth} />
       </Grid>

@@ -10,7 +10,7 @@ import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { formatMoney } from "@helpers/numbers";
 import { QueryApi } from "@helpers/queryApi";
 import PagosCierresCaja from "./pagos";
-import { groupBy, orderArray } from "@helpers/arrays";
+import { groupBy, objectToArray, orderArray } from "@helpers/arrays";
 import Dialogo from "@components/forms/dialogo";
 import { addQueryApi } from "@helpers/db";
 export const cols = [
@@ -70,18 +70,6 @@ export default function CuentaSocio({ data, mod }) {
             ...docCierre.docs[i].data(),
             id: docCierre.docs[i].id,
           });
-          // const items = await fuego.db
-          //   .collection(
-          //     `cierresCaja/${row.id}/cierresFormaPago/${docCierre.docs[i].id}/items`
-          //   )
-          //   .get()
-          //   .then((docItems) => {
-          //     return docItems.docs.map((doc) => doc.data());
-          //   });
-          // formasDePago.push({
-          //   ...docCierre.docs[i].data(),
-          //   items,
-          // });
         }
         setLoading(false);
       });
@@ -93,6 +81,17 @@ export default function CuentaSocio({ data, mod }) {
     //   data: seleccion,
     // });
     if (seleccion) addQueryApi("generarFacturas", seleccion);
+  };
+  const getDataProductos = (data) => {
+    return data
+      .map((item) => {
+        return item.deudas?.map((deuda) => ({
+          ...deuda,
+          formaPago: item.formaPago,
+          label_formaPago: item.label_formaPago,
+        }));
+      })
+      .flat();
   };
   const acciones = [
     {
@@ -126,14 +125,37 @@ export default function CuentaSocio({ data, mod }) {
       icono: "fas fa-share-alt",
       label: "Compartir",
       fn: async (row) => {
-        const formasDePago = await getDataImpresion(row);
+        const dataImpresion = await getDataImpresion(row);
         const data = groupBy(
-          formasDePago,
+          dataImpresion,
           (item) => {
             return item.label_formaPago;
           },
           true
         );
+        const itemsProductos = objectToArray(
+          groupBy(
+            getDataProductos(dataImpresion),
+            (item) => {
+              return item.idProducto;
+            },
+            true
+          )
+        )
+          //sumatoria de importes
+          .map((item) => {
+            return {
+              label_idProducto: item[0].label_idProducto,
+              idProducto: item[0].idProducto,
+              cantidad: item.reduce((a, b) => a + Number(b.cantidad), 0),
+              importe: item.reduce((a, b) => a + Number(b.importe), 0),
+              importeBonificacion: item.reduce(
+                (a, b) => a + Number(b.importeBonificacion),
+                0
+              ),
+            };
+          });
+
         let items = [];
         //loop object data
         for (const [key, value] of Object.entries(data)) {
@@ -144,8 +166,13 @@ export default function CuentaSocio({ data, mod }) {
             total: value.reduce((a, b) => a + Number(b.importeTotal), 0),
           });
         }
-        // console.log({ ...row, items, user: fuego.auth().currentUser });
-        setDataImpresion({ ...row, items, user: fuego.auth().currentUser });
+
+        setDataImpresion({
+          ...row,
+          items,
+          itemsProductos,
+          user: fuego.auth().currentUser,
+        });
         setOpenImpresion(true);
       },
     },

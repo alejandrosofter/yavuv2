@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Grid } from "@mui/material";
-import InscriptosGrupo from "./inscriptos";
+import InscriptosGrupo from "./inscriptos/index2";
 
 import ListaAsistenciaGrupo from "./asistencias";
 import ListaCierreAsistenciasGrupo from "./cierreAsistencias";

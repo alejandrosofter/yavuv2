@@ -17,6 +17,7 @@ export default function SelectCategoriaProducto({
       Modelo={ModeloCategoria}
       valoresIniciales={valoresInicialesCategoria}
       Form={Form}
+      parentData={true}
       callbackchange={callbackchange}
       multiple={multiple}
       campo={campo ? campo : "idCategoriaProducto"}

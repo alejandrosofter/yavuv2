@@ -18,6 +18,8 @@ import ColeccionTable2 from "../collectionTable2";
 
 export default function ABMColeccion2({
   valoresIniciales,
+  parentData,
+  dataExternal,
   hidePaginador,
   gridOptions,
   rowsPerPage,
@@ -144,6 +146,7 @@ export default function ABMColeccion2({
           hidePaginador={hidePaginador}
           rowsPerPage={rowsPerPage}
           acciones={accions}
+          dataExternal={dataExternal}
           gridOptions={gridOptions}
           where={where}
           limit={limit}

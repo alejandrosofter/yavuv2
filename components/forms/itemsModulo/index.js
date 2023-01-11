@@ -37,6 +37,7 @@ export default function ItemsModulo({
   nombreModulo,
   textoEditar,
   textoAgregar,
+  hideAgregar,
 }) {
   useEffect(() => {
     let aux = columnas;
@@ -157,22 +158,26 @@ export default function ItemsModulo({
                   </Badge>
                 </IconButton>
               )}
-              <ItemsModulo_agregar
-                labelBtnAgregar={labelBtnAgregar}
-                labelNuevo={labelNuevo}
-                fullWidth={fullWidth}
-                maxWidth={maxWidth}
-                textoAgregar={textoAgregar}
-                nombreModulo={nombreModulo}
-                valoresIniciales={valoresIniciales}
-                dataModulo={dataModulo}
-                modelo={modelo}
-                clickAceptar={clickAceptar}
-                form={form}
-              />
-              <Button size="small" variant="outlined" onClick={clickVaciar}>
-                <Icon className="fas fa-trash" /> Vaciar
-              </Button>
+              {!hideAgregar && (
+                <ItemsModulo_agregar
+                  labelBtnAgregar={labelBtnAgregar}
+                  labelNuevo={labelNuevo}
+                  fullWidth={fullWidth}
+                  maxWidth={maxWidth}
+                  textoAgregar={textoAgregar}
+                  nombreModulo={nombreModulo}
+                  valoresIniciales={valoresIniciales}
+                  dataModulo={dataModulo}
+                  modelo={modelo}
+                  clickAceptar={clickAceptar}
+                  form={form}
+                />
+              )}
+              {!hideAgregar && (
+                <Button size="small" variant="outlined" onClick={clickVaciar}>
+                  <Icon className="fas fa-trash" /> Vaciar
+                </Button>
+              )}
               <Stack direction="row" spacing={1}>
                 <Typography variant="h5"> {titulo}</Typography>
                 <Icon className={icono} />

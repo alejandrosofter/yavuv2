@@ -7,11 +7,13 @@ export default function SelectProducto({
   label,
   campo,
   callbackchange,
+  parentData,
 }) {
   return (
     <SelectUserModColeccion
       coleccion={"productos"}
       Modelo={Modelo}
+      parentData={parentData}
       valoresIniciales={valoresIniciales}
       Form={Form}
       callbackchange={callbackchange}

@@ -25,6 +25,7 @@ export default function _FormGenerico({
   const [openErrores, setOpenErrores] = useState(false);
 
   const quitarValoresNull = (obj) => {
+    console.log(obj);
     for (let key in obj) {
       if (obj[key] === null || obj[key] === undefined) {
         delete obj[key];

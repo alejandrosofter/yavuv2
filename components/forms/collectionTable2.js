@@ -8,19 +8,21 @@ export function ColeccionTable({
   coleccion,
   where,
   columns,
+  dataExternal,
   orderBy,
   gridOptions,
   limit,
   acciones,
   callbackchangedata,
 }) {
-  const { data, isError, isFetching, isLoading, error, refetch } =
-    useCollection(coleccion, {
-      where,
-      orderBy,
-      limit,
-      listen: true,
-    });
+  const { data, isError, isFetching, isLoading, error, refetch } = dataExternal
+    ? dataExternal
+    : useCollection(coleccion, {
+        where,
+        orderBy,
+        limit,
+        listen: true,
+      });
   const [loading, setLoading] = useState(false);
   const [accionesTabla, setAccionesTabla] = useState([]);
   const [rowSeleccion, setRowSeleccion] = useState(null);
@@ -92,7 +94,7 @@ export function ColeccionTable({
         enableRowActions
         enableStickyHeader
         // globalFilterFn="contains"
-        initialState={{ showGlobalFilter: false, showColumnFilters: true }}
+        // initialState={{ showGlobalFilter: false, showColumnFilters: true }}
         positionGlobalFilter="left"
         enableGlobalFilter={false}
         enableColumnResizing
@@ -204,6 +206,7 @@ export default function ColeccionTable2({
   columns,
   orderBy,
   limit,
+  dataExternal,
   gridOptions,
   acciones,
   callbackchangedata,
@@ -217,6 +220,7 @@ export default function ColeccionTable2({
       where={where}
       gridOptions={gridOptions}
       columns={columns}
+      dataExternal={dataExternal}
       orderBy={orderBy}
       enableRowSelection
       filterFns
