@@ -86,7 +86,7 @@ export function ColeccionTable({
       <MaterialReactTable
         {...gridOptions}
         columns={columns}
-        data={dataExternal ? dataExternal : data}
+        data={dataExternal ? dataExternal : data ? data : []}
         enablePagination={true} //disable a default feature
         enableRowActions
         enableStickyHeader

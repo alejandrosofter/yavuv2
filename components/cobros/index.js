@@ -187,26 +187,6 @@ export default function Modulo({ mod, parentData }) {
 
   return (
     <Grid container>
-      {/* <ABMColeccion
-        coleccion={`cobros`}
-        columns={columns}
-        hideNew={true}
-        acciones={fnAcciones}
-        orderBy={["fecha_timestamp", "desc"]}
-        maxWidth="lg"
-        where={[
-          parentData
-            ? ["idUsuario", "==", localStorage.getItem("usermod")]
-            : ["usermod", "==", fuego.auth().currentUser?.uid],
-        ]}
-        // callbackclick={callbackclick}
-        icono={"fas fa-users"}
-        Modelo={Modelo}
-        limit={100}
-        valoresIniciales={valoresIniciales}
-        titulo={`COBROS`}
-        Form={Form}
-      /> */}
       <ABMColeccion
         coleccion={`cobros`}
         columns={columns}
