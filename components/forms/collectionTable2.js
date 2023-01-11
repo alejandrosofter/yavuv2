@@ -15,14 +15,13 @@ export function ColeccionTable({
   acciones,
   callbackchangedata,
 }) {
-  const { data, isError, isFetching, isLoading, error, refetch } = dataExternal
-    ? dataExternal
-    : useCollection(coleccion, {
-        where,
-        orderBy,
-        limit,
-        listen: true,
-      });
+  const { data, isError, isFetching, isLoading, error, refetch } =
+    useCollection(coleccion, {
+      where,
+      orderBy,
+      limit,
+      listen: true,
+    });
   const [loading, setLoading] = useState(false);
   const [accionesTabla, setAccionesTabla] = useState([]);
   const [rowSeleccion, setRowSeleccion] = useState(null);
@@ -43,8 +42,8 @@ export function ColeccionTable({
       });
   };
   useEffect(() => {
-    if (callbackchangedata) callbackchangedata(data);
-  }, [data]);
+    if (callbackchangedata) callbackchangedata(dataExternal);
+  }, [dataExternal]);
   useEffect(() => {
     const aux = columns.map((column) => {
       return {
@@ -81,15 +80,13 @@ export function ColeccionTable({
     }
     return ref;
   };
-  console.log(data);
-  if (!data) return "Cargando...";
   //set container drawer mui
   return (
     <Grid sx={{ mb: 10 }} item xs={12}>
       <MaterialReactTable
         {...gridOptions}
         columns={columns}
-        data={data ? data : []}
+        data={dataExternal ? dataExternal : data}
         enablePagination={true} //disable a default feature
         enableRowActions
         enableStickyHeader
