@@ -6,8 +6,8 @@ import NuevoGenerico from "@components/NuevoGenerico2";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import PerfilSocio from "@components/socios/perfilSocio";
 import { getModUsuario } from "@helpers/db";
-import Form from "@components/sociosPredeuda/_form";
-import Modelo, { valoresIniciales } from "@modelos/ModeloGrupos";
+import Form from "@components/socios/mensualizado/_form";
+import { ModeloMensualizado, valoresMensualizado } from "@modelos/ModeloSocios";
 import {
   Grid,
   Typography,
@@ -39,7 +39,7 @@ export default function InscriptosGrupo({
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const [dataConsulta, setDataConsulta] = useState();
-  const [dataExternal, setDataExternal] = useState();
+  const [dataExternal, setDataExternal] = useState([]);
   const tableInstanceRef = useRef();
   const [seleccion, setSeleccion] = useState();
   const [openNuevoMovimiento, setOpenNuevoMovimiento] = useState(false);
@@ -48,15 +48,19 @@ export default function InscriptosGrupo({
   const [inscriptos, setInscriptos] = useState([]);
 
   //call to api to get data axios or fetch
-  useEffect(() => {
-    setDataConsulta({
-      url: `/api/actividades/getIntegrantes`,
-      data: { actividad, grupo },
-    });
-  }, [actividad, grupo]);
 
   const modSocio = getModUsuario("socios");
-
+  const { data, error } = useCollection(
+    `actividades/${actividad?.id}/grupos/${grupo?.id}/integrantes`,
+    {
+      listen: true,
+      orderBy: ["apellido", "asc"],
+    }
+  );
+  useEffect(() => {
+    console.log(data);
+    setDataExternal(data);
+  }, [data]);
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,
@@ -79,11 +83,11 @@ export default function InscriptosGrupo({
       size: 250,
     },
     {
-      accessorKey: "ultimaCuota",
-      header: "Ultima Cuota",
+      accessorKey: "fechaInicio",
+      header: "Prox. Cuota",
       filterFn: "includesString",
-      Cell: ({ cell }) => `${getFechaString(cell.row.original.ultimaCuota)}`,
-      size: 250,
+      Cell: ({ cell }) => `${getFechaString(cell.row.original.fechaInicio)}`,
+      size: 150,
     },
     {
       accessorKey: "estado",
@@ -143,9 +147,14 @@ export default function InscriptosGrupo({
     >
       <Grid container>
         <Grid item md={9}>
-          <Typography variant="h6" gutterBottom>
-            {`${actividad?.nombreActividad} / ${grupo?.nombreGrupo} / Inscriptos`}
-          </Typography>
+          <Box spacing={1} sx={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="h4" sx={{ color: "#ccc", pr: 1 }} gutterBottom>
+              {`${actividad?.nombreActividad} /`}
+            </Typography>
+            <Typography variant="h4" gutterBottom>
+              {` ${grupo?.nombreGrupo} `}
+            </Typography>
+          </Box>
         </Grid>
         <Grid item xs={3}>
           <Button onClick={imprimirIntegrantes}>
@@ -158,7 +167,7 @@ export default function InscriptosGrupo({
             columns={columns}
             acciones={acciones}
             maxWidth={"md"}
-            dataExternal={{ data: dataExternal }}
+            dataExternal={dataExternal}
             // where={[
             //   parentData
             //     ? ["idUsuario", "==", localStorage.getItem("usermod")]
@@ -168,37 +177,14 @@ export default function InscriptosGrupo({
             //   ["idGrupoActividad", "==", grupo?.id],
             // ]}
             gridOptions={{
-              renderTopToolbarCustomActions: () => (
-                <Grid container>
-                  <Grid item xs={12} md={4}>
-                    <Button onClick={aceptarDeudas}>
-                      <Icon sx={{ mr: 1 }} className="fas fa-check-circle" />{" "}
-                      aceptar seleccion
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setOpenDrawer(true);
-                      }}
-                    >
-                      <Icon sx={{ mr: 1 }} className="fas fa-book" />
-                      operaciones
-                    </Button>
-                  </Grid>
-                </Grid>
-              ),
+              // renderTopToolbarCustomActions: () => <Grid container></Grid>,
               tableInstanceRef,
-
-              renderDetailPanel: ({ row }) => {
-                return (
-                  <Box
-                    sx={{
-                      display: "grid",
-                      margin: "auto",
-                      gridTemplateColumns: "1fr 1fr",
-                      width: "100%",
-                    }}
-                  ></Box>
-                );
+              muiSelectCheckboxProps: ({ row }) => {
+                console.log(row);
+                return {
+                  color: "secondary",
+                  disabled: true,
+                };
               },
               initialState: { showColumnFilters: false },
               enableRowSelection: false,
@@ -222,9 +208,19 @@ export default function InscriptosGrupo({
             order={order}
             // callbackclick={callbackclick}
             icono={"fas fa-users"}
-            Modelo={Modelo}
-            valoresIniciales={valoresIniciales}
-            // dataForm={{ grupo: seleccion }}
+            Modelo={ModeloMensualizado}
+            valoresIniciales={valoresMensualizado}
+            preData={{
+              idActividad: actividad?.id,
+              idGrupoActividad: grupo?.id,
+              label_idActividad: actividad?.nombreActividad,
+              label_idGrupoActividad: grupo?.nombreGrupo,
+              agregarActividad: true,
+            }}
+            dataForm={{
+              showSelectSocio: true,
+            }}
+            labelNuevo="Agregar Integrante"
             titulo={`PREDEUDA`}
             Form={Form}
           />
@@ -238,7 +234,6 @@ export default function InscriptosGrupo({
           plantilla={plantilla}
         />
       </Grid>
-      <QueryApi callbackSuccess={successQuery} dataConsulta={dataConsulta} />
     </DialogContenido>
   );
 }

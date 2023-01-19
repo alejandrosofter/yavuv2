@@ -273,9 +273,13 @@ export function valoresMensualizado(preData) {
   return {
     ...preData,
     estado: "ALTA",
+    estadoMovimiento: "PENDIENTE",
     fechaUpdateEstado_timestamp: new Date().getTime(),
     fecha: new Date(),
+    fecha_timestamp: new Date().getTime(),
+
     fechaInicio: new Date(),
+    fechaInicio_timestamp: new Date().getTime(),
     concepto: "",
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")

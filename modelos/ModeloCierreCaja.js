@@ -3,15 +3,20 @@ import { fuego } from "@nandorojo/swr-firestore";
 import moment from "moment";
 export default function Modelo() {
   return yup.object().shape({
-    fecha: yup.date(),
+    // fecha: yup.date(),
     estado: yup.string(),
     importeAbre: yup.number(),
+    puntoVenta: yup
+      .string()
+      .required(
+        "Debes seleccionar un punto de venta, es importante para informe contable"
+      ),
     formaPago: yup.array(),
   });
 }
 export function valoresIniciales() {
   return {
-    fecha: moment.utc().startOf("day"),
+    fecha: new Date(),
     fecha_timestamp: moment.utc().startOf("day").unix(),
     estado: "PENDIENTE",
     importeAbre: 0,

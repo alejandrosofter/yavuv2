@@ -1,4 +1,4 @@
-import ABMColeccion from "@components/forms/ABMcollection";
+import ABMColeccion from "@components/forms/ABMcollection2";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { contadorMoney } from "@helpers/arrays";
@@ -29,24 +29,31 @@ export default function Modulo({ mod, parentData = false }) {
         Number(items[i].importe) * Number(items[i].cantidad) -
         Number(items[i].importeBonificacion ? items[i].importeBonificacion : 0);
     }
-    return formatMoney(total);
+    return total;
   };
   const columns = [
     {
-      field: "fecha",
-      headerName: "Fecha",
-      width: 100,
-      renderCell: (params) => getFechaString(params.value ? params.value : ""),
+      accessorKey: "fecha",
+      header: "Fecha",
+      size: 100,
+      filterFn: (row, id, filterValue) => {
+        // console.log(
+        //   `importe total ${getImporteTotal(row.getValue(id))} == ${filterValue}`
+        // );
+        return getFechaString(row.getValue(id)) === filterValue;
+      },
+      Cell: ({ cell }) =>
+        getFechaString(cell.getValue() ? cell.getValue() : ""),
     },
     {
-      field: "nombreTipoComprobante",
-      headerName: "Tipo Comp.",
-      width: 150,
+      accessorKey: "nombreTipoComprobante",
+      header: "Tipo Comp.",
+      size: 150,
     },
     {
-      field: "razonSocial",
-      headerName: "Razon Social",
-      width: 200,
+      accessorKey: "razonSocial",
+      header: "Razon Social",
+      size: 200,
     },
     // {
     //   field: "label_tipoComprobante",
@@ -55,25 +62,33 @@ export default function Modulo({ mod, parentData = false }) {
     // },
 
     {
-      field: "email",
-      headerName: "Email",
-      width: 190,
+      accessorKey: "email",
+      header: "Email",
+      size: 190,
     },
     {
-      field: "nroCae",
-      headerName: "CAE",
-      width: 150,
+      accessorKey: "nroCae",
+      header: "CAE",
+      size: 120,
     },
     {
-      field: "items",
-      headerName: "$ Importe",
-      width: 100,
-      renderCell: (params) => getImporteTotal(params.value ? params.value : ""),
+      accessorKey: "items",
+      header: "$ Importe",
+      size: 150,
+      filterFn: (row, id, filterValue) => {
+        // console.log(
+        //   `importe total ${getImporteTotal(row.getValue(id))} == ${filterValue}`
+        // );
+        return getImporteTotal(row.getValue(id)) === Number(filterValue);
+      },
+
+      Cell: ({ cell }) =>
+        formatMoney(getImporteTotal(cell.getValue() ? cell.getValue() : "")),
     },
     {
-      field: "estado",
-      headerName: "Estado",
-      width: 100,
+      accessorKey: "estado",
+      header: "Estado",
+      size: 100,
     },
   ];
   let fnAcciones = [
@@ -110,6 +125,9 @@ export default function Modulo({ mod, parentData = false }) {
         orderBy={["fecha_timestamp", "desc"]}
         limit={10}
         maxWidth="lg"
+        gridOptions={{
+          initialState: { showColumnFilters: true },
+        }}
         where={[
           parentData
             ? ["idUsuario", "==", localStorage.getItem("usermod")]

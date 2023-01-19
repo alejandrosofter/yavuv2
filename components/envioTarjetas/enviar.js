@@ -1,11 +1,13 @@
 import DialogContenido from "@components/forms/dialogContenido";
 import Input from "@components/forms/input";
+import { addQueryApi } from "@helpers/db";
 import {
   Backdrop,
   Button,
   CircularProgress,
   TextField,
   Grid,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -19,17 +21,14 @@ export default function EnviarCredenciales({ open, setOpen, data }) {
   const enviar = () => {
     setLoading(true);
     localStorage.setItem("enviarTarjetas_email", email);
-    axios
-      .get("/api/envioTarjetas/notificar", {
-        params: { id: data?.id, email },
-      })
-      .then(() => {
+    addQueryApi("enviarTarjetas", { id: data?.id, email })
+      .then((res) => {
         setLoading(false);
         setOpen(false);
       })
       .catch((err) => {
         setLoading(false);
-        console.error(err);
+        setOpen(false);
       });
   };
 
@@ -55,6 +54,12 @@ export default function EnviarCredenciales({ open, setOpen, data }) {
           <Button variant="outlined" onClick={enviar}>
             Enviar
           </Button>
+        </Grid>
+        <Grid item md={12}>
+          <Typography variant="body2">
+            Se enviará un email con las credenciales para poder imprimir las
+            tarjetas. Aguarde y en notificaciones verá el estado del envío.
+          </Typography>
         </Grid>
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

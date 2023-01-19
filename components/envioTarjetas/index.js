@@ -1,14 +1,16 @@
 import { getFechaString } from "@helpers/dates";
 import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Test from "./test";
 import EnviarCredenciales from "./enviar";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { fuego } from "@nandorojo/swr-firestore";
-
-export default function Modulo({ mod }) {
+import ABMColeccion2 from "@components/forms/ABMcollection2";
+import Form from "@components/envioTarjetas/_form";
+import Modelo, { valoresIniciales } from "@modelos/ModeloEnvioTarjetas";
+export default function Modulo({ mod, parentData }) {
   const order = ["fecha", "desc"];
   const idPlantilla = mod.config?.tarjetasImpresas;
   const [open, setOpen] = useState(false);
@@ -17,40 +19,44 @@ export default function Modulo({ mod }) {
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataSeleccion, setDataSeleccion] = useState();
   const [dataImpresion, setDataImpresion] = useState();
+  const tableInstanceRef = useRef();
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,
   });
   const columns = [
     {
-      field: "fecha",
-      headerName: "Fecha",
-      width: 100,
-      renderCell: (params) => getFechaString(params.value ? params.value : ""),
+      accessorKey: "fecha",
+      header: "Fecha",
+      size: 100,
+      Cell: ({ cell }) =>
+        getFechaString(cell.getValue() ? cell.getValue() : ""),
     },
     {
-      field: "recibidas",
-      headerName: "Recibida?",
-      width: 100,
-      renderCell: (params) =>
-        params.value ? getFechaString(params.row.fechaRecibidas) : "NO",
+      accessorKey: "recibidas",
+      header: "Recibida?",
+      size: 100,
+      Cell: ({ cell }) =>
+        cell.row.original.fechaRecibidas
+          ? getFechaString(cell.row.original.fechaRecibidas)
+          : "NO",
     },
     {
-      field: "cantidad",
-      headerName: "Cantidad Tarjetas",
-      width: 170,
+      accessorKey: "cantidad",
+      header: "Cantidad Tarjetas",
+      size: 170,
     },
 
     {
-      field: "email",
-      headerName: "Enviar a ...",
-      width: 320,
+      accessorKey: "email",
+      header: "Enviar a ...",
+      size: 320,
     },
     {
-      field: "estado",
-      headerName: "Estado",
-      width: 100,
-      renderCell: (params) => `${params.value}`,
+      accessorKey: "estado",
+      header: "Estado",
+      size: 100,
+      Cell: ({ cell }) => `${cell.getValue()}`,
     },
   ];
   const enviarSolicitud = (url, data) => {
@@ -78,36 +84,76 @@ export default function Modulo({ mod }) {
         });
       });
   };
-  let fnAcciones = {
-    enviar: (data) => {
-      setDataSeleccion(data);
-      setOpenEnviar(true);
+  let fnAcciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-envelope",
+      label: "Enviar",
+
+      fn: (data) => {
+        setDataSeleccion(data);
+        setOpenEnviar(true);
+      },
     },
-    imprimir: async (data) => {
-      setOpenImpresion(true);
-      const tarjetas = await getTarjetas(data);
-      setDataImpresion({ ...data, tarjetas });
+    {
+      esFuncion: true,
+      icono: "fas fa-share-alt",
+      label: "Compartir",
+
+      fn: async (data) => {
+        setOpenImpresion(true);
+        const tarjetas = await getTarjetas(data);
+        setDataImpresion({ ...data, tarjetas });
+      },
     },
-    stop: (data) => {
-      enviarSolicitud(`/api/envioTarjetas/stop`, { id: data?.id });
-    },
-    procesar: (data, id) => {
-      enviarSolicitud(`/api/envioTarjetas/procesar`, { id: data?.id });
-    },
-  };
+  ];
+  const where = [
+    parentData
+      ? ["idUsuario", "==", localStorage.getItem("usermod")]
+      : ["usermod", "==", fuego.auth().currentUser?.uid],
+  ];
+  console.log(`where ${where}`);
   return (
     <>
-      <DataGridFirebase
-        fnAcciones={fnAcciones}
-        titulo={mod.label}
-        subTitulo="para enviar al proveedor de tarjetas"
-        icono={mod.icono}
-        limit={10}
-        mod={mod}
-        parentData={true}
-        acciones={mod.acciones}
-        orderBy={order}
+      <ABMColeccion2
+        coleccion={`envioTarjetas`}
         columns={columns}
+        acciones={fnAcciones}
+        maxWidth={"lg"}
+        where={where}
+        gridOptions={{
+          tableInstanceRef,
+
+          // renderDetailPanel: ({ row }) => {
+          //   return <></>;
+          // },
+          initialState: { showColumnFilters: false },
+          enableRowSelection: false,
+          filterFns: {
+            filtroFecha: (row, id, filterValue) => {
+              const date = new Date(row.original[id].seconds * 1000);
+              const dateFiltro = new Date(filterValue);
+
+              //si es fecha invalida
+              if (isNaN(dateFiltro.getTime())) return true;
+              //comparo fechas
+              return (
+                date.getDate() === dateFiltro.getDate() &&
+                date.getMonth() === dateFiltro.getMonth() &&
+                date.getFullYear() === dateFiltro.getFullYear()
+              );
+            },
+          },
+          // getRowId: (row) => row.id,
+        }}
+        orderBy={order}
+        // callbackclick={callbackclick}
+        icono={"fas fa-users"}
+        Modelo={Modelo}
+        valoresIniciales={valoresIniciales}
+        // dataForm={{ grupo: seleccion }}
+        titulo={`ENVIO DE TARJETAS`}
+        Form={Form}
       />
       <EnviarCredenciales
         data={dataSeleccion}

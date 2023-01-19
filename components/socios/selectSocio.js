@@ -1,8 +1,8 @@
 import SelectFormikAlgolia from "@components/forms/selectAlgoliaFormik";
 
 export default function SelectSocio({
-  campo,
-  label,
+  campo = "idSocio",
+  label = "Buscador Socios",
   callbackchange,
   initLabel,
 }) {

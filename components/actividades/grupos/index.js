@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { Grid } from "@mui/material";
-import InscriptosGrupo from "./inscriptos/index2";
+import InscriptosGrupo from "./inscriptos/index";
 
 import ListaAsistenciaGrupo from "./asistencias";
 import ListaCierreAsistenciasGrupo from "./cierreAsistencias";
 import ABMColeccion from "@components/forms/ABMcollection";
 import Modelo, { valoresIniciales } from "@modelos/ModeloGrupos";
 import Form from "./_form";
+import GenerarDeudaInscriptos from "./generarDeuda";
+import { getFechaString } from "@helpers/dates";
 export default function ListaGrupos({ actividad, callbackchange, mod }) {
   const order = ["nombreGrupo", "asc"];
   const [seleccion, setSeleccion] = useState(null);
   const [openCierreAsistencias, setOpenCierreAsistencias] = useState(null);
   const [openInscriptos, setOpenInscriptos] = useState(null);
+  const [openGenerarDeuda, setOpenGenerarDeuda] = useState(null);
   const [openAsistencias, setOpenAsistencias] = useState(null);
 
   const callbackclick = (params) => {
@@ -30,23 +33,22 @@ export default function ListaGrupos({ actividad, callbackchange, mod }) {
       headerName: "Nombre Grupo",
       width: 250,
     },
-
+    {
+      field: "fechaUltimaGeneracion",
+      headerName: "Ultima generacion",
+      width: 130,
+      renderCell: (params) => getFechaString(params.value),
+    },
     {
       field: "cantidadIntegrantes",
-      headerName: "Cant. Integrantes",
+      headerName: "Integrantes",
       width: 150,
-      renderCell: (params) => `${params.value ? params.value : "0"} `,
+      renderCell: (params) =>
+        `${params.value ? params.value : "0"} ${
+          params.row.cupo ? `/${params.row.cupo}` : "(sin cupo)"
+        } `,
     },
-    {
-      field: "cupo",
-      headerName: "Cupo",
-      width: 100,
-    },
-    {
-      field: "label_idProfesor",
-      headerName: "Profesor",
-      width: 200,
-    },
+
     {
       field: "estado",
       headerName: "Estado",
@@ -71,6 +73,15 @@ export default function ListaGrupos({ actividad, callbackchange, mod }) {
       fn: (row) => {
         setSeleccion(row);
         setOpenAsistencias(true);
+      },
+    },
+    {
+      esFuncion: true,
+      icono: "fas fa-money-check",
+      label: "Generar Deuda",
+      fn: (row) => {
+        setSeleccion(row);
+        setOpenGenerarDeuda(true);
       },
     },
     {
@@ -108,6 +119,13 @@ export default function ListaGrupos({ actividad, callbackchange, mod }) {
       <InscriptosGrupo
         open={openInscriptos}
         setOpen={setOpenInscriptos}
+        actividad={actividad}
+        mod={mod}
+        grupo={seleccion}
+      />
+      <GenerarDeudaInscriptos
+        open={openGenerarDeuda}
+        setOpen={setOpenGenerarDeuda}
         actividad={actividad}
         mod={mod}
         grupo={seleccion}

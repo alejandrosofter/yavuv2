@@ -9,6 +9,9 @@ export default function FormPuntoVenta({ setFieldValue, values }) {
       <Grid item md={4}>
         <Input label="Nro" campo="nro" />
       </Grid>
+      <Grid item md={4}>
+        <Input label="Nro Prox Cierre" campo="nroProxCierre" />
+      </Grid>
     </Grid>
   );
 }

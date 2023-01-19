@@ -10,6 +10,7 @@ export function ColeccionTable({
   columns,
   dataExternal,
   orderBy,
+  refData,
   gridOptions,
   limit,
   acciones,
@@ -81,12 +82,14 @@ export function ColeccionTable({
     return ref;
   };
   //set container drawer mui
+  const datos = dataExternal ? dataExternal : data ? data : [];
+  if (refData?.current) refData.current = datos;
   return (
     <Grid sx={{ mb: 10 }} item xs={12}>
       <MaterialReactTable
         {...gridOptions}
         columns={columns}
-        data={dataExternal ? dataExternal : data ? data : []}
+        data={datos}
         enablePagination={true} //disable a default feature
         enableRowActions
         enableStickyHeader
@@ -173,27 +176,6 @@ export function ColeccionTable({
           )
         }
       />
-      {/* <MaterialReactTable
-        {...gridOptions}
-        columns={columns}
-        data={data ? data : []}
-        enablePagination={false} //disable a default feature
-        enableRowActions={false}
-        enableColumnResizing
-        // onRowSelectionChange={(row, index) => {
-        //   setSeleccion(tableInstanceRef.current?.getSelectedRowModel().rows);
-        // }}
-        // tableInstanceRef={tableInstanceRef}
-        positionActionsColumn="last"
-        // renderRowActionMenuItems={(row, index) => [
-        //   <MenuItem onClick={() => console.info("Edit")}>Edit</MenuItem>,
-        //   <MenuItem onClick={() => console.info("Delete")}>Delete</MenuItem>,
-        // ]}
-      />
-      <Backdrop
-        open={loading}
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      /> */}
     </Grid>
   );
 }
@@ -203,6 +185,7 @@ export default function ColeccionTable2({
   columns,
   orderBy,
   limit,
+  refData,
   dataExternal,
   gridOptions,
   acciones,
@@ -217,6 +200,7 @@ export default function ColeccionTable2({
       where={where}
       gridOptions={gridOptions}
       columns={columns}
+      refData={refData}
       dataExternal={dataExternal}
       orderBy={orderBy}
       enableRowSelection

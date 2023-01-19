@@ -21,7 +21,7 @@ export default function MenuNotificaciones({ parentData }) {
   const [anchorElUser, setAnchorElUser] = useState();
   const { update } = useDocument(`notificaciones/${seleccion?.id}`);
   const { data, error } = useCollection(`notificaciones`, {
-    limit: 10,
+    limit: 20,
     where: [
       parentData
         ? ["idUsuario", "==", localStorage.getItem("usermod")]
@@ -30,7 +30,7 @@ export default function MenuNotificaciones({ parentData }) {
     listen: true,
     orderBy: ["fecha_timestamp", "desc"],
   });
-
+  console.log(data);
   const clickSalir = () => {};
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

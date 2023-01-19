@@ -15,6 +15,19 @@ import { QueryApi } from "@helpers/queryApi";
 import { localstorageParser } from "@helpers/arrays";
 export const cols = [
   {
+    field: "agregarActividad",
+    headerName: "",
+    width: 12,
+    renderCell: (params) =>
+      params.value ? (
+        <Tooltip title={`Enviado a modulo actividades`}>
+          <Icon class="fas fa-futbol" />
+        </Tooltip>
+      ) : (
+        ""
+      ),
+  },
+  {
     field: "esPorDebitoAutomatico",
     headerName: "",
     width: 15,
@@ -34,12 +47,20 @@ export const cols = [
     width: 0,
     renderCell: (params) => {
       switch (params.value) {
-        case "BAJA":
+        case "BAJA (ultimo mes)":
+          return (
+            <Icon
+              title={`Mensualizacion de BAJA con ultimo mes`}
+              className="fas fa-dot-circle"
+              sx={{ color: "yellow" }}
+            />
+          );
+        case "BAJA DEFINITIVA":
           return (
             <Icon
               title={`Mensualizacion de BAJA`}
               className="fas fa-dot-circle"
-              sx={{ color: "red" }}
+              sx={{ color: "yellow" }}
             />
           );
 
@@ -62,37 +83,10 @@ export const cols = [
       }
     },
   },
-  // {
-  //   field: "hijo",
-  //   headerName: "",
-  //   width: 20,
-  //   renderCell: (params) =>
-  //     params.value ? (
-  //       <Tooltip title={`${params.value.apellido} ${params.value.nombre}`}>
-  //         <Icon class="fas fa-users" />
-  //       </Tooltip>
-  //     ) : (
-  //       ""
-  //     ),
-  // },
-  // {
-  //   field: "fecha",
-  //   headerName: "Fecha",
-  //   width: 85,
-  //   type: "date",
-  //   renderCell: (params) => getFechaString(params.value),
-  // },
-  {
-    field: "ultimaCuota",
-    headerName: "Ult.cuota",
-    width: 85,
-    type: "date",
-    renderCell: (params) => getFechaString(params.value),
-  },
   {
     field: "fechaInicio",
     headerName: "Prox.Cuota",
-    width: 85,
+    width: 125,
     type: "date",
     renderCell: (params) => getFechaString(params.value),
   },
@@ -104,20 +98,20 @@ export const cols = [
     renderCell: (params) =>
       renderCellExpandData(params, (row) => `${row.label_idProducto}`),
   },
-  // {
-  //   field: "idProducto_importe",
-  //   headerName: "$ Importe",
-  //   width: 110,
-  //   renderCell: (params) => formatMoney(params.value),
-  // },
-
   {
-    field: "label_tipoPeriodo",
-    headerName: "Tipo Periodo",
-    width: 160,
-    renderCell: (params) =>
-      renderCellExpandData(params, (row) => `${row.label_tipoPeriodo}`),
+    field: "idProducto_importe",
+    headerName: "$ Importe",
+    width: 110,
+    renderCell: (params) => formatMoney(params.value),
   },
+
+  // {
+  //   field: "label_tipoPeriodo",
+  //   headerName: "Tipo Periodo",
+  //   width: 160,
+  //   renderCell: (params) =>
+  //     renderCellExpandData(params, (row) => `${row.label_tipoPeriodo}`),
+  // },
 ];
 export default function CuentaSocio({ data, mod }) {
   const order = ["fecha"];

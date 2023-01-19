@@ -18,7 +18,12 @@ import NuevoDialogCbu from "@components/cuentasCbu/nuevoDialog";
 import SelectAlgoliaUserModColeccion from "@components/forms/selectAlgoliaUsermodColeccion";
 import Form from "@components/cuentasCbu/_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloCuentasCbu";
-export default function FormMensualizado({ values, setFieldValue }) {
+import SelectSocio from "../selectSocio";
+export default function FormMensualizado({
+  values,
+  setFieldValue,
+  showSelectSocio,
+}) {
   const [openEditarCbu, setOpenEditarCbu] = useState(false);
   const [openNuevoCbu, setOpenNuevoCbu] = useState(false);
   const [actividadSeleccion, setActividadSeleccion] = useState();
@@ -26,6 +31,7 @@ export default function FormMensualizado({ values, setFieldValue }) {
   const clickEditarCbu = () => {
     setOpenEditarCbu(true);
   };
+  console.log(values);
   const clickNuevoCbu = () => {
     setOpenNuevoCbu(true);
   };
@@ -35,6 +41,13 @@ export default function FormMensualizado({ values, setFieldValue }) {
     setOpenNuevoCbu(false);
     setItemsCuenta(item);
   };
+  const cambiaPromocion = (valor, item) => {
+    if (item) {
+      setFieldValue("bonificacionImporte", item.importe);
+      setFieldValue("bonificacionPorcentaje", item.porcentaje);
+    }
+  };
+
   const setItemsCuenta = (item) => {
     setFieldValue(`banco`, item.banco);
 
@@ -61,7 +74,13 @@ export default function FormMensualizado({ values, setFieldValue }) {
       // setFieldValue(`agregarActividad`, item.esConAsistencia);
     }
   };
-
+  const cambiaSocio = (item) => {
+    setFieldValue("apellido", item.apellido);
+    setFieldValue("nombre", item.nombre);
+  };
+  const cambiaEstado = (valor, item) => {
+    if (item) setFieldValue("fechaCambioEstado", new Date());
+  };
   const cambiaActividad = (valor, item) => {
     if (item) setActividadSeleccion(item);
   };
@@ -84,7 +103,14 @@ export default function FormMensualizado({ values, setFieldValue }) {
           )}
         </Grid>
       </Grid>
-
+      {showSelectSocio && (
+        <Grid item md={12}>
+          <SelectSocio
+            callbackchange={cambiaSocio}
+            initLabel={`${values.apellido} ${values.nombre}`}
+          />
+        </Grid>
+      )}
       <Grid item md={3}>
         <SelectFecha label="Fecha " campo="fecha" />
       </Grid>
@@ -95,18 +121,26 @@ export default function FormMensualizado({ values, setFieldValue }) {
       {/* <Grid item md={2}>
         <Switch label="Suspendida" campo="suspendida" />
       </Grid> */}
-      <Grid item md={3}>
+      <Grid item md={4}>
         <SelectEstaticFormik
-          items={["ALTA", "BAJA", "SUSPENDIDA"]}
+          callbackchange={cambiaEstado}
+          items={["ALTA", "BAJA (ultimo mes)", "BAJA DEFINITIVA", "SUSPENDIDO"]}
           label="Estado"
           campo="estado"
         />
       </Grid>
-      {values.estado === "BAJA" && (
+      {/* {values.estado === "BAJA" && (
         <Grid item md={3}>
-          <Switch label="Cobrar Mes actual" campo="cobrarMesActual" />
-        </Grid>
+        <Switch label="Cobrar Mes actual" campo="cobrarMesActual" />
+      </Grid>
+      
       )}
+       {values.estado === "BAJA" && (
+        <Grid item md={2}>
+        <Switch label="Baja Definitiva" campo="bajaDefinitiva" />
+      </Grid>
+      
+      )} */}
       <Grid item md={4}>
         <Switch label="Es Debito Automatico?" campo="esPorDebitoAutomatico" />
       </Grid>
@@ -173,7 +207,7 @@ export default function FormMensualizado({ values, setFieldValue }) {
       </Grid>
       {values.promocion && (
         <Grid item md={5}>
-          <SelectPromocion />
+          <SelectPromocion callbackchange={cambiaPromocion} />
         </Grid>
       )}
       <Grid item md={10}>

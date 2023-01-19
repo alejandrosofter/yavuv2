@@ -13,7 +13,7 @@ import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { groupBy, localstorageParser, orderArray } from "@helpers/arrays";
 import { useEffect, useState } from "react";
 
-export default function MenuModulos({}) {
+export default function MenuModulos({ callbackclick }) {
   const [dataMenu, setDataMenu] = useState(localstorageParser("dataMenu"));
 
   const { data, update, error } = useCollection("mods", {
@@ -78,6 +78,7 @@ export default function MenuModulos({}) {
       return item;
     });
     localStorage.setItem("dataMenu", JSON.stringify(aux));
+    if (callbackclick) callbackclick(aux);
     setDataMenu(aux);
   };
   const getDataMenuGrupo = async (idMenuGrupo) => {

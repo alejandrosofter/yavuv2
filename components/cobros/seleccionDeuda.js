@@ -51,9 +51,7 @@ export default function Modulo({
     if (cliente) {
       const arrSocios = await getWhereFamilares(cliente, cliente.objectID);
       fuego.db
-        .collection(
-          `${coleccionClientes}/${cliente.objectID}/movimientosCuenta`
-        )
+        .collection(`${coleccionClientes}/${cliente.objectID}/deudas`)
 
         .where("estado", "==", "PENDIENTE")
         .get()

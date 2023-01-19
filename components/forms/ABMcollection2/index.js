@@ -21,6 +21,7 @@ export default function ABMColeccion2({
   parentData,
   dataExternal,
   hidePaginador,
+  refData,
   gridOptions,
   rowsPerPage,
   showExport = false,
@@ -150,6 +151,7 @@ export default function ABMColeccion2({
           gridOptions={gridOptions}
           where={where}
           limit={limit}
+          refData={refData}
           callbackclick={callbackclick}
           columns={columns}
           orderBy={orderBy}

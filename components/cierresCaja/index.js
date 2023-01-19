@@ -33,6 +33,11 @@ export const cols = [
         : "Aguarde...",
   },
   {
+    field: "label_puntoVenta",
+    headerName: "Punto Venta",
+    width: 150,
+  },
+  {
     field: "estado",
     headerName: "Estado",
     width: 100,

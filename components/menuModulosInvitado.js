@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-export default function MenuModulosInvitado({}) {
+export default function MenuModulosInvitado({ callbackclick }) {
   const { data, update, error } = useCollection("usuariosInvitados", {
     where: ["email", "==", fuego.auth().currentUser?.email],
   });
@@ -26,6 +26,7 @@ export default function MenuModulosInvitado({}) {
             moduloInvitado.mods.map((items) => (
               <Link
                 passHref
+                onClick={callbackclick}
                 key={`link_${items.idMod}`}
                 href={`/mod/${items.idMod}?usermod=${items.idUsuario}`}
               >

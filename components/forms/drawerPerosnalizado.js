@@ -8,6 +8,7 @@ export default function DrawerPersonalizado({
   setOpen,
   children,
   width = 250,
+  zIndex = 1200,
 }) {
   const [useState, setState] = React.useState();
   const toggleDrawer = (open) => () => {
@@ -15,7 +16,12 @@ export default function DrawerPersonalizado({
   };
   return (
     <React.Fragment key={anchor}>
-      <Drawer anchor={anchor} open={open} onClose={toggleDrawer(false)}>
+      <Drawer
+        style={{ zIndex }}
+        anchor={anchor}
+        open={open}
+        onClose={toggleDrawer(false)}
+      >
         <Box sx={{ width }} role="presentation">
           {children}
         </Box>

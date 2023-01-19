@@ -124,6 +124,13 @@ export function UsePlantilla({ id, data }) {
       //parse fecha en formato yyyymmdd a formato dd/mm/yyyy
       return getFecha(fecha);
     });
+    Handlebars.registerHelper(
+      "getFechaString",
+      function (fecha, formato = "dd/mm/yyyy") {
+        //parse fecha en formato yyyymmdd a formato dd/mm/yyyy
+        return getFechaString(fecha, formato);
+      }
+    );
     Handlebars.registerHelper("agregadoOpcional", function (string) {
       //parse fecha en formato yyyymmdd a formato dd/mm/yyyy
       if (!string) return "";

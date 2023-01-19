@@ -82,6 +82,9 @@ export default function Layout({ children, mod, auth }) {
   const [dialogSalir, setdialogSalir] = useState(false);
   const [openConsultas, setOpenConsultas] = React.useState(true);
   const router = useRouter();
+  React.useEffect(() => {
+    if (open) setOpen(false);
+  }, [router.query]);
   const accionesCuenta = [
     {
       nombre: "Cuenta",
@@ -201,8 +204,8 @@ export default function Layout({ children, mod, auth }) {
             )}
           </IconButton>
         </DrawerHeader>
-        <MenuModulos />
-        <MenuModulosInvitado />
+        <MenuModulos callbackclick={handleDrawerClose} />
+        <MenuModulosInvitado callbackclick={handleDrawerClose} />
       </Drawer>
 
       <Main open={open}>
