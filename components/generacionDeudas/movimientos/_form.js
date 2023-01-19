@@ -44,7 +44,7 @@ export default function Form({
                   campo="tipoSeteoFecha"
                 />
                 <Typography variant="caption">
-                  "+1 MES" es VARIABLE y "FIJA" es fecha fija para proxima cuota
+                  +1 MES es VARIABLE y FIJA es fecha fija para proxima cuota
                 </Typography>
               </Grid>
               {values.tipoSeteoFecha === "FIJA" && (
