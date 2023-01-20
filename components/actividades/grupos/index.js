@@ -34,15 +34,15 @@ export default function ListaGrupos({ actividad, callbackchange, mod }) {
       width: 250,
     },
     {
-      field: "fechaUltimaGeneracion",
       headerName: "Ultima generacion",
+      field: "fechaUltimaGeneracion",
       width: 130,
       renderCell: (params) => getFechaString(params.value),
     },
     {
-      field: "cantidadIntegrantes",
       headerName: "Integrantes",
       width: 150,
+      field: "cantidadIntegrantes",
       renderCell: (params) =>
         `${params.value ? params.value : "0"} ${
           params.row.cupo ? `/${params.row.cupo}` : "(sin cupo)"

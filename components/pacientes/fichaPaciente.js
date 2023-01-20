@@ -25,6 +25,8 @@ import FormTurnos from "@components/turnos/_form";
 import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 import { addQueryApi } from "@helpers/db";
 import Dialogo from "@components/forms/dialogo";
+import EnviarGenerico from "@components/forms/enviarGenerico";
+import NuevaReceta from "@components/recetas/nuevaReceta";
 export function DataPaciente({ paciente }) {
   const [showMensajeCheck, setShowMensajeCheck] = useState();
   const checkPaciente = () => {
@@ -161,6 +163,8 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
     data: dataImpresion,
   });
   const [openImpresion, setOpenImpresion] = useState(false);
+  const [openEnviarMail, setOpenEnviarMail] = useState(false);
+  const [openNuevaReceta, setOpenNuevaReceta] = useState(false);
   const order = ["fecha_timestamp", "desc"];
 
   const cambiaSeleccion = (data) => {
@@ -198,9 +202,10 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
     {
       esFuncion: true,
       icono: "fas fa-copy",
-      label: "Copiar Receta...",
+      label: "Nueva a partir de esta...",
       fn: (row) => {
         setSeleccion(row);
+        setOpenNuevaReceta(true);
       },
     },
     {
@@ -215,6 +220,16 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
         console.log("row", row);
         setDataImpresion({ ...row, paciente });
         setOpenImpresion(true);
+      },
+    },
+    {
+      esFuncion: true,
+      icono: "fas fa-envelope",
+      label: "Enviar por Mail",
+      fn: async (row) => {
+        setSeleccion(row);
+
+        setOpenEnviarMail(true);
       },
     },
   ];
@@ -252,6 +267,23 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
           Form={FormRecetas}
         />
       </Grid>
+      <EnviarGenerico
+        titulo="Envio de Receta por mail"
+        setOpen={setOpenEnviarMail}
+        open={openEnviarMail}
+        preEmail={paciente.email}
+        data={seleccion}
+        fnName="enviarReceta"
+      />
+      <NuevaReceta
+        titulo="Nueva Receta"
+        paciente={paciente}
+        onsuccess={callbackNuevaReceta}
+        receta={seleccion}
+        setOpen={setOpenNuevaReceta}
+        open={openNuevaReceta}
+      />
+
       <ImpresionDialog
         titulo="IMPRESIÓN RECETA"
         setOpen={setOpenImpresion}

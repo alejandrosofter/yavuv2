@@ -66,6 +66,13 @@ export default function ConfigActividadad({ mod }) {
                   </Grid>
                   <Grid item md={6}>
                     <SelectPlantilla
+                      campo="plantillaRecetaDigital"
+                      label="Plantilla Receta Digital"
+                    />
+                  </Grid>
+
+                  <Grid item md={6}>
+                    <SelectPlantilla
                       campo="plantillaEmailReceta"
                       label="Plantilla Email Receta"
                     />
