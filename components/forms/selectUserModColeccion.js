@@ -12,6 +12,7 @@ export default function SelectUserModColeccion({
   campoLabel,
   coleccion,
   campo,
+  addWhere,
   extraData,
   callbackchange,
   Form,
@@ -29,14 +30,16 @@ export default function SelectUserModColeccion({
   const [openEditar, setOpenEditar] = useState(false);
   const [openNuevo, setOpenNuevo] = useState(false);
 
+  const where = allData
+    ? []
+    : parentData
+    ? ["idUsuario", "==", localStorage.getItem("usermod")]
+    : ["usermod", "==", fuego.auth().currentUser?.uid];
+
   const { data } = useCollection(coleccion, {
     limit,
     listen: true,
-    where: allData
-      ? []
-      : parentData
-      ? ["idUsuario", "==", localStorage.getItem("usermod")]
-      : ["usermod", "==", fuego.auth().currentUser?.uid],
+    where: [where].concat(addWhere ? addWhere : []),
   });
   const clickEditar = () => {
     setOpenEditar(true);

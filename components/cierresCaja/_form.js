@@ -14,8 +14,11 @@ export default function FormMensualizado({ values, setFieldValue }) {
   }, []);
   const cambiaPuntoVenta = (item, vals) => {
     if (item) {
+      console.log(`cambiaPuntoVenta: ${item.value}`);
+      console.log(item);
       localStorage.setItem("puntoVenta", item.value);
       setFieldValue("nroPuntoVenta", vals.nro);
+      setFieldValue("label_puntoVenta", item.label);
     }
   };
   console.log(values);

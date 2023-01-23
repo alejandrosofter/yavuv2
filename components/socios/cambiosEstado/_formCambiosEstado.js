@@ -1,28 +1,53 @@
 import { Grid, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import Input from "@components/forms/input";
-import SelectFormik from "@components/forms/select2Formik";
-import SelectStaticFormik from "@components/forms/selectEstaticFormik";
-
+import Form from "@components/socios/mensualizado/_form";
 import SelectFecha from "@components/forms/selectorFecha";
 import _FormItem from "@components/forms/subColeccion/_formItem";
 import Switch from "@components/forms/switch";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
+import SelectMotivo from "./selectMotivos";
+import ItemsModulo from "@components/forms/itemsModulo";
+import { ModeloMensualizado, valoresMensualizado } from "@modelos/ModeloSocios";
+import { cols } from "@components/socios/mensualizado/index";
+import { fuego } from "@nandorojo/swr-firestore";
+export default function FormCambioEstadoSocio({
+  values,
+  setFieldValue,
+  mod,
+  idSocio,
+}) {
+  const field = `mensualizaciones`;
+  const [hideAgregar, setHideAgregar] = useState(false);
 
-export default function FormCambioEstadoSocio(props) {
-  const { values, setFieldValue, mod } = props;
-  console.log(props);
-  useEffect(() => {
-    cambiaEstado(values.estado);
-  }, []);
-  useEffect(() => {
-    cambiaEstado(values.estado);
-  }, [values.estado]);
-  const [itemsMotivos, setItemsMotivos] = useState();
+  const [initDone, setInitDone] = useState();
+
+  const agregarMensualizacionesActivas = () => {
+    console.log(`consultando mensualizaciones activasS`);
+    fuego.db
+      .collection(`socios/${idSocio}/mensualizado`)
+      .where("estado", "in", ["ALTA", "SUSPENDIDO"])
+      .get()
+      .then((querySnapshot) => {
+        let items = [];
+
+        querySnapshot.forEach((doc) => {
+          items.push({ ...doc.data(), id: doc.id });
+        });
+        setFieldValue(field, items);
+      });
+  };
   const cambiaEstado = (valor) => {
-    setItemsMotivos(
-      mod?.config?.itemsMotivosEstados.filter((n) => n.estado === valor)
-    );
+    if (initDone)
+      if (valor.value === "ALTA") {
+        setHideAgregar(true);
+        setFieldValue(field, []);
+      } else {
+        setHideAgregar(false);
+        setFieldValue(field, []);
+        agregarMensualizacionesActivas();
+      }
+    setInitDone(true);
   };
 
   return (
@@ -30,32 +55,47 @@ export default function FormCambioEstadoSocio(props) {
       <Grid item md={12}>
         <Typography variant="caption"></Typography>
       </Grid>
-      <Grid item md={4}>
+      <Grid item md={3}>
         <SelectFecha label="Fecha " campo="fecha" />
       </Grid>
 
       <Grid item md={4}>
         <SelectEstaticFormik
-          items={["ALTA", "BAJA", "SUSPENDIDO"]}
+          callbackchange={cambiaEstado}
+          items={["ALTA", "BAJA (ultimo mes)", "BAJA DEFINITIVA", "SUSPENDIDO"]}
           label="Estado"
           campo="estado"
         />
       </Grid>
-      {values.estado === "BAJA" && (
+      {/* {values.estado === "BAJA" && (
         <Grid item md={4}>
           <Switch label="Cobrar Mes actual" campo="cobrarMesActual" />
         </Grid>
-      )}
-      <Grid item md={12}>
-        <SelectFormik
-          lista={itemsMotivos}
-          campoId="id"
-          campoLabel={"detalle"}
-          label="Motivo"
-          campo={`motivo`}
-        />
+      )} */}
+      <Grid item md={5}>
+        <SelectMotivo estado={values.estado} />
       </Grid>
 
+      <Grid item md={12}>
+        <ItemsModulo
+          height={180}
+          hideAgregar={hideAgregar}
+          setFieldValue={setFieldValue}
+          labelBtnAgregar="AGREGAR MENSUALIZACION"
+          campo={field}
+          data={values[field]}
+          modelo={ModeloMensualizado}
+          nombreModulo={`Mensualizaciones`}
+          fullWidth={true}
+          maxWidth={"md"}
+          textoEditar={`Puedes cambiar las acciones del registro:`}
+          textoAgregar={`Ingrese los datos del registro`}
+          valoresIniciales={valoresMensualizado}
+          form={<Form mod={mod} values={values} />}
+          dataModulo={[]}
+          columnas={cols}
+        />
+      </Grid>
       <Grid item md={12}>
         <Input label="Detalle (opcional)" campo="detalle" />
       </Grid>

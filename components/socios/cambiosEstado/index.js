@@ -40,7 +40,7 @@ export default function CambiosEstadoSocio({ data, mod }) {
       width: 100,
     },
     {
-      field: "label_motivo",
+      field: "label_idMotivo",
       headerName: "Motivo",
       width: 250,
     },
@@ -76,11 +76,12 @@ export default function CambiosEstadoSocio({ data, mod }) {
           columns={cols}
           order={order}
           icono={icono}
+          maxWidth={"md"}
           rowsPerPage={100}
           hidePaginador={true}
           Modelo={ModeloCambioEstado}
           valoresIniciales={valoresInicialesCambioEstado}
-          dataForm={{ seleccion, mod }}
+          dataForm={{ seleccion, mod, idSocio: data?.id }}
           titulo={titulo}
           Form={Form}
         />

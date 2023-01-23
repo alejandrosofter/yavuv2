@@ -104,6 +104,25 @@ export function valoresInicialesFamiliares() {
     label_socio: "",
   };
 }
+////////////////////////////////////////MOTIVOS
+export function ModeloMotivosCambioEstado() {
+  return yup.object().shape({
+    nombre: yup.string().required(),
+    estado: yup.string(),
+  });
+}
+export function valoresInicialesMotivoCambioEstado() {
+  return {
+    nombre: "",
+    estado: "",
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
+  };
+}
 export function valoresInicialesCambioEstado() {
   return {
     estado: "",
@@ -133,6 +152,7 @@ export function ModeloEstadoCuenta() {
 export function ModeloCambioEstado() {
   return yup.object().shape({
     estado: yup.string().required("Debes seleccionar un estado"),
+    idMotivo: yup.string().required("Debes seleccionar un motivo"),
   });
 }
 export function valoresInicialesDocumentacion() {
