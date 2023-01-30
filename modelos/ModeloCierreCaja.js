@@ -17,7 +17,7 @@ export default function Modelo() {
 export function valoresIniciales() {
   return {
     fecha: new Date(),
-    fecha_timestamp: moment.utc().startOf("day").unix(),
+    fecha_timestamp: new Date().getTime(),
     estado: "PENDIENTE",
     importeAbre: 0,
     formaPago: "",

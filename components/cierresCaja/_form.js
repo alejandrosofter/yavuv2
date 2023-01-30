@@ -7,16 +7,14 @@ import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import SelectPuntoVenta from "@components/comprobantesElectronicos/selectorPuntoVenta";
 import { useEffect } from "react";
 export default function FormMensualizado({ values, setFieldValue }) {
-  useEffect(() => {
-    if (!values.exists)
-      setFieldValue("puntoVenta", localStorage.getItem("puntoVenta"));
-    // if (values.puntoVenta) setFieldValue("puntoVenta", values.puntoVenta);
-  }, []);
+  // useEffect(() => {
+  //   if (!values.exists)
+  //     setFieldValue("puntoVenta", localStorage.getItem("puntoVenta"));
+  //   // if (values.puntoVenta) setFieldValue("puntoVenta", values.puntoVenta);
+  // }, []);
   const cambiaPuntoVenta = (item, vals) => {
     if (item) {
-      console.log(`cambiaPuntoVenta: ${item.value}`);
-      console.log(item);
-      localStorage.setItem("puntoVenta", item.value);
+      // localStorage.setItem("puntoVenta", item.value);
       setFieldValue("nroPuntoVenta", vals.nro);
       setFieldValue("label_puntoVenta", item.label);
     }
