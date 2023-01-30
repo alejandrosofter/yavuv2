@@ -16,11 +16,12 @@ export default function FormCambioEstadoSocio({
   setFieldValue,
   mod,
   idSocio,
+  isNew,
 }) {
   const field = `mensualizaciones`;
   const [hideAgregar, setHideAgregar] = useState(false);
 
-  const [initDone, setInitDone] = useState();
+  const [initDone, setInitDone] = useState(isNew);
 
   const agregarMensualizacionesActivas = () => {
     console.log(`consultando mensualizaciones activasS`);
@@ -38,7 +39,7 @@ export default function FormCambioEstadoSocio({
       });
   };
   const cambiaEstado = (valor) => {
-    if (initDone)
+    if (initDone && valor)
       if (valor.value === "ALTA") {
         setHideAgregar(true);
         setFieldValue(field, []);
@@ -79,7 +80,7 @@ export default function FormCambioEstadoSocio({
       <Grid item md={12}>
         <ItemsModulo
           height={180}
-          hideAgregar={hideAgregar}
+          hideAgregar={!hideAgregar}
           setFieldValue={setFieldValue}
           labelBtnAgregar="AGREGAR MENSUALIZACION"
           campo={field}

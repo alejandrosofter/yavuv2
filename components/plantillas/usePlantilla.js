@@ -69,6 +69,12 @@ export function UsePlantilla({ id, data }) {
       }
       return false;
     });
+    Handlebars.registerHelper("equalOr", function (valorBase, valor2, valor3) {
+      if (valorBase === valor2 || valorBase === valor3) {
+        return true;
+      }
+      return false;
+    });
     Handlebars.registerHelper("exists", function (valor) {
       if (!valor) return false;
       if (valor === "") return false;

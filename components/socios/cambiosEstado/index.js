@@ -37,7 +37,7 @@ export default function CambiosEstadoSocio({ data, mod }) {
     {
       field: "estado",
       headerName: "Estado",
-      width: 100,
+      width: 150,
     },
     {
       field: "label_idMotivo",
@@ -45,12 +45,12 @@ export default function CambiosEstadoSocio({ data, mod }) {
       width: 250,
     },
     {
-      field: "estadoCambioEstado",
+      field: "status",
       headerName: "Status",
       width: 380,
-      renderCell: (params) => {
-        return params.value ? params.value : "PENDIENTE";
-      },
+      // renderCell: (params) => {
+      //   return params.value ? params.value : "PENDIENTE";
+      // },
     },
   ];
   const acciones = [

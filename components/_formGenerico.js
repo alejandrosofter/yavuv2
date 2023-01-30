@@ -19,6 +19,7 @@ export default function _FormGenerico({
   modelo,
   children,
   mod,
+  isNew,
 }) {
   const router = useRouter();
   const [load, setLoad] = useState();
@@ -86,6 +87,7 @@ export default function _FormGenerico({
                 errors,
 
                 ...dataForm,
+                isNew,
                 mod: mod ? mod : dataForm?.mod ? dataForm.mod : {},
                 setFieldValue: setFieldValue,
               })}

@@ -127,6 +127,8 @@ export function valoresInicialesCambioEstado() {
   return {
     estado: "",
     fecha: new Date(),
+
+    // status: "PENDIENTE",
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,
