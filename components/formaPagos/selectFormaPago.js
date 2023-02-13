@@ -5,11 +5,11 @@ export default function SelectFormaPago({
   label,
   campo,
   callbackchange,
-  parentData,
+  parentData = true,
 }) {
   return (
     <SelectUserModColeccion
-      coleccion={"formaPago"}
+      coleccion={"formaPagos"}
       Modelo={Modelo}
       parentData={parentData}
       valoresIniciales={valoresIniciales}
