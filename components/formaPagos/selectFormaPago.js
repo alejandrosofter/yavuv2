@@ -15,7 +15,7 @@ export default function SelectFormaPago({
       valoresIniciales={valoresIniciales}
       Form={Form}
       callbackchange={callbackchange}
-      campo={campo ? campo : "idFormaPago"}
+      campo={campo ? campo : "formaPago"}
       label={label ? label : "Forma de Pago"}
       maxWidth="md"
       campoId="id"
