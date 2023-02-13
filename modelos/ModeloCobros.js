@@ -46,6 +46,7 @@ export default function ModeloCobros() {
   });
 }
 export function valoresIniciales(data) {
+  console.log(localStorage.getItem("cobros_esFiscal"));
   return {
     cliente: "",
     detalle: "",
@@ -53,6 +54,7 @@ export function valoresIniciales(data) {
     importeBonificacion: 0,
     importeTotal: 0,
     importePaga: 0,
+    esFiscal: localStorage.getItem("cobros_esFiscal") === "true" ? true : false,
     comprobante_razonSocial: data ? data.comprobante_razonSocial : "",
     comprobante_nroDocumento: data ? data.comprobante_nroDocumento : "",
     comprobante_tipoCliente: data ? data.comprobante_tipoCliente : "",

@@ -1,25 +1,23 @@
-import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import Select from "../forms/select2Formik";
+import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
+import Modelo, { valoresIniciales } from "@modelos/ModeloFormaPago";
+import Form from "@components/formaPagos/_form";
 export default function SelectFormaPago({
-  multiple,
   label,
   campo,
   callbackchange,
+  parentData,
 }) {
-  const parentData = true;
-  const { data } = useCollection("formaPagos", {
-    where: parentData
-      ? ["idUsuario", "==", localStorage.getItem("usermod")]
-      : ["usermod", "==", fuego.auth().currentUser?.uid],
-  });
-  if (!data) return "";
   return (
-    <Select
+    <SelectUserModColeccion
+      coleccion={"formaPago"}
+      Modelo={Modelo}
+      parentData={parentData}
+      valoresIniciales={valoresIniciales}
+      Form={Form}
       callbackchange={callbackchange}
-      campo={campo ? campo : "formaPago"}
+      campo={campo ? campo : "idFormaPago"}
       label={label ? label : "Forma de Pago"}
-      lista={data}
-      multiple={multiple}
+      maxWidth="md"
       campoId="id"
       campoLabel="nombreFormaPago"
     />

@@ -33,6 +33,11 @@ export default function Modulo({ mod, parentData = false }) {
   };
   const columns = [
     {
+      accessorKey: "CbteDesde",
+      header: "Nro",
+      size: 100,
+    },
+    {
       accessorKey: "fecha",
       header: "Fecha",
       size: 100,
@@ -46,9 +51,13 @@ export default function Modulo({ mod, parentData = false }) {
         getFechaString(cell.getValue() ? cell.getValue() : ""),
     },
     {
-      accessorKey: "nombreTipoComprobante",
+      accessorKey: "label_tipoComprobante",
       header: "Tipo Comp.",
       size: 150,
+      Cell: ({ cell }) =>
+        cell.getValue()
+          ? `${cell.getValue()}`
+          : `${cell.row.original.nombreTipoComprobante}`,
     },
     {
       accessorKey: "razonSocial",
@@ -70,6 +79,10 @@ export default function Modulo({ mod, parentData = false }) {
       accessorKey: "nroCae",
       header: "CAE",
       size: 120,
+      Cell: ({ cell }) =>
+        cell.row.original?.nroCae
+          ? cell.row.original.nroCae
+          : cell.row.original?.error,
     },
     {
       accessorKey: "items",

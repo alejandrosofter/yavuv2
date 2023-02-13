@@ -4,7 +4,7 @@ export default function SelectorTipoCliente({ campo, label, callbackchange }) {
   return (
     <SelectEstaticFormik
       callbackchange={callbackchange}
-      items={["CONSUMIDOR FINAL", "RESPONSABLE INSCRIPTO", "EXENTO"]}
+      items={["EXENTO", "GRAVADO"]}
       label={label ? label : "Tipo Cliente"}
       campo={campo ? campo : "tipoCliente"}
     />

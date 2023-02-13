@@ -66,6 +66,12 @@ export default function FormConfig({}) {
           nro: 2,
           vista: (
             <Grid spacing={2} container>
+              {/* <Grid item md={3}>
+                <Switch
+                  campo="fiscalTildadoDefault"
+                  label="Fiscal Tildado (default)"
+                />
+              </Grid> */}
               <Grid item md={3}>
                 <Input campo="comprobante_razonSocial" label="Razon Social" />
               </Grid>

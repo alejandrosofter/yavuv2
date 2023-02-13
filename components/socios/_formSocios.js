@@ -22,18 +22,38 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
   const categoriaSocios = mod.config?.itemsCategoriaSocios
     ? mod.config.itemsCategoriaSocios
     : [];
-
-  useEffect(() => {
-    const seleccion =
-      tipoSocios[
-        tipoSocios.map((item) => item.nombre).indexOf(values?.tipoSocio)
-      ];
-    if (seleccion)
-      setFieldValue(getFieldName(field, `tipoSocio`), seleccion.id);
-  }, [setFieldValue, values]);
+  const setProximoNroSocio = (tipoSocio) => {
+    fuego.db
+      .collection("socios")
+      .orderBy("nroSocio", "desc")
+      .where("tipoSocio", "==", tipoSocio.id)
+      .where("idUsuario", "==", localStorage.getItem("usermod"))
+      .limit(1)
+      .get()
+      .then((querySnapshot) => {
+        console.log(`size ${querySnapshot.size}`);
+        querySnapshot.forEach((doc) => {
+          console.log(doc.data());
+          setFieldValue(
+            getFieldName(field, `nroSocio`),
+            Number(doc.data().nroSocio) + 1
+          );
+        });
+      });
+  };
+  // useEffect(() => {
+  //   const seleccion =
+  //     tipoSocios[
+  //       tipoSocios.map((item) => item.nombre).indexOf(values?.tipoSocio)
+  //     ];
+  //   if (seleccion)
+  //     setFieldValue(getFieldName(field, `tipoSocio`), seleccion.id);
+  // }, [setFieldValue, values]);
   const cambiaTipoSocio = (valor, item) => {
     if (item) {
       setTipoSocioSeleccion(item);
+      // console.log(values);
+      // setProximoNroSocio(item);
       // setFieldValue(getFieldName(field, `nroSocio`), item.proximoNro);
     }
 
@@ -62,13 +82,9 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
     return categoria;
   };
   const clickProximo = () => {
-    setFieldValue(
-      getFieldName(field, `nroSocio`),
-      tipoSocioSeleccion ? tipoSocioSeleccion.proximoNro : ""
-    );
+    setProximoNroSocio(tipoSocioSeleccion);
   };
   const agregarValoresImagen = (valores) => {
-    console.log(valores);
     valores.map((item) => {
       if (item != "")
         setFieldValue(getFieldName(field, item.campo), item.value);

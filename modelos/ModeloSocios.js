@@ -63,7 +63,7 @@ export function valoresIniciales() {
   return {
     apellido: "",
     nombre: "",
-    nroSocio: "",
+    nroSocio: 0,
     tipoSocio: "",
     fechaNacimiento: new Date(),
     dni: "",

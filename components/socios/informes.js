@@ -65,29 +65,30 @@ export default function InformesCobros({ mod }) {
           subTitulo="de socios"
         />
       </Grid>
-      <Grid item md={2}>
-        <Typography variant="h6" gutterBottom component="div">
-          LISTADO total de socios
-        </Typography>
-      </Grid>
-      <Grid item md={10}>
-        <Button variant="contained" onClick={() => listarSocios({})}>
-          {" "}
-          <Icon sx={{ mr: 2 }} className="fas fa-scroll" /> Listado TOTAL de
-          SOCIOS
-        </Button>
-      </Grid>
+      <Grid item md={9}></Grid>
+      <Grid item md={3}>
+        <Grid item md={10}>
+          <Button variant="contained" onClick={() => listarSocios({})}>
+            {" "}
+            <Icon sx={{ mr: 2 }} className="fas fa-scroll" /> Listado TOTAL de
+            SOCIOS
+          </Button>
+        </Grid>
 
-      <Grid item md={2}>
-        <Typography variant="h6" gutterBottom component="div">
-          ALTAS/BAJAS (cambios estado)
-        </Typography>
-      </Grid>
-      <Grid item md={10}>
-        <FiltroInformeCobros
-          callbackBuscar={cambiosEstado}
-          valoresIniciales={{ fechaDesde: new Date(), fechaHasta: new Date() }}
-        />
+        <Grid item md={12}>
+          <Typography variant="h6" gutterBottom component="div">
+            ALTAS/BAJAS (cambios estado)
+          </Typography>
+        </Grid>
+        <Grid item md={12}>
+          <FiltroInformeCobros
+            callbackBuscar={cambiosEstado}
+            valoresIniciales={{
+              fechaDesde: new Date(),
+              fechaHasta: new Date(),
+            }}
+          />
+        </Grid>
       </Grid>
       <QueryApi callbackSuccess={callbackQuery} dataConsulta={dataConsulta} />
       <Dialogo

@@ -23,15 +23,22 @@ export default function FormMensualizado({
   values,
   setFieldValue,
   showSelectSocio,
+  socio,
 }) {
   const [openEditarCbu, setOpenEditarCbu] = useState(false);
   const [openNuevoCbu, setOpenNuevoCbu] = useState(false);
   const [actividadSeleccion, setActividadSeleccion] = useState();
-  useEffect(() => {}, [values.esPorDebitoAutomatico]);
+  useEffect(() => {
+    if (socio) {
+      setFieldValue("apellido", socio.apellido);
+      setFieldValue("nombre", socio.nombre);
+      setFieldValue("dni", socio.dni);
+      setFieldValue("idSocio", socio.id);
+    }
+  }, [socio]);
   const clickEditarCbu = () => {
     setOpenEditarCbu(true);
   };
-  console.log(values);
   const clickNuevoCbu = () => {
     setOpenNuevoCbu(true);
   };

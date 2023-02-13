@@ -20,6 +20,8 @@ import Select2 from "../forms/select2Formik";
 import { fuego, useCollection } from "@nandorojo/swr-firestore";
 import { getFechaString } from "../../helpers/dates";
 import ImageFormik from "../forms/imageFormik";
+import SelectCentroCosto from "@components/centroCostos/select";
+import SelectProveedor from "@components/proveedores/select";
 export default function FormCompras({ values, setFieldValue }) {
   const [tabDatos, setTabDatos] = useState("datos");
   const { data: centrosCosto } = useCollection("centroCostos", {
@@ -77,22 +79,10 @@ export default function FormCompras({ values, setFieldValue }) {
               />
             </Grid>
             <Grid item md={3}>
-              <Select2
-                campo="idCentroCosto"
-                label="Centro de Costo"
-                lista={centrosCosto}
-                campoId="id"
-                campoLabel="nombreCentroCosto"
-              />
+              <SelectCentroCosto />
             </Grid>
             <Grid item md={3}>
-              <Select2
-                campo="idEntidad"
-                label="Proveedor"
-                lista={proveedores}
-                campoId="id"
-                campoLabel="razonSocial"
-              />
+              <SelectProveedor campo="idEntidad" />
             </Grid>
             <Grid item xs={6}>
               <Input label="Detalle " campo="detalle" />
@@ -187,14 +177,12 @@ export default function FormCompras({ values, setFieldValue }) {
                   headerName: "Forma de Pago",
                   editable: false,
                   width: 180,
+                  renderCell: (params) =>
+                    `${params.row.label_idFormaPago} ${
+                      params.row.detalle ? params.row.detalle : ""
+                    }`,
                 },
 
-                {
-                  field: "detalle",
-                  headerName: "Detalle",
-                  editable: false,
-                  width: 300,
-                },
                 {
                   field: "fechaVto",
                   headerName: "Fecha Vto",

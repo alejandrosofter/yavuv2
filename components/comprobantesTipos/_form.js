@@ -10,31 +10,27 @@ export default function Form({ mod, setFieldValue, values }) {
       <Grid item md={4}>
         <Input label="Nombre" campo="nombreTipoComprobante" />
       </Grid>
-      <Grid item md={2}>
+      <Grid item md={3}>
         <SelectEstaticFormik
           items={["ACTIVO", "INACTIVO"]}
           label="Estado"
           campo="estado"
         />
       </Grid>
-      <Grid item md={2}>
+      <Grid item md={3}>
         <SelectorTipoComprobante />
       </Grid>
-      <Grid item md={2}>
+      <Grid item md={3}>
         <SelectorTipoDocumentos />
       </Grid>
-      <Grid item md={2}>
+      <Grid item md={4}>
         <Switch campo="esFacturaElectronica" label="Es Factura Electronica" />
       </Grid>
-      <Grid item md={2}>
-        <Switch campo="usarConsumidorFinal" label="Usar Consumidor Final" />
-      </Grid>
-      <Grid item md={2}>
-        <Switch campo="usarResponsableInscripto" label="Usar en Inscriptos" />
-      </Grid>
+
       <Grid item md={2}>
         <Switch campo="esNotaCredito" label="Es Nota Credito" />
       </Grid>
+
       <Grid item md={2}>
         <Input campo="proximoNro" label="Proximo Nro" />
       </Grid>

@@ -16,13 +16,14 @@ export default function FormCambioEstadoSocio({
   setFieldValue,
   mod,
   idSocio,
+  socio,
   isNew,
 }) {
   const field = `mensualizaciones`;
   const [hideAgregar, setHideAgregar] = useState(false);
 
   const [initDone, setInitDone] = useState(isNew);
-
+  console.log(values);
   const agregarMensualizacionesActivas = () => {
     console.log(`consultando mensualizaciones activasS`);
     fuego.db
@@ -88,12 +89,12 @@ export default function FormCambioEstadoSocio({
           modelo={ModeloMensualizado}
           nombreModulo={`Mensualizaciones`}
           fullWidth={true}
+          dataModulo={{ socio }}
           maxWidth={"md"}
           textoEditar={`Puedes cambiar las acciones del registro:`}
           textoAgregar={`Ingrese los datos del registro`}
           valoresIniciales={valoresMensualizado}
           form={<Form mod={mod} values={values} />}
-          dataModulo={[]}
           columnas={cols}
         />
       </Grid>

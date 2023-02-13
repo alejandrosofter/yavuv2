@@ -13,6 +13,7 @@ export default function PersonalizarComprobante({
   setFieldValue,
   field,
   values,
+  callbackchange,
 }) {
   const [open, setOpen] = useState();
 
@@ -34,6 +35,7 @@ export default function PersonalizarComprobante({
   const label = field
     ? eval(`values.${getFieldName(field, "comprobante_razonSocial")}`)
     : values.comprobante_razonSocial;
+
   return (
     <Grid container>
       {values.esFiscal && (
@@ -74,12 +76,6 @@ export default function PersonalizarComprobante({
             <Input
               campo={getFieldName(field, "comprobante_domicilio")}
               label="Domicilio"
-            />
-          </Grid>
-          <Grid item md={4}>
-            <SelectTipoComprobante
-              callbackchange={cambiaTipo}
-              campo={getFieldName(field, "comprobante_tipoComprobante")}
             />
           </Grid>
 

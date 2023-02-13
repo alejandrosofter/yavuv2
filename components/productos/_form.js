@@ -23,6 +23,7 @@ export default function Form({ mod, setFieldValue, values }) {
           <Grid item xs={2}>
             <CheckboxForm label="Es Servicio?" campo="esServicio" />
           </Grid>
+
           <Grid item md={2}>
             <Input label="Cantidad" campo="cantidad" />
           </Grid>
@@ -48,6 +49,9 @@ export default function Form({ mod, setFieldValue, values }) {
           </Grid>
           <Grid item md={3}>
             <SelectCategoriaProducto />
+          </Grid>
+          <Grid item xs={2}>
+            <CheckboxForm label="Es Gravado " campo="esGravado" />
           </Grid>
           <Grid item md={12}>
             <Input label="Detalle" campo="detalle" />

@@ -88,6 +88,7 @@ export default function ItemsModulo_agregar({
                       values: values,
                       setFieldValue: setFieldValue,
                       errors: errors,
+                      ...dataModulo,
                     })}
                     {errors && errores(errors)}
                     <Button type="submit">

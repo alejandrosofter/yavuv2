@@ -1,30 +1,24 @@
+import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import Select from "../forms/select2Formik";
-export default function Modulo({
+import Modelo, { valoresIniciales } from "@modelos/ModeloTipoComprobantes";
+import Form from "@components/comprobantesTipos/_form";
+export default function SelectTipoComprobante({
   label,
   campo,
   callbackchange,
   soloElectronicas,
 }) {
-  const idUsuario = localStorage.getItem("usermod")
-    ? localStorage.getItem("usermod")
-    : fuego.auth().currentUser.uid;
-  const where = soloElectronicas
-    ? [
-        ["esFacturaElectronica", "==", true],
-        ["idUsuario", "==", idUsuario],
-      ]
-    : [["idUsuario", "==", idUsuario]];
-  const { data } = useCollection("comprobantesTipos", {
-    where,
-  });
-  if (!data) return "";
   return (
-    <Select
+    <SelectUserModColeccion
+      coleccion={"comprobantesTipos"}
+      Modelo={Modelo}
+      parentData={true}
+      valoresIniciales={valoresIniciales}
+      Form={Form}
       callbackchange={callbackchange}
       campo={campo ? campo : "tipoComprobante"}
       label={label ? label : "Tipo de Comprobante"}
-      lista={data}
+      maxWidth="md"
       campoId="id"
       campoLabel={(item) =>
         `${item.nombreTipoComprobante} ${

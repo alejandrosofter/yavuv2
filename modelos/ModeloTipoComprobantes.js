@@ -10,6 +10,11 @@ export function valoresIniciales() {
   return {
     estado: "ACTIVO",
     nombreTipoComprobante: "",
-    idUsuario: fuego.auth().currentUser.uid,
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
   };
 }

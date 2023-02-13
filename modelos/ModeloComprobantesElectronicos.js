@@ -8,6 +8,7 @@ export default function ModeloComprobantesElectronicos() {
     razonSocial: yup.string(),
     idUsuario: yup.string(),
     domicilio: yup.string(),
+    tipoComprobante: yup.string().required("Tipo de Comprobante es requerido"),
   });
 }
 

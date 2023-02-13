@@ -6,6 +6,7 @@ import SelectProducto from "../productos/selectProducto";
 export default function FormularioItemCobro({ setFieldValue, mod, values }) {
   const cambiaProducto = (producto, item) => {
     setFieldValue("importe", item.importe);
+    setFieldValue("esGravado", item.esGravado);
   };
   return (
     <Grid container spacing={2}>

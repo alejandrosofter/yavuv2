@@ -40,6 +40,7 @@ export default function FormComprobantesElectronicos({
   const cambiaPuntoVenta = (item, row) => {
     if (!item) return;
     localStorage.setItem("comprobante_puntoVenta", row.id);
+    setFieldValue("puntoVenta_nro", row.nroPuntoVenta);
   };
   const cambiaTipoCliente = (data) => {
     // if (!data && esNuevo) {
@@ -87,9 +88,7 @@ export default function FormComprobantesElectronicos({
       <Grid item md={2}>
         <SelectFecha label="Fecha" campo="fecha" />
       </Grid>
-      <Grid item md={2}>
-        <SelectorTipoCliente callbackchange={cambiaTipoCliente} />
-      </Grid>
+
       <Grid item md={3}>
         <SelectPuntoVenta
           callbackchange={cambiaPuntoVenta}
@@ -125,7 +124,7 @@ export default function FormComprobantesElectronicos({
       </Grid>
       <Grid item md={2}>
         <SelectEstaticFormik
-          items={["PENDIENTE", "CANCELADO", "AUTORIZADO"]}
+          items={["PENDIENTE", "CANCELADO", "AUTORIZADO", "RECHAZADO"]}
           label="Estado"
           campo="estado"
         />
@@ -167,6 +166,12 @@ export default function FormComprobantesElectronicos({
                 `${params.row.label_idProducto} ${
                   params.row.detalle ? `(${params.row.detalle})` : ``
                 }`,
+            },
+            {
+              field: "esGravado",
+              headerName: "Gravado",
+              width: 100,
+              renderCell: (params) => (params.value ? "SI" : "NO"),
             },
             {
               field: "importe",

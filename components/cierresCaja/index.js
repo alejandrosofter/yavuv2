@@ -3,7 +3,7 @@ import Modelo, { valoresIniciales } from "@modelos/ModeloCierreCaja";
 import { Grid } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import { getFechaString } from "@helpers/dates";
-import ABMColeccion from "@components/forms/ABMcollection";
+import ABMColeccion from "@components/forms/ABMcollection2";
 import Form from "./_form";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
@@ -12,35 +12,42 @@ import { QueryApi } from "@helpers/queryApi";
 import PagosCierresCaja from "./pagos";
 import { groupBy, objectToArray, orderArray } from "@helpers/arrays";
 import Dialogo from "@components/forms/dialogo";
-import { addQueryApi } from "@helpers/db";
-export const cols = [
-  {
-    field: "fecha",
-    headerName: "Fecha",
-    width: 85,
-    renderCell: (params) => getFechaString(params.value, "DD/MM hh:mm"),
-  },
 
+import GenerarComprobantesCierreDialog from "./generarFacturas";
+export const columns = [
   {
-    field: "total",
-    headerName: "Detalle",
-    width: 320,
-    renderCell: (params) =>
-      params.value === 0
+    accessorKey: "fecha",
+    header: "Fecha",
+    size: 85,
+    Cell: ({ cell }) => getFechaString(cell.getValue(), "DD/MM hh:mm"),
+  },
+  {
+    accessorKey: "total",
+    header: "Detalle",
+    size: 320,
+    Cell: ({ cell }) =>
+      cell.getValue() === 0
         ? "No hay registros de cobros"
-        : params.value
-        ? `Se registraron ${params.value} pagos en el cierre de caja`
+        : cell.getValue()
+        ? `Se registraron ${cell.getValue()} pagos en el cierre de caja`
         : "Aguarde...",
   },
   {
-    field: "label_puntoVenta",
-    headerName: "Punto Venta",
-    width: 150,
+    accessorKey: "label_puntoVenta",
+    header: "Punto Venta",
+    size: 150,
+  },
+
+  {
+    accessorKey: "statusFiscal",
+    header: "Estado Fiscal",
+    Cell: ({ cell }) => (cell.getValue() ? cell.getValue() : `No Fiscalizado`),
+    size: 150,
   },
   {
-    field: "estado",
-    headerName: "Estado",
-    width: 100,
+    accessorKey: "estado",
+    header: "Estado",
+    size: 100,
   },
 ];
 export default function CuentaSocio({ data, mod }) {
@@ -50,6 +57,7 @@ export default function CuentaSocio({ data, mod }) {
   const titulo = `CIERRES DE CAJA`;
   const idPlantilla = mod.config?.plantillaCierre;
   const [openImpresion, setOpenImpresion] = useState(false);
+  const [openGenerarComprobantes, setOpenGenerarComprobantes] = useState(false);
   const [openConfirma, setOpenConfirma] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
   const [dataImpresion, setDataImpresion] = useState();
@@ -62,6 +70,38 @@ export default function CuentaSocio({ data, mod }) {
   });
   const getRowClassName = (params) => {
     if (params.row.suspendida) return "disabled";
+  };
+  const getDataImpositivo = (row) => {
+    const dataImpositivo = groupBy(
+      row.comprobantes ? row.comprobantes : [],
+      (item) => {
+        return item.label_tipoComprobante;
+      },
+      true
+    );
+    // console.log(impositivo);
+    //concat value
+    let impositivo = [];
+    let i = 0;
+    console.log(dataImpositivo);
+    for (const [key, value] of Object.entries(dataImpositivo)) {
+      impositivo[i] = {
+        nrosComprobantes: value
+          .map((item) => item.nroComprobante)
+          //order
+          .sort((a, b) => a - b)
+          .join(", "),
+        importeGravado: value.reduce(
+          (a, b) => a + Number(b.ImpIVA) + Number(b.ImpNeto),
+          0
+        ),
+        importeExento: value.reduce((a, b) => a + Number(b.ImpOpEx), 0),
+        label: key,
+      };
+      i++;
+    }
+    console.log(impositivo);
+    return impositivo;
   };
   const getDataImpresion = async (row) => {
     let formasDePago = [];
@@ -79,13 +119,6 @@ export default function CuentaSocio({ data, mod }) {
         setLoading(false);
       });
     return formasDePago;
-  };
-  const confirmaGeneracion = async () => {
-    // setDataConsulta({
-    //   url: "/api/cierresCaja/generarFacturas",
-    //   data: seleccion,
-    // });
-    if (seleccion) addQueryApi("generarFacturas", seleccion);
   };
   const getDataProductos = (data) => {
     return data
@@ -105,7 +138,7 @@ export default function CuentaSocio({ data, mod }) {
       label: "Generar Facturas",
       fn: (data) => {
         setSeleccion(data);
-        setOpenConfirma(true);
+        setOpenGenerarComprobantes(true);
       },
     },
     {
@@ -138,6 +171,7 @@ export default function CuentaSocio({ data, mod }) {
           },
           true
         );
+        const impositivo = getDataImpositivo(row);
         const itemsProductos = objectToArray(
           groupBy(
             getDataProductos(dataImpresion),
@@ -177,6 +211,7 @@ export default function CuentaSocio({ data, mod }) {
           items,
           itemsProductos,
           user: fuego.auth().currentUser,
+          impositivo,
         });
         setOpenImpresion(true);
       },
@@ -188,36 +223,31 @@ export default function CuentaSocio({ data, mod }) {
     <Grid container>
       <Grid item xs={12}>
         <ABMColeccion
-          acciones={acciones}
           coleccion={`cierresCaja`}
-          columns={cols}
+          columns={columns}
+          hideNew={false}
+          labelNuevo="Nuevo Cierre de Caja"
+          acciones={acciones}
+          orderBy={["fecha_timestamp", "desc"]}
+          limit={10}
+          maxWidth="lg"
+          gridOptions={{
+            initialState: { showColumnFilters: true },
+          }}
           where={[
             parentData
               ? ["idUsuario", "==", localStorage.getItem("usermod")]
               : ["usermod", "==", fuego.auth().currentUser?.uid],
           ]}
-          labelNuevo="Agregar cierre de caja"
-          preData={{}}
-          orderBy={order}
-          maxWidth={"md"}
-          getRowClassName={getRowClassName}
-          icono={icono}
+          // callbackclick={callbackclick}
+          icono={"fas fa-users"}
           Modelo={Modelo}
           valoresIniciales={valoresIniciales}
-          dataForm={{ mod }}
-          titulo={titulo}
+          titulo={`CIERRES DE CAJA`}
           Form={Form}
         />
       </Grid>
-      <Dialogo
-        open={openConfirma}
-        setOpen={setOpenConfirma}
-        titulo="Confirmar"
-        callbackAcepta={confirmaGeneracion}
-        detalle={
-          "Relamente deseas generar los comprobantes para este cierre de caja? ... al hacerlo se imputaran los comprobantes y se enviaran por correo"
-        }
-      />
+
       <ImpresionDialog
         titulo="IMPRESIÓN CIERRE"
         setOpen={setOpenImpresion}
@@ -228,6 +258,11 @@ export default function CuentaSocio({ data, mod }) {
         // emailDefault={dataImpresion?.socio?.email}
         nombrePlantillaEmail="emailAfiliacion"
         attachments={[{ filename: "AFILIACION.pdf", data: plantilla }]}
+      />
+      <GenerarComprobantesCierreDialog
+        open={openGenerarComprobantes}
+        setOpen={setOpenGenerarComprobantes}
+        seleccion={seleccion}
       />
       <PagosCierresCaja
         open={openPagos}

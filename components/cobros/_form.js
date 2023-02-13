@@ -15,13 +15,23 @@ import SelectSocioSimple from "@components/socios/selectSocioSimple";
 import { capitalize } from "@helpers/Strings";
 import NuevoCliente from "@components/clientes/nuevo";
 import DataNotificacionCliente from "./notificacionCliente";
-export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
+export default function Modulo({
+  setFieldValue,
+  values,
+  mod,
+  banderaReset,
+  isNew,
+}) {
   useEffect(() => {
     // setFieldValue("deudas", []);
     // setFieldValue("formasDePago", []);
     setDeudas([]);
     setClienteSeleccion(null);
   }, [banderaReset]);
+  useEffect(() => {
+    setFieldValue("esFiscal", values.esFiscal ? "true" : "false");
+  }, [values.esFiscal]);
+
   const [clienteSeleccion, setClienteSeleccion] = useState();
   const [deudas, setDeudas] = useState([]);
 
@@ -43,6 +53,10 @@ export default function Modulo({ setFieldValue, values, mod, banderaReset }) {
   const coleccionClientes = mod.config?.coleccionClientes
     ? mod.config?.coleccionClientes
     : "socios";
+  const cambiaFiscal = () => {
+    console.log();
+    localStorage.setItem("cobros_esFiscal", values.esFiscal);
+  };
 
   return (
     <Grid sx={{ pt: 2, p: 3 }} spacing={2} container>

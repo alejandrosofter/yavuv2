@@ -29,6 +29,7 @@ export default function NuevoGenerico({
         callbackSuccess={callbackSuccess}
         fnUpdate={add}
         modelo={modelo}
+        isNew={true}
         mod={mod}
         valoresIniciales={valoresIniciales}
       >

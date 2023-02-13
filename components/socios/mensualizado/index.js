@@ -10,9 +10,9 @@ import ABMColeccion from "@components/forms/ABMcollection";
 import Form from "./_form";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
-import { pink } from "@mui/material/colors";
+
 import { QueryApi } from "@helpers/queryApi";
-import { localstorageParser } from "@helpers/arrays";
+
 export const cols = [
   {
     field: "agregarActividad",
@@ -186,7 +186,7 @@ export default function CuentaSocio({ data, mod }) {
           icono={icono}
           Modelo={ModeloMensualizado}
           valoresIniciales={valoresMensualizado}
-          dataForm={{ mod }}
+          dataForm={{ mod, socio: data }}
           titulo={titulo}
           Form={Form}
         />

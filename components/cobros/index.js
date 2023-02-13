@@ -236,7 +236,7 @@ export default function Modulo({ mod, parentData }) {
         icono={"fas fa-users"}
         Modelo={Modelo}
         valoresIniciales={valoresIniciales}
-        // dataForm={{ grupo: seleccion }}
+        dataForm={{ config: mod?.config }}
         titulo={`COBROS`}
         Form={Form}
       />

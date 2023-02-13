@@ -60,7 +60,7 @@ export default function CambiosEstadoSocio({ data, mod }) {
       label: "Compartir",
       fn: (row) => {
         const socio = localstorageParser("socioSeleccion");
-
+        console.log({ ...row, socio });
         setDataImpresion({ ...row, socio });
         setOpenImpresion(true);
       },
@@ -81,7 +81,7 @@ export default function CambiosEstadoSocio({ data, mod }) {
           hidePaginador={true}
           Modelo={ModeloCambioEstado}
           valoresIniciales={valoresInicialesCambioEstado}
-          dataForm={{ seleccion, mod, idSocio: data?.id }}
+          dataForm={{ socio: data, seleccion, mod, idSocio: data?.id }}
           titulo={titulo}
           Form={Form}
         />

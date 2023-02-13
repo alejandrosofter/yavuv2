@@ -1,7 +1,7 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
-import Modelo, { valoresIniciales } from "@modelos/ModeloCuentasEfectivo";
-import Form from "@components/cuentasEfectivo/_form";
-export default function SelectCuentaBanco({
+import Modelo, { valoresIniciales } from "@modelos/ModeloProveedores";
+import Form from "@components/proveedores/_form";
+export default function SelectProveedor({
   label,
   campo,
   callbackchange,
@@ -9,17 +9,18 @@ export default function SelectCuentaBanco({
 }) {
   return (
     <SelectUserModColeccion
-      coleccion={"cuentasEfectivo"}
+      coleccion={"proveedores"}
       Modelo={Modelo}
       parentData={parentData}
       valoresIniciales={valoresIniciales}
       Form={Form}
       callbackchange={callbackchange}
-      campo={campo ? campo : "idCuentaBanco"}
-      label={label ? label : "Cuenta Banco"}
+      campo={campo ? campo : "idProveedor"}
+      label={label ? label : "Proveedor"}
+      icono="fas fa-user"
       maxWidth="md"
       campoId="id"
-      campoLabel="nombre"
+      campoLabel="razonSocial"
     />
   );
 }
