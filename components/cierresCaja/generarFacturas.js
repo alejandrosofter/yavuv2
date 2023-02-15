@@ -77,6 +77,8 @@ export default function GenerarComprobantesCierreDialog({
         comprobantesRechazados: tableInstanceRef.current
           .getState()
           .rowSelection.map((row) => row.original.id),
+      }).then((res) => {
+        setOpen(false);
       });
   };
   const facturar = async () => {

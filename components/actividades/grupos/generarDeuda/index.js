@@ -178,7 +178,7 @@ export default function GenerarDeudaInscriptos({
   };
   const creoMovimiento = () => {
     setOpenNuevoMovimiento(false);
-    setOpenDrawer(true);
+    setOpenMovimientos(true);
     tableInstanceRef.current?.resetRowSelection();
   };
   return (

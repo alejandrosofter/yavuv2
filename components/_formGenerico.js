@@ -8,6 +8,7 @@ import ErrorsForm from "../components/forms/errorForms";
 import { esVacio } from "../helpers/objectos";
 import ImpresionDialog from "./forms/impresion";
 import ShowErrors from "./showErrors";
+import { cleanseUndefined } from "@helpers/objects";
 
 export default function _FormGenerico({
   preData,
@@ -41,9 +42,12 @@ export default function _FormGenerico({
   };
   const clickForm = async (values, propsForm) => {
     setLoad(true);
-    if (fnUpdate)
-      fnUpdate(quitarValoresNull(values))
+    if (fnUpdate) {
+      const data = cleanseUndefined(values);
+      console.log(data);
+      fnUpdate(data)
         .then(async (res) => {
+          console.log("termina ", res);
           if (callbackSuccess) {
             await callbackSuccess(values, res);
           } else {
@@ -54,7 +58,14 @@ export default function _FormGenerico({
         .catch((error) => {
           setLoad(false);
           throw new Error(error);
+        })
+        .finally(() => {
+          setLoad(false);
         });
+    } else {
+      console.log("no hay fnUpdate");
+      setLoad(false);
+    }
   };
   const valores = datos
     ? datos
@@ -79,6 +90,7 @@ export default function _FormGenerico({
         validateForm,
         isValidating,
       }) => {
+        // console.log("errores:", errors);
         return (
           <Grid sx={{ my: 0 }} md={12} item xs={9}>
             <Form onSubmit={handleSubmit}>
