@@ -74,9 +74,6 @@ export default function GenerarComprobantesCierreDialog({
     if (seleccion)
       addQueryApi("generarFacturas", {
         ...seleccion,
-        comprobantesRechazados: tableInstanceRef.current
-          .getState()
-          .rowSelection.map((row) => row.original.id),
       }).then((res) => {
         setOpen(false);
       });
