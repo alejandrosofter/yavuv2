@@ -46,7 +46,6 @@ export default function ModeloCobros() {
   });
 }
 export function valoresIniciales(data) {
-  console.log(localStorage.getItem("cobros_esFiscal"));
   return {
     cliente: "",
     detalle: "",

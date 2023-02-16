@@ -43,7 +43,7 @@ export default function _FormGenerico({
   const clickForm = async (values, propsForm) => {
     setLoad(true);
     if (fnUpdate) {
-      const data = cleanseUndefined(values);
+      const data = values;
       console.log(data);
       fnUpdate(data)
         .then(async (res) => {

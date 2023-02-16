@@ -19,7 +19,9 @@ export const columns = [
     accessorKey: "fecha",
     header: "Fecha",
     size: 85,
-    Cell: ({ cell }) => getFechaString(cell.getValue(), "DD/MM hh:mm"),
+    Cell: ({ cell }) => {
+      return getFechaString(cell.getValue(), "DD/MM hh:mm");
+    },
   },
   {
     accessorKey: "total",
@@ -83,7 +85,7 @@ export default function CuentaSocio({ data, mod }) {
     //concat value
     let impositivo = [];
     let i = 0;
-    console.log(dataImpositivo);
+
     for (const [key, value] of Object.entries(dataImpositivo)) {
       impositivo[i] = {
         nrosComprobantes: value
@@ -100,7 +102,7 @@ export default function CuentaSocio({ data, mod }) {
       };
       i++;
     }
-    console.log(impositivo);
+    console.log(impositivo, row);
     return impositivo;
   };
   const getDataImpresion = async (row) => {
