@@ -48,25 +48,7 @@ export const findPath = (ob, key, value) => {
 
   return path.join(".");
 };
-export const cleanseUndefined = (obj, path) => {
-  Object.keys(obj).forEach(function (key) {
-    // Get this value and its type
-    var value = obj[key];
-    var type = typeof value;
-    if (type === "object") {
-      // Recurse...
-      cleanseUndefined(value);
-      // ...and remove if now "empty" (NOTE: insert your definition of "empty" here)
-      if (!Object.keys(value).length) {
-        delete obj[key];
-      }
-    } else if (type === "undefined") {
-      // Undefined, remove it
-      delete obj[key];
-    }
-  });
-  return obj;
-};
+
 export const quitarValoresNull = (obj) => {
   for (let key in obj) {
     if (obj[key] === null || obj[key] === undefined) {
