@@ -4,7 +4,6 @@ import Form from "./_form";
 
 export default function Modulo({ mod, callbackSuccess, idItem }) {
   const callbackElimina = (res) => {
-    console.log(res);
     if (callbackSuccess) callbackSuccess();
   };
   return (

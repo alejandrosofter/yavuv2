@@ -14,10 +14,10 @@ export default function NavegadorConsultorios({
       aux = aux.filter(function (x) {
         return x !== consultorio.id;
       });
-    // console.log(aux);
+    // ;
     setChecks(aux);
   };
-  //   console.log(checks);
+  //   ;
   return (
     <ButtonGroup
       size="small"

@@ -2,7 +2,6 @@ import axios from "axios";
 
 export default async function handler(req, res) {
   const url = `${process.env.URL_FUNCTIONS}/procesos-iniciar`;
-  console.log(req.query);
   // const output = await (await fetch(url)).json();
   await axios
     .get(url, {

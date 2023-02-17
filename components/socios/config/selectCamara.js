@@ -11,13 +11,10 @@ export default function SelectCamara({ label, campo, callbackchange }) {
         );
         setCamaras(camaras);
       })
-      .catch(function (err) {
-        console.log(err.name + ": " + err.message);
-      });
+      .catch(function (err) {});
   }, []);
 
   if (!camaras) return "";
-  console.log(camaras);
   return (
     <Select2
       callbackchange={callbackchange}

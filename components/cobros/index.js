@@ -54,7 +54,6 @@ export default function Modulo({ mod, parentData }) {
       .doc(cliente)
       .get()
       .then((doc) => {
-        console.log(doc.data());
         setSocio(doc.data());
       });
   };

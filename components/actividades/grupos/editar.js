@@ -6,7 +6,6 @@ import Form from "./_form";
 
 export default function EditarGrupo({ open, setOpen, doc, actividad }) {
   const callbackSuccess = (data) => {
-    console.log(data);
     setOpen(false);
   };
   return (

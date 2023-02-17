@@ -15,21 +15,21 @@ export default async function handler(req, res) {
     const client = mqtt.connect(TCP_URL, options)
     // after connect
 client.on('connect', () => {
-    console.log('Connected to', TCP_URL)
+    
   
     client.subscribe('/test', (err) => {
-      console.log(err || 'Subscribe Success')
+      
     })
   
     // client.publish('/test', 'Hello EMQ X', (err) => {
-    //   console.log(err || 'Publish Success')
+    //   
     // })
   
   })
   
   // handle message event
   client.on('message', (topic, message) => {
-    console.log('Received form', topic, ':', message.toString())
+    )
   
     // disconnect
     // client.end()

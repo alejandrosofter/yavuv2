@@ -14,6 +14,7 @@ import PromocionesSocio from "./promociones";
 import DebitosAutomaticosSocio from "./debitoAutomatico";
 import Mensualizado from "./mensualizado";
 import EstadoCuentaSocio from "./estadoCuenta";
+import DeudasSocios_grid from "./deuda";
 function BadgeIcono({ icono, cantidad, label }) {
   const labCantidad = cantidad ? `(${cantidad})` : "";
   const auxLabel = `${label} ${labCantidad}`;
@@ -141,6 +142,12 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
             label={<BadgeIcono label="Mensualizado" icono="fas fa-calendar" />}
             {...a11yProps(5)}
           />
+          <Tab
+            icon={<Icon className="fas fa-dollar" />}
+            iconPosition="top"
+            label={<BadgeIcono label="Deudas" icono="fas fa-dollar" />}
+            {...a11yProps(6)}
+          />
         </Tabs>
       </Grid>
       <Grid item md={11}>
@@ -169,6 +176,9 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
         </TabPanel>
         <TabPanel value={value} index={4}>
           <Mensualizado mod={mod} data={dataSocio} />
+        </TabPanel>
+        <TabPanel value={value} index={5}>
+          <DeudasSocios_grid mod={mod} data={dataSocio} />
         </TabPanel>
       </Grid>
     </Grid>

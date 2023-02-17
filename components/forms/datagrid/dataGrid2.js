@@ -103,7 +103,6 @@ export default function DataGrid2({
       width: 70,
       getActions: actions,
     });
-    console.log(aux);
     setColumnas(aux);
   }, [acciones, columns, router]);
 
@@ -111,7 +110,6 @@ export default function DataGrid2({
     return deleteDocument(`${coleccion}/${dataRow.id}`);
   };
   fnAcciones["openEditar"] = async (dataRow, opcion) => {
-    console.log(dataRow, opcion);
     setPathComponente(opcion);
     setOpenEditar(true);
   };

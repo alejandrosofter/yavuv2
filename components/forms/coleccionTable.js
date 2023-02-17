@@ -175,7 +175,6 @@ export default function ColeccionTable({
   const getRef = () => {
     const orderField = Array.isArray(orderBy) ? orderBy[0] : orderBy;
     const orderDirection = Array.isArray(orderBy) ? orderBy[1] : null;
-    console.log(orderField, orderDirection);
     let ref = fuego.db
       .collection(coleccion)
       .orderBy(orderField, orderDirection ? orderDirection : "asc");
@@ -296,12 +295,8 @@ export default function ColeccionTable({
           rowsPerPageOptions={[]}
           hideFooter={true}
           showCellRightBorder={false}
-          onFilterModelChange={(params) => {
-            console.log(params);
-          }}
-          onSortModelChange={(params) => {
-            console.log(params);
-          }}
+          onFilterModelChange={(params) => {}}
+          onSortModelChange={(params) => {}}
           disableSelectionOnClick
           getRowClassName={getRowClassName}
           onSelectionModelChange={cambiaSelectCheck}

@@ -31,7 +31,7 @@ export default function Form({ mod, setFieldValue, values, callbackElimina }) {
     id: mod.config?.impresionTurno,
     data: values,
   });
-  // console.log(values);
+  // ;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const cambiaTipo = (value, item) => {

@@ -66,9 +66,7 @@ export default function ListaAsistenciaGrupo({
       label: "Quitar",
       color: "red",
       fn: (row) => {
-        quitarDocumento(row).then(() => {
-          console.log("Documento eliminado");
-        });
+        quitarDocumento(row).then(() => {});
       },
     },
   ];

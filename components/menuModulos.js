@@ -38,9 +38,7 @@ export default function MenuModulos({ callbackclick }) {
 
         // setDataMenu(data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, [data]);
   const menusIguales = (data1, data2) => {
     if (!data1 || !data2) return false;

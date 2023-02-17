@@ -7,7 +7,7 @@ export function UseStorage(nombreStorage, initValue) {
     else return initValue;
   });
   useEffect(() => {
-    // console.log(datos);
+    // ;
     localStorage.setItem(nombreStorage, JSON.stringify(datos));
   }, [datos, setDatos]);
   return [datos, setDatos];

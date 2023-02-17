@@ -11,9 +11,7 @@ export default function EliminarTurno({ idItem, callbacksuccess }) {
       .then(() => {
         if (callbacksuccess) callbacksuccess();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   return (
     <Grid

@@ -23,7 +23,6 @@ const getColorDebito = (estado) => {
   if (estado === "PENDIENTE") color = "#2a2121de";
   if (estado === "ACE") color = "#29ab29";
   if (estado === "PRE-DEBITO") color = "#e99e40";
-  console.log(color);
   return color;
 };
 export const cols = [
@@ -89,7 +88,6 @@ export default function EstadoCuentaSocio({ data, mod }) {
       label: "Historial Debitos",
       fn: (row) => {
         setSeleccion(row);
-        console.log(row);
         setOpenStatusDebito(true);
       },
     },
@@ -99,7 +97,6 @@ export default function EstadoCuentaSocio({ data, mod }) {
       ? ["idUsuario", "==", localStorage.getItem("usermod")]
       : ["usermod", "==", fuego.auth().currentUser?.uid],
   ];
-  console.log(where);
   return (
     <Grid container>
       {/* <Grid item xs={10}></Grid> */}

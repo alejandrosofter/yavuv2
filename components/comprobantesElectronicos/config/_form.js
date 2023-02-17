@@ -10,7 +10,6 @@ import SelectCertificadoElectronico from "@components/certificadosElectronicos/s
 export default function FormConfig({ values }) {
   const [dataConsulta, setDataConsulta] = useState();
 
-  console.log(values);
   const clickPedido = () => {
     const data = { idUsuario: fuego.auth().currentUser.uid };
 
@@ -26,7 +25,6 @@ export default function FormConfig({ values }) {
       nroPuntoVenta: values.nroPuntoVenta,
       cuit: values.cuit,
     };
-    console.log(data);
     setDataConsulta({
       url: "/api/comprobantesElectronicos/asentar",
       data,

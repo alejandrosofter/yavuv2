@@ -21,7 +21,6 @@ export default function CalendarioTurnos({ onChange, fechaBusca }) {
     setValue(fechaBusca);
   }, [fechaBusca]);
   useEffect(() => {
-    console.log(value);
     consultarData();
   }, [value]);
 
@@ -41,7 +40,7 @@ export default function CalendarioTurnos({ onChange, fechaBusca }) {
 
   const getDataDia = (date) => {
     for (let i = 0; i < arrDias.length; i++) {
-      // console.log(arrDias[i].fechaBusca);
+      // ;
       if (
         sonFechasIguales(
           new Date(arrDias[i].fechaBusca.seconds * 1000),
@@ -49,14 +48,14 @@ export default function CalendarioTurnos({ onChange, fechaBusca }) {
           "YYYY-MM-DD"
         )
       ) {
-        // console.log(date, arrDias[i]);
+        // ;
         return arrDias[i];
       }
     }
   };
   const getEstilo = (date) => {
     const dataDia = getDataDia(new Date(date));
-    // console.log(dataDia);
+    // ;
     let style = { color: "#000" };
     let title = `
     No esta seteado como un dia para dar turnos, para hacerlo debes ir a consultorios y editar los horarios`;
@@ -80,7 +79,7 @@ export default function CalendarioTurnos({ onChange, fechaBusca }) {
       style,
       title,
     };
-    // console.log(dataDia);
+    // ;
   };
   const mapDays = ({ date }) => {
     return getEstilo(date);

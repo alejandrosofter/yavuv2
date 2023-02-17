@@ -17,7 +17,7 @@ export default function MuestraImagen({
   const [loadingImage, setLoadingImage] = useState(false);
   const [imagenUrl, setImagenUrl] = useState();
   const mostrarImagen = async (path) => {
-    // console.log(path);
+    // ;
     setLoadingImage(true);
     if (!path) return setLoadingImage(false);
     if (path)

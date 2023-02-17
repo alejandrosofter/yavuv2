@@ -11,7 +11,6 @@ export default function FormGrupo({
   actividad,
   grupo,
 }) {
-  console.log(grupo);
   const cambiaSeleccionItems = (data, ids) => {
     setFieldValue("integrantesAsistencia", ids);
   };

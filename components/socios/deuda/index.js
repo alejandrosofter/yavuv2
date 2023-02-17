@@ -69,11 +69,11 @@ export const cols = [
   //     renderCellExpandData(params, (row) => `${row.label_tipoPeriodo}`),
   // },
 ];
-export default function CuentaSocio({ data, mod }) {
+export default function DeudasSocios_grid({ data, mod }) {
   const order = ["fecha"];
-  const subColeccion = "mensualizado";
+  const subColeccion = "deudas";
   const icono = "fas fa-file-invoice-dollar";
-  const titulo = `COMPROMISOS MENSUALES `;
+  const titulo = `DEUDAS`;
   const idPlantilla = mod.config?.plantillaMensualizacion;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
@@ -97,19 +97,6 @@ export default function CuentaSocio({ data, mod }) {
         setOpenImpresion(true);
       },
     },
-
-    {
-      esFuncion: true,
-      icono: "fas fa-envelope",
-      label: "Re-Enviar a su Actividad",
-      fn: (row) => {
-        console.log(row);
-        setDataConsulta({
-          url: "/api/mensualizados/reEnviarActividad",
-          data: row,
-        });
-      },
-    },
   ];
   const parentData =
     localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
@@ -127,7 +114,7 @@ export default function CuentaSocio({ data, mod }) {
               ? ["idUsuario", "==", localStorage.getItem("usermod")]
               : ["usermod", "==", fuego.auth().currentUser?.uid],
           ]}
-          labelNuevo="Agregar compromiso mensual"
+          labelNuevo="Agregar deuda manual"
           preData={{
             idSocio: data?.id,
             apellido: data?.apellido,

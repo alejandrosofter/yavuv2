@@ -21,7 +21,7 @@ export default function FiltroAsistencias({ setWhere }) {
   const cambiaHasta = (data) => {
     localStorage.setItem("fechaHasta", data);
   };
-  console.log(localStorage.getItem("fechaDesde"));
+
   return (
     <FormGenerico2
       onSubmit={onSubmit}

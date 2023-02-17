@@ -51,7 +51,7 @@ export default async function handler(req, res) {
                 const modulosBase=await findByField("modulos",{campo:"esBase",valor:true})
                 verificarModulos(mods,modulosBase,id)
                 modulos=await getModulos(id)
-            }else console.log("No existe el usuario")
+            }else 
         }
         
         

@@ -6,7 +6,6 @@ import Form from "./_form";
 
 export default function NuevaActividad({ open, setOpen, mod }) {
   const callbackSuccess = (data) => {
-    console.log(data);
     setOpen(false);
   };
   return (

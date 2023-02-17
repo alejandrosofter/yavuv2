@@ -37,9 +37,7 @@ export default function UpdateField({
             h ? h : 300
           );
         }
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     }
   };
   return (

@@ -7,7 +7,6 @@ export default function SelectGrupos({
   campo,
   callbackchange,
 }) {
-  console.log(`actividades/${idActividad}/grupos`);
   return (
     <SelectUserModColeccion
       coleccion={`actividades/${idActividad}/grupos`}

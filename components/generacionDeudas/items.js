@@ -12,9 +12,7 @@ export default function ItemsGeneracionDeuda({ open, setOpen, generacion }) {
   const order = ["label_socio", "asc"];
   const router = useRouter();
   const modSocios = getModUsuario("socios");
-  const callbackclick = (data) => {
-    console.log(data);
-  };
+  const callbackclick = (data) => {};
   const cols = [
     {
       field: "observacion",
@@ -122,7 +120,6 @@ export default function ItemsGeneracionDeuda({ open, setOpen, generacion }) {
     },
   ];
   const clickSocio = (row) => {
-    console.log(row);
     localStorage.setItem(
       "socioSeleccion",
       JSON.stringify({

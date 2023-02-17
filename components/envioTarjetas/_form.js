@@ -10,8 +10,6 @@ import TarjetasEnvio from "./tarjetas";
 export default function Form({ mod, setFieldValue, values, nuevo }) {
   const [condiciones, setCondiciones] = useState([]);
   const cambiaModulo = (id, item) => {
-    console.log(item);
-
     if (item) setCondiciones(item.config?.itemsDifusion);
     else setCondiciones([]);
   };

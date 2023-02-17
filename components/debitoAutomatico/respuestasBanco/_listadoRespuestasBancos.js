@@ -37,7 +37,6 @@ export default function ListadoRespuestasBanco({ idDebito, callbackcambia }) {
   };
   const clickEliminar = (item) => {
     const coleccion = `debitoAutomatico/${idDebito}/respuestasBanco`;
-    console.log(coleccion);
     setColeccionElimina(coleccion);
     if (item)
       fuego.db
@@ -45,16 +44,11 @@ export default function ListadoRespuestasBanco({ idDebito, callbackcambia }) {
         .doc(item.id)
         .delete()
         .then(() => {
-          console.log("Eliminado");
           if (callbackcambia) callbackcambia(null);
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch((err) => {});
   };
-  const successQuery = (data) => {
-    console.log(data);
-  };
+  const successQuery = (data) => {};
   const clickAplicar = (data) => {
     setDataConsulta({
       url: "/api/debitoAutomatico/aplicarRespuestaBanco",

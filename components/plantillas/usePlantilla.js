@@ -19,9 +19,7 @@ export function UsePlantilla({ id, data }) {
     try {
       if (dataTemplate)
         setHtml(await remplazarValores(dataTemplate.dataPlantilla, data));
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   if (!dataTemplate) return "No hay Template";
   const addData = async (data) => {
@@ -41,7 +39,6 @@ export function UsePlantilla({ id, data }) {
       return `${aString}`.toUpperCase();
     });
     Handlebars.registerHelper("gettext", function (aString) {
-      console.log(aString);
       if (!aString) return "";
       return `${aString}`;
     });
@@ -59,11 +56,9 @@ export function UsePlantilla({ id, data }) {
       return palabras[palabras.length - 1];
     });
     Handlebars.registerHelper("numeroLetra", function (numero) {
-      console.log(numero);
       return numeroLetra(Number(numero));
     });
     Handlebars.registerHelper("equal", function (valor, valor2) {
-      console.log(valor, valor2);
       if (valor === valor2) {
         return true;
       }
@@ -175,7 +170,6 @@ export function UsePlantilla({ id, data }) {
     });
     Handlebars.registerHelper("esBaja", function (estado) {
       //SUMO el importe de actividades que sean por debito
-      console.log(estado);
       if (estado === "BAJA") return true;
       return false;
     });
@@ -183,7 +177,6 @@ export function UsePlantilla({ id, data }) {
     Handlebars.registerHelper(
       "importeTotalItem",
       function (importe, cantidad, importeBonificacion) {
-        console.log(`importeBonificacion: ${importeBonificacion}`);
         return formatMoney(
           Number(importe) * cantidad -
             (importeBonificacion ? Number(importeBonificacion) : 0)
@@ -195,7 +188,6 @@ export function UsePlantilla({ id, data }) {
       function (data, campo, conCantidad) {
         //suma el campo importe del array data
         const field = campo ? campo : "importe";
-        console.log(campo);
         let total = 0;
         if (data)
           data.forEach((item) => {
@@ -205,7 +197,6 @@ export function UsePlantilla({ id, data }) {
             );
             const importe = Number(item[field]);
             total += importe * cantidad - bonificacion;
-            console.log(bonificacion, cantidad, importe, total);
           });
         return formatMoney(total);
       }
@@ -213,7 +204,6 @@ export function UsePlantilla({ id, data }) {
 
     Handlebars.registerHelper("importeTotalDebitos", function (data) {
       //suma el campo importe del array data
-      console.log("solo debitos");
       let total = 0;
       if (data)
         data.forEach((item) => {

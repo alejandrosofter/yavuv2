@@ -23,7 +23,6 @@ export default function EditarGenerico({
   const { data, update } = useDocument(pathDoc);
 
   if (!data) return "Cargando data registro...";
-  console.log(data, pathDocExterno);
   delete data.__snapshot; //NO DEJA ACTUALIZAR SIN ESTO
   return (
     <Grid container>

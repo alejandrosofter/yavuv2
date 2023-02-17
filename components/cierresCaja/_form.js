@@ -19,7 +19,6 @@ export default function FormMensualizado({ values, setFieldValue }) {
       setFieldValue("label_puntoVenta", item.label);
     }
   };
-  console.log(values);
   return (
     <Grid container sx={{ p: 2 }} spacing={2}>
       <Grid item md={12}>

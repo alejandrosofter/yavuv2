@@ -100,7 +100,7 @@ export default function MensualizadosIndex({ data, mod }) {
     //   },
     // },
   ];
-  console.log(localStorage.getItem("usermod"), fuego.auth().currentUser?.uid);
+
   const parentData =
     localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
   return (

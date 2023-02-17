@@ -9,7 +9,6 @@ export default function SelectMenuGrupo({ label, campo, callbackchange }) {
     if (item) {
       setFieldValue("iconParent", item.icon);
       if (callbackchange) callbackchange(valor, item);
-      console.log(values);
     }
   };
 

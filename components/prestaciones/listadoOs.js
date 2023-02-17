@@ -17,9 +17,7 @@ export default function PrestacionesListado({
   const [dataSeleccion, setDataSeleccion] = useState();
   const [inscriptos, setInscriptos] = useState([]);
 
-  const callbackclick = (data) => {
-    console.log(data);
-  };
+  const callbackclick = (data) => {};
   const changeData = (data) => {
     setInscriptos(data);
   };
@@ -58,7 +56,6 @@ export default function PrestacionesListado({
     // }
   ];
   const clickMenu = (inscripto) => {
-    console.log(inscripto);
     setDataSeleccion(inscripto);
   };
   const getCols = () => {
@@ -70,7 +67,6 @@ export default function PrestacionesListado({
   };
   const imprimirIntegrantes = () => {
     setOpenImpresion(true);
-    console.log(inscriptos);
     setDataImpresion({ inscriptos, colsDias: getCols() });
   };
   return (

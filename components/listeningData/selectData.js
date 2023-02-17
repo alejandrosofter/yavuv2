@@ -34,7 +34,7 @@ export default function SelectData({
       ? `${item.nombre}`
       : `${item.nombre} | ${item.campoValue} --> ${item.campoLabel}`;
   const renderTree2 = (nodes) => {
-    // console.log(nodes);
+    // ;
     if (nodes)
       if (Object.keys(nodes).length > 0)
         return (
@@ -87,7 +87,6 @@ export default function SelectData({
   const clickItemChild = (data) => {
     const auxPath = getPathTree(seleccion);
     const sizeChildrens = getSizeChildrens(auxPath);
-    console.log(values, `${auxPath}`);
     setPath(`${auxPath}`);
     setOpen(true);
   };

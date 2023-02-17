@@ -27,7 +27,6 @@ export default function _FormGenerico({
   const [openErrores, setOpenErrores] = useState(false);
 
   const quitarValoresNull = (obj) => {
-    console.log(obj);
     for (let key in obj) {
       if (obj[key] === null || obj[key] === undefined) {
         delete obj[key];
@@ -43,11 +42,9 @@ export default function _FormGenerico({
   const clickForm = async (values, propsForm) => {
     setLoad(true);
     if (fnUpdate) {
-      const data = values;
-      console.log(data);
+      const data = quitarValoresNull(values);
       fnUpdate(data)
         .then(async (res) => {
-          console.log("termina ", res);
           if (callbackSuccess) {
             await callbackSuccess(values, res);
           } else {
@@ -63,7 +60,6 @@ export default function _FormGenerico({
           setLoad(false);
         });
     } else {
-      console.log("no hay fnUpdate");
       setLoad(false);
     }
   };
@@ -90,7 +86,7 @@ export default function _FormGenerico({
         validateForm,
         isValidating,
       }) => {
-        // console.log("errores:", errors);
+        // ;
         return (
           <Grid sx={{ my: 0 }} md={12} item xs={9}>
             <Form onSubmit={handleSubmit}>

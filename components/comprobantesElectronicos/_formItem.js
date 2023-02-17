@@ -7,7 +7,7 @@ export default function FormItem({ values, setFieldValue }) {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    // console.log(values);
+    // ;
     if (values) setTotal((values.cantidad * values.importe).toFixed(2));
   }, [values]);
   const cambiaProducto = (data, item) => {

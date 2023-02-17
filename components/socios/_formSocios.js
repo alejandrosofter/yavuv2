@@ -31,9 +31,7 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
       .limit(1)
       .get()
       .then((querySnapshot) => {
-        console.log(`size ${querySnapshot.size}`);
         querySnapshot.forEach((doc) => {
-          console.log(doc.data());
           setFieldValue(
             getFieldName(field, `nroSocio`),
             Number(doc.data().nroSocio) + 1
@@ -52,19 +50,15 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
   const cambiaTipoSocio = (valor, item) => {
     if (item) {
       setTipoSocioSeleccion(item);
-      // console.log(values);
+      // ;
       // setProximoNroSocio(item);
       // setFieldValue(getFieldName(field, `nroSocio`), item.proximoNro);
     }
 
     // setFieldValue(getFieldName(field, `nroSocio`), item ? item.proximoNro : "");
   };
-  const cambiaCliente = (cliente) => {
-    console.log(cliente);
-  };
-  const cambiaCategoria = (newValue) => {
-    console.log(newValue);
-  };
+  const cambiaCliente = (cliente) => {};
+  const cambiaCategoria = (newValue) => {};
   const cambiaFecha = (newValue) => {
     // const item = getItemArray({data:categoriaSocios,valor:values.categoriaSocio,campoId:"id"})
     const edad = getEdad(newValue);

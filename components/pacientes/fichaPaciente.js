@@ -217,7 +217,6 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
         //   row.indicaciones = setIndicaciones(row.indicaciones);
         setSeleccion(row);
 
-        console.log("row", row);
         setDataImpresion({ ...row, paciente });
         setOpenImpresion(true);
       },

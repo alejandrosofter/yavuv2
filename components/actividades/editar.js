@@ -6,7 +6,6 @@ import Form from "./_form";
 
 export default function EditarActividad({ open, setOpen, doc, mod }) {
   const callbackSuccess = (data) => {
-    console.log(data);
     setOpen(false);
   };
   return (

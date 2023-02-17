@@ -9,7 +9,6 @@ export default function TestMessage() {
     `whatsapp/${fuego.auth().currentUser?.uid}/mensajes`
   );
   const enviarMensaje = async () => {
-    console.log({ mensaje, nro, fecha: new Date() });
     await add({ estado: "PENDIENTE", mensaje, nro, fecha: new Date() });
   };
   return (

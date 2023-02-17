@@ -43,7 +43,6 @@ export default function FormMensualizado({
     setOpenNuevoCbu(true);
   };
   const cbSuccessCbus = (item, res) => {
-    console.log(res, item);
     setOpenEditarCbu(false);
     setOpenNuevoCbu(false);
     setItemsCuenta(item);

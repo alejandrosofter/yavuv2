@@ -20,7 +20,6 @@ export default function FormData({
   //         seleccion ? seleccion.path : "root"
   //       )}.children`;
 
-  console.log(values);
   return (
     <Grid spacing={2} container>
       <Grid item md={4}>

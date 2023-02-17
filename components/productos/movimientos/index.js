@@ -68,9 +68,7 @@ export default function MovimientosProducto({
       label: "Quitar",
       color: "red",
       fn: (row) => {
-        quitarDocumento(row).then(() => {
-          console.log("Documento eliminado");
-        });
+        quitarDocumento(row).then(() => {});
       },
     },
   ];

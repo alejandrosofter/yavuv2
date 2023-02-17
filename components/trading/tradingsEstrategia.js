@@ -58,9 +58,7 @@ export default function TradingsEstrategia({ row, setOpen, open }) {
       label: "Quitar",
       color: "red",
       fn: (row) => {
-        quitarDocumento(row).then(() => {
-          console.log("Documento eliminado");
-        });
+        quitarDocumento(row).then(() => {});
       },
     },
   ];

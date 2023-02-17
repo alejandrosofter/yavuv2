@@ -47,7 +47,6 @@ export function ModeloFormasDePago() {
   });
 }
 export function valoresInicialesFormaPago(importe) {
-  console.log(importe);
   return {
     formaPago: "",
     importe: importe ? importe : 0,

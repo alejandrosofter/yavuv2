@@ -18,7 +18,7 @@ export function getHorariosDisponibles({ horarios, fechaBusca }) {
   for (let i in horarios) {
     let horario = horarios[i];
     if (correspondeAlDia({ fechaBusca, horario })) {
-      //   console.log(`corresponde al dia ${fechaBusca.getDay()}`);
+      //   }`);
       const CADA_MINUTOS = horario.duracion
         ? horario.duracion
         : consultorio.duracion;
@@ -56,7 +56,7 @@ const processData = ({ data, consultorio, fechaBusca }) => {
   data.forEach((doc) => {
     salida.push(doc.data());
   });
-  // console.log(salida);
+  // ;
   return salida;
 };
 export async function getHorariosDia({ fechaBusca, consultorio }) {
@@ -90,7 +90,7 @@ export async function getHorariosMes({ fechaBusca, consultorio }) {
 const sonFechasIguales = (fecha1, fecha2, formato = "Y-M-d HH:mm") => {
   const d1 = moment(fecha1);
   const d2 = moment(fecha2);
-  // console.log(`${d1.format(formato)} == ${d2.format(formato)}`);
+  // } == ${d2.format(formato)}`);
   return d1.format(formato) == d2.format(formato);
 };
 export { sonFechasIguales };
@@ -98,7 +98,7 @@ const getHorario = ({ turnosOcupados, horario }) => {
   let auxHorario = horario;
   for (let j in turnosOcupados) {
     let turno = turnosOcupados[j];
-    // console.log(new Date(turno.fechaTurno.seconds*1000),horario.value.toDate())
+    // ,horario.value.toDate())
     //02974062020
     // devuser1 desarrollosx santiagot@itcsoluciones.com soporte@it
     if (
@@ -107,7 +107,7 @@ const getHorario = ({ turnosOcupados, horario }) => {
         auxHorario.value.toDate()
       )
     ) {
-      //   console.log("son iguales");
+      //   ;
       // auxHorario.disabled = true;
       auxHorario.turnoOcupado = turno;
       auxHorario.estado = "OCUPADO";
@@ -119,7 +119,7 @@ const getHorario = ({ turnosOcupados, horario }) => {
 export async function getTurnosOcupados({ consultorio, fechaBusca }) {
   const fechaDesde = moment(fechaBusca);
   const fechaHasta = moment(fechaBusca).add(1, "days");
-  //   console.log(`BUSCANDO TURNOS OCUPADOS PARA ${fechaBusca}`);
+  //   ;
   let arrTurnosOcupados = [];
   if (fechaDesde.isValid() && fechaHasta.isValid()) {
     const refTurnosOcupados = await fuego.db

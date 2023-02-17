@@ -11,11 +11,9 @@ export default function SelectActividadGrupo({ label, campo, callbackchange }) {
     { listen: true }
   );
   const [seleccionActividad, setSeleccionActividad] = useState();
-  console.log(`/actividades/${seleccionActividad?.id}/grupos`);
   const cambiaActividad = (data, item) => {
     if (item) setSeleccionActividad(item);
   };
-  console.log(gruposActividad);
   if (!data) return "";
   return (
     <>

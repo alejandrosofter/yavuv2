@@ -10,7 +10,5 @@ export async function getImagen(path) {
       .then((url) => {
         return url;
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
 }

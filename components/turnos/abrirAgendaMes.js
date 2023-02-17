@@ -54,16 +54,14 @@ export default function AbrirAgendaMes({
     const options = {
       headers: { "content-type": "application/json" },
     };
-    // console.log(dataSend);
+    // ;
 
     await axios
       .post(`/api/turnos/abreAgenda`, dataSend, options)
       .then((res) => {
         if (callbackSuccess) callbackSuccess(res);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
 
     setLoading(false);
     if (callbackSuccess) callbackSuccess();

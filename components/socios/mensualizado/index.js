@@ -147,7 +147,6 @@ export default function CuentaSocio({ data, mod }) {
       icono: "fas fa-envelope",
       label: "Re-Enviar a su Actividad",
       fn: (row) => {
-        console.log(row);
         setDataConsulta({
           url: "/api/mensualizados/reEnviarActividad",
           data: row,

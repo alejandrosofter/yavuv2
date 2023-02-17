@@ -86,7 +86,6 @@ export default ({ mod }) => {
               return (
                 <IconButton
                   onClick={() => {
-                    console.log(row);
                     setSeleccion(row);
                     setOpenEditar(true);
                   }}

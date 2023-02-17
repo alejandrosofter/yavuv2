@@ -34,7 +34,6 @@ export default function GraphEstadistica({ estadistica, acciones }) {
   };
   const successInfo = (data, info) => {
     if (info.data.length > 0) {
-      console.log(info.data);
       setLabels(
         info.data.map((item) => (item["label"] ? item["label"] : "Sin asignar"))
       );

@@ -23,14 +23,12 @@ export default function Paginador({
     setNroPagina(nroPagina + 1);
     guardarNexts(nroPagina + 1, data[data.length - 1][campoClave]);
     setPaginaActual(data[data.length - 1][campoClave]);
-    console.log(historyNexts);
   };
   const clickAnterior = () => {
     setNroPagina(nroPagina - 1);
     setPaginaActual(historyNexts[nroPagina - 1]);
   };
   const cambiaOrder = (campo) => {
-    console.log(campo);
     if (campo) setCampoClave(campo.value);
   };
   return (

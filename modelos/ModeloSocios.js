@@ -17,7 +17,7 @@ export default function ModeloSocios() {
           });
           if (!data) return true;
 
-          // console.log(testContext.parent, data);
+          // ;
           if (testContext.parent.id === data?.id) return true;
 
           return testContext.createError({

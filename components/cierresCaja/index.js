@@ -81,7 +81,7 @@ export default function CuentaSocio({ data, mod }) {
       },
       true
     );
-    // console.log(impositivo);
+    // ;
     //concat value
     let impositivo = [];
     let i = 0;
@@ -102,7 +102,6 @@ export default function CuentaSocio({ data, mod }) {
       };
       i++;
     }
-    console.log(impositivo, row);
     return impositivo;
   };
   const getDataImpresion = async (row) => {

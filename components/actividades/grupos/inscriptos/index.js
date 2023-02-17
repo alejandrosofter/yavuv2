@@ -58,7 +58,6 @@ export default function InscriptosGrupo({
     }
   );
   useEffect(() => {
-    console.log(data);
     setDataExternal(data);
   }, [data]);
   const [plantilla, setPlantilla] = UsePlantilla({
@@ -67,9 +66,7 @@ export default function InscriptosGrupo({
   });
   const order = ["apellido", "asc"];
 
-  const callbackclick = (data) => {
-    console.log(data);
-  };
+  const callbackclick = (data) => {};
   const changeData = (data) => {
     setInscriptos(data);
   };
@@ -112,7 +109,6 @@ export default function InscriptosGrupo({
     },
   ];
   const clickMenu = (inscripto) => {
-    console.log(inscripto);
     setDataSeleccion(inscripto);
   };
   const getCols = () => {
@@ -127,7 +123,6 @@ export default function InscriptosGrupo({
   };
   const imprimirIntegrantes = () => {
     setOpenImpresion(true);
-    console.log(inscriptos);
     setDataImpresion({ inscriptos, colsDias: getCols() });
   };
   const aceptarDeudas = () => {
@@ -180,7 +175,6 @@ export default function InscriptosGrupo({
               // renderTopToolbarCustomActions: () => <Grid container></Grid>,
               tableInstanceRef,
               muiSelectCheckboxProps: ({ row }) => {
-                console.log(row);
                 return {
                   color: "secondary",
                   disabled: true,

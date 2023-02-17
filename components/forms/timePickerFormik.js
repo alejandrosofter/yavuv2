@@ -21,14 +21,13 @@ const TimePickerFormik = ({ label, campo, callbackChange }) => {
     <FormControl fullWidth>
       <Field label={label} name={campo} id={campo}>
         {(props) => {
-          console.log(props.form.values);
           if (!value) setValue(getDateHora(props.form.values[campo]));
           const handleChange = (event) => {
             const valor = `${event?.toDate?.().getHours()}:${event
               ?.toDate?.()
               .getMinutes()}`;
             setValue(event);
-            console.log(new Date(event));
+
             props.form.setFieldValue(campo, valor);
             if (callbackChange) callbackChange(valor);
           };

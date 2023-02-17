@@ -16,7 +16,7 @@ const Controlador = ({ esInicial, url, moduloEditar }) => {
     router.query.componente === "editar" && moduloEditar === true;
 
   if (router.query?.usermod) {
-    // console.log(`usermod: ${router.query?.usermod}`);
+    // ;
     localStorage.setItem("usermod", router.query?.usermod);
   }
   const mod = esInicial

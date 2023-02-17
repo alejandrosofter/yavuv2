@@ -25,7 +25,6 @@ export default function SelectorCbu({ campo, label, callbackchange }) {
       })
       .then(({ hits }) => {
         setDatos(hits);
-        console.log(hits);
         setLoading(false);
       });
     // index.search(e.target.value).then(({ hits }) => {

@@ -9,9 +9,7 @@ export default function TomarAsistenciaGrupo({
   actividad,
   grupo,
 }) {
-  const callbackclick = (data) => {
-    console.log(data);
-  };
+  const callbackclick = (data) => {};
 
   const cambiaSeleccion = (data) => {
     if (callbackchange) {
@@ -27,12 +25,8 @@ export default function TomarAsistenciaGrupo({
       renderCell: (params) => `${params.row.apellido} ${params.row.nombre}`,
     },
   ];
-  const clickAceptar = () => {
-    console.log("clickAceptar");
-  };
-  const cambiaSeleccionItems = (data, ids) => {
-    console.log(data);
-  };
+  const clickAceptar = () => {};
+  const cambiaSeleccionItems = (data, ids) => {};
   const acciones = [
     // {
     //   esFuncion: true,

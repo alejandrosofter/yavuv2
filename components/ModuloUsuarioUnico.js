@@ -33,7 +33,6 @@ export default function ModuloUsuarioUnico({
         <Form titulo="Editar" subTitulo={mod.label} icono="fas fa-pencil" />
       </EditarGenerico>
     );
-  console.log("nuevo");
   return (
     <NuevoGenerico
       valoresIniciales={valoresIniciales}

@@ -23,9 +23,7 @@ export default function FormCambioEstadoSocio({
   const [hideAgregar, setHideAgregar] = useState(false);
 
   const [initDone, setInitDone] = useState(isNew);
-  console.log(values);
   const agregarMensualizacionesActivas = () => {
-    console.log(`consultando mensualizaciones activasS`);
     fuego.db
       .collection(`socios/${idSocio}/mensualizado`)
       .where("estado", "in", ["ALTA", "SUSPENDIDO"])

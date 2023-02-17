@@ -68,7 +68,7 @@ const SelectTurno = ({
       let horario = horariosDisponibles[i];
       for (let j in turnosOcupados) {
         let turno = turnosOcupados[j];
-        // console.log(new Date(turno.fechaTurno.seconds*1000),horario.value.toDate())
+        // ,horario.value.toDate())
         //02974062020
         // devuser1 desarrollosx santiagot@itcsoluciones.com soporte@it
         if (
@@ -86,7 +86,6 @@ const SelectTurno = ({
   };
 
   const setHorariosDisponibles = async (tipoTurno) => {
-    console.log(fechaBusca);
     const fechaHasta = getFechaHasta(fechaBusca);
     const fechaDesde = getFechaDesde(fechaBusca);
 
@@ -111,7 +110,7 @@ const SelectTurno = ({
 
       for (let i in consultorio.horarios) {
         let horario = consultorio.horarios[i];
-        // console.log(horario,tipoTurno)
+        //
         if (horario.tipoTurno === tipoTurno.id) {
           const CADA_MINUTOS = horario.duracion
             ? horario.duracion
@@ -155,7 +154,6 @@ const SelectTurno = ({
       <Field label={label} name={campo} id={campo}>
         {(props) => {
           const handleChange = (item) => {
-            console.log(item);
             setOpenTurnosDisponibles(false);
             props.form.setFieldValue(campo, item.value.toDate()); //VIENE OBJ MOMENT
             props.form.setFieldValue("duracion", item.duracion);

@@ -7,7 +7,7 @@ import Form from "./_form";
 
 export default function Modulo({ mod, callbackSuccess }) {
   const modCobros = getModUsuario("cobros", localStorage.getItem("usermod"));
-  // console.log(modCobros?.config);
+  // ;
   return (
     <NuevoGenerico
       preData={modCobros?.config}

@@ -17,8 +17,7 @@ export default function CajaDelDia({ open, setOpen, parentData }) {
     setOpen(false);
   };
   const [fechaDesde, fechaHasta] = getFechasWhere(fecha);
-  console.log("fechaDesde", fechaDesde.getTime());
-  console.log("fechaHasta", fechaHasta.getTime());
+
   const { data, error } = useCollection("cobros", {
     where: [
       ["fecha_timestamp", ">=", fechaDesde.getTime()],
@@ -38,7 +37,6 @@ export default function CajaDelDia({ open, setOpen, parentData }) {
   );
 
   //cast object to array
-  console.log(dataGroup);
   const dataFormaPagos = Object.keys(dataGroup).map((key) => {
     return {
       label_formaPago: key,
@@ -46,7 +44,6 @@ export default function CajaDelDia({ open, setOpen, parentData }) {
       importe: dataGroup[key].reduce((a, b) => a + Number(b?.importe), 0),
     };
   });
-  console.log(dataFormaPagos);
   const cambiaFecha = (fecha) => {
     setFecha(fecha);
   };

@@ -68,7 +68,6 @@ export const cleanseUndefined = (obj, path) => {
   return obj;
 };
 export const quitarValoresNull = (obj) => {
-  console.log(obj);
   for (let key in obj) {
     if (obj[key] === null || obj[key] === undefined) {
       delete obj[key];

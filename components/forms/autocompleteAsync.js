@@ -40,7 +40,6 @@ export default function AutoCompleteAsync({
   const cambiaSeleccion = (item, e) => {
     if (fnClick) fnClick(item, e);
     setOpen(false);
-    console.log("item", item);
   };
   return (
     <Autocomplete

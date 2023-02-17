@@ -42,16 +42,13 @@ export default function InscriptosGrupo({
     }
   );
   const modSocio = getModUsuario("socios");
-  console.log(modSocio);
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,
   });
   const order = ["apellido", "asc"];
 
-  const callbackclick = (data) => {
-    console.log(data);
-  };
+  const callbackclick = (data) => {};
   const changeData = (data) => {
     setInscriptos(data);
   };
@@ -91,7 +88,6 @@ export default function InscriptosGrupo({
     // }
   ];
   const clickMenu = (inscripto) => {
-    console.log(inscripto);
     setDataSeleccion(inscripto);
   };
   const getCols = () => {
@@ -103,7 +99,6 @@ export default function InscriptosGrupo({
   };
   const imprimirIntegrantes = () => {
     setOpenImpresion(true);
-    console.log(inscriptos);
     setDataImpresion({ inscriptos, colsDias: getCols() });
   };
   return (

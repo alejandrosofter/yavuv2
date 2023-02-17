@@ -43,7 +43,6 @@ export function useModUsuario(nombreModulo) {
     buscarMod(nombreModulo);
   }, [nombreModulo]);
   const buscarMod = async (nombreModulo) => {
-    console.log(fuego.auth().currentUser);
     if (!fuego.auth().currentUser) return false;
     const data = await fuego.db
       .collection("mods")

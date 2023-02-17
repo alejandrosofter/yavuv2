@@ -40,7 +40,6 @@ export default function Modulo({
   const cambianItemsDeuda = (items) => {
     let auxDeuda = values.deudas ? values.deudas : [];
     auxDeuda = auxDeuda.concat(items);
-    console.log(auxDeuda);
     setFieldValue("deudas", auxDeuda);
     setDeudas(auxDeuda);
   };

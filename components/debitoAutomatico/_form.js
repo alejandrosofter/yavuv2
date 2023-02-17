@@ -8,9 +8,7 @@ import Input from "../forms/input";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import SelectFormaPago from "@components/formaPagos/selectFormaPago";
 export default function FormCobranzaGrupal({ setFieldValue, values }) {
-  const clickProcesar = (data) => (event) => {
-    console.log(data);
-  };
+  const clickProcesar = (data) => (event) => {};
   const accionesExtra = (data) => [
     <GridActionsCellItem
       icon={<Icon className="fas fa-plug" />}

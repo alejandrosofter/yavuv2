@@ -9,7 +9,6 @@ import Form from "./_formMovimientoCuenta";
 
 export default function NuevaDeuda({ open, setOpen, idSocio }) {
   const callbackSuccess = (data) => {
-    console.log(data);
     setOpen(false);
   };
   return (

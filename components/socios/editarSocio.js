@@ -10,7 +10,6 @@ export default function EditarSocio({ dataSocio, mod, open, setOpen }) {
   const callbackSuccess = (data) => {
     setOpen(false);
   };
-  console.log(dataSocio);
   return (
     <>
       <DialogContenido

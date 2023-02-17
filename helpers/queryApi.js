@@ -15,7 +15,6 @@ export function QueryApi({
   const [openMensaje, setOpenMensaje] = useState(false);
   const [mensaje, setMensaje] = useState("");
   useEffect(() => {
-    console.log(dataConsulta);
     if (dataConsulta) enviarSolicitud(dataConsulta.url, dataConsulta.data);
   }, [dataConsulta]);
   const enviarSolicitud = (url, data) => {
@@ -32,7 +31,6 @@ export function QueryApi({
           if (callbackSuccess) callbackSuccess(dataConsulta, data);
         })
         .catch((err) => {
-          console.log(err);
           if (callbackLoading) callbackLoading(false);
           setLoading(false);
           if (err.code === "FUNCTION_INVOCATION_TIMEOUT") return;

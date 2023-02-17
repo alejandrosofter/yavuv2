@@ -15,7 +15,6 @@ export default function ConfigPredeuda({ mod }) {
   const campo = "config";
   const coleccion = "mods";
   const datos = mod[campo] ? mod[campo] : {};
-  console.log(datos);
   const valoresIniciales = () => {
     return { nombre: "", tipo: "" };
   };

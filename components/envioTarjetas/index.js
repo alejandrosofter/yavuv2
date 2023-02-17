@@ -112,7 +112,6 @@ export default function Modulo({ mod, parentData }) {
       ? ["idUsuario", "==", localStorage.getItem("usermod")]
       : ["usermod", "==", fuego.auth().currentUser?.uid],
   ];
-  console.log(`where ${where}`);
   return (
     <>
       <ABMColeccion2

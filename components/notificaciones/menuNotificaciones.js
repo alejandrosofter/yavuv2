@@ -30,7 +30,6 @@ export default function MenuNotificaciones({ parentData }) {
     listen: true,
     orderBy: ["fecha_timestamp", "desc"],
   });
-  console.log(data);
   const clickSalir = () => {};
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -51,7 +50,7 @@ export default function MenuNotificaciones({ parentData }) {
     switch (notificacion.tipo) {
       case "DESCARGA": {
         if (notificacion.data) window.open(notificacion.data.url, "_blank");
-        else console.log("no hay archivo");
+        else;
         break;
       }
       case "verificacionPaciente": {

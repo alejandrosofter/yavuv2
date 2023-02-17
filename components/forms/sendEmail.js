@@ -24,7 +24,6 @@ export function SendEmail({
 }) {
   const [inputEmail, setInputEmail] = useState();
   useEffect(() => {
-    console.log(`cambia email`);
     setInputEmail(email);
   }, [email]);
   const [loading, setLoading] = useState(false);
@@ -48,7 +47,6 @@ export function SendEmail({
           ? fuego.auth().currentUser.uid
           : localStorage.getItem("usermod"),
     };
-    console.log(data);
     await add(data);
     setLoading(false);
     setOpen(false);

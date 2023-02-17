@@ -11,8 +11,6 @@ import TestDifusion from "./test";
 export default function Form({ mod, setFieldValue, values }) {
   const [condiciones, setCondiciones] = useState([]);
   const cambiaModulo = (id, item) => {
-    console.log(item);
-
     if (item) setCondiciones(item.config?.itemsDifusion);
     else setCondiciones([]);
   };

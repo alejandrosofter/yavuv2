@@ -23,10 +23,10 @@ const ConsultorioTurnos = ({
   muestra,
 }) => {
   useEffect(() => {
-    // console.log(`buscando en ${moment(fechaBusca).format("YYYY-MM-DD")}`);
+    // .format("YYYY-MM-DD")}`);
     setHorariosDisponibles();
   }, [fechaBusca]);
-  // console.log(mod.config);
+  // ;
   const [seleccion, setSeleccion] = useState(null);
   const [dataImpresion, setDataImpresion] = useState();
   const [plantilla, setPlantilla] = UsePlantilla({
@@ -47,13 +47,11 @@ const ConsultorioTurnos = ({
     setOpenNuevoTurno(false);
     setOpenUpdateTurno(false);
     setHorariosDisponibles();
-    console.log(data);
     setDataImpresion({ ...data });
     setOpenImpresion(true);
   };
 
   const handleChange = (item) => {
-    console.log(item);
     if (item.estado === "OCUPADO") {
       setPredata(item.turnoOcupado);
       setOpenUpdateTurno(true);

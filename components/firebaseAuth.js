@@ -39,7 +39,7 @@ const firebaseAuthConfig = {
   callbacks: {
     // https://github.com/firebase/firebaseui-web#signinsuccesswithauthresultauthresult-redirecturl
     signInSuccessWithAuthResult: (authResult) => {
-      // console.log(authResult, authResult.user.uid);
+      // ;
       localStorage.setItem(
         "credenciales",
         JSON.stringify(authResult.credentials)

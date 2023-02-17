@@ -16,9 +16,7 @@ export default function DataSocio({ dataSocio, mod, callbackdelete }) {
         setOpenConfirm(false);
         if (callbackdelete) callbackdelete();
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   const color = !dataSocio.sexo
     ? ""

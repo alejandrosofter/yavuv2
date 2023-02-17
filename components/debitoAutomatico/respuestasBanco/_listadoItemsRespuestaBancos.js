@@ -31,7 +31,6 @@ export default function ListadoItemsBanco({ idDebito, respuestaBanco }) {
     setSeleccion(item);
   };
   const clickSocio = (row) => {
-    console.log(row);
     localStorage.setItem(
       "socioSeleccion",
       JSON.stringify({
@@ -53,7 +52,7 @@ export default function ListadoItemsBanco({ idDebito, respuestaBanco }) {
     //   label: "Ir Perfil",
     //   fn: (row) => {
     //     setSeleccion(row);
-    //     console.log(row);
+    //     ;
     //     localStorage.setItem(
     //       "socioSeleccion",
     //       JSON.stringify({

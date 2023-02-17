@@ -16,6 +16,7 @@ import { Box } from "@mui/system";
 import MovimientosPredeuda from "@components/generacionDeudas/movimientos";
 import NuevoMovimientoGeneracionDeuda from "@components/generacionDeudas/movimientos/nuevo";
 import { formatMoney } from "@helpers/numbers";
+import { quitarValoresNull } from "@helpers/objects";
 export default function GenerarDeudaInscriptos({
   open,
   setOpen,
@@ -149,19 +150,18 @@ export default function GenerarDeudaInscriptos({
         return acc;
       }, {})
     );
-    console.log(tableInstanceRef.current.getState().rowSelection);
   };
   const getItemRow = (idRow) => {
     const item = refData?.current?.find((item) => item.id === idRow);
-    return {
+
+    return quitarValoresNull({
       id: item.id,
       apellido: item.apellido,
       nombre: item.nombre,
       estado: item.estado,
-      cobrarMesActual: item.cobrarMesActual,
       fechaCambioEstado: item.fechaCambioEstado,
       idSocio: item.idSocio,
-    };
+    });
   };
   const getItemsSeleccion = () => {
     const items = tableInstanceRef.current.getState().rowSelection;
@@ -246,7 +246,7 @@ export default function GenerarDeudaInscriptos({
                 },
               }),
               //   muiSelectCheckboxProps: ({ row }) => {
-              //     console.log(row);
+              //     ;
               //     return {
               //       color: "secondary",
               //       disabled: true,
