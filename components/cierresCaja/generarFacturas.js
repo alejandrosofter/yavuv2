@@ -12,6 +12,7 @@ import ModeloComprobantesElectronicos, {
 import { getFechaString } from "@helpers/dates";
 import { QueryApi } from "@helpers/queryApi";
 import Dialogo from "@components/forms/dialogo";
+import { GamesSharp, PasswordOutlined } from "@mui/icons-material";
 export default function GenerarComprobantesCierreDialog({
   open,
   setOpen,
@@ -58,10 +59,7 @@ export default function GenerarComprobantesCierreDialog({
       icono: "fas fa-file-invoice",
       label: "Subir AFIP",
       fn: (data) => {
-        setDataConsulta({
-          url: "/api/comprobantesElectronicos/subirAfip",
-          data,
-        });
+        addQueryApi("subirComprobanteAfip", data);
       },
     },
   ];

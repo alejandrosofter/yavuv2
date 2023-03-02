@@ -4,7 +4,11 @@ export default function ModeloComprobantesElectronicos() {
   return yup.object().shape({
     // fecha: yup.date().required("Fecha es requerida"),
     estado: yup.string(),
-    nroDocumento: yup.string(),
+    nroDocumento: yup
+      .string()
+      .required(
+        "Nro de Documento es requerido, en caso de Tipo documento 'Otros' el valor puede ser '0'"
+      ),
     razonSocial: yup.string(),
     idUsuario: yup.string(),
     domicilio: yup.string(),

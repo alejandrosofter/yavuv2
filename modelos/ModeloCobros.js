@@ -12,6 +12,14 @@ export default function ModeloCobros() {
     importeBonifica: yup.number(),
     esFiscal: yup.boolean(),
     importePaga: yup.number(),
+    comprobante_nroDocumento: yup.string().when("esFiscal", {
+      is: true,
+      then: yup
+        .string()
+        .required(
+          "el nro de documento es vital para la carga del comprobante!"
+        ),
+    }),
     comprobante_puntoVenta: yup.string().when("esFiscal", {
       is: true,
       then: yup
