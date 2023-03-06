@@ -38,8 +38,9 @@ export default function FormComprobantesElectronicos({
   }, []);
   const cambiaPuntoVenta = (item, row) => {
     if (!item) return;
+
     localStorage.setItem("comprobante_puntoVenta", row.id);
-    setFieldValue("puntoVenta_nro", row.nroPuntoVenta);
+    setFieldValue("puntoVenta_nro", row.nro);
   };
   const cambiaTipoCliente = (data) => {
     // if (!data && esNuevo) {

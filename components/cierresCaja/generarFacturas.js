@@ -115,7 +115,7 @@ export default function GenerarComprobantesCierreDialog({
                 ? ["idUsuario", "==", localStorage.getItem("usermod")]
                 : ["usermod", "==", fuego.auth().currentUser?.uid],
 
-              ["estado", "==", "RECHAZADO"],
+              ["estado", "in", ["RECHAZADO", "PROCESANDO"]],
             ]}
             gridOptions={{
               // renderTopToolbarCustomActions: () => <Grid container></Grid>,
