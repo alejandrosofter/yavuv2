@@ -122,7 +122,7 @@ export default function CuentaSocio({ data, mod }) {
     return formasDePago;
   };
   const getDataProductos = (data) => {
-    return data
+    let productos = data
       .map((item) => {
         return item.deudas?.map((deuda) => ({
           ...deuda,
@@ -131,6 +131,14 @@ export default function CuentaSocio({ data, mod }) {
         }));
       })
       .flat();
+
+    // delete repited id items
+    productos = productos.filter(
+      (thing, index, self) => index === self.findIndex((t) => t.id === thing.id)
+    );
+    //order
+    productos = orderArray(productos, ["label_formaPago", "asc"]);
+    return productos;
   };
   const acciones = [
     {
@@ -172,8 +180,9 @@ export default function CuentaSocio({ data, mod }) {
           },
           true
         );
+        console.log(row);
         const impositivo = getDataImpositivo(row);
-        const itemsProductos = objectToArray(
+        let itemsProductos = objectToArray(
           groupBy(
             getDataProductos(dataImpresion),
             (item) => {
@@ -181,20 +190,27 @@ export default function CuentaSocio({ data, mod }) {
             },
             true
           )
-        )
-          //sumatoria de importes
-          .map((item) => {
-            return {
-              label_idProducto: item[0].label_idProducto,
-              idProducto: item[0].idProducto,
-              cantidad: item.reduce((a, b) => a + Number(b.cantidad), 0),
-              importe: item.reduce((a, b) => a + Number(b.importe), 0),
-              importeBonificacion: item.reduce(
-                (a, b) => a + Number(b.importeBonificacion),
-                0
-              ),
-            };
-          });
+        );
+
+        itemsProductos = itemsProductos.map((item) => {
+          return {
+            label_idProducto: item[0].label_idProducto,
+            idProducto: item[0].idProducto,
+            cantidad: item.reduce((a, b) => a + Number(b.cantidad), 0),
+            importe: item.reduce((a, b) => a + Number(b.importe), 0),
+            importeFinal: item.reduce(
+              (a, b) =>
+                a +
+                Number(b.importe) * Number(b.cantidad) -
+                Number(b.importeBonificacion),
+              0
+            ),
+            importeBonificacion: item.reduce(
+              (a, b) => a + Number(b.importeBonificacion),
+              0
+            ),
+          };
+        });
 
         let items = [];
         //loop object data

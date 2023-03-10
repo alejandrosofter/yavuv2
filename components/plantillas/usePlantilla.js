@@ -70,6 +70,16 @@ export function UsePlantilla({ id, data }) {
       }
       return false;
     });
+    Handlebars.registerHelper("importeItem", function (data) {
+      if (data) {
+        console.log(data);
+        return formatMoney(
+          Number(data.importe) * Number(data.cantidad) -
+            Number(data.importeBonificacion)
+        );
+      }
+      return 0;
+    });
     Handlebars.registerHelper("exists", function (valor) {
       if (!valor) return false;
       if (valor === "") return false;
@@ -183,21 +193,38 @@ export function UsePlantilla({ id, data }) {
         );
       }
     );
+    Handlebars.registerHelper("sumatoria", function (data, campo) {
+      //suma el campo importe del array data
+
+      const field = campo ? campo : "importe";
+      let total = 0;
+      if (data)
+        data.forEach((item) => {
+          const importe = Number(item[field]);
+          total += importe;
+        });
+      return formatMoney(total);
+    });
+
     Handlebars.registerHelper(
       "importeTotal",
       function (data, campo, conCantidad) {
         //suma el campo importe del array data
-        const field = campo ? campo : "importe";
+
+        const field = "importe";
         let total = 0;
         if (data)
-          data.forEach((item) => {
-            const bonificacion = Number(item.importeBonificacion) || 0;
+          for (let i = 0; i < data.length; i++) {
+            const item = data[i];
+            const bonificacion = item.importeBonificacion
+              ? Number(item.importeBonificacion)
+              : 0;
             const cantidad = Number(
               conCantidad ? (item.cantidad ? item.cantidad : 1) : 1
             );
             const importe = Number(item[field]);
-            total += importe * cantidad - bonificacion;
-          });
+            total += importe;
+          }
         return formatMoney(total);
       }
     );
