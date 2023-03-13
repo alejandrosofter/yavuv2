@@ -57,12 +57,12 @@ export default function Modulo({ mod }) {
     },
   };
   const columns = [
-    // {
-    //   field: "id",
-    //   headerName: "id",
-    //   width: 170,
-    //   // renderCell: (params) => getFechaString(params.value, `DD/MM | hh:mm`),
-    // },
+    {
+      field: "id",
+      headerName: "id",
+      width: 170,
+      // renderCell: (params) => getFechaString(params.value, `DD/MM | hh:mm`),
+    },
     {
       field: "fecha",
       headerName: "Fecha",
