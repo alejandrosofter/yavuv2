@@ -222,7 +222,7 @@ export function UsePlantilla({ id, data }) {
             const cantidad = Number(
               conCantidad ? (item.cantidad ? item.cantidad : 1) : 1
             );
-            const importe = Number(item[field]);
+            const importe = Number(item[field]) * cantidad - bonificacion;
             total += importe;
           }
         return formatMoney(total);
