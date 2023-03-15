@@ -6,7 +6,7 @@ import {
   CircularProgress,
   Grid,
 } from "@mui/material";
-import { useCollection, fuego } from "@nandorojo/swr-firestore";
+import { fuego } from "@nandorojo/swr-firestore";
 import { useEffect, useState } from "react";
 import DialogContenido from "./dialogContenido";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
@@ -27,7 +27,7 @@ export function SendEmail({
     setInputEmail(email);
   }, [email]);
   const [loading, setLoading] = useState(false);
-  const { add } = useCollection("emails");
+  // const { add } = useCollection("emails");
 
   const [plantillaEmail, setPlantillaEmail] = UsePlantilla({
     id: plantilla,
@@ -50,6 +50,17 @@ export function SendEmail({
     await add(data);
     setLoading(false);
     setOpen(false);
+  };
+  const add = async (data) => {
+    await fuego.db
+      .collection("emails")
+      .add(data)
+      .then((docRef) => {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
   };
   const cambiaEmail = (event) => {
     setInputEmail(event.target?.value);
@@ -100,6 +111,3 @@ export function SendEmail({
     </DialogContenido>
   );
 }
-SendEmail.defaultProps = {
-  titulo: "ENVIO EMAIL",
-};

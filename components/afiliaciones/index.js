@@ -4,12 +4,12 @@ import { formatMoney } from "../../helpers/numbers";
 import { renderCellExpandData } from "../forms/datagrid/renderCellExpand";
 import { useState } from "react";
 import ImpresionDialog from "../forms/impresion";
-// import { UsePlantilla } from "@components/plantillas/usePlantilla";
+import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { QueryApi } from "@helpers/queryApi";
 import { useRouter } from "next/router";
 
 import { addQueryApi, getModUsuario } from "@helpers/db";
-import { UsePlantilla2 } from "@components/plantillas/usePlantilla2";
+// import { UsePlantilla2 } from "@components/plantillas/usePlantilla2";
 export default function Modulo({ mod }) {
   const order = ["fecha", "desc"];
   const idPlantilla = mod.config?.plantillaAfiliacion;
@@ -17,7 +17,7 @@ export default function Modulo({ mod }) {
   const [dataImpresion, setDataImpresion] = useState();
   const [dataConsulta, setDataConsulta] = useState();
   const router = useRouter();
-  const [plantilla, setPlantilla] = UsePlantilla2({
+  const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,
   });
@@ -58,12 +58,12 @@ export default function Modulo({ mod }) {
     },
   };
   const columns = [
-    {
-      field: "id",
-      headerName: "id",
-      width: 170,
-      // renderCell: (params) => getFechaString(params.value, `DD/MM | hh:mm`),
-    },
+    // {
+    //   field: "id",
+    //   headerName: "id",
+    //   width: 170,
+    //   // renderCell: (params) => getFechaString(params.value, `DD/MM | hh:mm`),
+    // },
     {
       field: "fecha",
       headerName: "Fecha",
