@@ -36,7 +36,10 @@ export default function DataSocio({ dataSocio, mod, callbackdelete }) {
             h={70}
             pathImagen={dataSocio.foto}
           />
-          <Typography variant="h5">
+          <Typography
+            sx={{ color: dataSocio.estado === "ALTA" ? "grey.700" : "red" }}
+            variant="h4"
+          >
             {`${dataSocio.nroSocio}`.padStart(6, 0)}
           </Typography>
         </Stack>
@@ -55,7 +58,10 @@ export default function DataSocio({ dataSocio, mod, callbackdelete }) {
           />
         </Grid>
         <Grid item md={11}>
-          <Typography variant="h3">
+          <Typography
+            sx={{ color: dataSocio.estado === "ALTA" ? "black" : "red" }}
+            variant="h3"
+          >
             {`${dataSocio.apellido?.toUpperCase()} ${capitalize(
               dataSocio.nombre
             )}`}
