@@ -10,6 +10,7 @@ import { fuego } from "@nandorojo/swr-firestore";
 import { getFieldName } from "@helpers/forms";
 import { getModUsuario } from "@helpers/db";
 import { getEdad } from "@helpers/fechas";
+import SelectPlanEmpresa from "./planesEmpresa/select";
 export default function FormSocios({ field, setFieldValue, values, mod }) {
   const [tipoSocioSeleccion, setTipoSocioSeleccion] = useState(null);
   mod =
@@ -213,6 +214,12 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
         </Grid>
         <Grid item md={4}>
           <Input label="Email" campo={getFieldName(field, `email`)} />
+        </Grid>
+        <Grid item md={4}>
+          <SelectPlanEmpresa
+            label="Plan Empresa"
+            campo={getFieldName(field, `idPlanEmpresa`)}
+          />
         </Grid>
       </Grid>
     </Grid>
