@@ -10,8 +10,10 @@ import { fuego } from "@nandorojo/swr-firestore";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
 import Form from "@components/envioTarjetas/_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloEnvioTarjetas";
+import { useRouter } from "next/router";
 export default function Modulo({ mod, parentData }) {
   const order = ["fecha", "desc"];
+  const router = useRouter();
   const idPlantilla = mod.config?.tarjetasImpresas;
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -93,6 +95,18 @@ export default function Modulo({ mod, parentData }) {
       fn: (data) => {
         setDataSeleccion(data);
         setOpenEnviar(true);
+      },
+    },
+    {
+      esFuncion: true,
+      icono: "fas fa-credit-card",
+      label: "Credenciales",
+
+      fn: (data) => {
+        console.log(`mod/${mod.id}/tarjetas/${data.id}`);
+        router.push(`/mod/${mod.id}/tarjetas/${data.id}`, undefined, {
+          shallow: true,
+        });
       },
     },
     {

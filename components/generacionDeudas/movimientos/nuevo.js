@@ -29,7 +29,7 @@ export default function NuevoMovimientoGeneracionDeuda({
         dataForm={{ grupo, actividad }}
         icono={"fas fa-plus"}
         coleccion={`generacionDeuda_movimientos`}
-        label={"Nuevo Movimiento"}
+        label={"Generacion de Deuda"}
       >
         <Form titulo="Nuevo" />
       </NuevoGenerico>
