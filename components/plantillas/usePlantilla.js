@@ -86,11 +86,9 @@ export function UsePlantilla({ id, data }) {
 
       return true;
     });
-    Handlebars.registerHelper("tieneDeuda", function (arr) {
-      console.log(arr);
-      if (!arr) return false;
-      if (arr.length === 0) return false;
-      return true;
+    Handlebars.registerHelper("tieneDeuda", function (data) {
+      if (data.deudas && data.deudas.length > 0) return true;
+      return false;
     });
     Handlebars.registerHelper("sizeAfiliaciones", function (data) {
       let size = 0;
