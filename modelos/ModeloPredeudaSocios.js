@@ -4,6 +4,7 @@ export default function Modelo() {
   return yup.object().shape({
     // obraSocial: yup.string().required(),
     estado: yup.string(),
+    idProducto: yup.string().required(),
   });
 }
 

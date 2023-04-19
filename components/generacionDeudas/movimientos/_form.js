@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { quitarValoresNullArray } from "@helpers/objects";
 import SelectGrupos from "@components/actividades/grupos/select";
 import SelectActividades from "@components/actividades/selectActividad";
+import SelectProducto from "@components/productos/selectProducto";
 export default function Form({
   mod,
   setFieldValue,
@@ -18,8 +19,15 @@ export default function Form({
   actividad,
 }) {
   useEffect(() => {
-    if (actividad) setFieldValue("idActividad", actividad.id);
-    if (grupo) setFieldValue("idGrupoActividad", grupo.id);
+    console.log(actividad, grupo);
+    if (actividad) {
+      setFieldValue("idActividad", actividad.id);
+      setFieldValue("label_idActividad", actividad.nombreActividad);
+    }
+    if (grupo) {
+      setFieldValue("idGrupoActividad", grupo.id);
+      setFieldValue("label_idGrupoActividad", grupo.nombreGrupo);
+    }
   }, [actividad, grupo]);
   return (
     <TabsFormik
@@ -47,6 +55,7 @@ export default function Form({
                   +1 MES es VARIABLE y FIJA es fecha fija para proxima cuota
                 </Typography>
               </Grid>
+
               {values.tipoSeteoFecha === "FIJA" && (
                 <Grid item md={3}>
                   <SelectFecha label="Prox Cuota" campo="fechaProximaCuota" />
@@ -56,30 +65,35 @@ export default function Form({
                   </Typography>
                 </Grid>
               )}
-              <Grid item md={3}>
+              <Grid item md={5}>
                 <SelectEstaticFormik
                   items={["SELECCION", "TODOS"]}
                   label="Tipo"
                   campo="tipoOperacion"
                 />
                 {values.tipoOperacion === "SELECCION" && (
-                  <Typography sx={{ color: "red" }} variant="caption">
+                  <Typography sx={{ color: "green" }} variant="caption">
                     {/* //loop values.items que es un objecto */}
                     Tienes {Object.keys(values.items).length} deudas
                     seleccionadas para generar
                   </Typography>
                 )}
               </Grid>
-              {actividad && (
+              {/* {actividad && (
                 <Grid item md={4}>
                   <SelectActividades />
                 </Grid>
               )}
-              {grupo && (
-                <Grid item md={5}>
+          
+               {grupo && (     <Grid item md={5}>
                   <SelectGrupos idActividad={values.idActividad} />
                 </Grid>
-              )}
+              )} */}
+
+              <Grid item md={7}>
+                <SelectProducto />
+              </Grid>
+
               {/* <Grid item md={6}>
                 <SelectEstaticFormik
                   items={["PENDIENTE", "FINALIZADO"]}

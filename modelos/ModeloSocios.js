@@ -291,6 +291,20 @@ export function ModeloDebitoAutomatico() {
   });
 }
 ////////////////////////////
+export function valoresDeuda() {
+  return {
+    estado: "PENDIENTE",
+    fecha: new Date(),
+    importeFinal: 0,
+  };
+}
+export function ModeloDeuda() {
+  return yup.object().shape({
+    estado: yup.string().required(),
+    importeFinal: yup.number().required(),
+  });
+}
+////////////////////////////
 export function valoresMensualizado(preData) {
   return {
     ...preData,

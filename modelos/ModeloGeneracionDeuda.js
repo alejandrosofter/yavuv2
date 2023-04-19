@@ -60,6 +60,9 @@ export function ModeloMovimiento() {
     comentario: yup.string(),
     estado: yup.string().required(),
     tipoOperacion: yup.string().required(),
+    idProducto: yup
+      .string()
+      .required("Debes seleccionar un producto para generar la deuda"),
   });
 }
 

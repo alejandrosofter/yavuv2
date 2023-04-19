@@ -103,7 +103,7 @@ export default function FormDeudaSocio({
         <Switch label="Es Debito Automatico?" campo="esPorDebitoAutomatico" />
       </Grid>
 
-      {values.esPorDebitoAutomatico && (
+      {/* {values.esPorDebitoAutomatico && (
         <Grid item md={12}>
           <SelectAlgoliaUserModColeccion
             coleccionAlgolia={"cuentasCbu"}
@@ -127,7 +127,7 @@ export default function FormDeudaSocio({
             }`}{" "}
           </Typography>
         </Grid>
-      )}
+      )} */}
       {/* {values.suspendida && (
         <Grid item md={7}>
           <Input label="Motivo" campo="motivoSuspencion" />
@@ -141,23 +141,25 @@ export default function FormDeudaSocio({
           <SelectFecha label="Fecha Baja" campo="fechaBaja" />
         </Grid>
       )} */}
-      <Grid item md={5}>
+      {/* <Grid item md={5}>
         <SelectTipoPeriodo callbackchange={cambiaTipoPeriodo} />
-      </Grid>
-      <Grid item md={2}>
+      </Grid> */}
+      {/* <Grid item md={2}>
         <Switch label="Promocion" campo="promocion" />
       </Grid>
       {values.promocion && (
         <Grid item md={5}>
           <SelectPromocion callbackchange={cambiaPromocion} />
         </Grid>
-      )}
+      )} */}
 
-      <Grid item md={12}>
+      <Grid item md={9}>
         <SelectProducto />
       </Grid>
-
-      <Grid item md={10}>
+      <Grid item md={3}>
+        <Input label="Importe" campo="importeFinal" />
+      </Grid>
+      <Grid item md={12}>
         <Input label="Detalle" campo="detalle" />
       </Grid>
 

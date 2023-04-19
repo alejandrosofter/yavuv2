@@ -86,6 +86,21 @@ export function UsePlantilla({ id, data }) {
 
       return true;
     });
+    Handlebars.registerHelper("tieneDeuda", function (arr) {
+      console.log(arr);
+      if (!arr) return false;
+      if (arr.length === 0) return false;
+      return true;
+    });
+    Handlebars.registerHelper("sizeAfiliaciones", function (data) {
+      let size = 0;
+      const SIZE_SHEET = 500;
+      if (data.socio) size += SIZE_SHEET;
+      if (data.mensualizado) size += SIZE_SHEET;
+
+      if (data.deudas && data.deudas.length > 0) size += SIZE_SHEET;
+      return `${size}`;
+    });
     Handlebars.registerHelper("qr", function (data) {
       const auxData = {
         ver: 1,

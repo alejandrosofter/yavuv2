@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { ModeloMensualizado, valoresMensualizado } from "@modelos/ModeloSocios";
+import { ModeloDeuda, valoresDeuda } from "@modelos/ModeloSocios";
 import { Icon, Grid } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import { getFechaString } from "@helpers/dates";
@@ -14,6 +14,19 @@ import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { QueryApi } from "@helpers/queryApi";
 
 export const cols = [
+  {
+    field: "esPorDebitoAutomatico",
+    headerName: "",
+    width: 15,
+    renderCell: (params) =>
+      params.value ? (
+        <Tooltip title={`Es por Débito automático`}>
+          <Icon class="fas fa-credit-card" />
+        </Tooltip>
+      ) : (
+        ""
+      ),
+  },
   {
     field: "estado",
     headerName: "",
@@ -127,8 +140,8 @@ export default function DeudasSocios_grid({ data, mod }) {
           getRowClassName={getRowClassName}
           // callbackclick={callbackclick}
           icono={icono}
-          Modelo={ModeloMensualizado}
-          valoresIniciales={valoresMensualizado}
+          Modelo={ModeloDeuda}
+          valoresIniciales={valoresDeuda}
           dataForm={{ mod, socio: data }}
           titulo={titulo}
           Form={Form}
