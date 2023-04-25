@@ -46,7 +46,9 @@ export default function ModeloSocios() {
           const res = await (
             await fetch(`/api/validadores/socio/dni/${value}`)
           ).json();
-          if (testContext.parent.dni === res.dni) return true;
+
+          if (!res) return true;
+          if (testContext.parent.id === res.id) return true;
           if ("apellido" in res)
             return testContext.createError({
               message: `${res.apellido.toUpperCase()} ${res.nombre.toUpperCase()} (${
@@ -205,6 +207,7 @@ export function ModeloConfig() {
     detalle: yup.string(),
   });
 }
+
 export function ModeloCategoriaSocio() {
   return yup.object().shape({
     //    fecha: yup.string(),

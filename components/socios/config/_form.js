@@ -14,10 +14,13 @@ import {
   ModeloCategoriaSocio,
   ModeloTipoPeriodos,
   ModeloMotivos,
-  ModeloDifusion,
   valoresInicialesTipoSocios,
   valoresInicialesMotivos,
 } from "@modelos/ModeloSocios";
+import ModeloDifusion, {
+  ModeloConfigItems,
+  valoresInicialesMods,
+} from "@modelos/ModeloDifusion";
 import TabsFormik, { TabPanel } from "../../forms/tab";
 import Grid from "@mui/material/Grid";
 import Input from "../../forms/input";
@@ -202,12 +205,13 @@ export default function FormConfig({}) {
               </Grid>
               <DataGridFormikItems
                 label="Difusion"
-                Modelo={ModeloDifusion}
+                Modelo={ModeloConfigItems}
+                valoresIniciales={valoresInicialesMods}
                 FormularioItem={FormDifusion}
                 campo="itemsDifusion"
                 columns={[
                   { field: "nombre", headerName: "Nombre", width: 330 },
-                  { field: "condicion", headerName: "Condicion", width: 130 },
+                  { field: "condicion", headerName: "Condicion", width: 330 },
                 ]}
               />
             </Grid>

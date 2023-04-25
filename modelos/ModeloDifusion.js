@@ -9,6 +9,18 @@ export default function Modelo() {
     estado: yup.string(),
   });
 }
+export function ModeloConfigItems() {
+  return yup.object().shape({
+    modulo: yup.string(),
+    condicion: yup.string(),
+  });
+}
+export function valoresInicialesMods() {
+  return {
+    nombre: "",
+    condicion: "",
+  };
+}
 export function valoresIniciales() {
   return {
     estado: "PENDIENTE",

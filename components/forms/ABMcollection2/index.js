@@ -112,9 +112,9 @@ export default function ABMColeccion2({
   return (
     <Grid container>
       <Grid item md={9}>
-        {/* <Typography variant="h3" gutterBottom>
+        <Typography variant="h3" gutterBottom>
           <Icon className={icono} /> {titulo}
-        </Typography> */}
+        </Typography>
       </Grid>
 
       <Grid item md={3}>

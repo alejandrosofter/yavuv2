@@ -39,6 +39,7 @@ export default function Form({ mod, setFieldValue, values }) {
           </Grid>
           <Grid item md={2}>
             <SelectorModDifusion
+              parent={true}
               callbackchange={cambiaModulo}
               label="Modulo"
               campo="modulo"
