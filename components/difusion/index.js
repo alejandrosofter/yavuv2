@@ -7,12 +7,19 @@ import ABMColeccion from "@components/forms/ABMcollection2";
 import { fuego } from "@nandorojo/swr-firestore";
 import Modelo, { valoresIniciales } from "@modelos/ModeloDifusion";
 import Form from "./_form";
+import Dialogo from "@components/forms/dialogo";
+import { addQueryApi } from "@helpers/db";
+import { FeedbackEnvios } from "./feedbackEnvios";
 export default function Modulo({ mod, parentData }) {
   const order = ["fecha", "desc"];
   const [open, setOpen] = useState(false);
+  const [openDestinatarios, setOpenDestinatarios] = useState(false);
   const [dataSeleccion, setDataSeleccion] = useState();
+  const [openConfirma, setOpenConfirma] = useState();
   const tableInstanceRef = useRef();
-
+  const enviarDifusion = () => {
+    addQueryApi("aplicarDifusion", dataSeleccion).then((res) => {});
+  };
   const columns = [
     {
       accessorKey: "fecha",
@@ -36,6 +43,18 @@ export default function Modulo({ mod, parentData }) {
       size: 150,
     },
     {
+      accessorKey: "cantidadEmailsEnviados",
+      header: "Enviados",
+      // filterFn: "includesString",
+      size: 120,
+    },
+    {
+      accessorKey: "cantidadProcesada",
+      header: "Procesados",
+      // filterFn: "includesString",
+      size: 135,
+    },
+    {
       accessorKey: "label_condicion",
       header: "Destino",
       // filterFn: "includesString",
@@ -54,14 +73,8 @@ export default function Modulo({ mod, parentData }) {
       label: "Aplicar",
 
       fn: (data) => {
-        axios
-          .get("/api/difusion/aplicar", {
-            params: { id: data.id },
-          })
-          .then(() => {})
-          .catch((err) => {
-            console.error(err);
-          });
+        setOpenConfirma(true);
+        setDataSeleccion(data);
       },
     },
     {
@@ -71,6 +84,16 @@ export default function Modulo({ mod, parentData }) {
 
       fn: (data) => {
         setOpen(true);
+        setDataSeleccion(data);
+      },
+    },
+    {
+      esFuncion: true,
+      icono: "fas fa-users",
+      label: "Destinatarios",
+
+      fn: (data) => {
+        setOpenDestinatarios(true);
         setDataSeleccion(data);
       },
     },
@@ -124,6 +147,17 @@ export default function Modulo({ mod, parentData }) {
         Form={Form}
       />
       <TestDifusion data={dataSeleccion} open={open} setOpen={setOpen} />
+      <FeedbackEnvios
+        open={openDestinatarios}
+        setOpen={setOpenDestinatarios}
+        data={dataSeleccion}
+      />
+      <Dialogo
+        callbackAcepta={enviarDifusion}
+        open={openConfirma}
+        setOpen={setOpenConfirma}
+        titulo="Estas seguro de enviar la difusion?"
+      />
     </>
   );
 }

@@ -268,7 +268,7 @@ export async function findOneField(coleccion, { campo, valor }) {
 export async function findWhereArray(colection, arrWhere) {
   let q = Firestore().collection(colection);
   arrWhere.forEach((w) => {
-    q = q.where(w.campo, "==", w.valor);
+    q = q.where(w.campo, w.op ? w.op : "==", w.valor);
   });
   return await q.get().then((querySnapshot) => {
     let salida = [];

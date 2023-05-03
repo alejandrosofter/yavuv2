@@ -35,10 +35,11 @@ removeformat | image`,
             props.form.setFieldValue(campo, e.target.getContent());
             if (callbackchange) callbackchange(e.target.getContent());
           };
+          //gputhj5znmo5xfj4sk36ytr94jire1ti7tvaagar85gp9w4g anterior
           return (
             <Editor
               onChange={handleChange}
-              apiKey="gputhj5znmo5xfj4sk36ytr94jire1ti7tvaagar85gp9w4g"
+              apiKey="ps2ht0ubd3w760etwlhfkf8jzy8xaotakj2fsoguxjhelpbm"
               onInit={(evt, editor) => {
                 setTimeout(() => {
                   setData(props.form.values[campo]);

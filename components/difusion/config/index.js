@@ -72,6 +72,23 @@ export default function ConfigDifusion({ mod }) {
                 />
               ),
             },
+            {
+              label: "Impresiones",
+              nro: 1,
+              vista: (
+                <Grid item md={12}>
+                  <Grid item md={8}>
+                    <Typography variant="caption" component="div" gutterBottom>
+                      Plantilla de Emails
+                    </Typography>
+                    <SelectPlantilla
+                      campo="plantillaEmailDifusion"
+                      label="Plantilla Email de Difusion"
+                    />
+                  </Grid>
+                </Grid>
+              ),
+            },
           ]}
         />
       </FormSubitemColeccion>

@@ -1,9 +1,12 @@
-import { findOneField } from "../../../../../config/firebase";
+import { findOneField, findWhereArray } from "../../../../../config/firebase";
 export default async function handler(req, res) {
   const { nroDni } = req.query;
 
-  const data = await findOneField("socios", { campo: "dni", valor: nroDni });
-
-  if (!data) res.status(200).json({});
-  else res.status(200).json(data);
+  const data = await findWhereArray("socios", [
+    { campo: "dni", op: "==", valor: nroDni },
+    { campo: "estado", op: "==", valor: "ALTA" },
+  ]);
+  console.log(data);
+  if (!data || data.length === 0) res.status(200).json({});
+  else res.status(200).json(data[0]);
 }

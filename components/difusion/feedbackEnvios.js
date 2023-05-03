@@ -8,13 +8,18 @@ import {
   TextField,
   Grid,
 } from "@mui/material";
+import { useCollection } from "@nandorojo/swr-firestore";
 import axios from "axios";
 import { useState } from "react";
 
-export function TestDifusion({ open, setOpen, data }) {
+export function FeedbackEnvios({ open, setOpen, data }) {
   const [email, setEmail] = useState();
   const [loading, setLoading] = useState(false);
-
+  const { data: destinatarios } = useCollection(
+    `/difusion/${data?.id}/destinatarios`,
+    { listen: true }
+  );
+  console.log(destinatarios);
   const enviar = () => {
     setLoading(true);
     addQueryApi("testDifusion", {
@@ -30,30 +35,12 @@ export function TestDifusion({ open, setOpen, data }) {
     <DialogContenido
       maxWidth="sm"
       fullWidth={true}
-      titulo={"TEST DIFUSION"}
+      titulo={"Feedback Envios"}
       open={open}
       setOpen={setOpen}
     >
       <Grid sx={{ p: 2 }} spacing={3} container>
-        <Grid item md={10}>
-          <TextField
-            fullWidth={true}
-            label="Email"
-            onChange={setEmail}
-            campo="email"
-          />
-        </Grid>
-        <Grid item md={2}>
-          <Button variant="outlined" onClick={enviar}>
-            Enviar
-          </Button>
-        </Grid>
-        <Backdrop
-          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-          open={loading}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
+        <Grid item md={10}></Grid>
       </Grid>
     </DialogContenido>
   );
