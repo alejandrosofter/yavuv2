@@ -15,6 +15,7 @@ const DataGridFormikItems = ({
   FormularioItem,
   preData,
   mod,
+  maxWidth = "md",
   hideAgregar,
 }) => {
   return (
@@ -33,7 +34,7 @@ const DataGridFormikItems = ({
                 modelo={Modelo}
                 nombreModulo={label}
                 fullWidth={true}
-                maxWidth={"md"}
+                maxWidth={maxWidth}
                 textoEditar={`Puedes cambiar las acciones de esta accion:`}
                 textoAgregar={`Ingrese los datos de la accion`}
                 valoresIniciales={valoresIniciales}

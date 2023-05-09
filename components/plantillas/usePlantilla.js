@@ -4,6 +4,11 @@ import { formatMoney, numeroLetra } from "@helpers/numbers";
 import { getFechaString } from "@helpers/dates";
 import Handlebars from "handlebars";
 import { getImagen } from "@helpers/imagenes";
+import {
+  getDataOjo,
+  getDetalleAnteojo,
+  getDetalleLente,
+} from "@components/recetas/_form";
 
 export function UsePlantilla({ id, data }) {
   const { data: dataTemplate } = useDocument(`plantillas/${id}`);
@@ -50,6 +55,21 @@ export function UsePlantilla({ id, data }) {
     Handlebars.registerHelper("importe", function (importe) {
       return formatMoney(importe);
     });
+    Handlebars.registerHelper("detalleAnteojos", function (data) {
+      return getDetalleAnteojo(data, true);
+    });
+    Handlebars.registerHelper(
+      "detalleLente",
+      function (data, lejosCerca, label) {
+        return getDetalleLente(data, lejosCerca.trim());
+      }
+    );
+    Handlebars.registerHelper(
+      "dataOjo",
+      function (data, ojo, lejosCerca, label) {
+        return getDataOjo(data, ojo.trim(), lejosCerca.trim());
+      }
+    );
     Handlebars.registerHelper("letraFiscal", function (tipoComprobante) {
       if (!tipoComprobante) return "-";
       const palabras = tipoComprobante.split(" ");

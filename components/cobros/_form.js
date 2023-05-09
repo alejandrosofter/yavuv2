@@ -56,7 +56,8 @@ export default function Modulo({
     console.log();
     localStorage.setItem("cobros_esFiscal", values.esFiscal);
   };
-
+  const labelItems = (option) =>
+    `${option.apellido} ${option.nombre}  ${option.nroSocio} (${option.dni}) | ${option.estado}`;
   return (
     <Grid sx={{ pt: 2, p: 3 }} spacing={2} container>
       <Grid
@@ -73,11 +74,7 @@ export default function Modulo({
             coleccionAlgolia={coleccionClientes}
             label={capitalize(coleccionClientes)}
             callbackchange={cambiaSocio}
-            labelItems={(opt) =>
-              coleccionClientes === "socios"
-                ? `${opt.apellido} ${opt.nombre} - ${opt.dni} - ${opt.nroSocio}`
-                : `${opt.nombre} - ${opt.apellido}`
-            }
+            labelItems={labelItems}
             campo="cliente"
           />
         </Grid>

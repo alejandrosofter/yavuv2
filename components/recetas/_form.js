@@ -11,8 +11,11 @@ import FormMedicamentos from "./_formMedicamentos";
 import FormEstudios from "./_formEstudios";
 import FormPrestaciones from "./_formPrestaciones";
 import FormIndicaciones from "./_formIndicaciones";
+import FormAnteojos from "./_formAnteojos";
 import {
   ModeloEstudios,
+  ModeloAnteojos,
+  valoresInicialesAnteojos,
   valoresInicialesEstudios,
   ModeloMedicamentos,
   valoresInicialesMedicamentos,
@@ -21,8 +24,48 @@ import {
   valoresInicialesIndicacion,
   ModeloIndicacion,
 } from "@modelos/ModeloRecetas";
+export const getValor = (params, campo, ojo, lejosCerca, postchar = "") => {
+  const aux = params.row[`${campo}_${ojo}_${lejosCerca}`];
+  if (aux) return `${aux} ${postchar}`;
+  return "";
+};
+export function getDetalleLente(params, lejosCerca, label = "") {
+  if (!params.row) params.row = params;
+  if (!params.row[`select_${lejosCerca}`]) return "";
 
-import TabsFormik from "@components/forms/tab";
+  const derecho = getDataOjo(params, "derecho", lejosCerca);
+  const izquierdo = getDataOjo(params, "izquierdo", lejosCerca);
+  return !params.row[`select_cerca`]
+    ? ``
+    : `${label} OD:${derecho} | OI:${izquierdo} | `;
+}
+export function getDetalleAnteojo(params, esData) {
+  if (esData) params = { row: params };
+  const cerca = getDetalleLente(params, "cerca", "CERCA ");
+  const lejos = getDetalleLente(params, "lejos", "LEJOS ");
+  const intermedio = getDetalleLente(params, "intermedio", "INTERMEDIO");
+
+  return `${cerca}${lejos}${intermedio}`;
+}
+export function getDataOjo(params, ojo, lejosCerca, label) {
+  if (!params.row) params.row = params;
+  if (params.row[`esNeutro_${ojo}_${lejosCerca}`])
+    return `${label ? label : ""}  NEUTRO`;
+  return `${label ? label : ""}  ${getValor(
+    params,
+    `esfera`,
+    ojo,
+    lejosCerca,
+    "esf."
+  )}
+  ${getValor(params, `eje`, ojo, lejosCerca, `ej.`)} ${getValor(
+    params,
+    `cilindro`,
+    ojo,
+    lejosCerca,
+    `° cil`
+  )}  `;
+}
 export default function Form({ mod, setFieldValue, values, paciente }) {
   return (
     <Grid container spacing={2}>
@@ -34,7 +77,7 @@ export default function Form({ mod, setFieldValue, values, paciente }) {
       </Grid>
       <Grid item md={3}>
         <SelectEstaticFormik
-          items={["MEDICAMENTO", "PRESTACION", "INDICACION"]}
+          items={["MEDICAMENTO", "PRESTACION", "INDICACION", "ANTEOJOS"]}
           label="Tipo Receta"
           campo="tipo"
         />
@@ -90,6 +133,28 @@ export default function Form({ mod, setFieldValue, values, paciente }) {
                 field: "detalle",
                 headerName: "Detalle",
                 width: 350,
+              },
+            ]}
+          />
+        </Grid>
+      )}
+      {values.tipo == "ANTEOJOS" && (
+        <Grid item md={12}>
+          <DataGridFormikItems
+            label="Anteojos"
+            Modelo={ModeloAnteojos}
+            valoresIniciales={valoresInicialesAnteojos}
+            FormularioItem={FormAnteojos}
+            maxWidth="lg"
+            campo="anteojos"
+            columns={[
+              {
+                field: "label_idEstudio",
+                renderCell: (params) => {
+                  return getDetalleAnteojo(params);
+                },
+                headerName: "Detalle",
+                width: 650,
               },
             ]}
           />

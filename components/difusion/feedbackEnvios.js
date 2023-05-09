@@ -7,19 +7,23 @@ import {
   CircularProgress,
   TextField,
   Grid,
+  Typography,
 } from "@mui/material";
 import { useCollection } from "@nandorojo/swr-firestore";
 import axios from "axios";
 import { useState } from "react";
 
 export function FeedbackEnvios({ open, setOpen, data }) {
+  if (!open) return "";
   const [email, setEmail] = useState();
   const [loading, setLoading] = useState(false);
+
   const { data: destinatarios } = useCollection(
     `/difusion/${data?.id}/destinatarios`,
-    { listen: true }
+
+    { listen: true, where: ["emailValido", "==", true] }
   );
-  console.log(destinatarios);
+
   const enviar = () => {
     setLoading(true);
     addQueryApi("testDifusion", {
@@ -40,7 +44,13 @@ export function FeedbackEnvios({ open, setOpen, data }) {
       setOpen={setOpen}
     >
       <Grid sx={{ p: 2 }} spacing={3} container>
-        <Grid item md={10}></Grid>
+        <Grid item md={10}>
+          {destinatarios?.map((destinatario) => (
+            <Typography a variant="body1" gutterBottom component="div">
+              {destinatario.email}
+            </Typography>
+          ))}
+        </Grid>
       </Grid>
     </DialogContenido>
   );

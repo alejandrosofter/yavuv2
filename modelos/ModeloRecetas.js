@@ -47,6 +47,26 @@ export function valoresInicialesEstudios() {
       : null,
   };
 }
+
+////////////////////////?ANTEOJOS
+
+export function ModeoAnteojos() {
+  return yup.object().shape({
+    fecha: yup.string().required(),
+  });
+}
+export function valoresInicialesAnteojos() {
+  return {
+    fecha: new Date(),
+
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
+  };
+}
 ////////////////////////?MEDICAMENTOS
 
 export function ModeloMedicamentos() {

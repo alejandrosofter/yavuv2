@@ -14,7 +14,7 @@ import ModeloRecetas, {
   valoresIniciales as valoresInicialesRecetas,
 } from "@modelos/ModeloRecetas";
 import ABMColeccion from "@components/forms/ABMcollection";
-import FormRecetas from "@components/recetas/_form";
+import FormRecetas, { getDetalleAnteojo } from "@components/recetas/_form";
 import { getFechaString } from "@helpers/dates";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
@@ -155,6 +155,9 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
     });
     receta.prestaciones?.forEach((prestacion) => {
       detalle += ` ${prestacion.label_idPrestacion},`;
+    });
+    receta.anteojos?.forEach((anteojo) => {
+      detalle += ` ${getDetalleAnteojo(anteojo, true)},`;
     });
     return detalle;
   };

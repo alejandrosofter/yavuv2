@@ -3,7 +3,7 @@ import { Field } from "formik";
 import { FormControl, FormControlLabel, Switch } from "@mui/material";
 
 const setValoresIniciales = (valor) => {};
-const SwitchFormik = ({ label, campo, callbackChange }) => {
+const SwitchFormik = ({ label, campo, callbackChange, sx }) => {
   const [valor, setValores] = useState();
   return (
     <FormControl fullWidth>
@@ -16,6 +16,7 @@ const SwitchFormik = ({ label, campo, callbackChange }) => {
 
           return (
             <FormControlLabel
+              sx={sx}
               control={
                 <Switch
                   checked={props.field.value ? props.field.value : false}
