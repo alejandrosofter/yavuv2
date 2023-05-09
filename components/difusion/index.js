@@ -147,11 +147,13 @@ export default function Modulo({ mod, parentData }) {
         Form={Form}
       />
       <TestDifusion data={dataSeleccion} open={open} setOpen={setOpen} />
-      <FeedbackEnvios
-        open={openDestinatarios}
-        setOpen={setOpenDestinatarios}
-        data={dataSeleccion}
-      />
+      {openDestinatarios && (
+        <FeedbackEnvios
+          open={openDestinatarios}
+          setOpen={setOpenDestinatarios}
+          data={dataSeleccion}
+        />
+      )}
       <Dialogo
         callbackAcepta={enviarDifusion}
         open={openConfirma}

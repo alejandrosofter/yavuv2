@@ -14,7 +14,6 @@ import axios from "axios";
 import { useState } from "react";
 
 export function FeedbackEnvios({ open, setOpen, data }) {
-  if (!open) return "";
   const [email, setEmail] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -46,7 +45,12 @@ export function FeedbackEnvios({ open, setOpen, data }) {
       <Grid sx={{ p: 2 }} spacing={3} container>
         <Grid item md={10}>
           {destinatarios?.map((destinatario) => (
-            <Typography a variant="body1" gutterBottom component="div">
+            <Typography
+              key={destinatario.id}
+              variant="body1"
+              gutterBottom
+              component="div"
+            >
               {destinatario.email}
             </Typography>
           ))}
