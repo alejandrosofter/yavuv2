@@ -51,7 +51,7 @@ BootstrapDialogTitle.propTypes = {
 export default function DialogContenido({
   children,
   titulo,
-  open,
+  open = false,
   setOpen,
   fullWidth,
   maxWidth,

@@ -10,6 +10,7 @@ import { FuegoProvider } from "@nandorojo/swr-firestore";
 import SnackbarFirebase from "../helpers/snackBarFirebase";
 import { useEffect } from "react";
 import ContextAcciones from "context/accionesContext";
+import Layout from "@components/layout";
 
 const theme = createTheme({
   palette: {
@@ -59,8 +60,9 @@ export default function app({ Component, pageProps }) {
   return (
     <FuegoProvider fuego={fuego}>
       <ThemeProvider theme={theme}>
-        {" "}
-        <Component {...pageProps} />{" "}
+        <Layout>
+          <Component {...pageProps} />{" "}
+        </Layout>
       </ThemeProvider>
     </FuegoProvider>
   );

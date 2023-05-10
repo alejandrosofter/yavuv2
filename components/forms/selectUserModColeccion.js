@@ -32,9 +32,9 @@ export default function SelectUserModColeccion({
 
   const where = allData
     ? []
-    : parentData
-    ? ["idUsuario", "==", localStorage.getItem("usermod")]
-    : ["usermod", "==", fuego.auth().currentUser?.uid];
+    : // : parentData
+      // ? ["idUsuario", "==", localStorage.getItem("usermod")]
+      ["usermod", "==", fuego.auth().currentUser?.uid];
 
   const { data } = useCollection(coleccion, {
     limit,

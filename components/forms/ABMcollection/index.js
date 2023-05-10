@@ -70,11 +70,11 @@ export default function ABMColeccion({
     },
   ];
   const [seleccion, setSeleccion] = useState(null);
-  const [openEditar, setOpenEditar] = useState(null);
+  const [openEditar, setOpenEditar] = useState(false);
 
-  const [openNuevo, setOpenNuevo] = useState(null);
+  const [openNuevo, setOpenNuevo] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
-  const [openConfirma, setOpenConfirma] = useState(null);
+  const [openConfirma, setOpenConfirma] = useState(false);
   const [accions, setAcctions] = useState(
     accionesABM.concat(acciones ? acciones : [])
   );

@@ -133,7 +133,7 @@ export function SubItemsMenu({ items, open }) {
     <Collapse in={open} timeout="auto" unmountOnExit>
       {items.map((item) => (
         <List key={`link_${item.id}`} component="div" disablePadding>
-          <Link passHref href={"/mod/" + item.id}>
+          <Link passHref href={`/${item.nombre}`}>
             <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
                 <Icon className={item.icono} />

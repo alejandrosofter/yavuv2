@@ -1,7 +1,7 @@
 import { Grid, Stack } from "@mui/material";
 import CheckboxForm from "../forms/checkbox";
-import Input from "../forms/input";
-import SelectEstaticFormik from "../forms/selectEstaticFormik";
+import Input from "@components/forms/input";
+import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import SelectPlan from "@components/planes/selectPlanes";
 export default function Form({ mod, setFieldValue, values }) {

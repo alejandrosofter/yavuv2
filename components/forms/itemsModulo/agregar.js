@@ -1,6 +1,6 @@
 import { useState } from "react";
 import React from "react";
-import Input from "../../forms/input";
+import Input from "@components/forms/input";
 import Button from "@mui/material/Button";
 import CheckboxForm from "../../forms/checkbox";
 import Dialog from "@mui/material/Dialog";
