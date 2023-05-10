@@ -20,17 +20,6 @@ export function FormAnteojo({
       </Grid>
       {values[`select_${campo}`] && (
         <>
-          <Grid item md={4}>
-            <Switch
-              label={`Agrega Opciones`}
-              campo={`tieneOpciones_${campo}`}
-            />
-          </Grid>
-          {values[`tieneOpciones_${campo}`] && (
-            <Grid item md={8}>
-              <SelectOpcionesAnteojos campo={`opciones_${campo}`} />
-            </Grid>
-          )}
           <Grid item md={12}>
             <InputOjo
               label="Ojo Derecho"

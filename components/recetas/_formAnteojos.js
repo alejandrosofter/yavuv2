@@ -11,8 +11,15 @@ export default function FormAnteojos({ mod, setFieldValue, values }) {
       <Grid item md={2}>
         <SelectFecha label="Fecha" campo="fecha" />
       </Grid>
-
-      <Grid item md={10}>
+      <Grid item md={2}>
+        <Switch label={`Agrega Opciones`} campo={`tieneOpciones`} />
+      </Grid>
+      {values[`tieneOpciones`] && (
+        <Grid item md={5}>
+          <SelectOpcionesAnteojos campo={`opciones`} />
+        </Grid>
+      )}
+      <Grid item md={3}>
         <Input label="Detalle" campo="detalle" />
       </Grid>
       <Grid item md={6}>
