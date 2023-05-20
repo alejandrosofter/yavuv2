@@ -2,7 +2,7 @@ import moment from "moment";
 import Stack from "@mui/material/Stack";
 import { Grid } from "@mui/material";
 import TitulosFormularios from "@components/forms/tituloFormularios";
-import DataGridServer from "../forms/datagrid/dataGridServer";
+import DataGridServer from "@components/forms/datagrid/dataGridServer";
 import { formatMoney } from "../../helpers/numbers";
 import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
 import ItemsGeneracionDeuda from "./items";

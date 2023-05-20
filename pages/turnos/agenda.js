@@ -1,7 +1,7 @@
 import Modelo, { valoresIniciales } from "../../modelos/ModeloTurnos";
 import Calendario from "@components/forms/calendar";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import SelectConsultorios from "@components/consultorios/selectSimple";
+import SelectConsultorios from "@pages/consultorios/selectSimple";
 import { useEffect, useState } from "react";
 import { Stack, Grid } from "@mui/material";
 import Dialog from "@components/forms/dialogContenido";

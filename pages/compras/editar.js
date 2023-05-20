@@ -1,13 +1,11 @@
-import Modelo,{valoresIniciales} from "../../modelos/ModeloCompras"
-import EditarGenerico from "@components/EditarGenerico"
-import Form from "./_form"
+import Modelo, { valoresIniciales } from "../../modelos/ModeloCompras";
+import EditarGenerico from "@components/EditarGenerico";
+import Form from "./_form";
 
-export default function Modulo({mod}) {
-
-      return (
-      <EditarGenerico  mod={mod} modelo={Modelo}>
-          <Form  titulo="EDITAR" subTitulo={mod.label} icono={mod.icono} />
-     @components/EditarGenerico>
-      )
-
+export default function Modulo({ mod }) {
+  return (
+    <EditarGenerico mod={mod} modelo={Modelo}>
+      <Form titulo="EDITAR" subTitulo={mod.label} icono={mod.icono} />
+    </EditarGenerico>
+  );
 }

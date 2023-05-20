@@ -3,10 +3,7 @@ import { getFechaString } from "@helpers/dates";
 import { fuego } from "@nandorojo/swr-firestore";
 import { useRef } from "react";
 import Form from "./_formMovimiento";
-import {
-  ModeloItemMovimiento as Modelo,
-  valoresInicialesMovimiento as valoresIniciales,
-} from "@modelos/ModeloPredeudaSocios";
+import Modelo, { valoresIniciales } from "@modelos/ModeloPredeudaSocios";
 export default function MovimientosPredeuda({ parentData, tipoOperacion }) {
   const order = ["fecha_timestamp", "desc"];
   const tableInstanceRef = useRef();

@@ -1,9 +1,9 @@
 import { styled } from "@mui/material/styles";
-export default function MainBodyLayout({ theme, children, drawerWidth, open }) {
+export default function MainBodyLayout({ theme, child, drawerWidth, open }) {
   return (
     <Main open={open} theme={theme} width={drawerWidth}>
       <DrawerHeader theme={theme} />
-      {children}
+      {child}
     </Main>
   );
 }

@@ -5,7 +5,7 @@ import { GridActionsCellItem } from "@mui/x-data-grid";
 
 import { Icon } from "@mui/material";
 import SubColeccionColeccion from "@components/forms/subColeccion/";
-import { renderCellExpandData } from "../@components/forms/datagrid/renderCellExpand";
+import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 import { formatMoney } from "../../../helpers/numbers";
 import ImpresionDialog from "@components/forms/impresion";
 import {

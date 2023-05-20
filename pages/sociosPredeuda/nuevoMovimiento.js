@@ -1,10 +1,7 @@
 import DialogContenido from "@components/forms/dialogContenido";
 import NuevoGenerico from "@components/NuevoGenerico2";
 import Form from "./_formMovimiento";
-import {
-  ModeloMovimientos,
-  valoresInicialesMovimiento,
-} from "@modelos/ModeloPredeudaSocios";
+import Modelo, { valoresIniciales } from "@modelos/ModeloPredeudaSocios";
 export default function NuevoMovimientoPredeuda({
   open,
   seleccion,
@@ -21,8 +18,8 @@ export default function NuevoMovimientoPredeuda({
     >
       <NuevoGenerico
         callbackSuccess={callbackSuccess}
-        valoresIniciales={valoresInicialesMovimiento}
-        modelo={ModeloMovimientos}
+        valoresIniciales={valoresIniciales}
+        modelo={Modelo}
         preData={{ items: seleccion, tipoOperacion }}
         dataForm={{ seleccion }}
         icono={"fas fa-plus"}
@@ -30,7 +27,7 @@ export default function NuevoMovimientoPredeuda({
         label={"Nuevo Movimiento"}
       >
         <Form titulo="Nuevo" />
-     @components/NuevoGenerico>
+      </NuevoGenerico>
     </DialogContenido>
   );
 }

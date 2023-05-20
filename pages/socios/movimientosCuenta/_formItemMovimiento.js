@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
-import SelectFormik from "../../forms/select";
+import SelectFormik from "@components/forms/select";
 
 export default function FormItemMovimientoCuenta({ mod, errors }) {
   return (

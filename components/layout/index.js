@@ -122,7 +122,7 @@ export default function Layout({
         open={open}
         theme={theme}
         drawerWidth={drawerWidth}
-        children={children}
+        child={children}
       />
     </Box>
   );

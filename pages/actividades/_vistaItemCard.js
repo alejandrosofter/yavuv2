@@ -1,5 +1,5 @@
 import { Card, CardHeader, Icon, Typography } from "@mui/material";
-import BotonAcciones from "../../components/botonAcciones";
+import BotonAcciones from "@components/botonAcciones";
 import { CardContent } from "@mui/material";
 
 export default function VistaItemCard({ data, token, mutate, modulo }) {

@@ -175,7 +175,7 @@ export default function DataGrid2({
       <EditarGenerico callbackSuccess={callbackSuccess} valoresIniciales={valoresIniciales} 
       mod={mod} modelo={Modelo}>
           <ComponenteForm  />
-     @components/EditarGenerico>
+     </EditarGenerico>
         
       </DialogContenido> */}
     </div>

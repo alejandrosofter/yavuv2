@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import LoadingButton from "@mui/lab/LoadingButton";
-import TextArea from "../forms/textarea";
+import TextArea from "@components/forms/textarea";
 
 export default function FormEjecuta({ formik, load }) {
   return (

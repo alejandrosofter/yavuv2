@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import _FormItemRelacion from "./_formItemRelacion";
 import ItemsRelaciones from "./itemsRelaciones";
 import SelectorOrigenData from "./selectorOrigenData";
-import DialogContenido from "../@components/forms/dialogContenido";
+import DialogContenido from "@components/forms/dialogContenido";
 
 export default function Step1_selectRegistro({
   setCompleted,

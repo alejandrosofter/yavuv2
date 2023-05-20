@@ -1,4 +1,4 @@
-import SelectCategoriaProducto from "@components/productos/categoriaProducto";
+import SelectCategoriaProducto from "@pages/productos/categoriaProducto";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 import Input from "@components/forms/input";

@@ -2,7 +2,7 @@ import ModeloOrigenesDatos, {
   valoresInicialesRelaciones,
   valoresIniciales,
 } from "../../../modelos/ModeloOrigenesDatos";
-import ItemsModulo from "../@components/forms/itemsModulo";
+import ItemsModulo from "@components/forms/itemsModulo";
 import _FormItemRelacion from "./_formItemRelacion";
 import { Formik, Form } from "formik";
 import { useEffect } from "react";

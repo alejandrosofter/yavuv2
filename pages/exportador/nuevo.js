@@ -11,6 +11,6 @@ export default function Modulo({ mod, callbackSuccess }) {
       modelo={Modelo}
     >
       <Form subTitulo={mod.label} icono={mod.icono} />
-   @components/NuevoGenerico>
+    </NuevoGenerico>
   );
 }

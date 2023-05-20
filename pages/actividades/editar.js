@@ -1,6 +1,6 @@
 import DialogContenido from "@components/forms/dialogContenido";
 import Modelo, { valoresIniciales } from "@modelos/ModeloActividades";
-import EditarGenerico from "../../componen@components/EditarGenerico";
+import EditarGenerico from "@components/EditarGenerico";
 
 import Form from "./_form";
 
@@ -22,7 +22,7 @@ export default function EditarActividad({ open, setOpen, doc, mod }) {
         modelo={Modelo}
       >
         <Form titulo="Editar" subTitulo={mod.label} icono="fas fa-pencil" />
-     @components/EditarGenerico>
+      </EditarGenerico>
     </DialogContenido>
   );
 }

@@ -2,7 +2,7 @@ import { Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import Input from "@components/forms/input";
 import Switch from "@components/forms/switch";
-import SelecListeningData from "@components/listeningData/selectListening";
+import SelecListeningData from "@pages/listeningData/selectListening";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 export default function Form({ setFieldValue, values }) {
   const cambiaListening = (val, item) => {

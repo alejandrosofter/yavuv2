@@ -24,7 +24,7 @@ export default function EditarGrupo({ open, setOpen, doc, actividad }) {
         modelo={Modelo}
       >
         <Form subTitulo={"grupo"} icono={"fas fa-pencil"} />
-     @components/EditarGenerico>
+      </EditarGenerico>
     </DialogContenido>
   );
 }

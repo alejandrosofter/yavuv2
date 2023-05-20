@@ -44,7 +44,7 @@ export default function Modulo({ modulo, token, dataUsuario }) {
           <SwitchFormik label="Es Defecto? " campo="esDefecto" />
         </Grid>
       </Grid>
-   @components/EditarGenerico>
+    </EditarGenerico>
   );
 }
 Modulo.auth = true;

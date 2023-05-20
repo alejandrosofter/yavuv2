@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
 import { Stack, Typography } from "@mui/material";
 import { useState } from "react";
-import Select from "../../forms/select";
+import Select from "@components/forms/select";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import SwitchFormik from "@components/forms/switch";
 

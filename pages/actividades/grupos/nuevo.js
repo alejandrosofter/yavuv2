@@ -24,7 +24,7 @@ export default function NuevoGrupo({ open, setOpen, actividad }) {
         modelo={Modelo}
       >
         <Form subTitulo={"grupo"} icono={"fas fa-plus"} />
-     @components/NuevoGenerico>
+      </NuevoGenerico>
     </DialogContenido>
   );
 }

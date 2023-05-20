@@ -1,5 +1,5 @@
 import DataGrid2 from "@components/forms/datagrid/dataGrid2";
-import DataGridFirebase from "@componen@components/forms/datagrid/dataGridFirebase";
+import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { getFechaString } from "@helpers/dates";
 import { useState } from "react";

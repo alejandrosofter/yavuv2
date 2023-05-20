@@ -1,13 +1,16 @@
-import Modelo,{valoresIniciales} from "../../modelos/ModeloConsultorios"
-import NuevoGenerico from "@components/NuevoGenerico"
-import Form from "./_form"
+import Modelo, { valoresIniciales } from "../../modelos/ModeloConsultorios";
+import NuevoGenerico from "@components/NuevoGenerico";
+import Form from "./_form";
 
-export default function Modulo({mod,callbackSuccess}) {
-
-      return (
-      <NuevoGenerico callbackSuccess={callbackSuccess} valoresIniciales={valoresIniciales} mod={mod} modelo={Modelo}>
-          <Form  titulo="NUEVO" subTitulo={mod.label} icono={mod.icono} />
-     @components/NuevoGenerico>
-      )
-
+export default function Modulo({ mod, callbackSuccess }) {
+  return (
+    <NuevoGenerico
+      callbackSuccess={callbackSuccess}
+      valoresIniciales={valoresIniciales}
+      mod={mod}
+      modelo={Modelo}
+    >
+      <Form titulo="NUEVO" subTitulo={mod.label} icono={mod.icono} />
+    </NuevoGenerico>
+  );
 }

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import Loader from "./loader";
-import _FormGenerico from "./_formGenerico";
+import _FormGenerico from "@components/_formGenerico";
 import { useDocument, fuego } from "@nandorojo/swr-firestore";
 import { useEffect, useState } from "react";
 import TitulosFormularios from "@components/forms/tituloFormularios";

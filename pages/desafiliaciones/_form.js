@@ -1,8 +1,8 @@
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import SelectFecha from "@components/forms/selectorFecha";
-import BuscadorSocios from "@components/socios/buscadorSocios";
-import SelectSocio from "@components/socios/selectSocio";
-import BuscadorSociosInput from "@components/socios/_buscador";
+import BuscadorSocios from "@pages/socios/buscadorSocios";
+import SelectSocio from "@pages/socios/selectSocio";
+import BuscadorSociosInput from "@pages/socios/_buscador";
 
 import { Grid, Stack } from "@mui/material";
 import { useState } from "react";

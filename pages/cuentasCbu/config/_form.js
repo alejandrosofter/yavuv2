@@ -2,7 +2,7 @@ import DataGridFormikItems from "@components/forms/dataGridFormik";
 
 import FormTipoCuenta from "./_formTipocuenta";
 import { ModeloTipoCuenta } from "../../../modelos/ModeloCuentasCbu";
-import TabsFormik from "../../forms/tab";
+import TabsFormik from "@components/forms/tab";
 import Grid from "@mui/material/Grid";
 export default function FormConfig({}) {
   return (

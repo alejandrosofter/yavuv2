@@ -1,6 +1,6 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import Modelo, { valoresIniciales } from "@modelos/ModeloContactos";
-import Form from "@components/contactos/_form";
+import Form from "@pages/contactos/_form";
 export default function SelectContacto({
   multiple,
   label,

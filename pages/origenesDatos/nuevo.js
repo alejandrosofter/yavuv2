@@ -2,14 +2,14 @@ import EditarGenerico from "@components/EditarGenerico";
 import ModeloOrigenesDatos, {
   valoresIniciales,
 } from "../../modelos/ModeloOrigenesDatos";
-import _FormGenerico from "../_formGenerico";
+import _FormGenerico from "@components/_formGenerico";
 import { Field } from "formik";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { CircularProgress, Grid, MenuItem, Tab } from "@mui/material";
 import { useState } from "react";
 import Input from "@components/forms/input";
 import { Select } from "formik-mui";
-import MultiSelect from "../forms/multiSelect";
+import MultiSelect from "@components/forms/multiSelect";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import SwitchFormik from "@components/forms/switch";
@@ -58,7 +58,7 @@ export default function Modulo({ modulo, token, dataUsuario }) {
           <Input label="Es Defecto? " campo="esDefecto" />
         </Grid>
       </Grid>
-   @components/NuevoGenerico>
+    </NuevoGenerico>
   );
 }
 Modulo.auth = true;

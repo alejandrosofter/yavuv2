@@ -28,7 +28,7 @@ export default function EditarCliente({ mod }) {
           modelo={Modelo}
         >
           <Form subTitulo={mod.label} icono={mod.icono} />
-       @components/EditarGenerico2>
+        </EditarGenerico2>
       </DialogContenido>
     </>
   );

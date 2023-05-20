@@ -11,6 +11,6 @@ export default function Modulo({ mod, callbackSuccess }) {
       modelo={Modelo}
     >
       <Form titulo="EDITAR" subTitulo={mod.label} icono={mod.icono} />
-   @components/EditarGenerico>
+    </EditarGenerico>
   );
 }

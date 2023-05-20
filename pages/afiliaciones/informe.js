@@ -3,7 +3,7 @@ import { QueryApi } from "@helpers/queryApi";
 import { Grid } from "@mui/material";
 import { fuego, useCollection } from "@nandorojo/swr-firestore";
 import { useState } from "react";
-import FiltroInformeCobros from "@components/cobros/_filterInforme";
+import FiltroInformeCobros from "@pages/cobros/_filterInforme";
 import Dialogo from "@components/forms/dialogo";
 
 export default function InformesAfiliaciones({}) {

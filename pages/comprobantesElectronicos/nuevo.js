@@ -17,6 +17,6 @@ export default function Modulo({ mod }) {
         subTitulo={mod.label}
         icono={mod.icono}
       />
-   @components/NuevoGenerico>
+    </NuevoGenerico>
   );
 }

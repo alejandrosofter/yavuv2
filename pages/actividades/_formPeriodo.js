@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 import { Formik, Form } from "formik";
 import { Icon } from "@mui/material";
-import SelectEstaticFormik from "../../componen@components/forms/selectEstaticFormik";
+import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 
 export default function FormularioPeriodo({ mod }) {
   return (

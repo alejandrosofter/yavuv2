@@ -20,7 +20,7 @@ import Layout from "@components/layout";
 initAuth();
 ///////////////INIT AUTH IMPORTANTE!!!!//////////////////////
 
-export function app({ Component, pageProps }) {
+export function App({ Component, pageProps }) {
   const fuego = new Fuego(config());
   const [dataLayout, setLayout] = useState();
   const [seleccionModuloInvitado, setSeleccionModuloInvitado] = useState();
@@ -50,4 +50,4 @@ export const getServerSideProps = withAuthUserTokenSSR()();
 export default withAuthUser({
   whenUnauthedBeforeInit: AuthAction.REDIRECT_TO_LOGIN,
   whenUnauthedAfterInit: AuthAction.RENDER,
-})(app);
+})(App);

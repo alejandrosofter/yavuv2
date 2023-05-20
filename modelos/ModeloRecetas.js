@@ -50,7 +50,7 @@ export function valoresInicialesEstudios() {
 
 ////////////////////////?ANTEOJOS
 
-export function ModeoAnteojos() {
+export function ModeloAnteojos() {
   return yup.object().shape({
     fecha: yup.string().required(),
   });

@@ -1,4 +1,4 @@
-import DataGridFirebase from "../@components/forms/datagrid/dataGridFirebase";
+import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
 import { getFechaString } from "@helpers/dates";
 
 export default function Modulo({ mod }) {

@@ -11,6 +11,6 @@ export default function Modulo({ mod }) {
       modelo={Modelo}
     >
       <Form titulo="Nuevo" subTitulo={mod.label} icono="fas fa-plus" />
-   @components/NuevoGenerico>
+    </NuevoGenerico>
   );
 }

@@ -10,7 +10,7 @@ import TabsFormik, { TabPanel } from "@components/forms/tab";
 import TitulosFormularios from "@components/forms/tituloFormularios";
 import ImpresionDialog from "@components/forms/impresion";
 import SelectProducto from "@pages/productos/selectProducto";
-import SelectCategoriaProducto from "@components/productos/categoriaProducto";
+import SelectCategoriaProducto from "@pages/productos/categoriaProducto";
 export default function ConfigPredeuda({ mod }) {
   const campo = "config";
   const coleccion = "mods";

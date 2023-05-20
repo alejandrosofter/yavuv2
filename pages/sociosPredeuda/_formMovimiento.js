@@ -4,10 +4,7 @@ import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import SelectFecha from "@components/forms/selectorFecha";
 import TabsFormik from "@components/forms/tab";
 import DataGridFormikItems from "@components/forms/dataGridFormik";
-import {
-  ModeloItemMovimiento,
-  valoresIniciales,
-} from "@modelos/ModeloPredeudaSocios";
+import Modelo, { valoresIniciales } from "@modelos/ModeloPredeudaSocios";
 import FormItem from "./_form";
 import { useEffect } from "react";
 import { quitarValoresNullArray } from "@helpers/objects";
@@ -60,7 +57,7 @@ export default function Form({ mod, setFieldValue, values, seleccion }) {
           vista: (
             <DataGridFormikItems
               label="Deudas"
-              Modelo={ModeloItemMovimiento}
+              Modelo={Modelo}
               valoresIniciales={valoresIniciales}
               FormularioItem={FormItem}
               hideAgregar={true}

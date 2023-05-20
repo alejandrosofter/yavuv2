@@ -3,7 +3,7 @@ import Input from "@components/forms/input";
 
 import SelectFormik from "../../components/forms/select";
 import SelectProducto from "../productos/selectProducto";
-import SelectEstaticFormik from "../../componen@components/forms/selectEstaticFormik";
+import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 
 export default function FormularioItemActividad({ profesores, mod }) {
   return (

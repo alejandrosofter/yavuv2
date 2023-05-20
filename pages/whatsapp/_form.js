@@ -1,7 +1,7 @@
 import { Grid, Stack } from "@mui/material";
 import Input from "@components/forms/input";
 import SelectFecha from "@components/forms/selectorFecha";
-import SelectContacto from "@components/contactos/selectContacto";
+import SelectContacto from "@pages/contactos/selectContacto";
 
 export default function Form({ mod, setFieldValue, values }) {
   const cambiaContacto = (valor, item) => {

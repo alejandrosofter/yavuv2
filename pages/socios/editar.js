@@ -19,6 +19,6 @@ export default function Modulo({ mod }) {
         subTitulo={mod.label}
         icono="fas fa-pencil"
       />
-   @components/EditarGenerico>
+    </EditarGenerico>
   );
 }

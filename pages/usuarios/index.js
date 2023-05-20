@@ -1,12 +1,14 @@
-import ModuloIndexCard from "../ModuloIndex";
+import ModuloIndexCard from "@components/ModuloIndex";
 import VistaItemCard from "./_vistaItemCard";
 
-export default function Modulo({modulo,dataUsuario}) {
- 
-      return (
-      <ModuloIndexCard vistaItem={VistaItemCard} url={`/api/${modulo.nombre}`} modulo={modulo} dataUsuario={dataUsuario} />
- 
-      )
-
+export default function Modulo({ modulo, dataUsuario }) {
+  return (
+    <ModuloIndexCard
+      vistaItem={VistaItemCard}
+      url={`/api/${modulo.nombre}`}
+      modulo={modulo}
+      dataUsuario={dataUsuario}
+    />
+  );
 }
-Modulo.auth = true
+Modulo.auth = true;

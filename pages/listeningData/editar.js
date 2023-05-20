@@ -10,6 +10,6 @@ export default function Modulo({ mod }) {
       modelo={Modelo}
     >
       <Form titulo="EDITAR" subTitulo={mod.label} icono={mod.icono} />
-   @components/EditarGenerico>
+    </EditarGenerico>
   );
 }

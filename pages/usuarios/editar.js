@@ -1,6 +1,6 @@
 import EditarGenerico from "@components/EditarGenerico";
 import ModeloUsuarios from "../../modelos/ModeloUsuarios";
-import _FormGenerico from "../_formGenerico";
+import _FormGenerico from "@components/_formGenerico";
 
 import { Field } from "formik";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
@@ -8,7 +8,7 @@ import { CircularProgress, Grid, MenuItem, Tab } from "@mui/material";
 import { useState } from "react";
 import Input from "@components/forms/input";
 import { Select } from "formik-mui";
-import MultiSelect from "../forms/multiSelect";
+import MultiSelect from "@components/forms/multiSelect";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import ListaTransferencia from "@components/forms/listaTransferencia";
@@ -49,7 +49,7 @@ export default function Modulo({ modulo, dataUsuario }) {
           />
         </Grid>
       </Grid>
-   @components/EditarGenerico>
+    </EditarGenerico>
   );
 }
 Modulo.auth = true;

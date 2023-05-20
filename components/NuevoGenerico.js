@@ -1,5 +1,5 @@
 import TitulosFormularios from "@components/forms/tituloFormularios";
-import _FormGenerico from "./_formGenerico";
+import _FormGenerico from "@components/_formGenerico";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { Grid } from "@mui/material";
 export default function NuevoGenerico({
