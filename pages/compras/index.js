@@ -1,9 +1,7 @@
-import { formatMoney } from "../../helpers/numbers";
-import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
+import { formatMoney } from "@helpers/numbers";
 import { getFechaString } from "@helpers/dates";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
-import { fuego } from "@nandorojo/swr-firestore";
-import Form from "./_form";
+import Form from "@components/compras/_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloCompras";
 import { useRef } from "react";
 import { getWherePermiso } from "@hooks/useUser";

@@ -1,6 +1,6 @@
 import ABMColeccion2 from "@components/forms/ABMcollection2";
 import Modelo, { valoresIniciales } from "@modelos/ModeloConsultorios";
-import Form from "@pages/consultorios/_form";
+import Form from "@components/consultorios/_form";
 import { getWherePermiso } from "@hooks/useUser";
 export default function Modulo({}) {
   const order = "nombre";

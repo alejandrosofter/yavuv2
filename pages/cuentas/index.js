@@ -2,7 +2,7 @@ import { QueryApi } from "@helpers/queryApi";
 import { useState } from "react";
 import ABMColeccion from "@components/forms/ABMcollection2";
 import Modelo, { valoresIniciales } from "@modelos/ModeloCuentas";
-import Form from "@pages/cuentas/_form";
+import Form from "@components/cuentas/_form";
 export default function Page({ mod }) {
   const [dataConsulta, setDataConsulta] = useState();
   const columns = [

@@ -1,4 +1,7 @@
-import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
+import ABMColeccion from "@components/forms/ABMcollection";
+import Modelo, { valoresIniciales } from "@modelos/ModeloDispositivo";
+import Form from "@components/dispositivos/_form";
+import { getWherePermiso } from "@hooks/useUser";
 export default function Modulo({ mod }) {
   const order = "nombre";
   const columns = [
@@ -24,15 +27,17 @@ export default function Modulo({ mod }) {
     },
   ];
   return (
-    <DataGridFirebase
-      titulo={mod.label}
-      subTitulo="generales"
-      icono={mod.icono}
-      limit={10}
-      mod={mod}
-      acciones={mod.acciones}
-      orderBy={order}
+    <ABMColeccion
+      coleccion={`dispositivos`}
       columns={columns}
+      acciones={[]}
+      orderBy={order}
+      maxWidth="lg"
+      where={getWherePermiso("dispositivos")}
+      Modelo={Modelo}
+      valoresIniciales={valoresIniciales}
+      titulo={`DISPOSITIVOS/`}
+      Form={Form}
     />
   );
 }

@@ -1,14 +1,11 @@
-import { Typography, Grid, Button } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
-import { Context } from "context/userContext";
-import SelectPaciente from "./selectPaciente";
-import { FichaPaciente } from "./fichaPaciente";
+import SelectPaciente from "@components/pacientes/selectPaciente";
 import useLayout from "@hooks/useLayout";
 import { useRouter } from "next/router";
 import { getWherePermiso } from "@hooks/useUser";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPacientes";
-import Form from "@pages/pacientes/_form";
+import Form from "@components/pacientes/_form";
 export default function Page(props) {
   const router = useRouter();
   useLayout({

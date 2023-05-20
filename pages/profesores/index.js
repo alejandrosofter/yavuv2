@@ -4,7 +4,7 @@ import TitulosFormularios from "@components/forms/tituloFormularios";
 import { Grid } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import Modelo, { valoresIniciales } from "@modelos/ModeloProfesores";
-import Form from "./_form";
+import Form from "../../components/profesores/_form";
 export default function Modulo({ mod }) {
   const order = ["apellido"];
   const columns = [

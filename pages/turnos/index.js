@@ -1,4 +1,4 @@
-import ListadoConsultorios from "./listadoConsultorios";
+import ListadoConsultorios from "@components/turnos/listadoConsultorios";
 
 import { Grid } from "@mui/material";
 import useLayout from "@hooks/useLayout";

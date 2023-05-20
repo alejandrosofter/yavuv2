@@ -8,7 +8,7 @@ import {
   getDataOjo,
   getDetalleAnteojo,
   getDetalleLente,
-} from "@pages/recetas/_form";
+} from "@components/recetas/_form";
 
 export function UsePlantilla({ id, data }) {
   const { data: dataTemplate } = useDocument(`plantillas/${id}`);

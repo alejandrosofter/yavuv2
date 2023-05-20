@@ -1,7 +1,5 @@
-import ABMColeccion from "@components/forms/ABMcollection";
 import Modelo, { valoresIniciales } from "@modelos/ModeloProveedores";
-import Form from "./_form";
-import { fuego } from "@nandorojo/swr-firestore";
+import Form from "@components/proveedores/_form";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
 import { getWherePermiso } from "@hooks/useUser";
 

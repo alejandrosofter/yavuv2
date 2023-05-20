@@ -1,7 +1,7 @@
 import ABMColeccion from "@components/forms/ABMcollection";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPlantillas";
 import { fuego } from "@nandorojo/swr-firestore";
-import Form from "./_form";
+import Form from "@components/plantillas/_form";
 import { getWherePermiso } from "@hooks/useUser";
 export default function Modulo({ mod }) {
   const order = ["nombre", "desc"];

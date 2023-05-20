@@ -1,7 +1,6 @@
 import ABMColeccion from "@components/forms/ABMcollection2";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
-import { contadorMoney } from "@helpers/arrays";
 import { getFechaString } from "@helpers/dates";
 import { formatMoney } from "@helpers/numbers";
 import { QueryApi } from "@helpers/queryApi";
@@ -9,9 +8,7 @@ import { useState } from "react";
 import Modelo, {
   valoresIniciales,
 } from "@modelos/ModeloComprobantesElectronicos";
-import { fuego } from "@nandorojo/swr-firestore";
-import Form from "./_form";
-import Dialogo from "@components/forms/dialogo";
+import Form from "@components/cobros/_form";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 import useLayout from "@hooks/useLayout";
 import { getWherePermiso } from "@hooks/useUser";

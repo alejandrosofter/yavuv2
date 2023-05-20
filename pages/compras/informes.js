@@ -2,12 +2,12 @@ import { IconButton, Stack, Icon } from "@mui/material";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { Fragment, useEffect, useState } from "react";
 import TitulosFormularios from "@components/forms/tituloFormularios";
-import { getItemObject } from "../../helpers/arrays";
-import Filtro from "./_filter";
-import Tabla from "./_reporte";
-import { formatMoney } from "../../helpers/numbers";
+import { getItemObject } from "@helpers/arrays";
+import Filtro from "@components/compras/_filter";
+import Tabla from "@components/compras/_reporte";
+import { formatMoney } from "@helpers/numbers";
 import { getFechaString } from "@helpers/dates";
-import EditarComprasModal from "./editModal";
+import EditarComprasModal from "@components/compras/editModal";
 export default ({}) => {
   const [openEditar, setOpenEditar] = useState(false);
   const [seleccion, setSeleccion] = useState();

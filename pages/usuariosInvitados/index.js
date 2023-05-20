@@ -1,6 +1,6 @@
 import ABMColeccion2 from "@components/forms/ABMcollection2";
 import Modelo, { valoresIniciales } from "@modelos/ModeloUsuariosInvitados";
-import Form from "./_form";
+import Form from "@components/usuariosInvitados/_form";
 import useLayout from "@hooks/useLayout";
 import { getWherePermiso } from "@hooks/useUser";
 export default function Page({}) {

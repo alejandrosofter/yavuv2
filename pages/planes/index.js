@@ -3,7 +3,7 @@ import { Icon, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
 import ABMColeccion from "@components/forms/ABMcollection";
-import Form from "@pages/planes/_form";
+import Form from "@components/planes/_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPlanes";
 export default function Modulo({}) {
   const [dataConsulta, setDataConsulta] = useState();

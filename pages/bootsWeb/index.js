@@ -1,11 +1,8 @@
 import ABMColeccion from "@components/forms/ABMcollection2";
 import Modelo, { valoresIniciales } from "@modelos/ModeloBootsWeb";
-import { fuego } from "@nandorojo/swr-firestore";
 import { useState } from "react";
-import { useContext, useEffect } from "react";
-import { Context } from "context/userContext";
-import TestBootWeb from "./test";
-import Form from "./_form";
+import TestBootWeb from "@components/bootsweb/test";
+import Form from "@components/bootsweb/_form";
 import useLayout from "@hooks/useLayout";
 import { getWherePermiso } from "@hooks/useUser";
 

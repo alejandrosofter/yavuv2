@@ -1,7 +1,6 @@
 import { Grid } from "@mui/material";
-import PerfilSocio from "./perfilSocio";
-import FiltroSocios from "./filtroSocios";
-import { useEffect, useState } from "react";
+import PerfilSocio from "@pages/socios/perfilSocio";
+import FiltroSocios from "@components/socios/filtroSocios";
 import { UseStorage } from "@hooks/useStorage";
 import useLayout from "@hooks/useLayout";
 export default function Modulo({ mod }) {

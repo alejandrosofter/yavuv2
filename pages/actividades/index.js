@@ -1,6 +1,6 @@
-import ListaActividades from "./_actividades";
+import ListaActividades from "@components/actividades/_actividades";
 import { Grid } from "@mui/material";
-import ListaGrupos from "./grupos";
+import ListaGrupos from "@components/actividades/grupos";
 import { useState } from "react";
 import useLayout from "@hooks/useLayout";
 export default function Modulo({ mod }) {

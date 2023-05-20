@@ -3,7 +3,7 @@ import TitulosFormularios from "@components/forms/tituloFormularios";
 import Modelo, { valoresIniciales } from "@modelos/ModeloModulos";
 import { Icon, Typography, Grid, Stack } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
-import Form from "./_form";
+import Form from "@components/modulos/_form";
 export default function Modulo({ mod }) {
   const columns = [
     {

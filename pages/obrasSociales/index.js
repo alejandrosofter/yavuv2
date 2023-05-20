@@ -1,7 +1,7 @@
 import ABMColeccion from "@components/forms/ABMcollection2";
-import Form from "./_form";
+import Form from "@components/obrasSociales/_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloObrasSociales";
-import PrestacionesListado from "@pages/prestaciones/listadoOs";
+import PrestacionesListado from "@components/prestaciones/listadoOs";
 import { useState } from "react";
 import { getFechaString } from "@helpers/dates";
 import { getWherePermiso } from "@hooks/useUser";

@@ -2,7 +2,7 @@ import { getFechaString } from "@helpers/dates";
 import { QueryApi } from "@helpers/queryApi";
 import { useState } from "react";
 import Modelo, { valoresIniciales } from "@modelos/ModeloImportaciones";
-import Form from "@pages/importaciones/_form";
+import Form from "@components/importaciones/_form";
 import ABMColeccion from "@components/forms/ABMcollection";
 import useLayout from "@hooks/useLayout";
 export default function Modulo({ mod }) {

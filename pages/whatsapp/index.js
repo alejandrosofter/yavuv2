@@ -7,9 +7,8 @@ import { Grid, Typography } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 
-import StatusWhatsapp from "./status";
-import TestMessage from "./testMesage";
-import Form from "./_form";
+import StatusWhatsapp from "@pages/whatsapp/status";
+import Form from "@components/whatsapp/_form";
 export default function WhatsApp() {
   const [dataSesion, setDataSesion] = useState();
   const cambiaSesion = (sesion) => {

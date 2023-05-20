@@ -1,4 +1,4 @@
-import Form from "./_form";
+import Form from "@components/sociosPredeuda/_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPredeudaSocios";
 
 import { useEffect, useRef, useState } from "react";
@@ -7,10 +7,9 @@ import { fuego, useCollection } from "@nandorojo/swr-firestore";
 import { Button, Grid, Icon } from "@mui/material";
 
 import ABMColeccion2 from "@components/forms/ABMcollection2";
-import NuevoMovimiento from "./nuevoMovimiento";
-import Drawer from "@components/forms/drawerPerosnalizado";
+import NuevoMovimiento from "@components/sociosPredeuda/nuevoMovimiento";
 import DrawerPersonalizado from "@components/forms/drawerPerosnalizado";
-import MovimientosPredeuda from "./movimientos";
+import MovimientosPredeuda from "@components/sociosPredeuda/movimientos";
 
 export default function Modulo({ parentData }) {
   const tipoOperacion = "actividades";

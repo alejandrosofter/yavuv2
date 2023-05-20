@@ -2,13 +2,12 @@ import { getFechaString } from "@helpers/dates";
 
 import axios from "axios";
 import { useRef, useState } from "react";
-import Test from "./test";
-import EnviarCredenciales from "./enviar";
+import EnviarCredenciales from "@components/envioTarjetas/enviar";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { fuego } from "@nandorojo/swr-firestore";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
-import Form from "@pages/envioTarjetas/_form";
+import Form from "@components/envioTarjetas/_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloEnvioTarjetas";
 import { useRouter } from "next/router";
 import { UseConfigModulo } from "@helpers/useConfigModulo";

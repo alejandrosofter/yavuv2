@@ -1,11 +1,11 @@
-import { formatMoney } from "../../helpers/numbers";
+import { formatMoney } from "@helpers/numbers";
 import { getFechaString } from "@helpers/dates";
 import Modelo, { valoresIniciales } from "@modelos/ModeloDebitoAutomatico";
-import Form from "./_form";
+import Form from "@components/debitoAutomatico/_form";
 import { useState } from "react";
 import Dialogo from "@components/forms/dialogo";
-import ItemsDebitoAutomatico from "./deudas";
-import EnvioBanco from "./envio";
+import ItemsDebitoAutomatico from "@components/debitoAutomatico/deudas";
+import EnvioBanco from "@components/debitoAutomatico/envio";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
 import { getWherePermiso } from "@hooks/useUser";
 import useLayout from "@hooks/useLayout";

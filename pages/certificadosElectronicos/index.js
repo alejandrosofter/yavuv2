@@ -1,18 +1,13 @@
 import ABMColeccion from "@components/forms/ABMcollection2";
-
 import { Button, Grid, Icon, Typography } from "@mui/material";
-import { fuego, useDocument } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import Modelo, {
   valoresIniciales,
 } from "@modelos/ModeloCertificadosElectronicos";
-import Form from "@pages/certificadosElectronicos/_form";
+import Form from "@components/certificadosElectronicos/_form";
 import { getFechaString } from "@helpers/dates";
-import { QueryApi } from "@helpers/queryApi";
-import { WindowSharp } from "@mui/icons-material";
-import Dialogo from "@components/forms/dialogo";
-import ConfirmDialog from "@components/forms/confirmDialog";
 import { getWherePermiso } from "@hooks/useUser";
+import ConfirmDialog from "@components/forms/confirmDialog";
 export default function ListadoCertificadosElectronicos({
   callbackchange,
   mod,

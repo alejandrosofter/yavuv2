@@ -1,9 +1,7 @@
 import { Grid, Typography, Icon } from "@mui/material";
-import { fuego } from "@nandorojo/swr-firestore";
 import { useState } from "react";
-import Ayuda from "./ayuda";
-import SelectDashboard from "./selectDashboard";
-import ShowDashboard from "./show";
+import SelectDashboard from "@components/dashboard/selectDashboard";
+import ShowDashboard from "@components/dashboard/show";
 
 export default function Modulo({ mod }) {
   const [dashboard, setDashboard] = useState(null);

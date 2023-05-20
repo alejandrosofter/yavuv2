@@ -3,7 +3,7 @@ import { Grid, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { fuego, useCollection, useDocument } from "@nandorojo/swr-firestore";
 import { getFechaString } from "@helpers/dates";
-import QrWhatsapp from "./qr";
+import QrWhatsapp from "@components/whatsapp/qr";
 export default function StatusWhatsapp({ onchangeSession }) {
   const [dataConsulta, setDataConsulta] = useState();
   const [loading, setLoading] = useState();

@@ -1,14 +1,12 @@
-import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
 import { getFechaString } from "@helpers/dates";
-import { formatMoney } from "../../helpers/numbers";
-import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
+import { formatMoney } from "@helpers/numbers";
 import { useState } from "react";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { QueryApi } from "@helpers/queryApi";
 import { useRouter } from "next/router";
 import Modelo, { valoresIniciales } from "@modelos/ModeloAfiliados";
-import Form from "./_form";
+import Form from "@components/afiliaciones/_form";
 import { addQueryApi, getModUsuario } from "@helpers/db";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 import { getWherePermiso } from "@hooks/useUser";

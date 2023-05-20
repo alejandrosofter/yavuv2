@@ -1,11 +1,10 @@
 import ABMColeccion from "@components/forms/ABMcollection2";
-import Form from "./_form";
+import Form from "@components/prestacionesImportar/_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPrestacionesImportar";
 
 import { useState } from "react";
 import { getFechaString } from "@helpers/dates";
 import { QueryApi } from "@helpers/queryApi";
-import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 import useLayout from "@hooks/useLayout";
 import { getWherePermiso } from "@hooks/useUser";
 export default function Modulo({}) {

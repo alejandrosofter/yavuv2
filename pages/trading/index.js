@@ -1,16 +1,14 @@
-import ColeccionTable from "@components/forms/coleccionTable";
-
 import { useState } from "react";
 import { Grid } from "@mui/material";
 
 import ABMColeccion from "@components/forms/ABMcollection";
 import Modelo, { valoresIniciales } from "@modelos/ModeloEstrategiasTrading";
-import Form from "./_form";
+import Form from "@components/trading/_form";
 import TitulosFormularios from "@components/forms/tituloFormularios";
 import { QueryApi } from "@helpers/queryApi";
 import { formatMoney } from "@helpers/numbers";
-import LinkTradingView from "./linkTradingView";
-import TradingsEstrategia from "./tradingsEstrategia";
+import LinkTradingView from "@components/trading/linkTradingView";
+import TradingsEstrategia from "@components/trading/tradingsEstrategia";
 export default function ListaGrupos({ actividad, callbackchange }) {
   const order = ["nombreGrupo", "asc"];
   const [seleccion, setSeleccion] = useState(null);

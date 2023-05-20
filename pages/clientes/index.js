@@ -1,5 +1,5 @@
 import Modelo, { valoresIniciales } from "@modelos/ModeloClientes";
-import Form from "@pages/clientes/_form";
+import Form from "@components/clientes/_form";
 import { getWherePermiso } from "@hooks/useUser";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
 import useLayout from "@hooks/useLayout";

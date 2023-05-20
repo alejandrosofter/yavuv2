@@ -1,6 +1,6 @@
 import { getFechaString } from "@helpers/dates";
 import Modelo, { valoresIniciales } from "@modelos/ModeloEmails";
-import Form from "@pages/emails/_form";
+import Form from "@components/emails/_form";
 import ABMColeccion from "@components/forms/ABMcollection2";
 import useLayout from "@hooks/useLayout";
 import { getWherePermiso } from "@hooks/useUser";

@@ -14,19 +14,19 @@ import ModeloRecetas, {
   valoresIniciales as valoresInicialesRecetas,
 } from "@modelos/ModeloRecetas";
 import ABMColeccion from "@components/forms/ABMcollection";
-import FormRecetas, { getDetalleAnteojo } from "@pages/recetas/_form";
+import FormRecetas, { getDetalleAnteojo } from "@components/recetas/_form";
 import { getFechaString } from "@helpers/dates";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import ModeloTurnos, {
   valoresIniciales as valoresInicialesTurnos,
 } from "@modelos/ModeloTurnos";
-import FormTurnos from "@pages/turnos/_form";
+import FormTurnos from "@components/turnos/_form";
 import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 import { addQueryApi } from "@helpers/db";
 import Dialogo from "@components/forms/dialogo";
 import EnviarGenerico from "@components/forms/enviarGenerico";
-import NuevaReceta from "@pages/recetas/nuevaReceta";
+import NuevaReceta from "@components/recetas/nuevaReceta";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 import TabsFormik from "@components/forms/tab";
 import { getWherePermiso } from "@hooks/useUser";
@@ -328,4 +328,7 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
       />
     </Grid>
   );
+}
+export default function Module() {
+  return "...";
 }

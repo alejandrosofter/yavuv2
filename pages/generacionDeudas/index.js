@@ -8,7 +8,7 @@ import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
 import ItemsGeneracionDeuda from "./items";
 import { useState } from "react";
 import { getFechaString } from "@helpers/dates";
-export default function Modulo({ mod }) {
+export default function Modulo({}) {
   const [openItems, setOpenItems] = useState(false);
   const [seleccion, setSeleccion] = useState();
   const columns = [
@@ -72,13 +72,12 @@ export default function Modulo({ mod }) {
     <>
       <DataGridFirebase
         fnAcciones={fnAcciones}
-        coleccion={mod.coleccion}
-        titulo={mod.label}
+        coleccion={`generacionDeudas`}
+        titulo={`GENERACION DEDUA`}
         subTitulo="del club"
         icono="fas fa-funnel-dollar"
         limit={10}
-        mod={mod}
-        acciones={mod.acciones}
+        acciones={[]}
         orderBy="fecha"
         columns={columns}
       />

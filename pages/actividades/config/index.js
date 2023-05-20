@@ -3,8 +3,8 @@ import Grid from "@mui/material/Grid";
 import FormSubitemColeccion from "@components/forms/editarSubitemColeccion";
 
 import DataGridFormikItems from "@components/forms/dataGridFormik";
-import FormItem from "./_form";
-import SelectPlantilla from "@pages/plantillas/selectPlantilla";
+import FormItem from "@components/actividades/config/_form";
+import SelectPlantilla from "@components/plantillas/selectPlantilla";
 import { ModeloConfig } from "@modelos/ModeloSocios";
 import TabsFormik, { TabPanel } from "@components/forms/tab";
 import TitulosFormularios from "@components/forms/tituloFormularios";

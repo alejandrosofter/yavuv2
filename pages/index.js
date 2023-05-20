@@ -1,10 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { Context } from "context/userContext";
+import { useState } from "react";
 
-import { Grid, Typography, Icon, Button } from "@mui/material";
-import Ayuda from "@pages/dashboard/ayuda";
-import SelectDashboard from "@pages/dashboard/selectDashboard";
-import ShowDashboard from "@pages/dashboard/show";
+import { Grid, Typography, Icon } from "@mui/material";
+import SelectDashboard from "@components/dashboard/selectDashboard";
+import ShowDashboard from "@components/dashboard/show";
 import { useAuthUser } from "next-firebase-auth";
 import useLayout from "@hooks/useLayout";
 

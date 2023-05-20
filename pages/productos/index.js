@@ -1,10 +1,9 @@
 import ABMColeccion from "@components/forms/ABMcollection2";
 import { formatMoney } from "@helpers/numbers";
 import { useState } from "react";
-import MovimientosProducto from "./movimientos";
+import MovimientosProducto from "@components/productos/movimientos";
 import Modelo, { valoresIniciales } from "@modelos/ModeloProductos";
-import Form from "./_form";
-import { fuego } from "@nandorojo/swr-firestore";
+import Form from "components/productos/_form";
 import useLayout from "@hooks/useLayout";
 import { getWherePermiso } from "@hooks/useUser";
 export default function Modulo({ mod, parentData }) {

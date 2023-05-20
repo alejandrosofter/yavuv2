@@ -1,9 +1,10 @@
+import { UseStorage } from "@hooks/useStorage";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
 export default function Page({}) {
   const router = useRouter();
-  const paciente = JSON.parse(localStorage.getItem("pacienteSeleccion"));
+  const [paciente, setPaciente] = UseStorage("pacienteSeleccion");
   if (paciente) {
     router.push(`/pacientes/ficha/${paciente.id}`);
   }

@@ -7,16 +7,10 @@ import {
   Typoaphy,
   Typography,
 } from "@mui/material";
-import Stack from "@mui/material/Stack";
 
-import TabsSocio from "./tabsSocio";
-import { useEffect } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import TabsSocio from "@components/socios/tabsSocio";
 import { useDocument } from "@nandorojo/swr-firestore";
-import MuestraImagen from "@components/forms/muestraImagen";
-import FiltroSocios from "./filtroSocios";
-import DataSocio from "./dataSocio";
+import DataSocio from "@components/socios/dataSocio";
 
 export default function PerfilSocio({ mod, socio, callbackdelete }) {
   const { data } = useDocument(`socios/${socio?.objectID}`);

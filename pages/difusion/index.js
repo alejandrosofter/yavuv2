@@ -1,16 +1,16 @@
 import { getFechaString } from "@helpers/dates";
 import { useRef, useState } from "react";
-import { TestDifusion } from "./test";
+import { TestDifusion } from "@components/difusion/test";
 import ABMColeccion from "@components/forms/ABMcollection2";
-import { fuego } from "@nandorojo/swr-firestore";
 import Modelo, { valoresIniciales } from "@modelos/ModeloDifusion";
-import Form from "./_form";
+import Form from "@components/difusion/_form";
 import Dialogo from "@components/forms/dialogo";
 import { addQueryApi } from "@helpers/db";
-import { FeedbackEnvios } from "./feedbackEnvios";
+import { FeedbackEnvios } from "@components/difusion/feedbackEnvios";
 import { getWherePermiso } from "@hooks/useUser";
 import useLayout from "@hooks/useLayout";
-export default function Modulo({ mod, parentData }) {
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+export default function Modulo({}) {
   useLayout({
     label: "Difusiones",
     titulo: "DIFUSIONES",
@@ -29,6 +29,7 @@ export default function Modulo({ mod, parentData }) {
   const [dataSeleccion, setDataSeleccion] = useState();
   const [openConfirma, setOpenConfirma] = useState();
   const tableInstanceRef = useRef();
+  const config = UseConfigModulo("difusion");
   const enviarDifusion = () => {
     addQueryApi("aplicarDifusion", dataSeleccion).then((res) => {});
   };
@@ -148,7 +149,7 @@ export default function Modulo({ mod, parentData }) {
         orderBy={order}
         Modelo={Modelo}
         valoresIniciales={valoresIniciales}
-        dataForm={{ config: mod?.config, mod }}
+        dataForm={{ config }}
         titulo={`DIFUSIONES`}
         Form={Form}
       />

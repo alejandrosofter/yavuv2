@@ -1,43 +1,17 @@
 import ABMColeccion from "@components/forms/ABMcollection";
-import CardSimple from "@components/forms/cardSimple";
-import Dialogo from "@components/forms/dialogo";
 import MuestraImagen from "@components/forms/muestraImagen";
-import TitulosFormularios from "@components/forms/tituloFormularios";
 import { QueryApi } from "@helpers/queryApi";
 import {
   ModeloCredenciales,
   valoresInicialesCredenciales,
 } from "@modelos/ModeloEnvioTarjetas";
-import Form from "./_formTarjeta";
-import { capitalize } from "@helpers/Strings";
-import {
-  Typography,
-  Grid,
-  Stack,
-  Button,
-  Backdrop,
-  CircularProgress,
-  Menu,
-  MenuItem,
-  Icon,
-  IconButton,
-} from "@mui/material";
+import Form from "@components/envioTarjetas/tarjetas/_formTarjeta";
+import { Grid } from "@mui/material";
 import { useCollection, fuego, useDocument } from "@nandorojo/swr-firestore";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import EditarTarjeta from "./editarCredencial";
-import Paginador from "./paginador";
-import VerCredencial from "./verCredencial";
 
 export default function TarjetasEnvio({ mod }) {
-  const [tarjetas, setTarjetas] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [openEditar, setOpenEditar] = useState(false);
-  const [openVerCredencial, setOpenVerCredencial] = useState(false);
-  const [paginaActual, setPaginaActual] = useState();
-  const [campoClave, setCampoClave] = useState("idTarjeta");
-  const [openConfirmaElimina, setOpenConfirmaElimina] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
   const CANTIDAD_PAGINA = 27;
   const order = ["apellido"];
