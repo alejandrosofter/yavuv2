@@ -23,6 +23,7 @@ export function ColeccionTable({
       limit,
       listen: true,
     });
+
   const [loading, setLoading] = useState(false);
   const [accionesTabla, setAccionesTabla] = useState([]);
   const [rowSeleccion, setRowSeleccion] = useState(null);
@@ -85,7 +86,7 @@ export function ColeccionTable({
   const datos = dataExternal ? dataExternal : data ? data : [];
   if (refData?.current) refData.current = datos;
   return (
-    <Grid sx={{ mb: 10 }} item xs={12}>
+    <Grid sx={{ mb: 10 }} item md={12}>
       <MaterialReactTable
         {...gridOptions}
         columns={columns}
@@ -150,9 +151,10 @@ export function ColeccionTable({
         renderRowActionMenuItems={(closeMenu, row, table) =>
           acciones.map((accion) =>
             accion.label === "" ? (
-              <Divider />
+              <Divider key={`sepa`} />
             ) : (
               <MenuItem
+                key={accion.label}
                 onClick={clickMenu.bind(
                   this,
                   {
@@ -162,14 +164,12 @@ export function ColeccionTable({
                   },
                   accion
                 )}
-                showInMenu
               >
                 <Icon
                   sx={{ color: accion.color, mr: 1 }}
                   fontSize="10"
                   className={accion.icono}
                 />
-                {"  "}
                 {accion.label}
               </MenuItem>
             )

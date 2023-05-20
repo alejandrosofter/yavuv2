@@ -6,8 +6,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SecurityIcon from "@mui/icons-material/Security";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { Button, Stack, Icon, Grid, Box, IconButton } from "@mui/material";
-import SubColeccionColeccion from "../../forms/subColeccion/";
-import ImpresionDialog from "../../forms/impresion";
+import SubColeccionColeccion from "@components/forms/subColeccion/";
+import ImpresionDialog from "@components/forms/impresion";
 import ImpresionActividadSocio from "./impresion";
 import {
   ModeloDebitoAutomatico,

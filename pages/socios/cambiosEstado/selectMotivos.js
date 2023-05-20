@@ -4,7 +4,7 @@ import {
   ModeloMotivosCambioEstado,
   valoresInicialesMotivoCambioEstado,
 } from "@modelos/ModeloSocios";
-import Form from "@components/socios/cambiosEstado/_formMotivos";
+import Form from "@pages/socios/cambiosEstado/_formMotivos";
 export default function SelectMotivo({
   label,
   campo,

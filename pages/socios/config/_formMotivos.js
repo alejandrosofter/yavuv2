@@ -1,8 +1,8 @@
 import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
-import Switch from "../../forms/switch";
+import Switch from "@components/forms/switch";
 
-import SelectStatik from "../@components/forms/selectEstaticFormik";
+import SelectStatik from "@components/forms/selectEstaticFormik";
 export default function FormCategoriaSocio({
   dataModulo,
   modelo,

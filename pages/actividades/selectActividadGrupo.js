@@ -1,6 +1,6 @@
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { useState } from "react";
-import Select2 from "../../componen@components/forms/select2Formik";
+import Select2 from "@components/forms/select2Formik";
 export default function SelectActividadGrupo({ label, campo, callbackchange }) {
   const { data } = useCollection("actividades", {
     where: ["idUsuario", "==", fuego.auth().currentUser.uid],

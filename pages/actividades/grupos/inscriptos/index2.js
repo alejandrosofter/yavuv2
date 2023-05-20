@@ -3,7 +3,7 @@ import DialogContenido from "@components/forms/dialogContenido";
 import ImpresionDialog from "@components/forms/impresion";
 import NuevoGenerico from "@components/NuevoGenerico2";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
-import PerfilSocio from "@components/socios/perfilSocio";
+import PerfilSocio from "@pages/socios/perfilSocio";
 import { getModUsuario } from "@helpers/db";
 import Modelo, { valoresIniciales } from "@modelos/ModeloGrupos";
 import {

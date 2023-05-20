@@ -47,7 +47,7 @@ export default function Modulo({ mod }) {
         modelo={Modelo}
       >
         <Form subTitulo={mod.label} icono={mod.icono} />
-      </NuevoGenerico>
+     @components/NuevoGenerico>
 
       <ImpresionDialog
         titulo="PANEL COMPARTIR COBRO"

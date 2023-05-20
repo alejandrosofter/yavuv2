@@ -1,7 +1,7 @@
 import Modelo, { valoresIniciales } from "@modelos/ModeloMods";
 import EditarGenerico from "@components/EditarGenerico";
 
-import Form from "@components/modulos/_form";
+import Form from "@pages/modulos/_form2";
 import { useRouter } from "next/router";
 import { Button, Icon, Grid } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";

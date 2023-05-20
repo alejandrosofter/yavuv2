@@ -1,7 +1,7 @@
-import FormClientes from "@components/clientes/_form";
+import FormClientes from "@pages/clientes/_form";
 import DialogContenido from "@components/forms/dialogContenido";
-import Form from "@components/productos/_formCategoria";
-import EditarSocio from "@components/socios/editarSocio";
+import Form from "@pages/productos/_formCategoria";
+import EditarSocio from "@pages/socios/editarSocio";
 import { Grid, IconButton } from "@mui/material";
 import { useState } from "react";
 

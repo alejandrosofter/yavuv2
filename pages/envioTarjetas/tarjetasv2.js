@@ -20,9 +20,9 @@ import { useCollection, fuego, useDocument } from "@nandorojo/swr-firestore";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
-import EditarTarjeta from "./editarCredencial";
-import Paginador from "./paginador";
-import VerCredencial from "./verCredencial";
+import EditarTarjeta from "./tarjetas/editarCredencial";
+import Paginador from "./tarjetas/paginador";
+import VerCredencial from "./tarjetas/verCredencial";
 
 export default function TarjetasEnvio({ mod }) {
   const [tarjetas, setTarjetas] = useState([]);

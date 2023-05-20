@@ -1,7 +1,7 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPuntosVenta";
-import Form from "@components/comprobantesElectronicos/_formPuntoVenta";
+import Form from "@pages/comprobantesElectronicos/_formPuntoVenta";
 export default function SelectPuntoVenta({ label, campo, callbackchange }) {
   return (
     <SelectUserModColeccion

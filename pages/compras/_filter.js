@@ -1,11 +1,9 @@
 import { Grid, Stack } from "@mui/material";
-import FilterGenerico from "../filterGenerico";
-import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
-import Select2 from "@components/forms/select2Formik";
-import SelectFecha from "../forms/selectorFecha";
+import FilterGenerico from "@components/filterGenerico";
+
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import SelectCentroCosto from "@components/centroCostos/select";
-import SelectProveedor from "@components/proveedores/select";
+import SelectCentroCosto from "@pages/centroCostos/select";
+import SelectProveedor from "@pages/proveedores/select";
 
 export default ({ callbackBuscar }) => {
   const { data: centrosCosto } = useCollection("centroCostos", {

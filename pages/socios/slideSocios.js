@@ -1,30 +1,30 @@
 import MuestraImagen from "@components/forms/muestraImagen";
 import SelectSimple from "@components/forms/selectSimple";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+import { UseStorage } from "@hooks/useStorage";
 import { Grid, Typography, Stack, Button, IconButton } from "@mui/material";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { useEffect, useState } from "react";
 
-export default function SlideSocios({ callBackCambia, mod, seleccion }) {
+export default function SlideSocios({ callBackCambia, seleccion }) {
   const campo = "nroSocio";
   const [ultimaPagina, setUltimaPagina] = useState(false);
   const [primerPagina, setPrimerPagina] = useState(false);
+  const [tipoSocioSlide, setTipoSocioSlide] = UseStorage("tipoSocioSlide");
   const [startAfter, setAfter] = useState(
     seleccion ? Number(seleccion[campo]) : null
   );
   const [startBefore, setBefore] = useState(null);
-  const [tipoSocio, setTipoSocio] = useState(
-    localStorage.getItem("tipoSocioSlide")
-  );
+  const [tipoSocio, setTipoSocio] = UseStorage("tipoSocioSlide");
   useEffect(() => {
     setAfter(seleccion ? Number(seleccion[campo]) : null);
   }, [seleccion]);
+  const config = UseConfigModulo("socios");
 
-  const tipoSocios = mod?.config?.itemsTipoSocios
-    ? mod.config.itemsTipoSocios
-    : [];
+  const tipoSocios = config?.itemsTipoSocios ? config.itemsTipoSocios : [];
   const { data, error, update } = useCollection("socios", {
     where: [
-      ["idUsuario", "==", mod.idUsuario],
+      ["idUsuario", "==", config?.idUsuario],
       ["estado", "==", "ALTA"],
       ["tipoSocio", "==", tipoSocio],
     ],
@@ -33,6 +33,7 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
     startAfter,
     listen: true,
   });
+
   useEffect(() => {
     if (data && data.length > 0) {
       setPrimerPagina(data[0][campo] === 1);
@@ -44,7 +45,7 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
   const getUltimoTipo = (idTipo) => {
     const ultimo = 0;
 
-    mod?.config?.itemsTipoSocios.forEach((item) => {
+    config?.itemsTipoSocios.forEach((item) => {
       if (item.id === idTipo) {
         ultimo = Number(item.proximoNro);
       }
@@ -64,7 +65,7 @@ export default function SlideSocios({ callBackCambia, mod, seleccion }) {
       <Grid item md={2}>
         <SelectSimple
           label="Tipo de socio"
-          valorInicial={localStorage.getItem("tipoSocioSlide")}
+          valorInicial={tipoSocioSlide}
           campoLabel="nombre"
           campoValue="id"
           fn={cambiaTipoSocio}

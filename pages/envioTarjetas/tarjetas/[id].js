@@ -43,7 +43,7 @@ export default function TarjetasEnvio({ mod }) {
   const order = ["apellido"];
   const router = useRouter();
   const { data: envioTarjeta } = useDocument(
-    `/envioTarjetas/${router.query.idItem}`
+    `/envioTarjetas/${router.query.id}`
   );
   const columns = [
     {

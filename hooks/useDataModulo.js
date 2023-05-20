@@ -14,10 +14,10 @@ export function useDataModulo({
   orderBy,
 }) {
   const [usuariosGrant, setUsuariosGrant] = useState([
-    localStorage.getItem("usermod"),
+    // localStorage.getItem("usermod"),
   ]);
-  const esPadre =
-    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
+  const esPadre = true;
+  // localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
 
   const [recursosGrant, setRecursosGrant] = useState([]);
   const [where, setWhere] = useState(
@@ -73,7 +73,7 @@ export function useDataModulo({
     ...filtro,
     where,
   });
-  const dataPost = data ? data : [];
+  var dataPost = data ? data : [];
   // if(error)return "Aguarde..."
   if (!fuego.auth().currentUser) return "Sin login";
   if (error) return `${error}`;

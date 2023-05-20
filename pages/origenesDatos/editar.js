@@ -1,10 +1,10 @@
-import EditarGenerico from "../EditarGenerico";
+import EditarGenerico from "@components/EditarGenerico";
 import ModeloOrigenesDatos from "../../modelos/ModeloOrigenesDatos";
 
 import { Grid } from "@mui/material";
 import Input from "@components/forms/input";
 import { useRouter } from "next/router";
-import SwitchFormik from "../forms/switch";
+import SwitchFormik from "@components/forms/switch";
 
 export default function Modulo({ modulo, token, dataUsuario }) {
   const router = useRouter();
@@ -44,7 +44,7 @@ export default function Modulo({ modulo, token, dataUsuario }) {
           <SwitchFormik label="Es Defecto? " campo="esDefecto" />
         </Grid>
       </Grid>
-    </EditarGenerico>
+   @components/EditarGenerico>
   );
 }
 Modulo.auth = true;

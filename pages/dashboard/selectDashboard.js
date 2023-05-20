@@ -1,6 +1,6 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import Modelo, { valoresIniciales } from "@modelos/ModeloDashboard";
-import Form from "@components/dashboard/_form";
+import Form from "@pages/dashboard/_form";
 export default function SelectDashboard({
   multiple,
   label,

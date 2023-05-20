@@ -49,7 +49,7 @@ export default function ItemsModulo_agregar({
       ? valoresIniciales()
       : valoresIniciales;
   return (
-    <div>
+    <Grid>
       <Button size="small" variant="outlined" onClick={handleClickOpen}>
         <Icon className="fas fa-plus" />{" "}
         {labelBtnAgregar ? labelBtnAgregar : "Nuevo"}
@@ -101,6 +101,6 @@ export default function ItemsModulo_agregar({
           </Formik>
         </DialogContent>
       </Dialog>
-    </div>
+    </Grid>
   );
 }

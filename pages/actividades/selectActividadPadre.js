@@ -1,5 +1,5 @@
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import Select2 from "../../componen@components/forms/select2Formik";
+import Select2 from "@components/forms/select2Formik";
 export default function Modulo({ multiple, label, campo, callbackchange }) {
   const { data } = useCollection("actividadesPadre", {
     where: [

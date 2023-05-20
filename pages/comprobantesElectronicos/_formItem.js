@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 import Input from "@components/forms/input";
-import SelectProducto from "@components/productos/selectProducto";
+import SelectProducto from "@pages/productos/selectProducto";
 import Switch from "@components/forms/switch";
 export default function FormItem({ values, setFieldValue }) {
   const [total, setTotal] = useState(0);

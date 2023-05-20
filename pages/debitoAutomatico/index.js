@@ -1,12 +1,14 @@
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
 import { formatMoney } from "../../helpers/numbers";
-import moment from "moment";
-import { getFechaString } from "../../helpers/dates";
-import { QueryApi } from "@helpers/queryApi";
+import { getFechaString } from "@helpers/dates";
+import Modelo, { valoresIniciales } from "@modelos/ModeloDebitoAutomatico";
+import Form from "./_form";
 import { useState } from "react";
 import Dialogo from "@components/forms/dialogo";
 import ItemsDebitoAutomatico from "./deudas";
 import EnvioBanco from "./envio";
+import ABMColeccion2 from "@components/forms/ABMcollection2";
+import { getWherePermiso } from "@hooks/useUser";
+import useLayout from "@hooks/useLayout";
 export default function Modulo({ mod }) {
   const [dataConsulta, setDataConsulta] = useState();
   const [openDialogo, setOpenDialogo] = useState(false);
@@ -14,88 +16,119 @@ export default function Modulo({ mod }) {
   const [dataSeleccion, setDataSeleccion] = useState();
   const [openDeudas, setOpenDeudas] = useState();
   const order = ["fecha", "desc"];
-
+  useLayout({
+    label: "Debitos Automaticos",
+    titulo: "DEBITOS",
+    icon: "fas fa-money-check-alt",
+    acciones: [
+      {
+        label: "Debitos",
+        icono: "fas fa-money-check-alt",
+        url: "/debitoAutomatico",
+      },
+      { label: "Config", icono: "fas fa-cog", url: "/debitoAutomatico/config" },
+    ],
+  });
   const columns = [
     {
-      field: "fecha",
-      headerName: "Fecha",
-      width: 80,
-      renderCell: (params) => getFechaString(params.value),
+      accessorKey: "fecha",
+      header: "Fecha",
+      size: 80,
+      Cell: ({ cell }) => getFechaString(cell.getValue()),
     },
     {
-      field: "label_tipoCuenta",
-      headerName: "Tipo Cuenta",
-      width: 120,
+      accessorKey: "label_tipoCuenta",
+      header: "Tipo Cuenta",
+      size: 120,
     },
     {
-      field: "vtos",
-      headerName: "VTOS",
-      width: 230,
-      renderCell: (params) =>
-        `1er ${getFechaString(params.row.primerVto)} | 2do ${getFechaString(
-          params.row.segundoVto
-        )} | 3er ${getFechaString(params.row.tercerVto)} | `,
+      accessorKey: "vtos",
+      header: "VTOS",
+      size: 230,
+      Cell: ({ cell }) =>
+        `1er ${getFechaString(cell.row.primerVto)} | 2do ${getFechaString(
+          cell.row.segundoVto
+        )} | 3er ${getFechaString(cell.row.tercerVto)} | `,
     },
     {
-      field: "importeTotal",
-      headerName: "$ Total",
-      width: 120,
-      renderCell: (params) => formatMoney(params.value),
+      accessorKey: "importeTotal",
+      header: "$ Total",
+      size: 120,
+      Cell: ({ cell }) => formatMoney(cell.getValue()),
     },
     {
-      field: "totalCobrado",
-      headerName: "$ Cobrado",
-      width: 120,
-      renderCell: (params) => `${formatMoney(params.value ? params.value : 0)}`,
+      accessorKey: "totalCobrado",
+      header: "$ Cobrado",
+      size: 120,
+      Cell: ({ cell }) =>
+        `${formatMoney(cell.getValue() ? cell.getValue() : 0)}`,
     },
 
     {
-      field: "cantidadProcesada",
-      headerName: "Procesados",
-      width: 120,
+      accessorKey: "cantidadProcesada",
+      header: "Procesados",
+      size: 120,
     },
     {
-      field: "cantidadDeudas",
-      headerName: "Cant Deudas",
-      width: 120,
+      accessorKey: "cantidadDeudas",
+      header: "Cant Deudas",
+      size: 120,
       renderCell: (params) => `${params.value ? params.value : 0}`,
     },
     {
-      field: "estado",
-      headerName: "Estado",
-      width: 120,
+      accessorKey: "estado",
+      header: "Estado",
+      size: 120,
     },
   ];
 
-  let fnAcciones = {
-    descargar: (data) => {
-      setDataSeleccion(data);
-      // descargo archivo con url
-      window.open(data?.archivoBanco?.url, "_blank");
+  let fnAcciones = [
+    {
+      esFuncion: true,
+      // icono: "fas fa-play",
+      label: "Deudas",
+
+      fn: (data) => {
+        setDataSeleccion(data);
+        setOpenDeudas(true);
+      },
     },
-    deudas: (data) => {
-      setDataSeleccion(data);
-      setOpenDeudas(true);
+    {
+      esFuncion: true,
+      icono: "fas fa-download",
+      label: "Descargar",
+
+      fn: (data) => {
+        setDataSeleccion(data);
+        // descargo archivo con url
+        window.open(data?.archivoBanco?.url, "_blank");
+      },
     },
-    enviar: (data) => {
-      setDataSeleccion(data);
-      setOpenEnviar(true);
+    {
+      esFuncion: true,
+      icono: "fas fa-envelope",
+      label: "Enviar",
+
+      fn: (data) => {
+        setDataSeleccion(data);
+        setOpenEnviar(true);
+      },
     },
-  };
+  ];
   return (
     <>
-      <DataGridFirebase
-        fnAcciones={fnAcciones}
-        coleccion={mod.coleccion}
-        titulo={mod.label}
-        subTitulo=""
-        icono={mod.icono}
-        limit={10}
-        parentData={true}
-        mod={mod}
-        acciones={mod.acciones}
-        orderBy={order}
+      <ABMColeccion2
+        coleccion={`debitoAutomatico`}
         columns={columns}
+        acciones={fnAcciones}
+        maxWidth={"lg"}
+        where={getWherePermiso("debitoAutomatico")}
+        orderBy={order}
+        Modelo={Modelo}
+        valoresIniciales={valoresIniciales}
+        dataForm={{}}
+        titulo={`DEBITOS AUTOMATICOS`}
+        Form={Form}
       />
       <Dialogo
         titulo={"DEBITO PROCESANDO"}

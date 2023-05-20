@@ -1,12 +1,36 @@
 import { formatMoney } from "../../helpers/numbers";
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
-import { getFechaString } from "../../helpers/dates";
+import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
+import { getFechaString } from "@helpers/dates";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
 import { fuego } from "@nandorojo/swr-firestore";
 import Form from "./_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloCompras";
 import { useRef } from "react";
+import { getWherePermiso } from "@hooks/useUser";
+import useLayout from "@hooks/useLayout";
 export default function Modulo({ parentData }) {
+  useLayout({
+    label: "Compras",
+    titulo: "COMPRAS",
+    icon: "fas fa-users",
+    acciones: [
+      {
+        label: "Compras",
+        icono: "fas fa-users",
+        url: "/compras",
+      },
+      {
+        label: "Proveedores",
+        icono: "fas fa-user-tie",
+        url: "/proveedores",
+      },
+      {
+        label: "Informes",
+        icono: "fas fa-scroll",
+        url: "/compras/informes",
+      },
+    ],
+  });
   const tableInstanceRef = useRef();
   const columns = [
     {
@@ -57,17 +81,14 @@ export default function Modulo({ parentData }) {
     //   },
     // },
   ];
+
   return (
     <ABMColeccion2
       coleccion={`compras`}
       columns={columns}
       acciones={fnAcciones}
       maxWidth={"lg"}
-      where={[
-        parentData
-          ? ["idUsuario", "==", localStorage.getItem("usermod")]
-          : ["usermod", "==", fuego.auth().currentUser?.uid],
-      ]}
+      where={getWherePermiso("compras")}
       gridOptions={{
         tableInstanceRef,
 
@@ -103,8 +124,6 @@ export default function Modulo({ parentData }) {
         // getRowId: (row) => row.id,
       }}
       orderBy={order}
-      // callbackclick={callbackclick}
-      icono={"fas fa-users"}
       Modelo={Modelo}
       valoresIniciales={valoresIniciales}
       // dataForm={{ grupo: seleccion }}

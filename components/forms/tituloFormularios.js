@@ -10,7 +10,7 @@ export default function TitulosFormularios({
     <Stack direction="row" alignItems="center" spacing={1}>
       <Typography sx={{ fontWeight: "bold", color }} variant="h3">
         {" "}
-        <Icon className={icono} /> {titulo}
+        <Icon className={icono ? icono : "fas fa-circle-dot"} /> {titulo}
       </Typography>
       <Typography sx={{ color }} variant="h4">
         {" "}

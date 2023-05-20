@@ -1,6 +1,6 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import Modelo, { valoresIniciales } from "@modelos/ModeloProveedores";
-import Form from "@components/proveedores/_form";
+import Form from "@pages/proveedores/_form";
 export default function SelectProveedor({
   label,
   campo,

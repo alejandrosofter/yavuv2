@@ -1,7 +1,7 @@
 import { Grid, Button } from "@mui/material";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { useState } from "react";
-import Select from "../forms/select2Simple";
+import Select from "@components/forms/select2Simple";
 export default function Modulo({ callbackchange }) {
   const { data } = useCollection("consultorios", {
     where: ["idUsuario", "==", fuego.auth().currentUser.uid],

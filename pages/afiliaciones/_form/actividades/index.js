@@ -1,6 +1,6 @@
-import ItemsModulo from "../../../forms/itemsModulo";
+import ItemsModulo from "@components/forms/itemsModulo";
 import Form from "../../../socios/actividades/_formActividades";
-import { getFechaString } from "../../../../helpers/dates";
+import { getFechaString } from "@helpers/dates";
 import {
   ModeloActividades,
   valoresInicialesActividades,

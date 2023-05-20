@@ -1,22 +1,22 @@
 import { Grid, IconButton, Typography } from "@mui/material";
 import Input from "@components/forms/input";
 import Switch from "@components/forms/switch";
-import SelectProducto from "@components/productos/selectProducto";
-import SelectPromocion from "@components/promociones/selectPromocion";
+import SelectProducto from "@pages/productos/selectProducto";
+import SelectPromocion from "@pages/promociones/selectPromocion";
 
 import SelectFecha from "@components/forms/selectorFecha";
 import _FormItem from "@components/forms/subColeccion/_formItem";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import SelectFormikAlgolia from "@components/forms/selectAlgoliaFormik";
 import { useEffect, useState } from "react";
-import EditarDialogCbu from "@components/cuentasCbu/editarDialog";
-import SelectTipoPeriodo from "@components/socios/mensualizado/selectorTipoPeriodos";
+import EditarDialogCbu from "@pages/cuentasCbu/editarDialog";
+import SelectTipoPeriodo from "@pages/socios/mensualizado/selectorTipoPeriodos";
 import SelectActividadGrupo from "pages/actividades/selectActividadGrupo";
 import SelectActividades from "pages/actividades/selectActividad";
 import SelectGrupos from "pages/actividades/grupos/select";
-import NuevoDialogCbu from "@components/cuentasCbu/nuevoDialog";
+import NuevoDialogCbu from "@pages/cuentasCbu/nuevoDialog";
 import SelectAlgoliaUserModColeccion from "@components/forms/selectAlgoliaUsermodColeccion";
-import Form from "@components/cuentasCbu/_form";
+import Form from "@pages/cuentasCbu/_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloCuentasCbu";
 import SelectSocio from "../selectSocio";
 export default function FormDeudaSocio({

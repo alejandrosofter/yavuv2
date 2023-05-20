@@ -1,4 +1,5 @@
 export function porcentajeColor(perc, inverso = false) {
+  if (!perc) perc = 0;
   //ROJO AMARILLO VERDE
   if (inverso) perc = 100 - perc;
   var r,

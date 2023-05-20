@@ -12,6 +12,7 @@ export default function ListadoConsultorios({ mod }) {
     where: ["idUsuario", "==", fuego.auth().currentUser?.uid],
   });
   const [checks, setChecks] = UseStorage("checksConsultorios", []);
+
   const [fechaBusca, setFechaBusca] = useState(new Date());
   const handleChange = (item) => {
     if (item instanceof DateObject) setFechaBusca(item.toDate());

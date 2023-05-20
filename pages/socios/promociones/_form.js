@@ -8,7 +8,7 @@ import SelectFecha from "@components/forms/selectorFecha";
 import _FormItem from "@components/forms/subColeccion/_formItem";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import { fuego } from "@nandorojo/swr-firestore";
-import SelectPromocion from "@components/promociones/selectPromocion";
+import SelectPromocion from "@pages/promociones/selectPromocion";
 export default function FormPromocionesSocio({ values, setFieldValue }) {
   const { data: promociones } = useCollection(`promociones`, {
     listen: true,

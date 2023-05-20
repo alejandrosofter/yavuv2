@@ -1,4 +1,4 @@
-import FiltroDashboard from "@components/dashboard/filtroDashboard";
+import FiltroDashboard from "@pages/dashboard/filtroDashboard";
 import ChartDonut from "@components/forms/charts/donut";
 import MenuAccion from "@components/forms/menuAcccion";
 import { QueryApi } from "@helpers/queryApi";

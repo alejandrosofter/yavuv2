@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
 
 import { useEffect, useState } from "react";
-import SelectFormik from "../forms/select";
+import SelectFormik from "@components/forms/select";
 import { getItemArray } from "../../helpers/arrays";
 import SelectProducto from "../productos/selectProducto";
 const getItemsConceptos = (id, arr) => {

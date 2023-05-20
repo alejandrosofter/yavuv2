@@ -2,11 +2,11 @@ import { Grid, Stack, Typography } from "@mui/material";
 import Input from "@components/forms/input";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import SelectFecha from "@components/forms/selectorFecha";
-import SelectObraSocial from "@components/obrasSociales/selectObraSocial";
+import SelectObraSocial from "@pages/obrasSociales/selectObraSocial";
 import UploadAnyFormik from "@components/forms/fileAnyUploadFormik";
 import { fuego } from "@nandorojo/swr-firestore";
-import SelectProducto from "@components/productos/selectProducto";
-import FormCuenta from "@components/cuentasCbu/_form";
+import SelectProducto from "@pages/productos/selectProducto";
+import FormCuenta from "@pages/cuentasCbu/_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloCuentasCbu";
 import SelectAlgoliaUserModColeccion from "@components/forms/selectAlgoliaUsermodColeccion";
 export default function Form({ mod, setFieldValue, values }) {

@@ -131,7 +131,7 @@ export default class FileUpload2Formik extends Component {
                     <section className="container">
                       <div {...getRootProps({ className: "dropzone" })}>
                         <input {...getInputProps()} />
-                        <p>Seleccione archivos</p>
+                        <span>Seleccione archivos</span>
                       </div>
                     </section>
                   )}

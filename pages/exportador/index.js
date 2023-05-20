@@ -1,4 +1,4 @@
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
+import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
 import { useState } from "react";
 export default function Modulo({ mod }) {
   const [dataConsulta, setDataConsulta] = useState();

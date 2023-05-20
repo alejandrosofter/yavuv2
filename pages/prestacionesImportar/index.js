@@ -1,4 +1,4 @@
-import ABMColeccion from "@components/forms/ABMcollection";
+import ABMColeccion from "@components/forms/ABMcollection2";
 import Form from "./_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPrestacionesImportar";
 
@@ -6,7 +6,26 @@ import { useState } from "react";
 import { getFechaString } from "@helpers/dates";
 import { QueryApi } from "@helpers/queryApi";
 import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
-export default function Modulo({ mod }) {
+import useLayout from "@hooks/useLayout";
+import { getWherePermiso } from "@hooks/useUser";
+export default function Modulo({}) {
+  useLayout({
+    label: "Importacion Prestaciones",
+    titulo: "IMPORTACION PRESTACIONES",
+    icon: "fas fa-file-import",
+    acciones: [
+      {
+        label: "Importar",
+        icono: "fas fa-file-import",
+        url: "/prestacionesImportar",
+      },
+      // {
+      //   label: "Config",
+      //   icono: "fas fa-cog",
+      //   url: "/consultaPaciente/config",
+      // },
+    ],
+  });
   const [seleccion, setSeleccion] = useState(null);
   const [open, setOpen] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
@@ -18,26 +37,27 @@ export default function Modulo({ mod }) {
   };
   const columns = [
     {
-      field: "fecha",
-      headerName: "Fecha",
-      width: 90,
-      renderCell: (params) => getFechaString(params.value),
+      accessorKey: "fecha",
+      header: "Fecha",
+      size: 90,
+      Cell: ({ cell }) =>
+        getFechaString(cell.getValue() ? cell.getValue() : ""),
     },
     {
-      field: "label_obraSocial",
-      headerName: "Obra Social",
-      width: 320,
+      accessorKey: "label_obraSocial",
+      header: "Obra Social",
+      size: 320,
     },
     {
-      field: "archivo",
-      headerName: "Archivo",
-      width: 280,
-      renderCell: (params) => renderCellExpandData(params, getDetalleArchivo),
+      accessorKey: "archivo",
+      header: "Archivo",
+      size: 280,
+      Cell: ({ cell }) => getDetalleArchivo(cell.row.original),
     },
     {
-      field: "estado",
-      headerName: "Estado",
-      width: 100,
+      accessorKey: "estado",
+      header: "Estado",
+      size: 100,
     },
   ];
   const acciones = [
@@ -64,12 +84,11 @@ export default function Modulo({ mod }) {
         maxWidth="lg"
         rowsPerPage={100}
         hidePaginador={true}
-        // callbackclick={callbackclick}
-        icono={"fas fa-users"}
+        where={getWherePermiso("prestacionesImportar")}
         Modelo={Modelo}
         valoresIniciales={valoresIniciales}
         dataForm={{}}
-        titulo={`OBRAS SOCIALES`}
+        titulo={`PRESTACIONES IMPORTADAS`}
         Form={Form}
       />
       <QueryApi dataConsulta={dataConsulta} />

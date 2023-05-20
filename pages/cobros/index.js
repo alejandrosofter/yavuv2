@@ -1,7 +1,7 @@
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
-import { getFechaString } from "../../helpers/dates";
+import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
+import { getFechaString } from "@helpers/dates";
 import { formatMoney } from "../../helpers/numbers";
-import { renderCellExpandData } from "../forms/datagrid/renderCellExpand";
+import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 import ImpresionDialog from "@components/forms/impresion";
 import { useRef, useState } from "react";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
@@ -12,10 +12,23 @@ import { fuego } from "@nandorojo/swr-firestore";
 import Modelo, { valoresIniciales } from "@modelos/ModeloCobros";
 import ABMColeccion from "@components/forms/ABMcollection2";
 import Form from "./_form";
-export default function Modulo({ mod, parentData }) {
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+import { getWherePermiso } from "@hooks/useUser";
+import useLayout from "@hooks/useLayout";
+export default function Modulo({ parentData }) {
   const order = ["fecha_timestamp", "desc"];
-  const idPlantilla = mod.config?.plantillaCobro;
-  const plantillaEmail = mod.config?.plantillaMail;
+  const config = UseConfigModulo("cobros");
+  useLayout({
+    label: "Cobros",
+    titulo: "COBROS",
+    icon: "fas fa-bill-dollar",
+    acciones: [
+      { label: "Cobros", icono: "fas fa-home", url: "/cobros" },
+      { label: "Config", icono: "fas fa-cog", url: "/cobros/config" },
+    ],
+  });
+  const idPlantilla = config?.plantillaCobro;
+  const plantillaEmail = config?.plantillaMail;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const [socio, setSocio] = useState();
@@ -131,59 +144,6 @@ export default function Modulo({ mod, parentData }) {
       },
     },
   ];
-  const columns2 = [
-    {
-      field: "fecha",
-      headerName: "Fecha",
-      width: 120,
-      enableColumnFilter: false,
-      renderCell: (params) => {
-        return getFechaString(params.value, "DD/MM/AA | hh:mm");
-      },
-    },
-    {
-      field: "label_cliente",
-      headerName: "Cliente",
-      filterFn: "includesString",
-      width: 250,
-    },
-    {
-      field: "deudas",
-      headerName: "Detalle",
-      width: 300,
-      filterFn: "startsWith",
-      renderCell: (params) => getDetalle(params.row),
-    },
-    {
-      field: "importe",
-      headerName: "$ Importe",
-      width: 120,
-      enableColumnFilter: false,
-      // filterVariant: "range",
-      renderCell: (params) => {
-        return formatMoney(params.value);
-      },
-    },
-    {
-      field: "importeBonificacion",
-      headerName: "$ Bonif.",
-      width: 150,
-      enableColumnFilter: false,
-      renderCell: (params) => {
-        return formatMoney(params.value);
-      },
-    },
-    {
-      field: "importePaga",
-      headerName: "$ Paga.",
-      width: 150,
-      enableColumnFilter: false,
-      renderCell: (params) => {
-        return formatMoney(params.value);
-      },
-    },
-  ];
-
   return (
     <Grid container>
       <ABMColeccion
@@ -191,11 +151,7 @@ export default function Modulo({ mod, parentData }) {
         columns={columns}
         acciones={fnAcciones}
         maxWidth={"lg"}
-        where={[
-          parentData
-            ? ["idUsuario", "==", localStorage.getItem("usermod")]
-            : ["usermod", "==", fuego.auth().currentUser?.uid],
-        ]}
+        where={getWherePermiso(`cobros`)}
         gridOptions={{
           tableInstanceRef,
 
@@ -231,11 +187,9 @@ export default function Modulo({ mod, parentData }) {
           // getRowId: (row) => row.id,
         }}
         orderBy={order}
-        // callbackclick={callbackclick}
-        icono={"fas fa-users"}
         Modelo={Modelo}
         valoresIniciales={valoresIniciales}
-        dataForm={{ config: mod?.config }}
+        dataForm={{}}
         titulo={`COBROS`}
         Form={Form}
       />

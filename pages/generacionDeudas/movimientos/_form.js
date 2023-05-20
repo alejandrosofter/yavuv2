@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { quitarValoresNullArray } from "@helpers/objects";
 import SelectGrupos from "pages/actividades/grupos/select";
 import SelectActividades from "pages/actividades/selectActividad";
-import SelectProducto from "@components/productos/selectProducto";
+import SelectProducto from "@pages/productos/selectProducto";
 export default function Form({
   mod,
   setFieldValue,

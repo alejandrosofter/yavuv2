@@ -9,7 +9,7 @@ import Badge from "@mui/material/Badge";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Icon from "@mui/material/Icon";
-import { Stack, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import ItemsModulo_agregar from "./agregar";
 import ItemsModulo_editar from "./editar";
 import ItemsModulo_eliminar from "./eliminar";
@@ -146,8 +146,15 @@ export default function ItemsModulo({
           }
         };
         return (
-          <div style={{ height: height ? height : 400 }}>
-            <Stack spacing={1} direction="row">
+          <Grid container>
+            {/* Me quemo el cerebro un rato eso de que la data del datarow tiraba error data?data:[] */}
+            <Grid item md={6}>
+              <Stack direction="row" spacing={1}>
+                <Typography variant="h5"> {titulo}</Typography>
+                <Icon className={icono} />
+              </Stack>
+            </Grid>
+            <Grid item md={2}>
               {fnAddData && dataExtra.length > 0 && (
                 <IconButton onClick={clickTraer}>
                   <Badge
@@ -158,6 +165,8 @@ export default function ItemsModulo({
                   </Badge>
                 </IconButton>
               )}
+            </Grid>
+            <Grid item md={2}>
               {!hideAgregar && (
                 <ItemsModulo_agregar
                   labelBtnAgregar={labelBtnAgregar}
@@ -173,25 +182,25 @@ export default function ItemsModulo({
                   form={form}
                 />
               )}
+            </Grid>
+            <Grid item md={2}>
               {!hideAgregar && (
                 <Button size="small" variant="outlined" onClick={clickVaciar}>
                   <Icon className="fas fa-trash" /> Vaciar
                 </Button>
               )}
-              <Stack direction="row" spacing={1}>
-                <Typography variant="h5"> {titulo}</Typography>
-                <Icon className={icono} />
-              </Stack>
-            </Stack>
-            {/* Me quemo el cerebro un rato eso de que la data del datarow tiraba error data?data:[] */}
-            <DataGrid
-              rowHeight={25}
-              disableColumnFilter={true}
-              rowsPerPageOptions={[]}
-              columns={cols}
-              rows={data ? data : []}
-            />
-
+            </Grid>
+            <Grid item md={12}>
+              <div style={{ height: height ? height : 400 }}>
+                <DataGrid
+                  rowHeight={25}
+                  disableColumnFilter={true}
+                  rowsPerPageOptions={[]}
+                  columns={cols}
+                  rows={data ? data : []}
+                />
+              </div>
+            </Grid>
             <ItemsModulo_eliminar
               nombreModulo={nombreModulo}
               open={quitarVisible}
@@ -210,7 +219,7 @@ export default function ItemsModulo({
               clickAceptar={clickAceptarModificar}
               form={form}
             />
-          </div>
+          </Grid>
         );
       }}
     </FieldArray>

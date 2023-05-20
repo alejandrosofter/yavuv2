@@ -4,7 +4,7 @@ import FormSubitemColeccion from "@components/forms/editarSubitemColeccion";
 
 import DataGridFormikItems from "@components/forms/dataGridFormik";
 import FormItem from "./_form";
-import SelectPlantilla from "@components/plantillas/selectPlantilla";
+import SelectPlantilla from "@pages/plantillas/selectPlantilla";
 
 import TabsFormik, { TabPanel } from "@components/forms/tab";
 import TitulosFormularios from "@components/forms/tituloFormularios";

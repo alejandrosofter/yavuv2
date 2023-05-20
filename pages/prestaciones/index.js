@@ -1,39 +1,62 @@
-import DataGridFirebase from '../forms/datagrid/dataGridFirebase';
-export default function Modulo({mod}) {
-const order="nombre"
-const columns=[
-    {
-        field: 'label_obraSocial', 
-        headerName: 'Obra Social',
-        width:120,
-        
-      },
-    {
-        field: 'codigo', 
-        headerName: 'Codigo',
-        width:160,
-        
-      },
+import ABMColeccion from "@components/forms/ABMcollection2";
+import Modelo, { valoresIniciales } from "@modelos/ModeloPrestaciones";
+import Form from "./_form";
+import { fuego } from "@nandorojo/swr-firestore";
+import useLayout from "@hooks/useLayout";
+import { getWherePermiso } from "@hooks/useUser";
+export default function Modulo({ parentData }) {
+  useLayout({
+    label: "Prestaciones",
+    titulo: "PRESTACIONES",
+    icon: "fas fa-book-medical",
+    acciones: [
       {
-        field: 'nombre', 
-        headerName: 'Nombre',
-        width:390,
-        
+        label: "Prestaciones",
+        icono: "fas fa-book-medical",
+        url: "/prestaciones",
       },
-      {
-        field: 'importe', 
-        headerName: '$ Importe',
-        width:120,
-        
-      },
-      
-          
-  
-]
-      return (
-        <DataGridFirebase titulo={mod.label} subTitulo="generales" icono={mod.icono}
-        limit={10} mod={mod} acciones={mod.acciones} orderBy={order}
-       columns={columns} />
-      )
-
+      // {
+      //   label: "Config",
+      //   icono: "fas fa-cog",
+      //   url: "/consultaPaciente/config",
+      // },
+    ],
+  });
+  const order = "nombre";
+  const columns = [
+    {
+      accessorKey: "label_obraSocial",
+      header: "Obra Social",
+      size: 120,
+    },
+    {
+      accessorKey: "codigo",
+      header: "Codigo",
+      size: 160,
+    },
+    {
+      accessorKey: "nombre",
+      header: "Nombre",
+      size: 390,
+    },
+    {
+      accessorKey: "importe",
+      header: "$ Importe",
+      size: 120,
+    },
+  ];
+  return (
+    <ABMColeccion
+      coleccion={`prestaciones`}
+      columns={columns}
+      acciones={[]}
+      orderBy={order}
+      maxWidth="lg"
+      where={getWherePermiso("prestaciones")}
+      Modelo={Modelo}
+      valoresIniciales={valoresIniciales}
+      titulo={`PRESTACIONES`}
+      Form={Form}
+    />
+  );
 }

@@ -1,30 +1,32 @@
 import Grid from "@mui/material/Grid";
-import Input from "@components/forms/input";
-import Select from "../forms/select";
-import SwitchFormik from "../forms/switch";
+
+import SwitchFormik from "@components/forms/switch";
 
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SelectFormik from "@components/forms/select2Formik";
-import { getModUsuario } from "@helpers/db";
+import { Context } from "context/userContext";
 export default function _FormItemsUsuarios({ values, setFieldValue }) {
   const [modSeleccion, setModSeleccion] = useState();
-  const { data: mods } = useCollection("mods", {
-    where: ["idUsuario", "==", fuego.auth().currentUser.uid],
-  });
-  const { data: recursos } = useCollection(modSeleccion?.coleccion, {
-    where: [["idUsuario", "==", fuego.auth().currentUser.uid]],
-  });
-  if (!mods) return "Cargando mods..";
-
+  const contextoUsuario = useContext(Context);
+  // const { data: mods_ } = useCollection("mods", {
+  //   where: ["idUsuario", "==", fuego.auth().currentUser.uid],
+  // });
+  const mods = contextoUsuario?.plan?.dataModulos
+    .map((item) => {
+      return item.items;
+    })
+    .reduce((a, b) => a.concat(b), []);
+  console.log(mods);
   const cambiaMod = (valor, item) => {
+    setFieldValue("nombreModulo", item.nombre);
     setFieldValue("icono", item.icono);
-    setModSeleccion(item);
+    // setModSeleccion(item);
   };
 
   return (
     <Grid spacing={2} container>
-      <Grid item md={12}>
+      <Grid item md={10}>
         <SelectFormik
           label="Modulo "
           callbackchange={cambiaMod}
@@ -34,24 +36,15 @@ export default function _FormItemsUsuarios({ values, setFieldValue }) {
           campo="idMod"
         />
       </Grid>
+      <Grid item md={2}>
+        {values.label_idMod}
+      </Grid>
       <Grid item md={3}>
         <SwitchFormik label="Habilitado " campo="habilitado" />
       </Grid>
       <Grid item md={2}>
         <SwitchFormik campo="accesoTotal" label="Acceso Total" />
       </Grid>
-      {recursos && (
-        <Grid item md={6}>
-          <SelectFormik
-            multiple={true}
-            lista={recursos}
-            campoId="id"
-            campoLabel={modSeleccion.labelField}
-            campo="recursos"
-            label="Recursos"
-          />
-        </Grid>
-      )}
     </Grid>
   );
 }

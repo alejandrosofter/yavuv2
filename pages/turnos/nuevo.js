@@ -1,9 +1,8 @@
 import Modelo, { valoresIniciales } from "../../modelos/ModeloTurnos";
-import NuevoGenerico from "../NuevoGenerico";
+import NuevoGenerico from "@components/NuevoGenerico";
 import Form from "./_form";
 
 export default function Modulo({
-  mod,
   titulo,
   subTitulo,
   callbackSuccess,
@@ -11,12 +10,14 @@ export default function Modulo({
 }) {
   return (
     <NuevoGenerico
+      coleccion="turnos"
+      label="Turno"
+      icono={"fas fa-calendar"}
       preData={preData}
       titulo={titulo}
       subTitulo={subTitulo}
       callbackSuccess={callbackSuccess}
       valoresIniciales={valoresIniciales}
-      mod={mod}
       modelo={Modelo}
     >
       <Form />

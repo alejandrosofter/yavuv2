@@ -1,6 +1,6 @@
 import Modelo, { valoresIniciales } from "@modelos/ModeloSocios";
 import { useRouter } from "next/router";
-import EditarGenerico from "../EditarGenerico";
+import EditarGenerico from "@components/EditarGenerico";
 
 import Form from "./_formSocios";
 
@@ -19,6 +19,6 @@ export default function Modulo({ mod }) {
         subTitulo={mod.label}
         icono="fas fa-pencil"
       />
-    </EditarGenerico>
+   @components/EditarGenerico>
   );
 }

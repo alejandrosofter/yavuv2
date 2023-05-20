@@ -167,7 +167,7 @@ export async function cantidadColeccion2({ coleccion, user, wheres }) {
   return snap.size;
 }
 export async function findIn(coleccion, campo, arrIn, user) {
-  const query = await Firestore().collection(coleccion);
+  let query = await Firestore().collection(coleccion);
   arrIn.map((w) => {
     query.where(campo, "==", w);
   });

@@ -1,21 +1,21 @@
 import { IconButton, Stack, Icon } from "@mui/material";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { Fragment, useEffect, useState } from "react";
-import TitulosFormularios from "../forms/tituloFormularios";
+import TitulosFormularios from "@components/forms/tituloFormularios";
 import { getItemObject } from "../../helpers/arrays";
 import Filtro from "./_filter";
 import Tabla from "./_reporte";
 import { formatMoney } from "../../helpers/numbers";
-import { getFechaString } from "../../helpers/dates";
+import { getFechaString } from "@helpers/dates";
 import EditarComprasModal from "./editModal";
-export default ({ mod }) => {
+export default ({}) => {
   const [openEditar, setOpenEditar] = useState(false);
   const [seleccion, setSeleccion] = useState();
   const [filtro, setFiltro] = useState({
     where: ["idUsuario", "==", fuego.auth().currentUser?.uid],
     orderBy: ["fecha", "desc"],
   });
-  const { data, error } = useCollection(mod.coleccion, filtro);
+  const { data, error } = useCollection(`compras`, filtro);
 
   const condiciones = [
     {

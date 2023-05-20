@@ -1,7 +1,7 @@
 import Modelo,{valoresIniciales} from "../../modelos/ModeloGeneracionDeuda"
 import { useRouter } from "next/router"
 
-import EditarGenerico from "../EditarGenerico"
+import EditarGenerico from "@components/EditarGenerico"
 
 import FormGeneracionDeudas from "./_form"
 
@@ -15,7 +15,7 @@ export default function Modulo({mod}) {
          
             <FormGeneracionDeudas titulo="Editar" subTitulo="Generacion de deuda" icono="fas fa-pencil" />
        
-      </EditarGenerico>
+     @components/EditarGenerico>
       ) 
 
 }

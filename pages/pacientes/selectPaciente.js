@@ -7,11 +7,13 @@ export default function SelectPaciente({
   campo,
   callbackchange,
   esForm,
+  sx,
 }) {
   return (
     <SelectUserModColeccion
       coleccion={"pacientes"}
       Modelo={Modelo}
+      sx={sx}
       parentData={true}
       valoresIniciales={valoresIniciales}
       Form={Form}

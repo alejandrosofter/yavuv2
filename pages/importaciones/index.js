@@ -1,11 +1,21 @@
 import { getFechaString } from "@helpers/dates";
 import { QueryApi } from "@helpers/queryApi";
-import { Backdrop, CircularProgress } from "@mui/material";
 import { useState } from "react";
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
+import Modelo, { valoresIniciales } from "@modelos/ModeloImportaciones";
+import Form from "@pages/importaciones/_form";
+import ABMColeccion from "@components/forms/ABMcollection";
+import useLayout from "@hooks/useLayout";
 export default function Modulo({ mod }) {
   const order = ["fecha", "desc"];
   const [dataConsulta, setDataConsulta] = useState();
+  useLayout({
+    label: "Importaciones",
+    titulo: "IMPORTA DATA",
+    acciones: [
+      // { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
+      // { label: "Config", icono: "fas fa-cog", url: "/turnos/config" },
+    ],
+  });
   let fnAcciones = {
     aplicar: (data, id) => {
       setDataConsulta({ url: "/api/importaciones/iniciar", data });
@@ -82,15 +92,19 @@ export default function Modulo({ mod }) {
   ];
   return (
     <>
-      <DataGridFirebase
+      <ABMColeccion
         fnAcciones={fnAcciones}
-        titulo={mod.label}
+        coleccion={"importaciones"}
+        label={"Importaciones"}
+        Modelo={Modelo}
+        Form={Form}
+        valoresIniciales={valoresIniciales}
+        titulo={`Importaciones`}
         subTitulo="generales"
         parentData={true}
-        icono={mod.icono}
+        icono={`fas fa-file-import`}
         limit={10}
-        mod={mod}
-        acciones={mod.acciones}
+        acciones={[]}
         orderBy={order}
         columns={columns}
       />

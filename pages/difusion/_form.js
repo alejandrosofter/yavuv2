@@ -4,7 +4,7 @@ import { getModUsuario } from "@helpers/db";
 import { Grid, Stack } from "@mui/material";
 import { useState } from "react";
 import Input from "@components/forms/input";
-import RichEditor from "../forms/richEditorFormik";
+import RichEditor from "@components/forms/richEditorFormik";
 import SelectorModDifusion from "./selectorModDifusion";
 import SelectorCondiciones from "./selectorCondicion";
 import TestDifusion from "./test";

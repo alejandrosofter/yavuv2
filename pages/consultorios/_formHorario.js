@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
 
 import SelectDias from "./selectDias";
-import SelectTipoTurno from "@components/turnos/selectTipoTurno";
+import SelectTipoTurno from "@pages/turnos/selectTipoTurno";
 import TimePickerFormik from "@components/forms/timePickerFormik";
 
 export default function FormularioItemActividad({ profesores, mod }) {

@@ -1,7 +1,7 @@
 import moment from "moment";
 import { formatMoney } from "../../helpers/numbers";
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
-import { renderCellExpandData } from "../forms/datagrid/renderCellExpand";
+import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
+import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 const renderConcepto = (row) => {
   let salida = "";
   if (row.items)

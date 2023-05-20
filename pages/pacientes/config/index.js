@@ -1,18 +1,27 @@
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import FormSubitemColeccion from "../../forms/editarSubitemColeccion";
+import FormSubitemColeccion from "@components/forms/editarSubitemColeccion";
 import Input from "@components/forms/input";
-import DataGridFormikItems from "../../forms/dataGridFormik";
-import FormItem from "./_form";
-import { ModeloBootWeb } from "@modelos/ModeloPacientes";
+import { useContext, useEffect, useState } from "react";
+import { Context } from "context/userContext";
 import TabsFormik, { TabPanel } from "@components/forms/tab";
 import TitulosFormularios from "@components/forms/tituloFormularios";
-import SelectPlantilla from "@components/plantillas/selectPlantilla";
-export default function ConfigActividadad({ mod }) {
-  const campo = "config";
-  const coleccion = "mods";
-  const datos = mod[campo] ? mod[campo] : {};
-
+import SelectPlantilla from "@pages/plantillas/selectPlantilla";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+import useLayout from "@hooks/useLayout";
+export default function View({}) {
+  const coleccion = "modulos_config";
+  const datos = UseConfigModulo("pacientes");
+  useLayout({
+    label: "Config Pacientes",
+    titulo: "Pacientes",
+    acciones: [
+      { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
+      { label: "Turnos", icono: "fas fa-calendar", url: "/turnos" },
+      { label: "Config", icono: "fas fa-cog", url: "/pacientes/config" },
+    ],
+  });
+  if (!datos) return <div>Cargando...</div>;
   const valoresIniciales = () => {
     return { nombre: "", tipo: "" };
   };
@@ -28,10 +37,8 @@ export default function ConfigActividadad({ mod }) {
         />
       </Typography>
       <FormSubitemColeccion
-        registro={mod}
-        mod={mod}
+        registro={datos}
         coleccion={coleccion}
-        campo={campo}
         datos={datos}
         callbackSuccess={callbackSuccess}
         valoresIniciales={valoresIniciales}

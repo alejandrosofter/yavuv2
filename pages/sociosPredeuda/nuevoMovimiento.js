@@ -30,7 +30,7 @@ export default function NuevoMovimientoPredeuda({
         label={"Nuevo Movimiento"}
       >
         <Form titulo="Nuevo" />
-      </NuevoGenerico>
+     @components/NuevoGenerico>
     </DialogContenido>
   );
 }

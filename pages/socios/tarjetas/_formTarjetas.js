@@ -1,7 +1,7 @@
 import { Typography, Grid } from "@mui/material";
 import { useState, useEffect } from "react";
-import Input from "@component@components/forms/input";
-import SelectEstaticFormik from "@component@components/forms/selectEstaticFormik";
+import Input from "@components/forms/input";
+import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 
 import SelectFecha from "@components/forms/selectorFecha";
 import _FormItem from "@components/forms/subColeccion/_formItem";

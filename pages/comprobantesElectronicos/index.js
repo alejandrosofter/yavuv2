@@ -12,16 +12,38 @@ import Modelo, {
 import { fuego } from "@nandorojo/swr-firestore";
 import Form from "./_form";
 import Dialogo from "@components/forms/dialogo";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+import useLayout from "@hooks/useLayout";
+import { getWherePermiso } from "@hooks/useUser";
 export default function Modulo({ mod, parentData = false }) {
+  useLayout({
+    label: "Comprobantes",
+    titulo: "COMPROBANTES",
+    icon: "fas fa-file-invoice",
+    acciones: [
+      {
+        label: "Comprobantes",
+        icono: "fas fa-file-invoice",
+        url: "/comprobantesElectronicos",
+      },
+      {
+        label: "Config",
+        icono: "fas fa-cog",
+        url: "/comprobantesElectronicos/config",
+      },
+    ],
+  });
   const [dataConsulta, setDataConsulta] = useState();
   const [dataImpresion, setDataImpresion] = useState();
   const [openImpresion, setOpenImpresion] = useState(false);
-  const idPlantilla = mod.config?.planillaComprobanteDigital;
-  const plantillaEmail = mod.config?.emailComprobanteDigital;
+  const config = UseConfigModulo("comprobantesElectronicos");
+  const idPlantilla = config?.planillaComprobanteDigital;
+  const plantillaEmail = config?.emailComprobanteDigital;
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,
   });
+
   const getImporteTotal = (items) => {
     let total = 0;
     for (let i = 0; i < items.length; i++) {
@@ -141,13 +163,7 @@ export default function Modulo({ mod, parentData = false }) {
         gridOptions={{
           initialState: { showColumnFilters: true },
         }}
-        where={[
-          parentData
-            ? ["idUsuario", "==", localStorage.getItem("usermod")]
-            : ["usermod", "==", fuego.auth().currentUser?.uid],
-        ]}
-        // callbackclick={callbackclick}
-        icono={"fas fa-users"}
+        where={getWherePermiso("comprobantesElectronicos")}
         Modelo={Modelo}
         valoresIniciales={valoresIniciales}
         titulo={`COMPROBANTES ELECTRONICOS`}

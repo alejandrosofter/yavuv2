@@ -1,14 +1,14 @@
 import DialogContenido from "@components/forms/dialogContenido";
-import SelectTipoComprobante from "@components/comprobantesTipos/selector";
-import SelectorTipoCliente from "@components/comprobantesElectronicos/selectorTipoCliente";
-import SelectorTipoDocumentos from "@components/comprobantesTipos/selectorTipoDocumentos";
-import SelectorTipoConceptos from "@components/comprobantesElectronicos/selectorTipoConceptos";
+import SelectTipoComprobante from "@pages/comprobantesTipos/selector";
+import SelectorTipoCliente from "@pages/comprobantesElectronicos/selectorTipoCliente";
+import SelectorTipoDocumentos from "@pages/comprobantesTipos/selectorTipoDocumentos";
+import SelectorTipoConceptos from "@pages/comprobantesElectronicos/selectorTipoConceptos";
 import { Button, Grid, Typography } from "@mui/material";
 import Input from "@components/forms/input";
 import { useEffect, useState } from "react";
 import { getFieldName } from "@helpers/forms";
-import Switch from "../forms/switch";
-import SelectPuntoVenta from "@components/comprobantesElectronicos/selectorPuntoVenta";
+import Switch from "@components/forms/switch";
+import SelectPuntoVenta from "@pages/comprobantesElectronicos/selectorPuntoVenta";
 export default function PersonalizarComprobante({
   setFieldValue,
   field,

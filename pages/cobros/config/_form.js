@@ -1,15 +1,15 @@
-import SelectPlantilla from "@components/plantillas/selectPlantilla";
+import SelectPlantilla from "@pages/plantillas/selectPlantilla";
 import Switch from "@components/forms/switch";
 
 import TabsFormik, { TabPanel } from "@components/forms/tab";
 import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
-import SelectProductos from "@components/productos/selectProducto";
+import SelectProductos from "@pages/productos/selectProducto";
 import { Typography } from "@mui/material";
-import SelectTipoComprobante from "@components/comprobantesTipos/selector";
-import SelectorTipoCliente from "@components/comprobantesElectronicos/selectorTipoCliente";
-import SelectorTipoDocumentos from "@components/comprobantesTipos/selectorTipoDocumentos";
-import SelectorTipoConceptos from "@components/comprobantesElectronicos/selectorTipoConceptos";
+import SelectTipoComprobante from "@pages/comprobantesTipos/selector";
+import SelectorTipoCliente from "@pages/comprobantesElectronicos/selectorTipoCliente";
+import SelectorTipoDocumentos from "@pages/comprobantesTipos/selectorTipoDocumentos";
+import SelectorTipoConceptos from "@pages/comprobantesElectronicos/selectorTipoConceptos";
 export default function FormConfig({}) {
   return (
     <TabsFormik

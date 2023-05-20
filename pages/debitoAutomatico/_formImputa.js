@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
 import SelectFile from "../forms/fileAnyUploadFormik";
 
-import SelectFecha from "../forms/selectorFecha";
+import SelectFecha from "@components/forms/selectorFecha";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 
 export default function FormImputa({ mod }) {

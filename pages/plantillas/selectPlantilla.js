@@ -1,6 +1,6 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPlantillas";
-import Form from "@components/plantillas/_form";
+import Form from "@pages/plantillas/_form";
 export default function SelectPlantilla({
   multiple,
   label,

@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Grid";
-import { useEffect, useState } from "react";
 import Input from "@components/forms/input";
-import SelectEstadistica from "@components/estadisticas/selectorEstadistica";
+import SelectEstadistica from "@pages/estadisticas/selectorEstadistica";
 import { Typography } from "@mui/material";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 

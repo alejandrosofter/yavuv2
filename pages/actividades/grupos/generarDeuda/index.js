@@ -4,28 +4,29 @@ import DialogContenido from "@components/forms/dialogContenido";
 import ImpresionDialog from "@components/forms/impresion";
 import NuevoGenerico from "@components/NuevoGenerico2";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
-import PerfilSocio from "@components/socios/perfilSocio";
+import PerfilSocio from "@pages/socios/perfilSocio";
 import { getModUsuario } from "@helpers/db";
-import Form from "@components/socios/mensualizado/_form";
+import Form from "@pages/socios/mensualizado/_form";
 import { ModeloMensualizado, valoresMensualizado } from "@modelos/ModeloSocios";
 import { Grid, Typography, Button, Icon, Badge } from "@mui/material";
 import { fuego, useCollection, useDocument } from "@nandorojo/swr-firestore";
 import { useEffect, useRef, useState } from "react";
 import { getFechaString } from "@helpers/dates";
 import { Box } from "@mui/system";
-import MovimientosPredeuda from "@components/generacionDeudas/movimientos";
-import NuevoMovimientoGeneracionDeuda from "@components/generacionDeudas/movimientos/nuevo";
+import MovimientosPredeuda from "@pages/generacionDeudas/movimientos";
+import NuevoMovimientoGeneracionDeuda from "@pages/generacionDeudas/movimientos/nuevo";
 import { formatMoney } from "@helpers/numbers";
 import { quitarValoresNull } from "@helpers/objects";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 export default function GenerarDeudaInscriptos({
   open,
   setOpen,
   actividad,
   grupo,
-  mod,
   parentData,
 }) {
-  const idPlantilla = mod.config?.plantillaAsistencias;
+  const config = UseConfigModulo("actividades");
+  const idPlantilla = config?.plantillaAsistencias;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const [openMovimientos, setOpenMovimientos] = useState();

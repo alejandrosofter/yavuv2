@@ -1,5 +1,5 @@
 import Modelo, { valoresIniciales } from "../../modelos/ModeloCuentasCbu";
-import NuevoGenerico from "../NuevoGenerico";
+import NuevoGenerico from "@components/NuevoGenerico";
 import Form from "./_form";
 
 export default function Modulo({ mod, callbackSuccess, preData }) {

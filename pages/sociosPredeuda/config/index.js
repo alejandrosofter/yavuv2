@@ -4,12 +4,12 @@ import FormSubitemColeccion from "@components/forms/editarSubitemColeccion";
 
 import DataGridFormikItems from "@components/forms/dataGridFormik";
 import FormItem from "./_form";
-import SelectPlantilla from "@components/plantillas/selectPlantilla";
+import SelectPlantilla from "@pages/plantillas/selectPlantilla";
 import { ModeloConfig } from "@modelos/ModeloSocios";
 import TabsFormik, { TabPanel } from "@components/forms/tab";
 import TitulosFormularios from "@components/forms/tituloFormularios";
 import ImpresionDialog from "@components/forms/impresion";
-import SelectProducto from "@components/productos/selectProducto";
+import SelectProducto from "@pages/productos/selectProducto";
 import SelectCategoriaProducto from "@components/productos/categoriaProducto";
 export default function ConfigPredeuda({ mod }) {
   const campo = "config";

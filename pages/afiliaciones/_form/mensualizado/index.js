@@ -1,7 +1,7 @@
 import ItemsModulo from "@components/forms/itemsModulo";
-import Form from "@components/socios/mensualizado/_form";
+import Form from "@pages/socios/mensualizado/_form";
 import { ModeloMensualizado, valoresMensualizado } from "@modelos/ModeloSocios";
-import { cols } from "@components/socios/mensualizado/index";
+import { cols } from "@pages/socios/mensualizado/index";
 import { Button, Icon, Stack } from "@mui/material";
 import { useState } from "react";
 import NuevaCtaCbu from "./nuevaCuentaCbu";

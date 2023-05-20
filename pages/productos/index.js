@@ -1,51 +1,66 @@
-import ABMColeccion from "@components/forms/ABMcollection";
+import ABMColeccion from "@components/forms/ABMcollection2";
 import { formatMoney } from "@helpers/numbers";
 import { useState } from "react";
 import MovimientosProducto from "./movimientos";
 import Modelo, { valoresIniciales } from "@modelos/ModeloProductos";
 import Form from "./_form";
 import { fuego } from "@nandorojo/swr-firestore";
+import useLayout from "@hooks/useLayout";
+import { getWherePermiso } from "@hooks/useUser";
 export default function Modulo({ mod, parentData }) {
   const [openMovimientos, setOpenMovimientos] = useState(false);
   const [seleccion, setSeleccion] = useState();
   const order = "nombre";
+  useLayout({
+    label: "Productos",
+    titulo: "PRODUCTOS",
+    icon: "fas fa-shopping-cart",
+    acciones: [
+      {
+        label: "Productos",
+        icono: "fas fa-shopping-cart",
+        url: "/productos",
+      },
+      // { label: "Config", icono: "fas fa-cog", url: "/debitoAutomatico/config" },
+    ],
+  });
   const columns = [
     {
-      field: "cantidad",
-      headerName: "Cant.",
-      width: 60,
+      accessorKey: "cantidad",
+      header: "Cant.",
+      size: 60,
     },
     {
-      field: "nombre",
-      headerName: "Nombre",
-      width: 250,
+      accessorKey: "nombre",
+      header: "Nombre",
+      size: 250,
     },
     {
-      field: "detalle",
-      headerName: "Detalle",
-      width: 250,
+      accessorKey: "detalle",
+      header: "Detalle",
+      size: 250,
     },
     {
-      field: "esServicio",
-      headerName: "Es Servicio?",
-      width: 120,
-      renderCell: (params) => (params.value ? "Si" : "No"),
+      accessorKey: "esServicio",
+      header: "Es Servicio?",
+      size: 120,
+      Cell: ({ cell }) => (cell.getValue() ? "Si" : "No"),
     },
     {
-      field: "label_idCategoriaProducto",
-      headerName: "Categoria",
-      width: 150,
+      accessorKey: "label_idCategoriaProducto",
+      header: "Categoria",
+      size: 150,
     },
     {
-      field: "importe",
-      headerName: "Importe",
-      width: 150,
-      renderCell: (params) => formatMoney(params.value),
+      accessorKey: "importe",
+      header: "Importe",
+      size: 150,
+      Cell: ({ cell }) => formatMoney(cell.getValue()),
     },
     {
-      field: "estado",
-      headerName: "Estado",
-      width: 90,
+      accessorKey: "estado",
+      header: "Estado",
+      size: 90,
     },
   ];
   const acciones = [
@@ -68,17 +83,11 @@ export default function Modulo({ mod, parentData }) {
         acciones={acciones}
         orderBy={order}
         maxWidth="lg"
-        where={[
-          parentData
-            ? ["idUsuario", "==", localStorage.getItem("usermod")]
-            : ["usermod", "==", fuego.auth().currentUser?.uid],
-        ]}
-        // callbackclick={callbackclick}
-        icono={"fas fa-users"}
+        where={getWherePermiso("productos")}
         Modelo={Modelo}
         valoresIniciales={valoresIniciales}
         dataForm={{ grupo: seleccion }}
-        titulo={`PRODUCTOS/`}
+        titulo={`PRODUCTOS`}
         Form={Form}
       />
       <MovimientosProducto

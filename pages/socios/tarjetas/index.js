@@ -14,6 +14,7 @@ import Form from "./_formTarjetas";
 import { getFechaString } from "@helpers/dates";
 import UseCuenta from "@components/cuentas/useCuenta";
 import { QueryApi } from "@helpers/queryApi";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 export const cols = [
   {
     field: "fecha",
@@ -40,12 +41,13 @@ export const cols = [
   },
 ];
 
-export default function TarjetasSocio({ data, mod }) {
-  const idPlantillaCredencial = mod.config?.plantillaCredencial
-    ? mod.config?.plantillaCredencial
+export default function TarjetasSocio({ data }) {
+  const config = UseConfigModulo("socios");
+  const idPlantillaCredencial = config?.plantillaCredencial
+    ? config?.plantillaCredencial
     : "";
-  const idPlantillaEmail = mod.config?.plantillaEmailCredencial
-    ? mod.config?.plantillaEmailCredencial
+  const idPlantillaEmail = config?.plantillaEmailCredencial
+    ? config?.plantillaEmailCredencial
     : "";
   const [cuenta, setCuenta] = UseCuenta();
   const [openCompartir, setOpenCompartir] = useState();
@@ -121,7 +123,7 @@ export default function TarjetasSocio({ data, mod }) {
           acciones={acciones}
           Modelo={ModeloTarjetas}
           valoresIniciales={valoresInicialesTarjetas}
-          dataForm={{ mod }}
+          dataForm={{}}
           titulo={titulo}
           Form={Form}
         />

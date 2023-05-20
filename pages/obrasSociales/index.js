@@ -1,41 +1,60 @@
-import ABMColeccion from "@components/forms/ABMcollection";
+import ABMColeccion from "@components/forms/ABMcollection2";
 import Form from "./_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloObrasSociales";
-import PrestacionesListado from "@components/prestaciones/listadoOs";
+import PrestacionesListado from "@pages/prestaciones/listadoOs";
 import { useState } from "react";
 import { getFechaString } from "@helpers/dates";
+import { getWherePermiso } from "@hooks/useUser";
+import useLayout from "@hooks/useLayout";
 export default function Modulo({ mod }) {
+  useLayout({
+    label: "Obras Sociales",
+    titulo: "OBRAS SOCIALES",
+    icon: "fas fa-hospital-alt",
+    acciones: [
+      {
+        label: "O.S",
+        icono: "fas fa-hospital-alt",
+        url: "/obrasSociales",
+      },
+      // {
+      //   label: "Config",
+      //   icono: "fas fa-cog",
+      //   url: "/consultaPaciente/config",
+      // },
+    ],
+  });
   const [seleccion, setSeleccion] = useState(null);
   const [open, setOpen] = useState(false);
   const order = "nombre";
   const columns = [
     {
-      field: "nombre",
-      headerName: "Nombre",
-      width: 390,
+      accessorKey: "nombre",
+      header: "Nombre",
+      size: 390,
     },
     {
-      field: "lastUpdateNomencladores",
-      headerName: "Ultima Actualizacion Presta.",
-      width: 160,
-      renderCell: (params) => getFechaString(params.value),
+      accessorKey: "lastUpdateNomencladores",
+      header: "Ultima Actualizacion Presta.",
+      size: 160,
+      Cell: ({ cell }) => getFechaString(cell.getValue()),
     },
     {
-      field: "tipoValidacion",
-      headerName: "Validacion...",
-      width: 120,
+      accessorKey: "tipoValidacion",
+      header: "Validacion...",
+      size: 120,
     },
     {
-      field: "label_rutinaWeb",
-      headerName: "Rutina WEB",
-      width: 140,
-      renderCell: (params) =>
-        params.row.tipoValidacion === "WEB" ? params.value : "-",
+      accessorKey: "label_rutinaWeb",
+      header: "Rutina WEB",
+      size: 140,
+      Cell: ({ cell }) =>
+        cell.row.tipoValidacion === "WEB" ? params.value : "-",
     },
     {
-      field: "estado",
-      headerName: "Estado",
-      width: 120,
+      accessorKey: "estado",
+      header: "Estado",
+      size: 120,
     },
   ];
 
@@ -61,8 +80,7 @@ export default function Modulo({ mod }) {
         maxWidth="lg"
         rowsPerPage={100}
         hidePaginador={true}
-        // callbackclick={callbackclick}
-        icono={"fas fa-users"}
+        where={getWherePermiso("obrasSociales")}
         Modelo={Modelo}
         valoresIniciales={valoresIniciales}
         dataForm={{}}

@@ -4,9 +4,9 @@ import DialogContenido from "@components/forms/dialogContenido";
 import ImpresionDialog from "@components/forms/impresion";
 import NuevoGenerico from "@components/NuevoGenerico2";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
-import PerfilSocio from "@components/socios/perfilSocio";
+import PerfilSocio from "@pages/socios/perfilSocio";
 import { getModUsuario } from "@helpers/db";
-import Form from "@components/socios/mensualizado/_form";
+import Form from "@pages/socios/mensualizado/_form";
 import { ModeloMensualizado, valoresMensualizado } from "@modelos/ModeloSocios";
 import {
   Grid,
@@ -27,15 +27,10 @@ import { getFechaString } from "@helpers/dates";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { QueryApi } from "@helpers/queryApi";
-export default function InscriptosGrupo({
-  open,
-  setOpen,
-  actividad,
-  grupo,
-  mod,
-  parentData,
-}) {
-  const idPlantilla = mod.config?.plantillaAsistencias;
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+export default function InscriptosGrupo({ open, setOpen, actividad, grupo }) {
+  const config = UseConfigModulo("actividades");
+  const idPlantilla = config?.plantillaAsistencias;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const [dataConsulta, setDataConsulta] = useState();
@@ -47,9 +42,6 @@ export default function InscriptosGrupo({
   const [dataSeleccion, setDataSeleccion] = useState();
   const [inscriptos, setInscriptos] = useState([]);
 
-  //call to api to get data axios or fetch
-
-  const modSocio = getModUsuario("socios");
   const { data, error } = useCollection(
     `actividades/${actividad?.id}/grupos/${grupo?.id}/integrantes`,
     {
@@ -163,6 +155,7 @@ export default function InscriptosGrupo({
             acciones={acciones}
             maxWidth={"md"}
             dataExternal={dataExternal}
+            where={[]}
             // where={[
             //   parentData
             //     ? ["idUsuario", "==", localStorage.getItem("usermod")]

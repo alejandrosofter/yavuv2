@@ -1,5 +1,5 @@
 import { groupBy } from "../../helpers/arrays";
-import TitulosFormularios from "../forms/tituloFormularios";
+import TitulosFormularios from "@components/forms/tituloFormularios";
 
 import { PieChart } from "../trading/estadistica/pieChart2";
 export default function Modulo({

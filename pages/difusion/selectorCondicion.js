@@ -1,10 +1,4 @@
-import DialogContenido from "@components/forms/dialogContenido";
-import { getModUsuario } from "@helpers/db";
-import { Button, Grid, Icon, Tooltip } from "@mui/material";
-import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import { useState } from "react";
-import Select from "../forms/select";
-import NuevoPaciente from "./nuevo";
+import Select from "@components/forms/select";
 export default function Modulo({ label, campo, condiciones }) {
   // const mod=getModUsuario("pacientes")
 

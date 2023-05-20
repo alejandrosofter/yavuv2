@@ -1,7 +1,7 @@
 import { Grid, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import Input from "@components/forms/input";
-import Form from "@components/socios/mensualizado/_form";
+import Form from "@pages/socios/mensualizado/_form";
 import SelectFecha from "@components/forms/selectorFecha";
 import _FormItem from "@components/forms/subColeccion/_formItem";
 import Switch from "@components/forms/switch";
@@ -9,7 +9,7 @@ import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import SelectMotivo from "./selectMotivos";
 import ItemsModulo from "@components/forms/itemsModulo";
 import { ModeloMensualizado, valoresMensualizado } from "@modelos/ModeloSocios";
-import { cols } from "@components/socios/mensualizado/index";
+import { cols } from "@pages/socios/mensualizado/index";
 import { fuego } from "@nandorojo/swr-firestore";
 export default function FormCambioEstadoSocio({
   values,

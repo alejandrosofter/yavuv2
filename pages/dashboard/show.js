@@ -1,4 +1,4 @@
-import GraphEstadistica from "@components/estadisticas/graph";
+import GraphEstadistica from "@pages/estadisticas/graph";
 import { Grid } from "@mui/material";
 import { useState } from "react";
 import DashboardInit from "./dashboardInit";

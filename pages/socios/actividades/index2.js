@@ -2,12 +2,12 @@ import { useState, useCallback } from "react";
 
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { Icon, Tooltip } from "@mui/material";
-import SubColeccionColeccion from "../../forms/subColeccion/";
+import SubColeccionColeccion from "@components/forms/subColeccion/";
 import {
   ModeloActividades,
   valoresInicialesActividades,
 } from "../../../modelos/ModeloSocios";
-import { getFechaString } from "../../../helpers/dates";
+import { getFechaString } from "@helpers/dates";
 export const cols = [
   {
     field: "esPorDebitoAutomatico",

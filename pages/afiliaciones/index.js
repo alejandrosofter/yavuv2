@@ -1,18 +1,23 @@
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
-import { getFechaString } from "../../helpers/dates";
+import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
+import { getFechaString } from "@helpers/dates";
 import { formatMoney } from "../../helpers/numbers";
-import { renderCellExpandData } from "../forms/datagrid/renderCellExpand";
+import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 import { useState } from "react";
-import ImpresionDialog from "../forms/impresion";
+import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { QueryApi } from "@helpers/queryApi";
 import { useRouter } from "next/router";
-
+import Modelo, { valoresIniciales } from "@modelos/ModeloAfiliados";
+import Form from "./_form";
 import { addQueryApi, getModUsuario } from "@helpers/db";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+import { getWherePermiso } from "@hooks/useUser";
+import ABMColeccion2 from "@components/forms/ABMcollection2";
 // import { UsePlantilla2 } from "@components/plantillas/usePlantilla2";
-export default function Modulo({ mod }) {
+export default function Modulo({}) {
   const order = ["fecha", "desc"];
-  const idPlantilla = mod.config?.plantillaAfiliacion;
+  const config = UseConfigModulo("actividades");
+  const idPlantilla = config?.plantillaAfiliacion;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const [dataConsulta, setDataConsulta] = useState();
@@ -21,7 +26,7 @@ export default function Modulo({ mod }) {
     id: idPlantilla,
     data: dataImpresion,
   });
-  const modSocios = getModUsuario("socios", localStorage.getItem("usermod"));
+
   const getDetalleCobro = (row) => {
     if (!row.deudas || row.deudas.length === 0) return "-";
     return row.deudas
@@ -29,85 +34,102 @@ export default function Modulo({ mod }) {
       .reduce((n, p) => `${n} | ${p}`);
   };
 
-  let fnAcciones = {
-    aplicar: (data) => {
-      // setDataConsulta({ url: "/api/afiliaciones/aplicar", data });
-      addQueryApi("aplicarAfiliacion", data);
+  let fnAcciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-play",
+      label: "Aplicar Afiliacion",
+
+      fn: (data) => {
+        addQueryApi("aplicarAfiliacion", data);
+      },
     },
-    irSocio: (data) => {
-      if (data.idSocio) {
-        localStorage.setItem(
-          "socioSeleccion",
-          JSON.stringify({
-            objectID: data.idSocio,
-            apellido: data.apellido,
-            nombre: data.nombre,
-            dni: data.dni,
-            estado: data.estado,
-            nroSocio: data.nroSocio,
-          })
-        );
-        router.push("/mod/[id]", `/mod/${modSocios.id}`, {
-          shallow: true,
-        });
-      } else alert("Debes Aplicarlo primero");
+    {
+      esFuncion: true,
+      icono: "fas fa-user",
+      label: "Ir a socio",
+
+      fn: (data) => {
+        if (data.idSocio) {
+          localStorage.setItem(
+            "socioSeleccion",
+            JSON.stringify({
+              objectID: data.idSocio,
+              apellido: data.apellido,
+              nombre: data.nombre,
+              dni: data.dni,
+              estado: data.estado,
+              nroSocio: data.nroSocio,
+            })
+          );
+          router.push(`/socios`, {
+            shallow: true,
+          });
+        } else alert("Debes Aplicarlo primero");
+      },
     },
-    imprimir: (data) => {
-      setOpenImpresion(true);
-      setDataImpresion(data);
+    {
+      esFuncion: true,
+      icono: "fas fa-share-alt",
+      label: "Compartir",
+
+      fn: (data) => {
+        setOpenImpresion(true);
+        setDataImpresion(data);
+      },
     },
-  };
+  ];
   const columns = [
+    {
+      accessorKey: "fecha",
+      header: "Fecha",
+      size: 100,
+      Cell: ({ cell }) => {
+        return getFechaString(cell.getValue(), "DD/MM | hh:mm");
+      },
+    },
+    {
+      accessorKey: "nroSocio",
+      header: "Nro Socio",
+      size: 90,
+      Cell: ({ cell }) =>
+        `${cell.row.original.socio.nroSocio}`.padStart(5, "0"),
+    },
+    {
+      accessorKey: "socio",
+      header: "Nombre/s",
+      size: 190,
+      Cell: ({ cell }) =>
+        `${cell.getValue().apellido.toUpperCase()} ${cell.getValue().nombre}`,
+    },
     // {
-    //   field: "id",
-    //   headerName: "id",
-    //   width: 170,
-    //   // renderCell: (params) => getFechaString(params.value, `DD/MM | hh:mm`),
+    //   accessorKey: "deudas",
+    //   header: "Cobro",
+    //   size: 450,
+    //   Cell: ({ cell }) =>
+    //     renderCellExpandData(cell.row.original, getDetalleCobro),
     // },
     {
-      field: "fecha",
-      headerName: "Fecha",
-      width: 100,
-      renderCell: (params) => getFechaString(params.value, `DD/MM | hh:mm`),
-    },
-    {
-      field: "nroSocio",
-      headerName: "Nro Socio",
-      width: 90,
-      renderCell: (params) => `${params.row.socio.nroSocio}`.padStart(5, "0"),
-    },
-    {
-      field: "socio",
-      headerName: "Nombre/s",
-      width: 190,
-      renderCell: (params) =>
-        `${params.value.apellido.toUpperCase()} ${params.value.nombre}`,
-    },
-    {
-      field: "deudas",
-      headerName: "Cobro",
-      width: 450,
-      renderCell: (params) => renderCellExpandData(params, getDetalleCobro),
-    },
-    {
-      field: "estado",
-      headerName: "Estado",
-      width: 100,
+      accessorKey: "estado",
+      header: "Estado",
+      size: 100,
     },
   ];
 
   return (
     <>
-      <DataGridFirebase
-        fnAcciones={fnAcciones}
-        titulo={mod.label}
-        subTitulo="al club"
-        icono={mod.icono}
-        limit={100}
-        mod={mod}
-        acciones={mod.acciones}
-        orderBy={order}
+      <ABMColeccion2
+        coleccion={`afiliaciones`}
         columns={columns}
+        acciones={fnAcciones}
+        maxWidth={"lg"}
+        where={getWherePermiso("afiliaciones")}
+        orderBy={order}
+        Modelo={Modelo}
+        valoresIniciales={valoresIniciales}
+        dataForm={{}}
+        titulo={`AFILIACIONES`}
+        Form={Form}
       />
       <ImpresionDialog
         titulo="IMPRESIÓN AFILIACIÓN"

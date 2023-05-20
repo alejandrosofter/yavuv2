@@ -1,6 +1,6 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import Modelo, { valoresIniciales } from "@modelos/ModeloCuentasEfectivo";
-import Form from "@components/cuentasEfectivo/_form";
+import Form from "@pages/cuentasEfectivo/_form";
 export default function SelectCuentaBanco({
   label,
   campo,

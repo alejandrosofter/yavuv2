@@ -1,7 +1,7 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import Modelo, { valoresIniciales } from "@modelos/ModeloTipoComprobantes";
-import Form from "@components/comprobantesTipos/_form";
+import Form from "@pages/comprobantesTipos/_form";
 export default function SelectTipoComprobante({
   label,
   campo,

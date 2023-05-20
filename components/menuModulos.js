@@ -9,37 +9,24 @@ import {
 } from "@mui/material";
 
 import Link from "next/link";
-import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import { groupBy, localstorageParser, orderArray } from "@helpers/arrays";
-import { useEffect, useState } from "react";
+import { localstorageParser } from "@helpers/arrays";
+import { useContext, useEffect, useState } from "react";
+import { Context } from "context/userContext";
 
 export default function MenuModulos({ callbackclick }) {
-  const [dataMenu, setDataMenu] = useState(localstorageParser("dataMenu"));
-
-  const { data, update, error } = useCollection("mods", {
-    where: [
-      "idUsuario",
-      "==",
-      fuego.auth().currentUser ? fuego.auth().currentUser.uid : null,
-    ],
-    orderBy: ["label_grupo", "asc"],
-    listen: true,
-  });
+  const contextoUsuario = useContext(Context);
+  const [dataMenu, setDataMenu] = useState([]);
   useEffect(() => {
-    getDataMenu(data)
-      .then((data) => {
-        const data2 = localstorageParser("dataMenu");
+    const aux = contextoUsuario?.plan?.dataModulos;
+    const data2 = localstorageParser("dataMenu");
 
-        if (menusIguales(data, data2)) setDataMenu(data2);
-        else {
-          setDataMenu(data);
-          localstorageParser("dataMenu", data);
-        }
+    if (menusIguales(aux, data2)) setDataMenu(data2);
+    else {
+      setDataMenu(contextoUsuario?.plan?.dataModulos);
+      localstorageParser("dataMenu", contextoUsuario?.plan?.dataModulos);
+    }
+  }, [contextoUsuario?.plan?.dataModulos]);
 
-        // setDataMenu(data);
-      })
-      .catch((err) => {});
-  }, [data]);
   const menusIguales = (data1, data2) => {
     if (!data1 || !data2) return false;
     if (data1.length !== data2.length) return false;
@@ -52,22 +39,6 @@ export default function MenuModulos({ callbackclick }) {
     }
     return true;
   };
-  const getDataMenu = async (data) => {
-    if (!data) return [];
-    const dataGroup = groupBy(data, (item) => item.grupo);
-    let salida = [];
-    for (let [grupo, value] of dataGroup) {
-      const dataMenu = await getDataMenuGrupo(grupo);
-      salida.push({
-        grupo,
-        items: orderArray(value ? value : [], "label"),
-        iconoParent: dataMenu.icon,
-        nombreGrupo: dataMenu.label.toUpperCase(),
-        open: false,
-      });
-    }
-    return salida;
-  };
   const clickParent = (itemClick) => {
     const aux = dataMenu.map((item) => {
       if (itemClick.grupo === item.grupo) {
@@ -76,27 +47,19 @@ export default function MenuModulos({ callbackclick }) {
       return item;
     });
     localStorage.setItem("dataMenu", JSON.stringify(aux));
-    if (callbackclick) callbackclick(aux);
+
+    // if (callbackclick && !itemClick.items) callbackclick(aux);
     setDataMenu(aux);
   };
-  const getDataMenuGrupo = async (idMenuGrupo) => {
-    const refMenu = await fuego.db
-      .collection("menuGrupos")
-      .doc(idMenuGrupo)
-      .get();
-    return refMenu.data();
-  };
-  if (!dataMenu) return "Buscando...";
+
+  // if (!dataMenu || dataMenu.length === 0) return "Cargando...";
+  // return "fd";
 
   return (
-    <List component="div" disablePadding>
-      {dataMenu.map((item) => (
-        <>
-          <ListItem
-            onClick={clickParent.bind(this, item)}
-            key={`${item.grupo}`}
-            button
-          >
+    <List>
+      {dataMenu?.map((item) => (
+        <span key={`${item.grupo}`}>
+          <ListItem onClick={clickParent.bind(this, item)}>
             <ListItemIcon>
               <Icon className={item.iconoParent} />
             </ListItemIcon>
@@ -107,8 +70,12 @@ export default function MenuModulos({ callbackclick }) {
               <Icon className="fas fa-angle-up" />
             )}
           </ListItem>
-          <SubItemsMenu open={item.open} items={item.items} />
-        </>
+          <SubItemsMenu
+            callbackclick={callbackclick}
+            open={item.open}
+            items={item.items}
+          />
+        </span>
       ))}
     </List>
   );
@@ -127,14 +94,17 @@ export default function MenuModulos({ callbackclick }) {
 //   </List>
 // );
 // }
-export function SubItemsMenu({ items, open }) {
+export function SubItemsMenu({ items, open, callbackclick }) {
+  const click = (item) => {
+    if (callbackclick) callbackclick(item);
+  };
   if (!items) return "";
   return (
     <Collapse in={open} timeout="auto" unmountOnExit>
       {items.map((item) => (
         <List key={`link_${item.id}`} component="div" disablePadding>
           <Link passHref href={`/${item.nombre}`}>
-            <ListItemButton sx={{ pl: 4 }}>
+            <ListItemButton onClick={click.bind(this, item)} sx={{ pl: 4 }}>
               <ListItemIcon>
                 <Icon className={item.icono} />
               </ListItemIcon>

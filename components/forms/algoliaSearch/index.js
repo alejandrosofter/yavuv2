@@ -13,9 +13,9 @@ const searchClient = algoliasearch(appId, apiKey);
 const Hit = ({ hit }) => {
   if (hit)
     return (
-      <p>
+      <span>
         <Highlight attribute="titular" hit={hit} tagName="mark" />
-      </p>
+      </span>
     );
 };
 

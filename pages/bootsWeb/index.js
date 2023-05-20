@@ -1,31 +1,39 @@
-import ABMColeccion from "@components/forms/ABMcollection";
+import ABMColeccion from "@components/forms/ABMcollection2";
 import Modelo, { valoresIniciales } from "@modelos/ModeloBootsWeb";
 import { fuego } from "@nandorojo/swr-firestore";
 import { useState } from "react";
+import { useContext, useEffect } from "react";
+import { Context } from "context/userContext";
 import TestBootWeb from "./test";
 import Form from "./_form";
-export default function Modulo({ mod, parentData }) {
+import useLayout from "@hooks/useLayout";
+import { getWherePermiso } from "@hooks/useUser";
+
+export default function Page({ parentData }) {
   const order = "nombre";
   const icono = "fas fa-globe-americas";
   const [openTest, setOpenTest] = useState(false);
   const [seleccion, setSeleccion] = useState();
+  useLayout({
+    label: "Boots web",
+    titulo: "BOOTS",
+    acciones: [
+      // { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
+    ],
+  });
   const cols = [
     {
-      field: "nombre",
-      headerName: "Nombre",
-      width: 220,
+      accessorKey: "nombre",
+      header: "Nombre",
+      filterFn: "includesString",
+      size: 220,
     },
     {
-      field: "entradas",
-      headerName: "entradas",
-      width: 220,
-      renderCell: (params) => `${params.value.map((e) => e.nombre).join(",")}`,
-    },
-    {
-      field: "rutinas",
-      headerName: "Rutina",
-      width: 200,
-      renderCell: (params) => `${params.value.length} movimientos`,
+      accessorKey: "rutinas",
+      header: "Cant. Rutinas",
+      size: 220,
+      Cell: ({ cell }) => `${cell.getValue().length}`,
+      // return getFechaString(cell.getValue(), "DD/MM/YY | hh:mm");
     },
   ];
   const fnAcciones = [
@@ -45,19 +53,15 @@ export default function Modulo({ mod, parentData }) {
         acciones={fnAcciones}
         coleccion={`bootsWeb`}
         columns={cols}
-        where={[
-          parentData
-            ? ["idUsuario", "==", localStorage.getItem("usermod")]
-            : ["usermod", "==", fuego.auth().currentUser?.uid],
-        ]}
+        where={getWherePermiso("bootsWeb")}
         labelNuevo="Nuevo Boot"
         preData={{}}
         orderBy={order}
         maxWidth={"md"}
-        icono={icono}
+        titulo="Boots Web"
         Modelo={Modelo}
         valoresIniciales={valoresIniciales}
-        titulo={`Boots WEB`}
+        // titulo={`Boots WEB`}
         Form={Form}
       />
       <TestBootWeb open={openTest} setOpen={setOpenTest} data={seleccion} />

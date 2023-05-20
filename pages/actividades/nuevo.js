@@ -22,7 +22,7 @@ export default function NuevaActividad({ open, setOpen, mod }) {
         modelo={Modelo}
       >
         <Form subTitulo={mod.label} icono={mod.icono} />
-      </NuevoGenerico>
+     @components/NuevoGenerico>
     </DialogContenido>
   );
 }

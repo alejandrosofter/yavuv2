@@ -1,10 +1,10 @@
 import ItemsModulo from "@components/forms/itemsModulo";
-import Form from "@components/socios/tarjetas/_formTarjetas";
+import Form from "@pages/socios/tarjetas/_formTarjetas";
 import {
   ModeloTarjetas,
   valoresInicialesTarjetas,
 } from "@modelos/ModeloSocios";
-import { cols } from "@components/socios/tarjetas/index";
+import { cols } from "@pages/socios/tarjetas/index";
 import { Typography, Grid } from "@mui/material";
 export default function Modulo({ mod, setFieldValue, values }) {
   const field = "tarjetas";

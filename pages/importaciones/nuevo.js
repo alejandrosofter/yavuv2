@@ -1,5 +1,5 @@
 import Modelo,{valoresIniciales} from "../../modelos/ModeloImportaciones"
-import NuevoGenerico from "../NuevoGenerico"
+import NuevoGenerico from "@components/NuevoGenerico"
 import Form from "./_form"
 
 export default function Modulo({mod,callbackSuccess}) {
@@ -7,7 +7,7 @@ export default function Modulo({mod,callbackSuccess}) {
       return (
       <NuevoGenerico callbackSuccess={callbackSuccess} valoresIniciales={valoresIniciales} mod={mod} modelo={Modelo}>
           <Form  titulo="NUEVO" subTitulo={mod.label} icono={mod.icono} />
-      </NuevoGenerico> 
+     @components/NuevoGenerico> 
       )
 
 }

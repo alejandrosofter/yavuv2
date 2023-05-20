@@ -1,42 +1,32 @@
 import { Button, Icon, Stack } from "@mui/material";
-import ThemeContext from "context/accionesContext";
-import ContextAcciones, { ContextoAcciones } from "context/accionesContext";
 import Link from "next/link";
-import randomId from "random-id";
-import { useContext } from "react";
-import { getLinkUrl } from "../helpers/Strings";
+import { useRouter } from "next/router";
 
-export default function MenuAccionesBarra({ mod }) {
-  const acciones = mod?.acciones ? mod.acciones : [];
+export default function MenuAccionesBarra({ acciones = [], sx }) {
+  const router = useRouter();
+  const esMismaUrl = (url) => {
+    //router.pathname con la forma /pacientes/ficha/[id]
+    //url con la forma /pacientes/ficha/1
+    if (router.pathname.indexOf("[") > 0)
+      return (
+        url.indexOf(
+          router.pathname.substring(0, router.pathname.indexOf("[") - 1)
+        ) >= 0
+      );
 
+    return router.pathname === url;
+  };
   return (
-    <Stack direction="row" spacing={2}>
+    <Stack sx={sx} direction="row" spacing={2}>
       {acciones &&
-        acciones.map((item) => {
-          if (!item.esRegistro)
-            if (!item.esFuncion)
-              return (
-                <Link
-                  key={randomId(2)}
-                  passHref
-                  href={getLinkUrl(item.url, mod, null)}
-                >
-                  <Button sx={{ color: "white" }}>
-                    <Icon sx={{ fontSize: 15, mr: 1 }} className={item.icono} />{" "}
-                    {item.label}
-                  </Button>
-                </Link>
-              );
-            else {
-              //es funcion
-              return (
-                <Button sx={{ color: "white" }}>
-                  <Icon sx={{ fontSize: 15, mr: 1 }} className={item.icono} />{" "}
-                  {item.label}
-                </Button>
-              );
-            }
-        })}
+        acciones.map((item) => (
+          <Link key={item.url} passHref href={item.url}>
+            <Button disabled={esMismaUrl(item.url)} sx={{ color: "white" }}>
+              <Icon sx={{ fontSize: 15, mr: 1 }} className={item.icono} />{" "}
+              {item.label}
+            </Button>
+          </Link>
+        ))}
     </Stack>
   );
 }

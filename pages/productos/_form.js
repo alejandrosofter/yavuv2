@@ -1,9 +1,9 @@
 import { Grid, Stack } from "@mui/material";
 import CheckboxForm from "@components//forms/checkbox";
-import Input from "@component@components/forms/input";
+import Input from "@components/forms/input";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import SelectCentroCosto from "@components/centroCostos/select";
+import SelectCentroCosto from "@pages/centroCostos/select";
 import SelectCategoriaProducto from "./categoriaProducto";
 export default function Form({ mod, setFieldValue, values }) {
   const { data: centrosCosto } = useCollection("centroCostos", {

@@ -6,7 +6,7 @@ import ImageUpload from "../imageUpload";
 import SelectSimple from "../selectSimple";
 import Tabla from "../tabla";
 import moment from "moment";
-import { getFechaString } from "../../../helpers/dates";
+import { getFechaString } from "@helpers/dates";
 export default function Modulo({ fnCambia }) {
   const [dataGoogle, setDataGoogle] = useState([]);
   const [openResultados, setOpenResultados] = useState(false);

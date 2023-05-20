@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import Select2 from "../@components/forms/select2Formik";
+import Select2 from "@components/forms/select2Formik";
 export default function FormCategoriaSocio({
   dataModulo,
   modelo,

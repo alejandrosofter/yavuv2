@@ -1,6 +1,6 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import Modelo, { valoresIniciales } from "@modelos/ModeloFormaPago";
-import Form from "@components/formaPagos/_form";
+import Form from "@pages/formaPagos/_form";
 export default function SelectFormaPago({
   label,
   campo,
@@ -11,7 +11,6 @@ export default function SelectFormaPago({
     <SelectUserModColeccion
       coleccion={"formaPagos"}
       Modelo={Modelo}
-      parentData={parentData}
       valoresIniciales={valoresIniciales}
       Form={Form}
       callbackchange={callbackchange}

@@ -8,17 +8,26 @@ import TabsFormik, { TabPanel } from "@components/forms/tab";
 import TitulosFormularios from "@components/forms/tituloFormularios";
 import { EmailConfig } from "./_formCuenta";
 import Input from "@components/forms/input";
-import SelectPlantilla from "@components/plantillas/selectPlantilla";
-export default function ConfigActividadad({ mod }) {
-  const campo = "config";
-  const coleccion = "mods";
-  const datos = mod[campo] ? mod[campo] : {};
+import SelectPlantilla from "@pages/plantillas/selectPlantilla";
+import useLayout from "@hooks/useLayout";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+export default function Configs({ mod }) {
+  useLayout({
+    label: "Config Email",
+    titulo: "CONFIG",
+    acciones: [
+      { label: "Emails", icono: "fas fa-envelope", url: "/emails" },
+      // { label: "Config", icono: "fas fa-cog", url: "/emails/config" },
+    ],
+  });
+  const coleccion = "modulos_config";
+  const datos = UseConfigModulo("emails");
 
   const valoresIniciales = () => {
     return { nombre: "", tipo: "" };
   };
   const callbackSuccess = () => {};
-
+  if (!datos) return "";
   return (
     <Grid container>
       <Typography variant="h4" component="div" gutterBottom>
@@ -29,10 +38,8 @@ export default function ConfigActividadad({ mod }) {
         />
       </Typography>
       <FormSubitemColeccion
-        registro={mod}
-        mod={mod}
+        registro={datos}
         coleccion={coleccion}
-        campo={campo}
         datos={datos}
         callbackSuccess={callbackSuccess}
         valoresIniciales={valoresIniciales}

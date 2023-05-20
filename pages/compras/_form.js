@@ -3,25 +3,26 @@ import { useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Grid, Tab, Icon } from "@mui/material";
 import Input from "@components/forms/input";
+
 import Modelo, {
   ModeloItemsFormaPago,
   valoresInicialesFormaPago,
   valoresInicialesItems,
   ModeloItems,
 } from "../../modelos/ModeloCompras";
-import Switch from "../forms/switch";
-import ItemsModulo from "../forms/itemsModulo";
+import Switch from "@components/forms/switch";
+import ItemsModulo from "@components/forms/itemsModulo";
 import FormItem from "./_formItem";
 import FormItemFormaPagos from "./_formItemFormaPago";
 import { formatMoney } from "../../helpers/numbers";
-import SelectFecha from "../forms/selectorFecha";
+import SelectFecha from "@components/forms/selectorFecha";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import Select2 from "@components/forms/select2Formik";
 import { fuego, useCollection } from "@nandorojo/swr-firestore";
-import { getFechaString } from "../../helpers/dates";
-import ImageFormik from "../forms/imageFormik";
-import SelectCentroCosto from "@components/centroCostos/select";
-import SelectProveedor from "@components/proveedores/select";
+import { getFechaString } from "@helpers/dates";
+import ImageFormik from "@components/forms/imageFormik";
+import SelectCentroCosto from "@pages/centroCostos/select";
+import SelectProveedor from "@pages/proveedores/select";
 export default function FormCompras({ values, setFieldValue }) {
   const [tabDatos, setTabDatos] = useState("datos");
   const { data: centrosCosto } = useCollection("centroCostos", {
@@ -52,22 +53,27 @@ export default function FormCompras({ values, setFieldValue }) {
         </TabList>
         <TabPanel value="datos">
           <Grid
-            sx={{ pt: 4 }}
             container
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 1, md: 1 }}
           >
+            {" "}
             <Grid item md={2}>
-              <ImageFormik
-                w={1000}
-                h={1000}
-                variantIcon="square"
-                iconDefault="fas fa-file-invoice"
-                folder={`users/${fuego.auth().currentUser?.uid}/compras`}
-                label="Imagen Factura"
-                campo={`imagenFactura`}
-              />
+              <Switch label="Tiene Imagen" campo="tieneImagen" />
             </Grid>
+            {values?.tieneImagen && (
+              <Grid item md={2}>
+                <ImageFormik
+                  w={1000}
+                  h={1000}
+                  variantIcon="square"
+                  iconDefault="fas fa-file-invoice"
+                  folder={`users/${fuego.auth().currentUser?.uid}/compras`}
+                  label="Imagen Factura"
+                  campo={`imagenFactura`}
+                />
+              </Grid>
+            )}
             <Grid item md={2}>
               <SelectFecha label="Fecha" campo="fecha" />
             </Grid>
@@ -173,12 +179,12 @@ export default function FormCompras({ values, setFieldValue }) {
               dataModulo={[]}
               columnas={[
                 {
-                  field: "label_idFormaPago",
+                  field: "label_formaPago",
                   headerName: "Forma de Pago",
                   editable: false,
                   width: 180,
                   renderCell: (params) =>
-                    `${params.row.label_idFormaPago} ${
+                    `${params.row.label_formaPago} ${
                       params.row.detalle ? params.row.detalle : ""
                     }`,
                 },

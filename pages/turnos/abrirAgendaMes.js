@@ -95,7 +95,6 @@ export default function AbrirAgendaMes({
           <Typography
             sx={{ fontSize: 10, fontWeight: "bold", color: "primary" }}
             variant="caption"
-            ht
           >
             HORARIOS CONFIGURADOS
           </Typography>
@@ -107,7 +106,7 @@ export default function AbrirAgendaMes({
 
           {consultorio.horarios &&
             consultorio.horarios.map((horario) => (
-              <Typography key={horario.id} variant="caption" ht>
+              <Typography key={horario.id} variant="caption">
                 {horario.desde} - {horario.hasta} los dias{" "}
                 {parse(getDias(horario.dias))}
               </Typography>

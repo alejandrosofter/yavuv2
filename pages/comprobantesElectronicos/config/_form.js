@@ -1,12 +1,12 @@
-import SelectPlantilla from "@components/plantillas/selectPlantilla";
+import SelectPlantilla from "@pages/plantillas/selectPlantilla";
 import Switch from "@components/forms/switch";
 
 import TabsFormik, { TabPanel } from "@components/forms/tab";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
 import { fuego } from "@nandorojo/swr-firestore";
-import SelectTipoComprobantes from "@components/comprobantesTipos/selector";
-import SelectCertificadoElectronico from "@components/certificadosElectronicos/selectCertificadoElectronico";
+import SelectTipoComprobantes from "@pages/comprobantesTipos/selector";
+import SelectCertificadoElectronico from "@pages/certificadosElectronicos/selectCertificadoElectronico";
 export default function FormConfig({ values }) {
   const [dataConsulta, setDataConsulta] = useState();
 

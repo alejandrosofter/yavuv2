@@ -1,4 +1,5 @@
-export default async function Fetch(url, method, data, token) {
+export default async function Fetch(url, method, data) {
+  const token = localStorage.getItem("token");
   const requestOptions = {
     method: method ? method : "get",
     headers: { "Content-Type": "application/json", Authorization: `${token}` },

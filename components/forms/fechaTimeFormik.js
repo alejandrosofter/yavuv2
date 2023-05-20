@@ -14,7 +14,7 @@ import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import { getFechaFormik } from "../../helpers/dates";
+import { getFechaFormik } from "@helpers/dates";
 import { DateTimePicker } from "@mui/lab";
 
 const SelectFecha = ({ label, disabled, campo, callbackChange }) => {

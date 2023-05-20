@@ -1,17 +1,17 @@
-import {  Container, ThemeProvider, Typography } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
-import { createTheme } from '@mui/material/styles';
-import { Box } from '@mui/system';
-import Head from 'next/head'
-import Image from 'next/image'
+import { Container, ThemeProvider, Typography } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import { createTheme } from "@mui/material/styles";
+import { Box } from "@mui/system";
+import Head from "next/head";
+import Image from "next/image";
 const theme = createTheme({
   palette: {
-    type: 'light',
+    type: "light",
     primary: {
-      main: '#006daf',
+      main: "#006daf",
     },
     secondary: {
-      main: '#f50057',
+      main: "#f50057",
     },
   },
   typography: {
@@ -20,35 +20,36 @@ const theme = createTheme({
     htmlFontSize: 14,
     button: {
       fontWeight: 600,
-      fontSize: '0.9rem',
+      fontSize: "0.9rem",
     },
-  }
+  },
 });
-export default function LayoutLogin({children,titulo}) {
-  return <>
-  <Head>
-    <title>{titulo}</title>
-  </Head>
- <ThemeProvider theme={theme}>
- <Container component="main" maxWidth="xs">
-
-<Box
-  sx={{
-    marginTop: 8,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  }}
->
-  <Image alt="Logo YAVU"
-      width={200}
-      height={50} src="/images/logoYavu.png"/>
-  {children}
-  
-</Box>
-
-</Container>
-    
-    </ThemeProvider>
-  </>
+export default function LayoutLogin({ children, titulo }) {
+  return (
+    <>
+      <Head>
+        <title>{titulo}</title>
+      </Head>
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              alt="Logo YAVU"
+              width={200}
+              height={50}
+              src="/images/logoYavu.png"
+            />
+            {children}
+          </Box>
+        </Container>
+      </ThemeProvider>
+    </>
+  );
 }

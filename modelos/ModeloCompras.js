@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export default function ModeloCompras() {
   return yup.object().shape({
     detalle: yup.string(),
@@ -46,11 +47,6 @@ export function valoresIniciales() {
     estado: "PENDIENTE",
     idCentroCosto: "",
     idEntidad: "",
-    idUsuario: localStorage.getItem("usermod")
-      ? localStorage.getItem("usermod")
-      : fuego.auth().currentUser.uid,
-    usermod: localStorage.getItem("usermod")
-      ? fuego.auth().currentUser.uid
-      : null,
+    ...getSetPermiso("compras"),
   };
 }

@@ -1,14 +1,14 @@
 import { Grid } from "@mui/material";
 import { useState, useEffect } from "react";
 import Input from "@components/forms/input";
-import SwitchFormik from "../../forms/switch";
-import SelectProducto from "@components/productos/selectProducto";
-import SelectFecha from "../../forms/selectorFecha";
-import _FormItem from "../../forms/subColeccion/_formItem";
+import SwitchFormik from "@components/forms/switch";
+import SelectProducto from "@pages/productos/selectProducto";
+import SelectFecha from "@components/forms/selectorFecha";
+import _FormItem from "@components/forms/subColeccion/_formItem";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import SelectFormik from "../@components/forms/select2Formik";
+import SelectFormik from "@components/forms/select2Formik";
 import { getItemArray } from "../../../helpers/arrays";
-import SelectEstaticFormik from "../@components/forms/selectEstaticFormik";
+import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 export default function FormActividadesSocio({
   values,
   registro,

@@ -42,7 +42,10 @@ export function contadorMoney(arr, campo = "importe") {
   let total = 0;
   if (!arr) return formatMoney(total);
   arr.forEach((item) => {
-    total += Number(item[campo]);
+    const bonifica = Number(
+      item.importeBonificacion ? item.importeBonificacion : 0
+    );
+    total += Number(item[campo]) - bonifica;
   });
   return formatMoney(total);
 }

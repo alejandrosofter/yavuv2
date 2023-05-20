@@ -27,6 +27,9 @@ import { addQueryApi } from "@helpers/db";
 import Dialogo from "@components/forms/dialogo";
 import EnviarGenerico from "@components/forms/enviarGenerico";
 import NuevaReceta from "@pages/recetas/nuevaReceta";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+import TabsFormik from "@components/forms/tab";
+import { getWherePermiso } from "@hooks/useUser";
 export function DataPaciente({ paciente }) {
   const [showMensajeCheck, setShowMensajeCheck] = useState();
   const checkPaciente = () => {
@@ -53,33 +56,41 @@ export function DataPaciente({ paciente }) {
       <Grid item md={1}>
         <MuestraImagen border={3} w={70} h={70} pathImagen={paciente.foto} />
       </Grid>
-      <Grid item md={11}>
-        <Grid item md={10}>
+      <Grid container item md={11}>
+        <Grid item md={8}>
           <Typography variant="h3" sx={{ fontWeight: "bold" }}>
             {`${paciente.apellido}`.toUpperCase()}{" "}
             {` ${capitalize(paciente.nombre)}`}
           </Typography>
         </Grid>
-
-        <Grid item md={12}>
+        {obraSocial?.tieneValidacionWeb && (
+          <Grid item md={4}>
+            <Button onClick={checkPaciente} variant="outlined">
+              validar {obraSocial?.tipoValidacion}
+            </Button>
+          </Grid>
+        )}
+        <Grid item md={10}>
           <Typography variant="caption" sx={{ fontWeight: "bold" }}>
             DNI {paciente.dni} - NRO AFILIADO {paciente.nroAfiliado} - O.S{" "}
             {paciente.label_obraSocial} - TEL. {paciente.telefono} - EMAIL{" "}
             {paciente.email}
           </Typography>
         </Grid>
-        {obraSocial?.tieneValidacionWeb && (
-          <Grid item md={12}>
-            <Button onClick={checkPaciente} variant="outlined">
-              validar {obraSocial?.tipoValidacion}
-            </Button>
-          </Grid>
-        )}
       </Grid>
     </Grid>
   );
 }
 export function TurnosPaciente({ paciente, callbackchange }) {
+  const config = UseConfigModulo("turnos");
+  const [openImpresion, setOpenImpresion] = useState(false);
+  const [dataImpresion, setDataImpresion] = useState();
+  const [seleccion, setSeleccion] = useState(null);
+
+  const [plantilla, setPlantilla] = UsePlantilla({
+    id: config?.impresionTurno,
+    data: seleccion,
+  });
   const cambiaSeleccion = (data) => {
     if (callbackchange) {
       callbackchange(data);
@@ -101,23 +112,31 @@ export function TurnosPaciente({ paciente, callbackchange }) {
   ];
   const order = ["fecha", "desc"];
 
-  const parentData =
-    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
+  const acciones = [
+    {
+      esFuncion: true,
+      icono: "fas fa-share-alt",
+      label: "Compartir",
+      fn: async (row) => {
+        // if (row.label_tipo === "INDICACION")
+        //   row.indicaciones = setIndicaciones(row.indicaciones);
+        setSeleccion(row);
+
+        setDataImpresion({ ...row, paciente });
+        setOpenImpresion(true);
+      },
+    },
+  ];
   return (
     <Grid container spacing={2}>
       <Grid sx={{ height: "100vh" }} item md={12}>
         <Paper elevation={8} sx={{ p: 2, height: "100%" }}>
           <ABMColeccion
             hideNew={true}
-            acciones={[]}
+            acciones={acciones}
             coleccion={`turnos`}
             columns={columns}
-            where={[
-              ["paciente", "==", paciente.id],
-              parentData
-                ? ["idUsuario", "==", localStorage.getItem("usermod")]
-                : ["usermod", "==", fuego.auth().currentUser?.uid],
-            ]}
+            where={getWherePermiso("turnos")}
             labelNuevo="nueva"
             preData={{}}
             order={order}
@@ -133,12 +152,23 @@ export function TurnosPaciente({ paciente, callbackchange }) {
           />
         </Paper>
       </Grid>
+      <ImpresionDialog
+        titulo="IMPRESIÓN TURNO"
+        setOpen={setOpenImpresion}
+        open={openImpresion}
+        asunto="TURNO "
+        plantillaEmail={config?.plantillaTurno}
+        data={{ ...seleccion, dataImpresion }}
+        plantilla={plantilla}
+      />
     </Grid>
   );
 }
 export function ListaRecetas({ callbackchange, paciente, mod }) {
   const [seleccion, setSeleccion] = useState(null);
-  const idPlantilla = mod.config?.plantillaRecetas;
+  const config = UseConfigModulo("pacientes");
+
+  const idPlantilla = config?.plantillaRecetas;
   const [dataImpresion, setDataImpresion] = useState();
 
   const getDetalleReceta = (receta) => {
@@ -190,7 +220,7 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
     {
       field: "detalle",
       headerName: "Detalle",
-      width: 300,
+      width: 500,
       renderCell: (params) => renderCellExpandData(params, getDetalleReceta),
     },
   ];
@@ -291,27 +321,11 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
         setOpen={setOpenImpresion}
         open={openImpresion}
         asunto="RECETA "
-        plantillaEmail={mod.config?.plantillaEmailReceta}
+        plantillaEmail={config?.plantillaEmailReceta}
         attachments={[{ filename: "RECETAS.pdf", data: plantilla }]}
         data={dataImpresion}
         plantilla={plantilla}
       />
-    </Grid>
-  );
-}
-
-export function FichaPaciente({ paciente, mod }) {
-  return (
-    <Grid container spacing={3}>
-      <Grid item md={12}>
-        <DataPaciente paciente={paciente} />
-      </Grid>
-      <Grid item md={6}>
-        <TurnosPaciente paciente={paciente} />
-      </Grid>
-      <Grid item md={6}>
-        <ListaRecetas mod={mod} paciente={paciente} />
-      </Grid>
     </Grid>
   );
 }

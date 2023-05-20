@@ -1,6 +1,6 @@
 import Modelo,{valoresIniciales} from "../../modelos/ModeloGeneracionDeuda"
 
-import NuevoGenerico from "../NuevoGenerico"
+import NuevoGenerico from "@components/NuevoGenerico"
 import FormGeneracionDeudas from "./_form"
 
 export default function Modulo({mod}) {
@@ -10,7 +10,7 @@ export default function Modulo({mod}) {
          
             <FormGeneracionDeudas titulo="NUEVA" subTitulo="Generacion de deuda" icono="fas fa-plus" />
        
-      </NuevoGenerico>
+     @components/NuevoGenerico>
       )
 
 }

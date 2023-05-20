@@ -2,11 +2,11 @@ import { Grid, Icon, Stack, Typography } from "@mui/material";
 
 import SelectFecha from "@components/forms/selectorFecha";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
-import SelectTipoCuenta from "@components/cuentasCbu/selectTipoCuenta";
+import SelectTipoCuenta from "@pages/cuentasCbu/selectTipoCuenta";
 import Input from "@components/forms/input";
 
 import { GridActionsCellItem } from "@mui/x-data-grid";
-import SelectFormaPago from "@components/formaPagos/selectFormaPago";
+import SelectFormaPago from "@pages/formaPagos/selectFormaPago";
 export default function FormCobranzaGrupal({ setFieldValue, values }) {
   const clickProcesar = (data) => (event) => {};
   const accionesExtra = (data) => [

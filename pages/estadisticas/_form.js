@@ -1,7 +1,7 @@
 import { Grid, Typography } from "@mui/material";
 import { useState } from "react";
 import Input from "@components/forms/input";
-import Switch from "../forms/switch";
+import Switch from "@components/forms/switch";
 import SelecListeningData from "@components/listeningData/selectListening";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 export default function Form({ setFieldValue, values }) {

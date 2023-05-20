@@ -1,12 +1,12 @@
 import { Grid, IconButton, Typography } from "@mui/material";
 import Input from "@components/forms/input";
 import Switch from "@components/forms/switch";
-import SelectProducto from "@components/productos/selectProducto";
+import SelectProducto from "@pages/productos/selectProducto";
 import SelectFecha from "@components/forms/selectorFecha";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import SelectFormikAlgolia from "@components/forms/selectAlgoliaFormik";
-import EditarDialogCbu from "@components/cuentasCbu/editarDialog";
-import NuevoDialogCbu from "@components/cuentasCbu/nuevoDialog";
+import EditarDialogCbu from "@pages/cuentasCbu/editarDialog";
+import NuevoDialogCbu from "@pages/cuentasCbu/nuevoDialog";
 import { useState } from "react";
 
 export default function Form({ setFieldValue, values }) {

@@ -1,4 +1,4 @@
-import TitulosFormularios from "./forms/tituloFormularios";
+import TitulosFormularios from "@components/forms/tituloFormularios";
 import _FormGenerico from "./_formGenerico";
 import { useCollection, fuego, useDocument } from "@nandorojo/swr-firestore";
 import { Grid } from "@mui/material";

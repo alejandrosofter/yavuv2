@@ -1,8 +1,8 @@
 import { getModUsuario, useModUsuario } from "@helpers/db";
 import { fuego } from "@nandorojo/swr-firestore";
 import { useEffect, useState } from "react";
-import EditarGenerico from "./EditarGenerico";
-import NuevoGenerico from "./NuevoGenerico";
+import EditarGenerico from "@components/EditarGenerico";
+import NuevoGenerico from "@components/NuevoGenerico";
 
 export default function ModuloUsuarioUnico({
   nombreModulo,

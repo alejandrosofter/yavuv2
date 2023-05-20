@@ -2,10 +2,10 @@ import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
 import { fuego, useCollection } from "@nandorojo/swr-firestore";
 import Select2 from "@components/forms/select2Formik";
-import Switch from "../forms/switch";
-import InputDate from "../forms/selectorFecha";
+import Switch from "@components/forms/switch";
+import InputDate from "@components/forms/selectorFecha";
 import { useState } from "react";
-import SelectFormaPago from "@components/formaPagos/selectFormaPago";
+import SelectFormaPago from "@pages/formaPagos/selectFormaPago";
 export default function FormItem({ values }) {
   const { data: formaPagos } = useCollection("formaPagos", {
     where: ["idUsuario", "==", fuego.auth().currentUser?.uid],

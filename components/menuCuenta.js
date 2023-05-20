@@ -15,11 +15,18 @@ import { Grid, Icon, Stack } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import MenuNotificaciones from "./notificaciones/menuNotificaciones";
 
-const MenuUsuario = ({ mod, auth }) => {
+const MenuUsuario = ({ auth }) => {
   const [anchorElNav, setAnchorElNav] = React.useState();
   const [anchorElUser, setAnchorElUser] = React.useState();
   const clickSalir = () => {
-    if (auth) auth.signOut();
+    if (auth) {
+      auth.signOut().then(() => {
+        //reload
+        setAnchorElNav(null);
+        window.location.reload();
+        // Sign-out successful.
+      });
+    }
   };
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -32,25 +39,37 @@ const MenuUsuario = ({ mod, auth }) => {
     setAnchorElUser(null);
   };
 
-  if (!auth) return "";
   return (
     <Grid container justifyContent="center" alignItems="center">
-      <Grid item xs={9}></Grid>
+      <Grid item xs={6}></Grid>
 
       <Grid item xs={1}></Grid>
-      <Grid item xs={1}>
-        <MenuNotificaciones auth={auth} />
-      </Grid>
-      <Grid item xs={1}>
+
+      <Grid
+        sx={{ pr: 2 }}
+        item
+        container
+        direction="row"
+        justifyContent="flex-end"
+        alignItems="center"
+        xs={4}
+      >
+        <Typography
+          variant="caption"
+          sx={{ mr: 1 }}
+        >{`${auth?.email}`}</Typography>
         <Tooltip title="Abrir Menu">
-          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+          <IconButton onClick={handleOpenUserMenu}>
             <Avatar
-              sx={{ width: 30, height: 30, mt: 1 }}
-              alt={`mail: ${auth?.displayName}`}
+              // sx={{ width: 30, height: 30, mt: 1 }}
+              alt={`mail: ${auth?.email}`}
               src={auth?.photoURL}
             />
           </IconButton>
         </Tooltip>
+      </Grid>
+      <Grid item xs={1}>
+        <MenuNotificaciones auth={auth} />
       </Grid>
       <Menu
         sx={{ mt: "45px" }}
@@ -71,9 +90,7 @@ const MenuUsuario = ({ mod, auth }) => {
         <MenuItem key={`salir`} onClick={clickSalir}>
           <Stack direction="row" spacing={2}>
             <Icon className="fas fa-sign-out-alt" />
-            <Typography textAlign="center">
-              Cerrar Sesion ( {fuego.auth().currentUser?.email} )
-            </Typography>
+            <Typography textAlign="center">Cerrar Sesion</Typography>
           </Stack>
         </MenuItem>
       </Menu>

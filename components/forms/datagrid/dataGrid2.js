@@ -47,8 +47,9 @@ export default function DataGrid2({
     ? dynamic(() => import(`${opcion}`), {
         loading: ({ error, timedOut, isLoading }) => {
           if (isLoading) return "cargando...";
-          if (error) return <p>{`Error al cargal el componente (${error})`}</p>;
-          if (timedOut) return <p>Tiempo de espera agotado</p>;
+          if (error)
+            return <span>{`Error al cargal el componente (${error})`}</span>;
+          if (timedOut) return <span>Tiempo de espera agotado</span>;
         },
       })
     : null;
@@ -174,7 +175,7 @@ export default function DataGrid2({
       <EditarGenerico callbackSuccess={callbackSuccess} valoresIniciales={valoresIniciales} 
       mod={mod} modelo={Modelo}>
           <ComponenteForm  />
-      </EditarGenerico>
+     @components/EditarGenerico>
         
       </DialogContenido> */}
     </div>

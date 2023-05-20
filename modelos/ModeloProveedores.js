@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export default function ModeloProveedores() {
   return yup.object().shape({
     razonSocial: yup.string(),
@@ -12,11 +13,6 @@ export function valoresIniciales() {
     razonSocial: "",
     cuit: "",
     tipo: "",
-    idUsuario: localStorage.getItem("usermod")
-      ? localStorage.getItem("usermod")
-      : fuego.auth().currentUser.uid,
-    usermod: localStorage.getItem("usermod")
-      ? fuego.auth().currentUser.uid
-      : null,
+    ...getSetPermiso("proveedores"),
   };
 }

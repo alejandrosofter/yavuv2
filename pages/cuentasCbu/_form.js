@@ -1,6 +1,6 @@
 import { Grid, Stack } from "@mui/material";
 import Input from "@components/forms/input";
-import Switch from "../forms/switch";
+import Switch from "@components/forms/switch";
 import { useState } from "react";
 import SelectTipoCuenta from "./selectTipoCuenta";
 export default function Form({ mod, setFieldValue, values }) {

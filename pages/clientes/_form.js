@@ -1,8 +1,8 @@
 import { Grid, Stack } from "@mui/material";
 import Input from "@components/forms/input";
 import { getFieldName } from "../../helpers/forms";
-import SelectFormik from "../forms/select";
-import Switch from "../forms/switch";
+import SelectFormik from "@components/forms/select";
+import Switch from "@components/forms/switch";
 import { useState } from "react";
 export default function FormClientes({ field, mod, setFieldValue, values }) {
   //   const itemsTipos = mod.config.itemsTipos ? mod.config.itemsTipos : [];

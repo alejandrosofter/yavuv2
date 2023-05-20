@@ -2,6 +2,7 @@ import ABMColeccion from "@components/forms/ABMcollection";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPlantillas";
 import { fuego } from "@nandorojo/swr-firestore";
 import Form from "./_form";
+import { getWherePermiso } from "@hooks/useUser";
 export default function Modulo({ mod }) {
   const order = ["nombre", "desc"];
   const columns = [
@@ -21,11 +22,7 @@ export default function Modulo({ mod }) {
     <ABMColeccion
       coleccion={`plantillas`}
       columns={columns}
-      where={[
-        parentData
-          ? ["idUsuario", "==", localStorage.getItem("usermod")]
-          : ["usermod", "==", fuego.auth().currentUser?.uid],
-      ]}
+      where={getWherePermiso("plantillas")}
       labelNuevo="nueva"
       preData={{}}
       order={order}

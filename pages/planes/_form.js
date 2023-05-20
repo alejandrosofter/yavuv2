@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 import { useCollection } from "@nandorojo/swr-firestore";
 import Input from "@components/forms/input";
-import ListaTransferencia from "../forms/listaTransferencia";
+import ListaTransferencia from "@components/forms/listaTransferencia";
 
 export default function _formPlanes({ values, setFieldValue }) {
   const { data: dataModulos } = useCollection("modulos");

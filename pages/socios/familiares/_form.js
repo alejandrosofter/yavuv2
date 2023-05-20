@@ -1,10 +1,10 @@
 import { Grid } from "@mui/material";
 import { useState, useEffect, useLayoutEffect } from "react";
 import Input from "@components/forms/input";
-import SwitchFormik from "../../forms/switch";
+import SwitchFormik from "@components/forms/switch";
 
-import SelectFecha from "../../forms/selectorFecha";
-import _FormItem from "../../forms/subColeccion/_formItem";
+import SelectFecha from "@components/forms/selectorFecha";
+import _FormItem from "@components/forms/subColeccion/_formItem";
 import BuscadorSociosInput from "../_buscador";
 
 export default function FormPromocionesSocio({ values, setFieldValue }) {

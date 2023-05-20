@@ -1,5 +1,5 @@
 import { getFechaString } from "@helpers/dates";
-import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
+
 import axios from "axios";
 import { useRef, useState } from "react";
 import Test from "./test";
@@ -8,13 +8,29 @@ import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { fuego } from "@nandorojo/swr-firestore";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
-import Form from "@components/envioTarjetas/_form";
+import Form from "@pages/envioTarjetas/_form";
 import Modelo, { valoresIniciales } from "@modelos/ModeloEnvioTarjetas";
 import { useRouter } from "next/router";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+import useLayout from "@hooks/useLayout";
 export default function Modulo({ mod, parentData }) {
   const order = ["fecha", "desc"];
   const router = useRouter();
-  const idPlantilla = mod.config?.tarjetasImpresas;
+  const config = UseConfigModulo("envioTarjetas");
+  const idPlantilla = config?.tarjetasImpresas;
+  useLayout({
+    label: "Envio de Tarjetas",
+    titulo: "TARJETAS",
+    icon: "fas fa-credit-card",
+    acciones: [
+      {
+        label: "Envios",
+        icono: "fas fa-credit-card",
+        url: "/envioTarjetas",
+      },
+      { label: "Config", icono: "fas fa-cog", url: "/envioTarjetas/config" },
+    ],
+  });
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [openEnviar, setOpenEnviar] = useState(false);
@@ -103,8 +119,8 @@ export default function Modulo({ mod, parentData }) {
       label: "Credenciales",
 
       fn: (data) => {
-        console.log(`mod/${mod.id}/tarjetas/${data.id}`);
-        router.push(`/mod/${mod.id}/tarjetas/${data.id}`, undefined, {
+        console.log(data);
+        router.push(`/envioTarjetas/tarjetas/${data.id}`, undefined, {
           shallow: true,
         });
       },
@@ -160,8 +176,6 @@ export default function Modulo({ mod, parentData }) {
           // getRowId: (row) => row.id,
         }}
         orderBy={order}
-        // callbackclick={callbackclick}
-        icono={"fas fa-users"}
         Modelo={Modelo}
         valoresIniciales={valoresIniciales}
         // dataForm={{ grupo: seleccion }}

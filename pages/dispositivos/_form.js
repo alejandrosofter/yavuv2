@@ -1,8 +1,8 @@
 import { Grid, Stack } from "@mui/material";
 import Input from "@components/forms/input";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
-import SelectFormik from "../forms/select";
-import ItemsModulo from "../forms/itemsModulo";
+import SelectFormik from "@components/forms/select";
+import ItemsModulo from "@components/forms/itemsModulo";
 import {
   ModeloDisparadores,
   valoresInicialesDisapradores,

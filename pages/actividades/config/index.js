@@ -4,21 +4,22 @@ import FormSubitemColeccion from "@components/forms/editarSubitemColeccion";
 
 import DataGridFormikItems from "@components/forms/dataGridFormik";
 import FormItem from "./_form";
-import SelectPlantilla from "@components/plantillas/selectPlantilla";
+import SelectPlantilla from "@pages/plantillas/selectPlantilla";
 import { ModeloConfig } from "@modelos/ModeloSocios";
 import TabsFormik, { TabPanel } from "@components/forms/tab";
 import TitulosFormularios from "@components/forms/tituloFormularios";
 import ImpresionDialog from "@components/forms/impresion";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 export default function ConfigActividadad({ mod }) {
   const campo = "config";
   const coleccion = "mods";
-  const datos = mod[campo] ? mod[campo] : {};
+  const datos = UseConfigModulo("actividades");
 
   const valoresIniciales = () => {
     return { nombre: "", tipo: "" };
   };
   const callbackSuccess = () => {};
-
+  if (!datos) return "";
   return (
     <Grid container>
       <Typography variant="h4" component="div" gutterBottom>
@@ -29,8 +30,7 @@ export default function ConfigActividadad({ mod }) {
         />
       </Typography>
       <FormSubitemColeccion
-        registro={mod}
-        mod={mod}
+        registro={datos}
         coleccion={coleccion}
         campo={campo}
         datos={datos}

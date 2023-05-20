@@ -1,14 +1,15 @@
 import { Button, Grid, Icon } from "@mui/material";
-import ItemsCobro from "@components/cobros/_items";
+import ItemsCobro from "@pages/cobros/_items";
 import { useDocument } from "@nandorojo/swr-firestore";
-import PersonalizarComprobante from "@components/cobros/_personalizarComprobante";
+import PersonalizarComprobante from "@pages/cobros/_personalizarComprobante";
 import { useState } from "react";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 
 export default function Modulo({ mod, setFieldValue, values }) {
   const [openPersonalizar, setOpenPersonalizar] = useState();
-  const configTarjeta = mod.config;
+  const config = UseConfigModulo("afiliaciones");
   const { data: producto } = useDocument(
-    `productos/${configTarjeta.productoCredencial}`
+    `productos/${config.productoCredencial}`
   );
 
   const clickTraer = () => {

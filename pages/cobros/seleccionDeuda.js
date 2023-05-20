@@ -12,9 +12,9 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 
 import { fuego } from "@nandorojo/swr-firestore";
-import DialogContenido from "../forms/dialogContenido";
-import CheckListFormik from "../forms/checkListFormik";
-import { getFechaString } from "../../helpers/dates";
+import DialogContenido from "@components/forms/dialogContenido";
+import CheckListFormik from "@components/forms/checkListFormik";
+import { getFechaString } from "@helpers/dates";
 import TooltipHtml from "@components/forms/tooltipHtml";
 import randomId from "random-id";
 export default function Modulo({

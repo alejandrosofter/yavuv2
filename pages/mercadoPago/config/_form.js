@@ -1,10 +1,10 @@
-import SelectPlantilla from "@components/plantillas/selectPlantilla";
+import SelectPlantilla from "@pages/plantillas/selectPlantilla";
 import Switch from "@components/forms/switch";
 
 import TabsFormik, { TabPanel } from "@components/forms/tab";
 import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
-import SelectProductos from "@components/productos/selectProducto";
+import SelectProductos from "@pages/productos/selectProducto";
 import { Typography } from "@mui/material";
 export default function FormConfig({}) {
   return (

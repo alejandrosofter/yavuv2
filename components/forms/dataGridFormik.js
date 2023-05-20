@@ -3,7 +3,7 @@ import { Field } from "formik";
 
 import { FormControl } from "@mui/material";
 
-import ItemsModulo from "../forms/itemsModulo";
+import ItemsModulo from "@components/forms/itemsModulo";
 
 const DataGridFormikItems = ({
   label,

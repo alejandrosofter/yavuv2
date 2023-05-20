@@ -1,7 +1,7 @@
 import { Grid, Stack } from "@mui/material";
 import Input from "@components/forms/input";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
-import SelectProfesor from "@components/profesores/select";
+import SelectProfesor from "@pages/profesores/select";
 export default function FormGrupo({ mod, setFieldValue, values }) {
   return (
     <Grid container rowSpacing={2} spacing={2}>

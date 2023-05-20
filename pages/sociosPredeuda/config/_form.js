@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
 import { useState } from "react";
 import { fuego, useCollection } from "@nandorojo/swr-firestore";
-import SwitchFormik from "../../forms/switch";
+import SwitchFormik from "@components/forms/switch";
 import SelectFormik from "../../forms/select";
 export default function FormItemConfigActividades({ values }) {
   const [visibleConfig, setVisibleConfig] = useState(

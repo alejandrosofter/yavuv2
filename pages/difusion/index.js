@@ -1,6 +1,4 @@
 import { getFechaString } from "@helpers/dates";
-import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
-import axios from "axios";
 import { useRef, useState } from "react";
 import { TestDifusion } from "./test";
 import ABMColeccion from "@components/forms/ABMcollection2";
@@ -10,7 +8,21 @@ import Form from "./_form";
 import Dialogo from "@components/forms/dialogo";
 import { addQueryApi } from "@helpers/db";
 import { FeedbackEnvios } from "./feedbackEnvios";
+import { getWherePermiso } from "@hooks/useUser";
+import useLayout from "@hooks/useLayout";
 export default function Modulo({ mod, parentData }) {
+  useLayout({
+    label: "Difusiones",
+    titulo: "DIFUSIONES",
+    icon: "fas fa-bullhorn",
+    acciones: [
+      {
+        label: "Difusiones",
+        icono: "fas fa-bullhorn",
+        url: "/difusion",
+      },
+    ],
+  });
   const order = ["fecha", "desc"];
   const [open, setOpen] = useState(false);
   const [openDestinatarios, setOpenDestinatarios] = useState(false);
@@ -105,11 +117,7 @@ export default function Modulo({ mod, parentData }) {
         columns={columns}
         acciones={fnAcciones}
         maxWidth={"lg"}
-        where={[
-          parentData
-            ? ["idUsuario", "==", localStorage.getItem("usermod")]
-            : ["usermod", "==", fuego.auth().currentUser?.uid],
-        ]}
+        where={getWherePermiso("difusion")}
         gridOptions={{
           tableInstanceRef,
 
@@ -138,8 +146,6 @@ export default function Modulo({ mod, parentData }) {
           // getRowId: (row) => row.id,
         }}
         orderBy={order}
-        // callbackclick={callbackclick}
-        icono={"fas fa-users"}
         Modelo={Modelo}
         valoresIniciales={valoresIniciales}
         dataForm={{ config: mod?.config, mod }}

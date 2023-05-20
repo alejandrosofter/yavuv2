@@ -1,69 +1,53 @@
-import initAuth from "../config/initAuth"; // the module you created above
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-
+import initAuth from "@config/initAuth";
+import { ThemeProvider } from "@mui/material/styles";
 import "firebase/firestore";
 import "firebase/auth";
 import config from "../config/_firestoreConfig";
 import Fuego from "../config/fuego";
 import { FuegoProvider } from "@nandorojo/swr-firestore";
-
-import SnackbarFirebase from "../helpers/snackBarFirebase";
-import { useEffect } from "react";
-import ContextAcciones from "context/accionesContext";
+import { useState } from "react";
+import { theme } from "@config/theme";
+import {
+  AuthAction,
+  useAuthUser,
+  withAuthUser,
+  withAuthUserTokenSSR,
+} from "next-firebase-auth";
+import { UserContext } from "context/userContext";
 import Layout from "@components/layout";
 
-const theme = createTheme({
-  palette: {
-    type: "light",
-    primary: {
-      main: "#006daf",
-    },
-    secondary: {
-      main: "#ff5b00",
-    },
-  },
-  overrides: {
-    //MuiTableCell
-    MuiTableRow: {
-      root: {
-        cursor: "pointer",
-        "&:hover": {
-          backgroundColor: "rgba(33, 150, 243, 0.5) !important",
-        },
-      },
-    },
-  },
-  typography: {
-    fontSize: 10,
-    fontWeightMedium: 1000,
-    htmlFontSize: 14,
-    button: {
-      fontWeight: 1000,
-      fontSize: "0.9rem",
-    },
-    titulo: {
-      color: "#ff5b00",
-      fontSize: "0.2rem",
-    },
-    overline: {
-      fontSize: "0.7rem",
-    },
-    fontWeightLight: 200,
-    fontWeightRegular: 300,
-  },
-});
+///////////////INIT AUTH IMPORTANTE!!!!//////////////////////
 initAuth();
+///////////////INIT AUTH IMPORTANTE!!!!//////////////////////
 
-export default function app({ Component, pageProps }) {
+export function app({ Component, pageProps }) {
   const fuego = new Fuego(config());
-
+  const [dataLayout, setLayout] = useState();
+  const [seleccionModuloInvitado, setSeleccionModuloInvitado] = useState();
+  const dataUser = useAuthUser();
   return (
     <FuegoProvider fuego={fuego}>
-      <ThemeProvider theme={theme}>
-        <Layout>
-          <Component {...pageProps} />{" "}
-        </Layout>
-      </ThemeProvider>
+      <UserContext
+        fnCambiaLayout={(data) => {
+          setLayout(data);
+        }}
+        fnCambiaModuloInvitado={(data) => {
+          setSeleccionModuloInvitado(data);
+        }}
+        seleccionModuloInvitado={seleccionModuloInvitado}
+        usuario={dataUser}
+      >
+        <ThemeProvider theme={theme}>
+          <Layout dataLayout={dataLayout} auth={dataUser}>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </UserContext>
     </FuegoProvider>
   );
 }
+export const getServerSideProps = withAuthUserTokenSSR()();
+export default withAuthUser({
+  whenUnauthedBeforeInit: AuthAction.REDIRECT_TO_LOGIN,
+  whenUnauthedAfterInit: AuthAction.RENDER,
+})(app);

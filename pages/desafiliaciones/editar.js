@@ -1,5 +1,5 @@
 import Modelo, { valoresIniciales } from "@modelos/ModeloDesafiliaciones";
-import EditarGenerico from "../EditarGenerico";
+import EditarGenerico from "@components/EditarGenerico";
 
 import Form from "./_form";
 
@@ -7,6 +7,6 @@ export default function Modulo({ mod }) {
   return (
     <EditarGenerico mod={mod} modelo={Modelo}>
       <Form titulo="Editar" subTitulo={mod.label} icono="fas fa-pencil" />
-    </EditarGenerico>
+   @components/EditarGenerico>
   );
 }

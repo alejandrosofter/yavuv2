@@ -15,8 +15,6 @@ import { ABMCollection_editar } from "./editar";
 import Dialogo from "../dialogo";
 import { QueryApi } from "@helpers/queryApi";
 
-import ColeccionTable3 from "../collectionTable3";
-
 export default function ABMColeccion({
   valoresIniciales,
   hidePaginador,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import DatePicker from "react-multi-date-picker";
-import SelectConsultorio from "@components/consultorios/selectConsultorioSimple";
+import SelectConsultorio from "@pages/consultorios/selectConsultorioSimple";
 import esp_ar from "@components/forms/multiDateReact/spanish";
 import { getHorariosMes } from "@helpers/horarios";
 import { porcentajeColor } from "@helpers/colores";

@@ -4,7 +4,16 @@ import { useState } from "react";
 import Modelo, { valoresIniciales } from "@modelos/ModeloContactos";
 import Form from "./_form";
 import { fuego } from "@nandorojo/swr-firestore";
-export default function Modulo({ mod }) {
+import useLayout from "@hooks/useLayout";
+export default function Modulo({}) {
+  useLayout({
+    label: "Contactos",
+    titulo: "CONTACTOS",
+    acciones: [
+      // { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
+      // { label: "Config", icono: "fas fa-cog", url: "/turnos/config" },
+    ],
+  });
   const order = "apellido";
   // const columns = [
   //   {
@@ -56,11 +65,7 @@ export default function Modulo({ mod }) {
     //   },
     // },
   ];
-  console.log(
-    parentData
-      ? ["idUsuario", "==", localStorage.getItem("usermod")]
-      : ["usermod", "==", fuego.auth().currentUser?.uid]
-  );
+
   const parentData = true;
   return (
     <>

@@ -1,7 +1,7 @@
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import { Grid, Stack } from "@mui/material";
 import Input from "@components/forms/input";
-import Switch from "../forms/switch";
+import Switch from "@components/forms/switch";
 import SelectorTipoComprobante from "./selectorTipoComprobantes";
 import SelectorTipoDocumentos from "./selectorTipoDocumentos";
 export default function Form({ mod, setFieldValue, values }) {

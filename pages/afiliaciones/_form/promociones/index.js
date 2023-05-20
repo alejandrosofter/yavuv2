@@ -1,10 +1,10 @@
 import ItemsModulo from "@components/forms/itemsModulo";
-import Form from "@components/socios/promociones/_form";
+import Form from "@pages/socios/promociones/_form";
 import {
   ModeloPromociones,
   valoresInicialesPromocion,
 } from "@modelos/ModeloSocios";
-import { cols } from "@components/socios/promociones";
+import { cols } from "@pages/socios/promociones";
 export default function Modulo({ mod, setFieldValue, values }) {
   const field = "promociones";
   const label = "PROMOCIONES";

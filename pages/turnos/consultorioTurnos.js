@@ -15,8 +15,8 @@ import AbrirAgendaMes from "./abrirAgendaMes";
 import moment from "moment";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 const ConsultorioTurnos = ({
-  mod,
   fechaBusca,
   callbackchange,
   consultorio,
@@ -26,11 +26,11 @@ const ConsultorioTurnos = ({
     // .format("YYYY-MM-DD")}`);
     setHorariosDisponibles();
   }, [fechaBusca]);
-  // ;
+  const config = UseConfigModulo("turnos");
   const [seleccion, setSeleccion] = useState(null);
   const [dataImpresion, setDataImpresion] = useState();
   const [plantilla, setPlantilla] = UsePlantilla({
-    id: mod.config?.impresionTurno,
+    id: config?.impresionTurno,
     data: dataImpresion,
   });
 
@@ -103,12 +103,12 @@ const ConsultorioTurnos = ({
         callbackSuccess={abrioAgenda}
       />
     );
+
   return (
     <Grid
       sx={{
         ...estilo,
       }}
-      md={3}
     >
       <Stack direction="row" spacing={2}>
         <Typography variant="h6">{consultorio.nombreCorto}</Typography>
@@ -134,7 +134,6 @@ const ConsultorioTurnos = ({
         <NuevoTurno
           titulo={getFechaString(preData?.fechaTurno, "DD/MM HH:mm")}
           subTitulo={`en ${consultorio.nombre}`}
-          mod={mod}
           preData={preData}
           callbackSuccess={handleNuevoTurno}
         />
@@ -146,18 +145,14 @@ const ConsultorioTurnos = ({
         setOpen={setOpenUpdateTurno}
         titulo="Editar Turno"
       >
-        <EditarTurno
-          mod={mod}
-          idItem={preData?.id}
-          callbackSuccess={handleNuevoTurno}
-        />
+        <EditarTurno idItem={preData?.id} callbackSuccess={handleNuevoTurno} />
       </DialogContenido>
       <ImpresionDialog
         titulo="IMPRESIÓN TURNO"
         setOpen={setOpenImpresion}
         open={openImpresion}
         asunto="TURNO "
-        plantillaEmail={mod.config?.plantillaTurno}
+        plantillaEmail={config?.plantillaTurno}
         data={dataImpresion}
         plantilla={plantilla}
       />

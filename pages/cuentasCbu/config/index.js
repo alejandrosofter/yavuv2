@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import FormSubitemColeccion from "../../forms/editarSubitemColeccion";
-import TitulosFormularios from "../../forms/tituloFormularios";
+import FormSubitemColeccion from "@components/forms/editarSubitemColeccion";
+import TitulosFormularios from "@components/forms/tituloFormularios";
 import Form from "./_form";
 export default function ConfigSocio({ mod }) {
   const campo = "config";

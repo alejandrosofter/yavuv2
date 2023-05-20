@@ -26,7 +26,7 @@ export default function NuevaRespuestaBanco({
         modelo={ModeloRespuestasBanco}
       >
         <Form titulo="NUEVO" subTitulo={label} icono={icono} />
-      </NuevoGenerico>
+     @components/NuevoGenerico>
     </DialogContenido>
   );
 }

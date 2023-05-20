@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
 
-import SelectBootWeb from "@components/bootsWeb/selectBootWeb";
+import SelectBootWeb from "@pages/bootsWeb/selectBootWeb";
 import TabsFormik from "@components/forms/tab";
 import RichEditorFormik from "@components/forms/richEditorFormik";
 export default function Form({ setFieldValue, values }) {

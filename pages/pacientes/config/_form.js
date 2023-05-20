@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
-import SelectPlantilla from "@components/plantillas/selectPlantilla";
-import SelectBootWeb from "@components/bootsWeb/selectBootWeb";
+import SelectPlantilla from "@pages/plantillas/selectPlantilla";
+import SelectBootWeb from "@pages/bootsWeb/selectBootWeb";
 export default function Form({ setFieldValue }) {
   const cambia = (valor, data) => {
     const params = data

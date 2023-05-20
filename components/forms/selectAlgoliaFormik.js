@@ -2,7 +2,7 @@ import * as React from "react";
 import { IconButton, Box, Grid, Icon, Typography, Stack } from "@mui/material";
 
 import algoliasearch from "algoliasearch/lite";
-import AutoCompleteAsync from "../forms/autocompleteAsync";
+import AutoCompleteAsync from "@components/forms/autocompleteAsync";
 
 import { Field } from "formik";
 import { FormControl, TextField } from "@mui/material";

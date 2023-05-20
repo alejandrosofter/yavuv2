@@ -1,7 +1,7 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import Modelo, { valoresIniciales } from "@modelos/ModeloProfesores";
-import Form from "@components/profesores/_form";
+import Form from "@pages/profesores/_form";
 export default function Modulo({ multiple, label, campo, callbackchange }) {
   return (
     <SelectUserModColeccion

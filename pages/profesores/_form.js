@@ -1,6 +1,6 @@
 import { Grid, Stack } from "@mui/material";
 import Input from "@components/forms/input";
-import Titulo from "../forms/tituloFormularios";
+import Titulo from "@components/forms/tituloFormularios";
 export default function FormProfesores({ titulo, subTitulo, icono }) {
   return (
     <Grid>

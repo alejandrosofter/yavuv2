@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import ErrorsForm from "../components/forms/errorForms";
 import { esVacio } from "../helpers/objectos";
-import ImpresionDialog from "./forms/impresion";
+import ImpresionDialog from "@components/forms/impresion";
 import ShowErrors from "./showErrors";
 import { cleanseUndefined } from "@helpers/objects";
 
@@ -16,10 +16,12 @@ export default function _FormGenerico({
   fnUpdate,
   dataForm,
   datos,
+  coleccion,
+  label,
+  icono,
   valoresIniciales,
   modelo,
   children,
-  mod,
   isNew,
 }) {
   const router = useRouter();
@@ -40,6 +42,7 @@ export default function _FormGenerico({
     }
   };
   const clickForm = async (values, propsForm) => {
+    if (load) return;
     setLoad(true);
     if (fnUpdate) {
       const data = quitarValoresNull(values);
@@ -86,46 +89,51 @@ export default function _FormGenerico({
         validateForm,
         isValidating,
       }) => {
-        // ;
         return (
-          <Grid sx={{ my: 0 }} md={12} item xs={9}>
-            <Form onSubmit={handleSubmit}>
-              {React.cloneElement(children, {
-                values,
-                errors,
+          <Grid sx={{ p: 2 }} container spacing={1}>
+            <Grid item xs={12}>
+              <Form>
+                <Grid item xs={12}>
+                  {React.cloneElement(children, {
+                    values,
+                    errors,
 
-                ...dataForm,
-                isNew,
-                mod: mod ? mod : dataForm?.mod ? dataForm.mod : {},
-                setFieldValue: setFieldValue,
-              })}
-              <LoadingButton
-                sx={{ mt: 3 }}
-                loading={load}
-                color="primary"
-                variant="contained"
-                onClick={() => showErrors(errors, isValid)}
-                fullWidth
-                type="submit"
-              >
-                ACEPTAR
-              </LoadingButton>
-              {/* <Backdrop
-                sx={{
-                  color: "#fff",
-                  zIndex: (theme) => theme.zIndex.drawer + 1,
-                }}
-                open={load}
-              >
-                <CircularProgress color="inherit" />
-              </Backdrop> */}
-              <ShowErrors
-                isValidating={isValidating}
-                errors={errors}
-                open={openErrores}
-                setOpen={setOpenErrores}
-              />
-            </Form>
+                    ...dataForm,
+                    isNew,
+                    ...{ coleccion, label, icono },
+                    setFieldValue: setFieldValue,
+                  })}
+
+                  <Backdrop
+                    sx={{
+                      color: "#fff",
+                      zIndex: (theme) => theme.zIndex.drawer + 1,
+                    }}
+                    open={load}
+                  >
+                    <CircularProgress color="inherit" />
+                  </Backdrop>
+                </Grid>
+                <Grid item sm={12}>
+                  <Button
+                    sx={{ display: !load ? "si" : "none", mt: 3 }}
+                    color="primary"
+                    fullWidth={true}
+                    variant="contained"
+                    onClick={() => showErrors(errors, isValid)}
+                    type="submit"
+                  >
+                    ACEPTAR
+                  </Button>
+                </Grid>
+                <ShowErrors
+                  isValidating={isValidating}
+                  errors={errors}
+                  open={openErrores}
+                  setOpen={setOpenErrores}
+                />
+              </Form>
+            </Grid>
           </Grid>
         );
       }}

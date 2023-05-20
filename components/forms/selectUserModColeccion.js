@@ -5,6 +5,7 @@ import { IconButton, Grid } from "@mui/material";
 import { useState } from "react";
 import DialogForm from "./dialogForm";
 import DialogFormEditar from "./dialogFormEditar";
+import { getWherePermiso } from "@hooks/useUser";
 export default function SelectUserModColeccion({
   multiple,
   label,
@@ -18,6 +19,7 @@ export default function SelectUserModColeccion({
   Form,
   icono,
   Modelo,
+  sx,
   valoresIniciales,
   parentData,
   maxWidth,
@@ -30,16 +32,14 @@ export default function SelectUserModColeccion({
   const [openEditar, setOpenEditar] = useState(false);
   const [openNuevo, setOpenNuevo] = useState(false);
 
-  const where = allData
-    ? []
-    : // : parentData
-      // ? ["idUsuario", "==", localStorage.getItem("usermod")]
-      ["usermod", "==", fuego.auth().currentUser?.uid];
+  const where = (allData ? [] : getWherePermiso(coleccion)).concat(
+    addWhere ? addWhere : []
+  );
 
   const { data } = useCollection(coleccion, {
     limit,
     listen: true,
-    where: [where].concat(addWhere ? addWhere : []),
+    where: where,
   });
   const clickEditar = () => {
     setOpenEditar(true);
@@ -74,6 +74,7 @@ export default function SelectUserModColeccion({
         )}
         {!esForm && (
           <SelectSimple
+            sx={sx}
             callbackchange={fn}
             extraData={extraData}
             multiple={multiple}

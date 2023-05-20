@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import TabsFormik from "@components/forms/tab";
-import FormSocios from "@components/socios/_formSocios";
+import FormSocios from "@pages/socios/_formSocios";
 import FormDocumentos from "./documentos";
 import FormActividades from "./actividades";
 import FormFamiliares from "./familiares";

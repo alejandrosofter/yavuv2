@@ -2,7 +2,7 @@ import { Grid, Stack } from "@mui/material";
 import Input from "@components/forms/input";
 import WebcamFormik from "@components/forms/imageFormik";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
-import SelectObraSocial from "@components/obrasSociales/selectObraSocial";
+import SelectObraSocial from "@pages/obrasSociales/selectObraSocial";
 import { fuego } from "@nandorojo/swr-firestore";
 import InputTelefono from "@components/forms/inputTelefono";
 export default function Form({ mod, setFieldValue, values }) {

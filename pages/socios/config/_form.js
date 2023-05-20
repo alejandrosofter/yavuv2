@@ -1,11 +1,11 @@
-import DataGridFormikItems from "../../forms/dataGridFormik";
+import DataGridFormikItems from "@components/forms/dataGridFormik";
 import FormCategoriaSocios from "./_formCategoriaSocios";
 import FormTipoSocios from "./_formItemsTipoSocios";
 import FormTipoDocumentacionSocios from "./_formTipoDocumentacion";
 import FormGeneracionDeuda from "./_formGenerarDeuda";
 import FormMotivos from "./_formMotivos";
 import FormDifusion from "./_formDifusion";
-import SelectPlantilla from "@components/plantillas/selectPlantilla";
+import SelectPlantilla from "@pages/plantillas/selectPlantilla";
 import Switch from "@components/forms/switch";
 import {
   ModeloConfig,
@@ -21,7 +21,7 @@ import ModeloDifusion, {
   ModeloConfigItems,
   valoresInicialesMods,
 } from "@modelos/ModeloDifusion";
-import TabsFormik, { TabPanel } from "../../forms/tab";
+import TabsFormik, { TabPanel } from "@components/forms/tab";
 import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
 import { Button, Icon, Typography } from "@mui/material";

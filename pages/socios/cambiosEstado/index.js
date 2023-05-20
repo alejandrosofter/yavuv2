@@ -13,13 +13,15 @@ import { getFechaString } from "@helpers/dates";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import ImpresionDialog from "@components/forms/impresion";
 import { localstorageParser } from "@helpers/arrays";
-export default function CambiosEstadoSocio({ data, mod }) {
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+export default function CambiosEstadoSocio({ data }) {
   const order = ["fechaInicio"];
   const subColeccion = "cambiosEstado";
   const icono = "fas fa-dumbbell";
   const titulo = `CAMBIOS DE ESTADO SOCIO `;
   const [seleccion, setSeleccion] = useState(null);
-  const idPlantilla = mod.config?.plantillaCambioEstado;
+  const config = UseConfigModulo("socios");
+  const idPlantilla = config?.plantillaCambioEstado;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const [plantilla, setPlantilla] = UsePlantilla({
@@ -80,7 +82,7 @@ export default function CambiosEstadoSocio({ data, mod }) {
           hidePaginador={true}
           Modelo={ModeloCambioEstado}
           valoresIniciales={valoresInicialesCambioEstado}
-          dataForm={{ socio: data, seleccion, mod, idSocio: data?.id }}
+          dataForm={{ socio: data, seleccion, idSocio: data?.id }}
           titulo={titulo}
           Form={Form}
         />

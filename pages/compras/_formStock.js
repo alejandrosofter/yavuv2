@@ -2,7 +2,7 @@ import SelectCategoriaProducto from "@components/productos/categoriaProducto";
 import Grid from "@mui/material/Grid";
 import { useEffect, useState } from "react";
 import Input from "@components/forms/input";
-import ImageFormik from "../forms/imageFormik";
+import ImageFormik from "@components/forms/imageFormik";
 import { fuego } from "@nandorojo/swr-firestore";
 export default function FormItem({ values }) {
   const [total, setTotal] = useState(0);

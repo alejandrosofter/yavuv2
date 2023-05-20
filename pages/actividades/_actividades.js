@@ -5,6 +5,7 @@ import { fuego, useDocument } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import Modelo, { valoresIniciales } from "@modelos/ModeloActividades";
 import Form from "pages/actividades/_form";
+import { getWherePermiso } from "@hooks/useUser";
 export default function ListaActividades({ callbackchange, mod }) {
   const [seleccion, setSeleccion] = useState(null);
 
@@ -23,8 +24,7 @@ export default function ListaActividades({ callbackchange, mod }) {
     },
   ];
   const acciones = [];
-  const parentData =
-    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
+
   return (
     <Grid container>
       <Grid item md={12}>
@@ -34,11 +34,7 @@ export default function ListaActividades({ callbackchange, mod }) {
           columns={columns}
           hidePaginador={true}
           rowsPerPage={100}
-          where={[
-            parentData
-              ? ["idUsuario", "==", localStorage.getItem("usermod")]
-              : ["usermod", "==", fuego.auth().currentUser?.uid],
-          ]}
+          where={getWherePermiso("actividades")}
           labelNuevo="nueva"
           preData={{}}
           order={order}

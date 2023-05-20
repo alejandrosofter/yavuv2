@@ -1,6 +1,7 @@
 import DialogContenido from "@components/forms/dialogContenido";
 import Input from "@components/forms/input";
 import { QueryApi } from "@helpers/queryApi";
+import { UseStorage } from "@hooks/useStorage";
 import {
   Backdrop,
   Button,
@@ -11,7 +12,8 @@ import {
 import { useState } from "react";
 
 export default function EnvioBanco({ open, setOpen, data }) {
-  const [email, setEmail] = useState(localStorage.getItem("enviarBanco_email"));
+  const [email, setEmail] = UseStorage("enviarBanco_email");
+
   const [dataConsulta, setDataConsulta] = useState();
 
   const enviar = () => {

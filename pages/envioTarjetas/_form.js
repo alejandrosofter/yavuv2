@@ -4,8 +4,7 @@ import SelectFecha from "@components/forms/selectorFecha";
 import { Grid, Stack } from "@mui/material";
 import { useState } from "react";
 import Input from "@components/forms/input";
-import Switch from "../forms/switch";
-import TarjetasEnvio from "./tarjetas";
+import Switch from "@components/forms/switch";
 
 export default function Form({ mod, setFieldValue, values, nuevo }) {
   const [condiciones, setCondiciones] = useState([]);
@@ -29,7 +28,7 @@ export default function Form({ mod, setFieldValue, values, nuevo }) {
 
       <Grid item md={2}>
         <SelectEstaticFormik
-          items={["ABIERTO", "ENVIADO", "ENTREGADO"]}
+          items={["ABIERTO", "ENVIADO", "ENTREGADO", "RECIBIDO"]}
           label="Estado"
           campo="estado"
         />

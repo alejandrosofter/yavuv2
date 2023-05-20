@@ -1,46 +1,54 @@
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
-export default function Modulo({ mod }) {
-  const order = "email";
-  const fnLabelMods = (items) => items.map((item) => item.label_idMod).join();
+import ABMColeccion2 from "@components/forms/ABMcollection2";
+import Modelo, { valoresIniciales } from "@modelos/ModeloUsuariosInvitados";
+import Form from "./_form";
+import useLayout from "@hooks/useLayout";
+import { getWherePermiso } from "@hooks/useUser";
+export default function Page({}) {
+  useLayout({
+    label: "Usuarios invitados",
+    titulo: "INVITADOS",
+    acciones: [],
+  });
   const columns = [
     {
-      field: "email",
-      headerName: "Email",
-      width: 250,
-    },
-    {
-      field: "mods",
-      headerName: "Mods",
-      renderCell: (params) => {
-        return fnLabelMods(params.value);
-      },
-      width: 400,
-    },
-    {
-      field: "recursos",
-      headerName: "Recursos",
-      renderCell: (params) =>
-        params.row.mods.map((item) => item.label_recursos).join(),
-      width: 200,
-    },
-    {
-      field: "activo",
-      headerName: "Estado",
-      renderCell: (params) => (params.value ? "ACTIVO" : "INACTIVO"),
-      width: 100,
+      accessorKey: "email",
+      header: "Email",
+      size: 120,
+      // Cell: ({ cell }) => {
+      //   return getFechaString(cell.getValue(), "DD/MM/YY | hh:mm");
+      // },
     },
   ];
+  let fnAcciones = [
+    // {
+    //   esFuncion: true,
+    //   icono: "fas fa-users",
+    //   label: "Inscriptos",
+    //   fn: (data) => {
+    //     setOpenCajaDelDia(true);
+    //   },
+    // },
+  ];
   return (
-    <DataGridFirebase
-      titulo={mod.label}
-      subTitulo="generales"
-      parentData={true}
-      icono={mod.icono}
-      limit={10}
-      mod={mod}
-      acciones={mod.acciones}
-      orderBy={order}
+    <ABMColeccion2
+      coleccion={`usuariosInvitados`}
       columns={columns}
+      acciones={fnAcciones}
+      maxWidth={"lg"}
+      // where={[
+      //   parentData
+      //     ? ["idUsuario", "==", localStorage.getItem("usermod")]
+      //     : ["usermod", "==", fuego.auth().currentUser?.uid],
+      // ]}
+      // orderBy={order}
+      // callbackclick={callbackclick}
+      where={getWherePermiso("usuariosInvitados")}
+      icono={"fas fa-users"}
+      Modelo={Modelo}
+      valoresIniciales={valoresIniciales}
+      dataForm={{}}
+      titulo={`CUENTAS`}
+      Form={Form}
     />
   );
 }

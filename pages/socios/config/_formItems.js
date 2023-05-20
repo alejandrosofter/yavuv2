@@ -4,7 +4,7 @@ import { Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import Select from "../../forms/select";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import SwitchFormik from "../../forms/switch";
+import SwitchFormik from "@components/forms/switch";
 
 export default function FormItemConfigSocios({ values }) {
   const [visibleConfig, setVisibleConfig] = useState(

@@ -1,6 +1,6 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPromociones";
-import Form from "@components/promociones/_form";
+import Form from "@pages/promociones/_form";
 export default function SelectPromocion({ label, campo, callbackchange }) {
   return (
     <SelectUserModColeccion

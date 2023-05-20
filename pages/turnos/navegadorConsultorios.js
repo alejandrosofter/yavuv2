@@ -26,11 +26,11 @@ export default function NavegadorConsultorios({
     >
       {consultorios?.map((consultorio, index) => (
         <FormControlLabel
-          key={index}
+          key={consultorio.id}
           control={
             <Switch
               onChange={cambia.bind(this, consultorio)}
-              defaultChecked={checks.includes(consultorio.id)}
+              checked={checks.includes(consultorio.id)}
               //   checked={checks.indexOf(consultorio.id) !== -1}
             />
           }

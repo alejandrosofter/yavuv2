@@ -1,4 +1,4 @@
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
+import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
 export default function Modulo({ mod }) {
   const order = ["nombre", "desc"];
   const columns = [

@@ -9,7 +9,7 @@ import ImageFormik from "@components/forms/imageFormik";
 import { useState, useEffect } from "react";
 import Input from "@components/forms/input";
 import { fuego, useDocument } from "@nandorojo/swr-firestore";
-import SelectSocio from "@components/socios/selectSocio";
+import SelectSocio from "@pages/socios/selectSocio";
 
 export default function FormTarjetasSocio({ setFieldValue, values }) {
   const { data: socio } = useDocument(`/socios/${values.idSocio}`);

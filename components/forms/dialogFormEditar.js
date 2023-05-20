@@ -1,5 +1,4 @@
 import DialogContenido from "@components/forms/dialogContenido";
-import { getModUsuario } from "@helpers/db";
 import EditarGenerico from "@components/EditarGenerico2";
 export default function DialogForm({
   open,

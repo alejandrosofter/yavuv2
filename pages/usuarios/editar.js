@@ -1,4 +1,4 @@
-import EditarGenerico from "../EditarGenerico";
+import EditarGenerico from "@components/EditarGenerico";
 import ModeloUsuarios from "../../modelos/ModeloUsuarios";
 import _FormGenerico from "../_formGenerico";
 
@@ -11,8 +11,8 @@ import { Select } from "formik-mui";
 import MultiSelect from "../forms/multiSelect";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import ListaTransferencia from "../forms/listaTransferencia";
-import SelectFormik from "../forms/select";
+import ListaTransferencia from "@components/forms/listaTransferencia";
+import SelectFormik from "@components/forms/select";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function Modulo({ modulo, dataUsuario }) {
@@ -49,7 +49,7 @@ export default function Modulo({ modulo, dataUsuario }) {
           />
         </Grid>
       </Grid>
-    </EditarGenerico>
+   @components/EditarGenerico>
   );
 }
 Modulo.auth = true;

@@ -1,7 +1,7 @@
 import Modelo, { valoresIniciales } from "../../modelos/ModeloModulos"
 import { useRouter } from "next/router"
-import NuevoGenerico from "../NuevoGenerico"
-import Form from "./_form"
+import NuevoGenerico from "@components/NuevoGenerico"
+import Form from "./_form2"
 
 export default function Modulo({mod}) {
 
@@ -11,7 +11,7 @@ export default function Modulo({mod}) {
          
             <Form  titulo="NUEVA" subTitulo="Actividad" icono="fas fa-plus" />
        
-      </NuevoGenerico>
+     @components/NuevoGenerico>
       )
 
 }

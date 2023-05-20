@@ -1,4 +1,4 @@
-import DataGridFormikItems from "../../forms/dataGridFormik";
+import DataGridFormikItems from "@components/forms/dataGridFormik";
 
 import FormTipoEquipos from "./_formTipoEquipos";
 import { ModeloTipoEquipos } from "../../../modelos/ModeloDispositivo";

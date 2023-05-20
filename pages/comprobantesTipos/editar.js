@@ -7,6 +7,6 @@ export default function Modulo({ mod }) {
   return (
     <EditarGenerico mod={mod} modelo={Modelo}>
       <Form titulo="EDITAR" subTitulo={mod.label} icono={mod.icono} />
-    </EditarGenerico>
+   @components/EditarGenerico>
   );
 }

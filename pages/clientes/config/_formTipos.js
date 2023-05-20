@@ -1,8 +1,8 @@
 import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
 
-import Select2 from "../@components/forms/select2Formik";
-import Switch from "../../forms/switch";
+import Select2 from "@components/forms/select2Formik";
+import Switch from "@components/forms/switch";
 export default function Form({
   dataModulo,
   modelo,

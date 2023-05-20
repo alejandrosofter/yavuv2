@@ -4,7 +4,7 @@ import {
   valoresInicialesCategoria,
   ModeloCategoria,
 } from "@modelos/ModeloProductos";
-import Form from "@components/productos/_formCategoria";
+import Form from "@pages/productos/_formCategoria";
 export default function SelectCategoriaProducto({
   multiple,
   label,

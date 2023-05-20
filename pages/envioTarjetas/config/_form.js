@@ -1,4 +1,4 @@
-import SelectPlantilla from "@components/plantillas/selectPlantilla";
+import SelectPlantilla from "@pages/plantillas/selectPlantilla";
 import Switch from "@components/forms/switch";
 
 import TabsFormik, { TabPanel } from "@components/forms/tab";

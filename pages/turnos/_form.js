@@ -23,12 +23,13 @@ import EliminarTurno from "./eliminarTurno";
 import SwitchFormik from "@components/forms/switch";
 import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
-export default function Form({ mod, setFieldValue, values, callbackElimina }) {
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+export default function Form({ setFieldValue, values, callbackElimina }) {
   const [tipoTurno, setTipoTurno] = useState();
   const [consultorio, setConsultorio] = useState();
-
+  const config = UseConfigModulo("turnos");
   const [plantilla, setPlantilla] = UsePlantilla({
-    id: mod.config?.impresionTurno,
+    id: config?.impresionTurno,
     data: values,
   });
   // ;
@@ -67,7 +68,7 @@ export default function Form({ mod, setFieldValue, values, callbackElimina }) {
           <SelectConsultorio callbackchange={cambiaConsultorio} />
         </Grid>
         <Grid sx={{ display: "none" }} item md={3}>
-          <SelectTipoTurno callbackchange={cambiaTipo} mod={mod} />
+          <SelectTipoTurno callbackchange={cambiaTipo} />
         </Grid>
         <Grid sx={{ display: "none" }} item md={2}>
           <SelectorFechaTime
@@ -81,7 +82,7 @@ export default function Form({ mod, setFieldValue, values, callbackElimina }) {
           <SelectPacientes callbackchange={cambiaPaciente} />
         </Grid>
         <Grid item md={5}>
-          <SelectCategoriaTurnos callbackchange={cambiaTipo} mod={mod} />
+          <SelectCategoriaTurnos callbackchange={cambiaTipo} />
         </Grid>
         <Grid item md={2}>
           <Input label="Duracion" campo="duracion" />
@@ -119,7 +120,7 @@ export default function Form({ mod, setFieldValue, values, callbackElimina }) {
         setOpen={setOpenImpresion}
         open={openImpresion}
         asunto="TURNO "
-        plantillaEmail={mod.config?.plantillaTurno}
+        plantillaEmail={config?.plantillaTurno}
         data={{ ...values, dataImpresion }}
         plantilla={plantilla}
       />

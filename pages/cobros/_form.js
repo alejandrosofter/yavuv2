@@ -1,27 +1,22 @@
 import { Button, Grid } from "@mui/material";
-import SelectFecha from "../forms/selectorFecha";
+import SelectFecha from "@components/forms/selectorFecha";
 
 import Input from "@components/forms/input";
 
-import Switch from "../forms/switch";
+import Switch from "@components/forms/switch";
 
 import { useEffect, useState } from "react";
 
 import SeleccionDeuda from "./seleccionDeuda";
 import ItemsCobro from "./_items";
-import SelectFormikAlgolia from "../forms/selectAlgoliaFormik";
+import SelectFormikAlgolia from "@components/forms/selectAlgoliaFormik";
 import PersonalizarComprobante from "./_personalizarComprobante";
-import SelectSocioSimple from "@components/socios/selectSocioSimple";
+import SelectSocioSimple from "@pages/socios/selectSocioSimple";
 import { capitalize } from "@helpers/Strings";
-import NuevoCliente from "@components/clientes/nuevo";
+import NuevoCliente from "@pages/clientes/nuevo";
 import DataNotificacionCliente from "./notificacionCliente";
-export default function Modulo({
-  setFieldValue,
-  values,
-  mod,
-  banderaReset,
-  isNew,
-}) {
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+export default function Modulo({ setFieldValue, values, banderaReset, isNew }) {
   useEffect(() => {
     // setFieldValue("deudas", []);
     // setFieldValue("formasDePago", []);
@@ -49,8 +44,9 @@ export default function Modulo({
   const cambiaSocio = (socio) => {
     setClienteSeleccion(socio);
   };
-  const coleccionClientes = mod.config?.coleccionClientes
-    ? mod.config?.coleccionClientes
+  const config = UseConfigModulo("cobros");
+  const coleccionClientes = config?.coleccionClientes
+    ? config?.coleccionClientes
     : "socios";
   const cambiaFiscal = () => {
     console.log();
@@ -89,12 +85,12 @@ export default function Modulo({
           />
         </Grid>
         <Grid item md={1}>
-          <DataNotificacionCliente mod={mod} dataCliente={clienteSeleccion} />
+          <DataNotificacionCliente dataCliente={clienteSeleccion} />
         </Grid>
       </Grid>
-      {mod.config?.mostrarAddCliente && (
+      {config?.mostrarAddCliente && (
         <Grid item md={1}>
-          <NuevoCliente mod={mod} />
+          <NuevoCliente />
         </Grid>
       )}
 

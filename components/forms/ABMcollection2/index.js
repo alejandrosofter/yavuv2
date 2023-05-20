@@ -15,10 +15,11 @@ import { ABMCollection_editar } from "./editar";
 import Dialogo from "../dialogo";
 import { QueryApi } from "@helpers/queryApi";
 import ColeccionTable2 from "../collectionTable2";
+import Titulos from "@components/titulos";
+import TitulosFormularios from "../tituloFormularios";
 
 export default function ABMColeccion2({
   valoresIniciales,
-  parentData,
   dataExternal,
   hidePaginador,
   refData,
@@ -36,6 +37,7 @@ export default function ABMColeccion2({
   orderBy,
   hideNew,
   where,
+  esSuperAdmin,
   columns,
   acciones,
   labelNuevo,
@@ -72,11 +74,11 @@ export default function ABMColeccion2({
     },
   ];
   const [seleccion, setSeleccion] = useState(null);
-  const [openEditar, setOpenEditar] = useState(null);
+  const [openEditar, setOpenEditar] = useState(false);
 
-  const [openNuevo, setOpenNuevo] = useState(null);
+  const [openNuevo, setOpenNuevo] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
-  const [openConfirma, setOpenConfirma] = useState(null);
+  const [openConfirma, setOpenConfirma] = useState(false);
   const [accions, setAcctions] = useState(
     accionesABM.concat(acciones ? acciones : [])
   );
@@ -109,12 +111,15 @@ export default function ABMColeccion2({
       },
     });
   };
+  if (!where && !esSuperAdmin) return "No tiene permisos para ver esta pagina";
   return (
     <Grid container>
       <Grid item md={9}>
-        <Typography variant="h3" gutterBottom>
-          <Icon className={icono} /> {titulo}
-        </Typography>
+        <TitulosFormularios
+          titulo={titulo}
+          subTitulo="de usuario"
+          icono={icono}
+        />
       </Grid>
 
       <Grid item md={3}>

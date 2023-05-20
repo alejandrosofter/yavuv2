@@ -1,45 +1,48 @@
-import DataGridFirebase from '../forms/datagrid/dataGridFirebase';
-export default function Modulo({mod}) {
-const order="nombre"
-const columns=[
-
-      {
-            field: 'nombre', 
-            headerName: 'Nombre',
-            width:190,
-            
-          },
-          {
-            field: 'direccion', 
-            headerName: 'Direccion',
-            width:160,
-            
-          },
-          {
-            field: 'telefono', 
-            headerName: 'Tel.',
-            width:160,
-            
-          },
-          {
-            field: 'email', 
-            headerName: 'Email',
-            width:160,
-            
-          },
-          {
-            field: 'estado', 
-            headerName: 'Estado',
-            width:120,
-            
-          },
-          
-  
-]
-      return (
-        <DataGridFirebase titulo={mod.label} subTitulo="generales" icono={mod.icono}
-        limit={10} mod={mod} acciones={mod.acciones} orderBy={order}
-       columns={columns} />
-      )
-
+import ABMColeccion2 from "@components/forms/ABMcollection2";
+import Modelo, { valoresIniciales } from "@modelos/ModeloConsultorios";
+import Form from "@pages/consultorios/_form";
+import { getWherePermiso } from "@hooks/useUser";
+export default function Modulo({}) {
+  const order = "nombre";
+  const columns = [
+    {
+      accessorKey: "nombre",
+      header: "Nombre",
+      size: 190,
+    },
+    {
+      accessorKey: "direccion",
+      header: "Direccion",
+      size: 160,
+    },
+    {
+      accessorKey: "telefono",
+      header: "Tel.",
+      size: 160,
+    },
+    {
+      accessorKey: "email",
+      header: "Email",
+      size: 160,
+    },
+    {
+      accessorKey: "estado",
+      header: "Estado",
+      size: 120,
+    },
+  ];
+  return (
+    <ABMColeccion2
+      coleccion={`consultorios`}
+      columns={columns}
+      acciones={[]}
+      orderBy={order}
+      maxWidth="lg"
+      where={getWherePermiso("consultorios")}
+      Modelo={Modelo}
+      valoresIniciales={valoresIniciales}
+      titulo={`CONSULTORIOS/`}
+      Form={Form}
+    />
+  );
 }

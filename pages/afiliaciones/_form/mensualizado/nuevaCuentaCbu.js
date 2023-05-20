@@ -1,6 +1,6 @@
 import { getModUsuario } from "@helpers/db";
 import DialogContenido from "@components/forms/dialogContenido";
-import FormNuevo from "@components/cuentasCbu/nuevo";
+import FormNuevo from "@pages/cuentasCbu/nuevo";
 
 export default function Modulo({ open, setOpen, values }) {
   const mod = getModUsuario("cuentasCbu");

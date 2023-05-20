@@ -2,12 +2,11 @@ import ABMColeccion from "@components/forms/ABMcollection";
 import Modelo, { valoresIniciales } from "@modelos/ModeloProveedores";
 import Form from "./_form";
 import { fuego } from "@nandorojo/swr-firestore";
+import ABMColeccion2 from "@components/forms/ABMcollection2";
+import { getWherePermiso } from "@hooks/useUser";
 
 export default function Modulo({ parentData }) {
-  const coleccion = `proveedors`;
-  const titulo = `Proveedores`;
-  const icono = `fas fa-user`;
-  const order = "nombre";
+  const order = "razonSocial";
 
   const acciones = [
     // {
@@ -22,28 +21,24 @@ export default function Modulo({ parentData }) {
   ];
   const columns = [
     {
-      field: "razonSocial",
-      headerName: "Razon social",
-      width: 150,
+      accessorKey: "razonSocial",
+      header: "Razon social",
+      size: 150,
     },
   ];
+  const fnAcciones = [];
+
   return (
-    <ABMColeccion
-      coleccion={coleccion}
+    <ABMColeccion2
+      coleccion={`proveedores`}
       columns={columns}
-      acciones={acciones}
+      acciones={fnAcciones}
+      maxWidth={"lg"}
+      where={getWherePermiso("proveedores")}
       orderBy={order}
-      maxWidth="lg"
-      where={[
-        parentData
-          ? ["idUsuario", "==", localStorage.getItem("usermod")]
-          : ["usermod", "==", fuego.auth().currentUser?.uid],
-      ]}
-      // callbackclick={callbackclick}
       icono={"fas fa-users"}
       Modelo={Modelo}
       valoresIniciales={valoresIniciales}
-      // dataForm={{ grupo: seleccion }}
       titulo={`PROVEEDORES`}
       Form={Form}
     />

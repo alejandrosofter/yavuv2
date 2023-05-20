@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
-import SelectPrestacion from "@components/prestaciones/selectPrestacion";
+import SelectPrestacion from "@pages/prestaciones/selectPrestacion";
 
 export default function FormularioItemActividad({ obraSocial, values }) {
   return (

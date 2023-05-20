@@ -28,7 +28,7 @@ export function useFirebase() {
   return firestore;
 }
 export async function cantidadColeccion({ coleccion, wheres }) {
-  const q = fuego.db.collection(coleccion);
+  var q = fuego.db.collection(coleccion);
 
   if (wheres)
     for (let index = 0; index < wheres.length; index++) {
@@ -61,7 +61,7 @@ export async function updateField({ coleccion, id, registro }) {
 export async function getPrimeroPagina({ coleccion, filtro, pagina }) {
   const ref = fuego.db.collection(coleccion);
 
-  const q = ref.orderBy(filtro.orderBy);
+  var q = ref.orderBy(filtro.orderBy);
 
   if (filtro.startAt) q = q.startAt(filtro.startAt);
   if (filtro.endAt) q = q.startAt(filtro.endAt);

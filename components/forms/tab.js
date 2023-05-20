@@ -5,12 +5,13 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { Icon } from "@mui/material";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <span
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -18,11 +19,11 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
+        <Grid sx={{ p: 2 }} container>
+          {children}
+        </Grid>
       )}
-    </div>
+    </span>
   );
 }
 
@@ -53,7 +54,15 @@ export default function TabsFormik({ vistas, hide, label }) {
           !vista.hide ? (
             <Tab
               key={vista.nro}
-              label={vista.label}
+              label={
+                !vista.icono ? (
+                  <Typography variant="h6">{vista.label}</Typography>
+                ) : (
+                  <Typography variant="h6">
+                    <Icon className={vista.icono} /> {vista.label}
+                  </Typography>
+                )
+              }
               {...a11yProps(vista.nro)}
             />
           ) : (

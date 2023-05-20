@@ -12,6 +12,7 @@ import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 
 import { QueryApi } from "@helpers/queryApi";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 
 export const cols = [
   {
@@ -118,7 +119,8 @@ export default function CuentaSocio({ data, mod }) {
   const subColeccion = "mensualizado";
   const icono = "fas fa-file-invoice-dollar";
   const titulo = `COMPROMISOS MENSUALES `;
-  const idPlantilla = mod.config?.plantillaMensualizacion;
+  const config = UseConfigModulo("socios");
+  const idPlantilla = config?.plantillaMensualizacion;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const [dataConsulta, setDataConsulta] = useState();
@@ -185,7 +187,7 @@ export default function CuentaSocio({ data, mod }) {
           icono={icono}
           Modelo={ModeloMensualizado}
           valoresIniciales={valoresMensualizado}
-          dataForm={{ mod, socio: data }}
+          dataForm={{ socio: data }}
           titulo={titulo}
           Form={Form}
         />

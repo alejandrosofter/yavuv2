@@ -1,10 +1,10 @@
 import { Grid, Typography } from "@mui/material";
 import SelectFecha from "@components/forms/selectorFecha";
 import _FormItem from "@components/forms/subColeccion/_formItem";
-import SelectFormaPago from "@components/formaPagos/selectFormaPago";
+import SelectFormaPago from "@pages/formaPagos/selectFormaPago";
 import Input from "@components/forms/input";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
-import SelectPuntoVenta from "@components/comprobantesElectronicos/selectorPuntoVenta";
+import SelectPuntoVenta from "@pages/comprobantesElectronicos/selectorPuntoVenta";
 import { useEffect } from "react";
 export default function FormMensualizado({ values, setFieldValue }) {
   // useEffect(() => {

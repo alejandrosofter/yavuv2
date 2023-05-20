@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
 
-import SelectFormaPago from "@components/formaPagos/selectFormaPago";
+import SelectFormaPago from "@pages/formaPagos/selectFormaPago";
 
 export default function FormularioItemPago({}) {
   return (

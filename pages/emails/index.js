@@ -1,40 +1,55 @@
 import { getFechaString } from "@helpers/dates";
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
-export default function Modulo({ mod }) {
+import Modelo, { valoresIniciales } from "@modelos/ModeloEmails";
+import Form from "@pages/emails/_form";
+import ABMColeccion from "@components/forms/ABMcollection2";
+import useLayout from "@hooks/useLayout";
+import { getWherePermiso } from "@hooks/useUser";
+export default function Modulo({}) {
+  useLayout({
+    label: "Emails",
+    titulo: "EMAILS",
+    acciones: [
+      { label: "Emails", icono: "fas fa-envelope", url: "/emails" },
+      { label: "Config", icono: "fas fa-cog", url: "/emails/config" },
+    ],
+  });
   const order = ["fecha", "desc"];
   const columns = [
     {
-      field: "fecha",
-      headerName: "Fecha",
-      width: 90,
-      renderCell: (params) => `${getFechaString(params.value)}`,
+      accessorKey: "fecha",
+      header: "Fecha",
+      size: 90,
+      Cell: ({ cell }) => `${getFechaString(cell.getValue())}`,
     },
     {
-      field: "asunto",
-      headerName: "Asunto",
-      width: 220,
+      accessorKey: "asunto",
+      header: "Asunto",
+      size: 220,
     },
     {
-      field: "destinatario",
-      headerName: "Destinatario",
-      width: 300,
-      renderCell: (params) => `${params.value}`,
+      accessorKey: "destinatario",
+      header: "Destinatario",
+      size: 300,
+      Cell: ({ cell }) => `${cell.getValue()}`,
     },
     {
-      field: "estado",
-      headerName: "Estado",
-      width: 100,
-      renderCell: (params) => `${params.value}`,
+      accessorKey: "estado",
+      header: "Estado",
+      size: 100,
+      Cell: ({ cell }) => `${cell.getValue()}`,
     },
   ];
   return (
-    <DataGridFirebase
-      titulo={mod.label}
+    <ABMColeccion
+      titulo={`Emails`}
+      coleccion={`emails`}
+      form={Form}
+      modelo={Modelo}
+      where={getWherePermiso("emails")}
+      valoresIniciales={valoresIniciales}
       subTitulo="para enviar"
-      icono={mod.icono}
       limit={100}
-      mod={mod}
-      acciones={mod.acciones}
+      acciones={[]}
       orderBy={order}
       columns={columns}
     />

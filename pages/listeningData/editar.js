@@ -1,5 +1,5 @@
 import Modelo, { valoresIniciales } from "@modelos/ModeloListeningData";
-import EditarGenerico from "../EditarGenerico";
+import EditarGenerico from "@components/EditarGenerico";
 import Form from "./_form";
 
 export default function Modulo({ mod }) {
@@ -10,6 +10,6 @@ export default function Modulo({ mod }) {
       modelo={Modelo}
     >
       <Form titulo="EDITAR" subTitulo={mod.label} icono={mod.icono} />
-    </EditarGenerico>
+   @components/EditarGenerico>
   );
 }

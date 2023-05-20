@@ -2,7 +2,7 @@ import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import Modelo, {
   valoresIniciales,
 } from "@modelos/ModeloCertificadosElectronicos";
-import Form from "@components/certificadosElectronicos/_form";
+import Form from "@pages/certificadosElectronicos/_form";
 import { getFechaString } from "@helpers/dates";
 export default function SelectCertificadoElectronico({
   label,

@@ -5,6 +5,7 @@ export default function Select2Simple({
   label,
   lista,
   multiple,
+  sx,
   campoId,
   callbackchange,
   defaultValue,
@@ -39,10 +40,16 @@ export default function Select2Simple({
     <Select2
       //   menuPortalTarget={document.body}
       menuPosition={"fixed"}
+      sx={sx}
       styles={{
         ///.....
         menuPortal: (provided) => ({ ...provided, zIndex: 9999 }),
         menu: (provided) => ({ ...provided, zIndex: 9999 }),
+        option: (provided, state) => ({
+          ...provided,
+          color: state.isSelected ? "white" : "black",
+        }),
+
         ///.....
       }}
       id={`${label}`}

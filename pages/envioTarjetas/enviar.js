@@ -1,6 +1,7 @@
 import DialogContenido from "@components/forms/dialogContenido";
 import Input from "@components/forms/input";
 import { addQueryApi } from "@helpers/db";
+import { UseStorage } from "@hooks/useStorage";
 import {
   Backdrop,
   Button,
@@ -13,9 +14,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function EnviarCredenciales({ open, setOpen, data }) {
-  const [email, setEmail] = useState(
-    localStorage.getItem("enviarTarjetas_email")
-  );
+  const [email, setEmail] = UseStorage("enviarTarjetas_email");
   const [loading, setLoading] = useState(false);
 
   const enviar = () => {

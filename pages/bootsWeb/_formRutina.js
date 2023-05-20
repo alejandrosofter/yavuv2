@@ -2,7 +2,7 @@ import DataGridFormikItems from "@components/forms/dataGridFormik";
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
 import Input from "@components/forms/input";
-import Switch from "../forms/switch";
+import Switch from "@components/forms/switch";
 import { ModelRutinas } from "@modelos/ModeloBootsWeb";
 import FormSubRutina from "./_formSubRutina";
 export default function FormItem({ mod, values }) {

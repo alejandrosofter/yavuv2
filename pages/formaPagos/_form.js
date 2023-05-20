@@ -2,15 +2,15 @@ import { CircularProgress, Grid, Stack, Tab, Typography } from "@mui/material";
 
 import Input from "@components/forms/input";
 import { useEffect, useState } from "react";
-import SwitchFormik from "../forms/switch";
-import SelectFecha from "../forms/selectorFecha";
+import SwitchFormik from "@components/forms/switch";
+import SelectFecha from "@components/forms/selectorFecha";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
-import SelectFormik from "../forms/select";
-import TitulosFormularios from "../forms/tituloFormularios";
+import SelectFormik from "@components/forms/select";
+import TitulosFormularios from "@components/forms/tituloFormularios";
 import useSWR from "swr";
 import { getIndexItemArray } from "../../helpers/arrays";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import SelectCuentaBanco from "@components/cuentasEfectivo/selectCuentaBanco";
+import SelectCuentaBanco from "@pages/cuentasEfectivo/selectCuentaBanco";
 
 export default function FormGeneracionDeudas({
   setFieldValue,

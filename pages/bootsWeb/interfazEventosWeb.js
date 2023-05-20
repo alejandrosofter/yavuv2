@@ -108,7 +108,7 @@ export default function EventosBootWeb({ setFieldValue, boots, data, set }) {
         </Tooltip>
       )}
       <DialogContenido titulo="Opss..." open={openError} setOpen={setOpenError}>
-        <p> {textoRespuesta}</p>
+        {textoRespuesta}
       </DialogContenido>
       <DialogContenido
         titulo="RESULTADOS CONSULTA WEB"

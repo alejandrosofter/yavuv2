@@ -12,17 +12,21 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import DialogContenido from "@components/forms/dialogContenido";
-export default function TestBootWeb({ open, setOpen, data }) {
+export default function TestBootWeb({ open = false, setOpen, data }) {
   const [resultados, setResultados] = useState();
   const [loading, setLoading] = useState(false);
-  const [dataInputs, setDataInputs] = useState(
-    JSON.parse(
+  const [dataInputs, setDataInputs] = useState([]);
+  useEffect(() => {
+    localStorage.setItem("dataInputs", JSON.stringify(dataInputs));
+  }, [dataInputs]);
+  useEffect(() => {
+    const data = JSON.parse(
       localStorage.getItem("dataInputs")
         ? localStorage.getItem("dataInputs")
         : "[]"
-    )
-  );
-
+    );
+    setDataInputs(data);
+  }, []);
   const test = async () => {
     setLoading(true);
     localStorage.setItem("dataInputs", JSON.stringify(dataInputs));
@@ -41,7 +45,7 @@ export default function TestBootWeb({ open, setOpen, data }) {
   const getValor = (item) => {
     return dataInputs[item.nombre];
   };
-  if (!data) return "cargando data...";
+  if (!data) return "";
 
   return (
     <DialogContenido

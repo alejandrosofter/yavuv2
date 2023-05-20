@@ -1,7 +1,7 @@
 import { getFechaString } from "@helpers/dates";
 import { QueryApi } from "@helpers/queryApi";
 import { useState } from "react";
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
+import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
 export default function Modulo({ mod }) {
   const order = ["fecha", "desc"];
   const [dataConsulta, setDataConsulta] = useState();

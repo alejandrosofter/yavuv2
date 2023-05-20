@@ -2,7 +2,7 @@ import { getModUsuario } from "@helpers/db";
 import UseMod from "@hooks/useModulo";
 import Modelo, { valoresIniciales } from "@modelos/ModeloAfiliados";
 import { fuego } from "@nandorojo/swr-firestore";
-import NuevoGenerico from "../NuevoGenerico";
+import NuevoGenerico from "@components/NuevoGenerico";
 import Form from "./_form";
 
 export default function Modulo({ mod, callbackSuccess }) {
@@ -17,6 +17,6 @@ export default function Modulo({ mod, callbackSuccess }) {
       modelo={Modelo}
     >
       <Form subTitulo={mod.label} icono={mod.icono} />
-    </NuevoGenerico>
+   @components/NuevoGenerico>
   );
 }

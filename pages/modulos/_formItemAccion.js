@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Input from "@components/forms/input";
 
-import SwitchFormik from "../forms/switch";
+import SwitchFormik from "@components/forms/switch";
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 import { Formik, Form } from "formik";

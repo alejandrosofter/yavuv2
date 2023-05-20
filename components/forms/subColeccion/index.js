@@ -146,8 +146,9 @@ export default function Modulo({
   const ComponenteForm = dynamic(() => import(`../../${pathFormulario}`), {
     loading: ({ error, timedOut, isLoading }) => {
       if (isLoading) return "cargando...";
-      if (error) return <p>{`Error al cargal el componente (${error})`}</p>;
-      if (timedOut) return <p>Tiempo de espera agotado</p>;
+      if (error)
+        return <span>{`Error al cargal el componente (${error})`}</span>;
+      if (timedOut) return <span>Tiempo de espera agotado</span>;
     },
   });
   const fnRows = () => {

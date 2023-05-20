@@ -1,6 +1,6 @@
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import Modelo, { valoresIniciales } from "@modelos/ModeloSocios";
-import Form from "@components/socios/_formSocios";
+import Form from "@pages/socios/_formSocios";
 export default function SelectSocioSimple({ label, campo, callbackchange }) {
   return (
     <SelectUserModColeccion

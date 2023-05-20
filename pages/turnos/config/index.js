@@ -10,17 +10,26 @@ import FormCategoria from "./_formCategoria";
 import { ModeloConfig } from "@modelos/ModeloSocios";
 import TabsFormik, { TabPanel } from "@components/forms/tab";
 import TitulosFormularios from "@components/forms/tituloFormularios";
-import SelectPlantilla from "@components/plantillas/selectPlantilla";
-export default function ConfigActividadad({ mod }) {
-  const campo = "config";
-  const coleccion = "mods";
-  const datos = mod[campo] ? mod[campo] : {};
+import SelectPlantilla from "@pages/plantillas/selectPlantilla";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+import useLayout from "@hooks/useLayout";
+export default function ConfigActividadad({}) {
+  const coleccion = "modulos_config";
+  const datos = UseConfigModulo("turnos");
+  useLayout({
+    label: "Config Turnos",
+    titulo: "Turnos",
+    acciones: [
+      { label: "Turnos", icono: "fas fa-calendar", url: "/turnos" },
+      { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
+    ],
+  });
 
   const valoresIniciales = () => {
     return { nombre: "", tipo: "" };
   };
   const callbackSuccess = () => {};
-
+  if (!datos) return "";
   return (
     <Grid container>
       <Typography variant="h4" component="div" gutterBottom>
@@ -31,13 +40,12 @@ export default function ConfigActividadad({ mod }) {
         />
       </Typography>
       <FormSubitemColeccion
-        registro={mod}
-        mod={mod}
+        registro={datos}
         coleccion={coleccion}
-        campo={campo}
         datos={datos}
-        callbackSuccess={callbackSuccess}
+        modelo={ModeloConfig}
         valoresIniciales={valoresIniciales}
+        callbackSuccess={callbackSuccess}
       >
         <TabsFormik
           label="Configs"

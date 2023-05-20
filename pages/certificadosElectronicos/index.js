@@ -1,4 +1,4 @@
-import ABMColeccion from "@components/forms/ABMcollection";
+import ABMColeccion from "@components/forms/ABMcollection2";
 
 import { Button, Grid, Icon, Typography } from "@mui/material";
 import { fuego, useDocument } from "@nandorojo/swr-firestore";
@@ -6,12 +6,13 @@ import { useState } from "react";
 import Modelo, {
   valoresIniciales,
 } from "@modelos/ModeloCertificadosElectronicos";
-import Form from "@components/certificadosElectronicos/_form";
+import Form from "@pages/certificadosElectronicos/_form";
 import { getFechaString } from "@helpers/dates";
 import { QueryApi } from "@helpers/queryApi";
 import { WindowSharp } from "@mui/icons-material";
 import Dialogo from "@components/forms/dialogo";
 import ConfirmDialog from "@components/forms/confirmDialog";
+import { getWherePermiso } from "@hooks/useUser";
 export default function ListadoCertificadosElectronicos({
   callbackchange,
   mod,
@@ -26,25 +27,25 @@ export default function ListadoCertificadosElectronicos({
   };
   const columns = [
     {
-      field: "fechaVto",
-      headerName: "Fecha Vto",
-      width: 100,
-      renderCell: (params) => getFechaString(params.value),
+      accessorKey: "fechaVto",
+      header: "Fecha Vto",
+      size: 100,
+      Cell: ({ cell }) => getFechaString(cell.getValue()),
     },
     {
-      field: "cuit",
-      headerName: "Cuit",
-      width: 100,
+      header: "Cuit",
+      accessorKey: "cuit",
+      size: 100,
     },
     {
-      field: "nroPuntoVenta",
-      headerName: "Punto de Venta",
-      width: 150,
+      accessorKey: "nroPuntoVenta",
+      header: "Punto de Venta",
+      size: 150,
     },
     {
-      field: "estado",
-      headerName: "Estado",
-      width: 200,
+      accessorKey: "estado",
+      header: "Estado",
+      size: 200,
     },
   ];
   const acciones = [
@@ -59,8 +60,7 @@ export default function ListadoCertificadosElectronicos({
       },
     },
   ];
-  const parentData =
-    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
+
   return (
     <Grid container>
       <Grid item md={12}>
@@ -70,18 +70,12 @@ export default function ListadoCertificadosElectronicos({
           columns={columns}
           hidePaginador={true}
           rowsPerPage={100}
-          where={[
-            parentData
-              ? ["idUsuario", "==", localStorage.getItem("usermod")]
-              : ["usermod", "==", fuego.auth().currentUser?.uid],
-          ]}
+          where={getWherePermiso(`certificadosElectronicos`)}
           labelNuevo="nueva"
           preData={{}}
           orderBy={order}
           maxWidth={"md"}
           callbackchange={cambiaSeleccion}
-          // callbackclick={callbackclick}
-          icono={"fas fa-certificate"}
           Modelo={Modelo}
           valoresIniciales={valoresIniciales}
           dataForm={{ mod }}

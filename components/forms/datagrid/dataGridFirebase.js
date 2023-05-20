@@ -20,7 +20,6 @@ export default function DataGridFirebase({
   fnAcciones = {},
   condiciones,
   allUsers,
-  coleccion,
   titulo,
   subTitulo,
   icono,
@@ -28,8 +27,8 @@ export default function DataGridFirebase({
   orderBy,
   limit,
   columns,
-  acciones,
-  mod,
+  acciones = [],
+  coleccion,
 }) {
   const {
     data: datos,
@@ -37,7 +36,6 @@ export default function DataGridFirebase({
     error,
     where,
   } = useDataModulo({
-    mod,
     allUsers,
     parentData,
     condiciones,
@@ -110,10 +108,10 @@ export default function DataGridFirebase({
       getActions: actions,
     });
     setColumnas(aux);
-  }, [acciones, columns, router, mod]);
+  }, [acciones, columns, router]);
 
   fnAcciones["quitar"] = async (dataRow) => {
-    return deleteDocument(`${mod.coleccion}/${dataRow.id}`);
+    return deleteDocument(`${coleccion}/${dataRow.id}`);
   };
 
   //FUNCIONES CALL DESDE INTERFAZ con EVAL
@@ -140,12 +138,13 @@ export default function DataGridFirebase({
   });
   const classes = useStyles();
 
-  if (!mod) return "Cargando mod...";
-
   return (
     <div
-      className={classes.root}
-      style={{ height: screen.height - 100, width: "100%" }}
+      // className={classes.root}
+      style={{
+        // height: (window.screen ? window.screen.height : 0) - 100,
+        width: "100%",
+      }}
     >
       <Stack direction="row">
         <Grid item flex={1}>

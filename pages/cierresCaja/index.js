@@ -14,6 +14,9 @@ import { groupBy, objectToArray, orderArray } from "@helpers/arrays";
 import Dialogo from "@components/forms/dialogo";
 
 import GenerarComprobantesCierreDialog from "./generarFacturas";
+import { getWherePermiso } from "@hooks/useUser";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+import useLayout from "@hooks/useLayout";
 export const columns = [
   {
     accessorKey: "fecha",
@@ -52,12 +55,30 @@ export const columns = [
     size: 100,
   },
 ];
-export default function CuentaSocio({ data, mod }) {
+export default function Page({}) {
+  useLayout({
+    label: "Cierre de Caja",
+    titulo: "CIERRE DE CAJA",
+    icon: "fas fa-file-invoice-dollar",
+    acciones: [
+      {
+        label: "Cierres",
+        icono: "fas fa-file-invoice-dollar",
+        url: "/cierresCaja",
+      },
+      {
+        label: "Config",
+        icono: "fas fa-cog",
+        url: "/cierresCaja/config",
+      },
+    ],
+  });
   const order = ["fecha_timestamp", "desc"];
   const subColeccion = "mensualizado";
   const icono = "fas fa-file-invoice-dollar";
   const titulo = `CIERRES DE CAJA`;
-  const idPlantilla = mod.config?.plantillaCierre;
+  const config = UseConfigModulo("cierresCaja");
+  const idPlantilla = config?.plantillaCierre;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [openGenerarComprobantes, setOpenGenerarComprobantes] = useState(false);
   const [openConfirma, setOpenConfirma] = useState(false);
@@ -234,8 +255,7 @@ export default function CuentaSocio({ data, mod }) {
       },
     },
   ];
-  const parentData =
-    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -251,13 +271,9 @@ export default function CuentaSocio({ data, mod }) {
           gridOptions={{
             initialState: { showColumnFilters: true },
           }}
-          where={[
-            parentData
-              ? ["idUsuario", "==", localStorage.getItem("usermod")]
-              : ["usermod", "==", fuego.auth().currentUser?.uid],
-          ]}
+          where={getWherePermiso("cierresCaja")}
           // callbackclick={callbackclick}
-          icono={"fas fa-users"}
+
           Modelo={Modelo}
           valoresIniciales={valoresIniciales}
           titulo={`CIERRES DE CAJA`}

@@ -1,8 +1,8 @@
 import { Grid, Stack } from "@mui/material";
 import Input from "@components/forms/input";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
-import SelectPacientes from "@components/pacientes/selectPaciente";
-import SelectObraSocial from "@components/obrasSociales/selectObraSocial";
+import SelectPacientes from "@pages/pacientes/selectPaciente";
+import SelectObraSocial from "@pages/obrasSociales/selectObraSocial";
 import FechaTime from "@components/forms/fechaTimeFormik";
 import { getItemArray } from "@helpers/arrays";
 import ItemsModulo from "@components/forms/itemsModulo";
@@ -11,7 +11,7 @@ import {
   inicialesPrestacion,
 } from "@modelos/ModeloPrestaciones";
 import FormPrestacion from "./_formPrestacion";
-import InterfazEventosWeb from "@components/bootsWeb/interfazEventosWeb";
+import InterfazEventosWeb from "@pages/bootsWeb/interfazEventosWeb";
 import { useState } from "react";
 export default function Form({ mod, setFieldValue, values }) {
   const [dataBoot, setDataBoot] = useState({});

@@ -1,7 +1,7 @@
 import ABMColeccion2 from "@components/forms/ABMcollection2";
 import DialogContenido from "@components/forms/dialogContenido";
 
-import Form from "@components/comprobantesElectronicos/_form";
+import Form from "@pages/comprobantesElectronicos/_form";
 import { Button, Grid, Typography } from "@mui/material";
 import { fuego, useCollection, useDocument } from "@nandorojo/swr-firestore";
 import { useEffect, useRef, useState } from "react";

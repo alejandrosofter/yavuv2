@@ -1,4 +1,4 @@
-import EditarGenerico from "../EditarGenerico";
+import EditarGenerico from "@components/EditarGenerico";
 import ModeloOrigenesDatos, {
   valoresIniciales,
 } from "../../modelos/ModeloOrigenesDatos";
@@ -12,8 +12,8 @@ import { Select } from "formik-mui";
 import MultiSelect from "../forms/multiSelect";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import SwitchFormik from "../forms/switch";
-import NuevoGenerico from "../NuevoGenerico";
+import SwitchFormik from "@components/forms/switch";
+import NuevoGenerico from "@components/NuevoGenerico";
 
 export default function Modulo({ modulo, token, dataUsuario }) {
   const router = useRouter();
@@ -58,7 +58,7 @@ export default function Modulo({ modulo, token, dataUsuario }) {
           <Input label="Es Defecto? " campo="esDefecto" />
         </Grid>
       </Grid>
-    </NuevoGenerico>
+   @components/NuevoGenerico>
   );
 }
 Modulo.auth = true;

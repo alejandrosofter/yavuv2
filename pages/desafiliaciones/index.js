@@ -1,9 +1,9 @@
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
-import { getFechaString } from "../../helpers/dates";
+import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
+import { getFechaString } from "@helpers/dates";
 import { formatMoney } from "../../helpers/numbers";
-import { renderCellExpandData } from "../forms/datagrid/renderCellExpand";
+import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
 import { useState } from "react";
-import ImpresionDialog from "../forms/impresion";
+import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { QueryApi } from "@helpers/queryApi";
 export default function Modulo({ mod }) {

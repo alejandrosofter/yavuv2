@@ -2,7 +2,7 @@ import * as React from "react";
 import { Stack } from "@mui/material";
 
 import algoliasearch from "algoliasearch/lite";
-import AutoCompleteAsync from "../forms/autocompleteAsync";
+import AutoCompleteAsync from "@components/forms/autocompleteAsync";
 const client = algoliasearch("YEIGHXO1BF", "0e2670dbc0a23a0a5da70aef369d176b");
 const index = client.initIndex("socios");
 

@@ -9,12 +9,13 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
+import { Context } from "@contexts/userContext";
+import { useContext } from "react";
+import { LinkMenu } from "./layout/linkMenu";
 export default function MenuModulosInvitado({ callbackclick }) {
-  const { data, update, error } = useCollection("usuariosInvitados", {
-    where: ["email", "==", fuego.auth().currentUser?.email],
-  });
-
-  if (!data) return "Cargando Menu invitaciones...";
+  const { userInvitado } = useContext(Context);
+  if (!userInvitado) return "";
+  const data = userInvitado ? userInvitado[0]?.mods : [];
   return (
     <div>
       <Typography variant="caption" sx={{ pl: 2 }}>
@@ -22,24 +23,13 @@ export default function MenuModulosInvitado({ callbackclick }) {
       </Typography>
       <List component="div" disablePadding>
         {data &&
-          data.map((moduloInvitado) =>
-            moduloInvitado.mods.map((items) => (
-              <Link
-                passHref
-                onClick={callbackclick}
-                key={`link_${items.idMod}`}
-                href={`/mod/${items.idMod}?usermod=${items.idUsuario}`}
-              >
-                <ListItem button>
-                  <ListItemIcon>
-                    <Icon className={items.icono} />
-                  </ListItemIcon>
-
-                  <ListItemText primary={items.label_idMod} />
-                </ListItem>
-              </Link>
-            ))
-          )}
+          data.map((moduloInvitado) => (
+            <LinkMenu
+              callbackClick={callbackclick}
+              data={moduloInvitado}
+              key={`link_${moduloInvitado.nombreModulo}`}
+            />
+          ))}
       </List>
     </div>
   );

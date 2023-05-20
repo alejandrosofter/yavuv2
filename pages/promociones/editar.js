@@ -1,7 +1,7 @@
 import Modelo, {valoresIniciales} from "../../modelos/ModeloPromociones"
 import { useRouter } from "next/router"
 
-import EditarGenerico from "../EditarGenerico"
+import EditarGenerico from "@components/EditarGenerico"
 
 import Form from "./_form"
 
@@ -13,7 +13,7 @@ export default function Modulo({mod}) {
          
          <Form titulo="Editar" subTitulo="Promocion" icono="fas fa-pencil" />
        
-      </EditarGenerico>
+     @components/EditarGenerico>
       ) 
 
 }

@@ -1,8 +1,11 @@
 import { QueryApi } from "@helpers/queryApi";
 import { Icon, Stack, Typography } from "@mui/material";
 import { useState } from "react";
-import DataGridFirebase from "../forms/datagrid/dataGridFirebase";
-export default function Modulo({ mod }) {
+import DataGridFirebase from "@components/forms/datagrid/dataGridFirebase";
+import ABMColeccion from "@components/forms/ABMcollection";
+import Form from "@pages/planes/_form";
+import Modelo, { valoresIniciales } from "@modelos/ModeloPlanes";
+export default function Modulo({}) {
   const [dataConsulta, setDataConsulta] = useState();
   const columns = [
     {
@@ -31,17 +34,21 @@ export default function Modulo({ mod }) {
   };
   return (
     <>
-      <DataGridFirebase
+      <ABMColeccion
         fnAcciones={fnAcciones}
+        coleccion={"planes"}
+        titulo={`Planes`}
+        Modelo={Modelo}
+        Form={Form}
+        valoresIniciales={valoresIniciales}
+        label={"Planes"}
+        icono="fas fa-user"
+        maxWidth={`lg`}
         allUsers={true}
         parentData={true}
-        coleccion={mod.coleccion}
-        titulo={mod.label}
         subTitulo="generales"
-        icono={mod.icono}
         limit={10}
-        mod={mod}
-        acciones={mod.acciones}
+        acciones={[]}
         orderBy="nombre"
         columns={columns}
       />

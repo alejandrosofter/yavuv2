@@ -2,9 +2,9 @@ import { CircularProgress, Grid, Stack, Tab, Typography } from "@mui/material";
 
 import Input from "@components/forms/input";
 import { useEffect, useState } from "react";
-import SelectFecha from "../forms/selectorFecha";
+import SelectFecha from "@components/forms/selectorFecha";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
-import SelectFormik from "../forms/select";
+import SelectFormik from "@components/forms/select";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import { getItemArray, getIndexItemArray } from "../../helpers/arrays";
 import { useRouter } from "next/router";

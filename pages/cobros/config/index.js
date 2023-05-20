@@ -3,16 +3,17 @@ import Stack from "@mui/material/Stack";
 import FormSubitemColeccion from "@components/forms/editarSubitemColeccion";
 import TitulosFormularios from "@components/forms/tituloFormularios";
 import Form from "./_form";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 export default function ConfigEnvioTarjetas({ mod }) {
   const campo = "config";
   const coleccion = "mods";
-  const datos = mod[campo] ? mod[campo] : {};
+  const datos = UseConfigModulo("cobros");
 
   const valoresIniciales = () => {
     return { nombre: "", tipo: "" };
   };
   const callbackSuccess = () => {};
-
+  if (!datos) return "";
   return (
     <Stack>
       <Typography variant="h4" component="div" gutterBottom>
@@ -23,8 +24,7 @@ export default function ConfigEnvioTarjetas({ mod }) {
         />
       </Typography>
       <FormSubitemColeccion
-        registro={mod}
-        mod={mod}
+        registro={datos}
         coleccion={coleccion}
         campo={campo}
         datos={datos}

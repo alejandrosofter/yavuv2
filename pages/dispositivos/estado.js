@@ -1,7 +1,7 @@
 import { Button, Stack } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import TitulosFormularios from "../forms/tituloFormularios";
+import TitulosFormularios from "@components/forms/tituloFormularios";
 
 export default function Modulo({ mod }) {
   const [estado, setEstado] = useState();
