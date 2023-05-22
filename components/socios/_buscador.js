@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Stack } from "@mui/material";
-
+import { makeStyles } from "@mui/styles";
 import algoliasearch from "algoliasearch/lite";
 import AutoCompleteAsync from "@components/forms/autocompleteAsync";
 const client = algoliasearch("YEIGHXO1BF", "0e2670dbc0a23a0a5da70aef369d176b");
@@ -9,6 +9,7 @@ const index = client.initIndex("socios");
 export default function BuscadorSociosInput({
   setSocioSeleccion,
   callBackCambia,
+  color,
 }) {
   const [datos, setDatos] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
@@ -44,7 +45,16 @@ export default function BuscadorSociosInput({
   };
   const labelItems = (option) =>
     `${option.apellido} ${option.nombre}  ${option.nroSocio} (${option.dni}) | ${option.estado}`;
-
+  const useStyles = makeStyles((theme) =>
+    createStyles({
+      root: {
+        "& .MuiAutocomplete-listbox": {
+          "& li:nth-child(even)": { backgroundColor: "#CCC" },
+          "& li:nth-child(odd)": { backgroundColor: "#FFF" },
+        },
+      },
+    })
+  );
   return (
     <AutoCompleteAsync
       icono="fas fa-user"
@@ -52,6 +62,7 @@ export default function BuscadorSociosInput({
       fnCambia={cambia}
       fnClick={fnClick}
       loading={loading}
+      color={color}
       datos={datos}
       labelItems={labelItems}
     />

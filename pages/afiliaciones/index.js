@@ -14,7 +14,7 @@ import ABMColeccion2 from "@components/forms/ABMcollection2";
 // import { UsePlantilla2 } from "@components/plantillas/usePlantilla2";
 export default function Modulo({}) {
   const order = ["fecha", "desc"];
-  const config = UseConfigModulo("actividades");
+  const config = UseConfigModulo("afiliaciones");
   const idPlantilla = config?.plantillaAfiliacion;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();

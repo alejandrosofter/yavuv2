@@ -5,7 +5,7 @@ import { fuego } from "@nandorojo/swr-firestore";
 import Link from "next/link";
 import ConfirmDialog from "@components/forms/confirmDialog";
 import { useState } from "react";
-export default function DataSocio({ dataSocio, mod, callbackdelete }) {
+export default function DataSocio({ dataSocio, callbackdelete }) {
   const [openConfirm, setOpenConfirm] = useState(false);
   const borrarSocio = () => {
     fuego.db

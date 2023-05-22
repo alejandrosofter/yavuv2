@@ -24,7 +24,7 @@ export default function Modulo({ setFieldValue, values, banderaReset, isNew }) {
     setClienteSeleccion(null);
   }, [banderaReset]);
   useEffect(() => {
-    setFieldValue("esFiscal", values.esFiscal ? "true" : "false");
+    // setFieldValue("esFiscal", values.esFiscal ? "true" : "false");
   }, [values.esFiscal]);
 
   const [clienteSeleccion, setClienteSeleccion] = useState();

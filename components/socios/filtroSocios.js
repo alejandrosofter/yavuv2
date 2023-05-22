@@ -12,9 +12,6 @@ export default function FiltroSocios({ callBackCambia, mod, seleccion }) {
           callBackCambia={callBackCambia}
         />
       </Grid>
-      <Grid item md={3}>
-        <BuscadorSociosInput callBackCambia={callBackCambia} />
-      </Grid>
     </Grid>
   );
 }

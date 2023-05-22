@@ -1,14 +1,14 @@
 import { localstorageParser } from "@helpers/arrays";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import Select from "@components/forms/select2Formik";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 export default function SelectorTipoDocumentos({
   label,
   campo,
   callbackchange,
 }) {
-  const idUsuario = localStorage.getItem("usermod")
-    ? localStorage.getItem("usermod")
-    : fuego.auth().currentUser.uid;
+  const config = UseConfigModulo("cobros");
+  const idUsuario = config.idUsuario;
   const { data } = useCollection(
     `certificadosDigitales/${idUsuario}/tipoDocumentos`
   );

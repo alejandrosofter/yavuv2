@@ -15,6 +15,7 @@ export default function AutoCompleteAsync({
   loading,
   fnCambia,
   fnClick,
+  color = "black",
   defaultValue,
   icono,
   labelItems,
@@ -88,6 +89,19 @@ export default function AutoCompleteAsync({
         <TextField
           {...params}
           label={label}
+          sx={{
+            "& label": {
+              "&.Mui-focused": {
+                color,
+              },
+            },
+          }}
+          style={{
+            border: `1px solid ${color}`,
+            borderRadius: "5px",
+            backgroundColor: "white",
+            color,
+          }}
           onChange={fnCambia}
           defaultValue={defaultValue}
           value={defaultValue}

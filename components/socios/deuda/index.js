@@ -12,6 +12,7 @@ import ImpresionDialog from "@components/forms/impresion";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 
 import { QueryApi } from "@helpers/queryApi";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 
 export const cols = [
   {
@@ -87,7 +88,8 @@ export default function DeudasSocios_grid({ data, mod }) {
   const subColeccion = "deudas";
   const icono = "fas fa-file-invoice-dollar";
   const titulo = `DEUDAS`;
-  const idPlantilla = mod.config?.plantillaMensualizacion;
+  const config = UseConfigModulo("socios");
+  const idPlantilla = config?.plantillaMensualizacion;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const [dataConsulta, setDataConsulta] = useState();
