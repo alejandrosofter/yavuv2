@@ -7,9 +7,34 @@ import {
 } from "@pages/pacientes/fichaPaciente";
 import { Grid } from "@mui/material";
 import TabsFormik from "@components/forms/tab";
+import useLayout from "@hooks/useLayout";
+import SelectPaciente from "@components/pacientes/selectPaciente";
 
 export default function FichaPaciente({}) {
   const router = useRouter();
+  useLayout({
+    label: "Pacientes",
+    titulo: "Pacientes",
+    acciones: [
+      { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
+      { label: "Turnos", icono: "fas fa-calendar", url: "/turnos" },
+      { label: "Ficha", icono: "fas fa-id-card", url: "/pacientes/ficha" },
+    ],
+    components: (
+      <>
+        <SelectPaciente
+          callbackchange={(select, item) => {
+            if (item) {
+              localStorage.setItem("pacienteSeleccion", JSON.stringify(item));
+              router.push(`/pacientes/ficha/${item.id}`);
+            }
+          }}
+          sx={{ fontColor: "black" }}
+          esForm={false}
+        />
+      </>
+    ),
+  });
   const { id } = router.query;
   const {
     data: paciente,

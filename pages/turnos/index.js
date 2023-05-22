@@ -15,7 +15,7 @@ export default function Page(props) {
         icono: "fas fa-house-medical",
         url: "/consultorios",
       },
-      { label: "Config", icono: "fas fa-cog", url: "/turnos/config" },
+      { label: "Ficha", icono: "fas fa-id-card", url: "/pacientes/ficha" },
     ],
   });
   return (

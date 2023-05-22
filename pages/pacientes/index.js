@@ -14,7 +14,6 @@ export default function Page(props) {
     acciones: [
       { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
       { label: "Turnos", icono: "fas fa-calendar", url: "/turnos" },
-      { label: "Config", icono: "fas fa-cog", url: "/pacientes/config" },
       { label: "Ficha", icono: "fas fa-id-card", url: "/pacientes/ficha" },
     ],
     components: (

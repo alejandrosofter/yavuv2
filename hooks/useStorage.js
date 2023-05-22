@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 
 export function UseStorage(nombreStorage, initValue) {
+  //chequear si esta en server o cliente
+  if (typeof window === "undefined") return [initValue, () => {}];
+  const data = localStorage.getItem(nombreStorage);
   const [datos, setDatos] = useState(initValue);
   useEffect(() => {
-    // ;
-    localStorage.setItem(nombreStorage, JSON.stringify(datos));
-  }, [datos, setDatos]);
-  useEffect(() => {
-    // ;
-    localStorage.setItem(nombreStorage, JSON.stringify(datos));
+    // localStorage.setItem(nombreStorage, JSON.stringify(data));
+  }, [data]);
 
-    const aux = localStorage.getItem(nombreStorage);
+  useEffect(() => {
+    console.log("data", data);
     //check aux is undefined
-    if (aux === "undefined" || !aux) setDatos(initValue);
-    else setDatos(JSON.parse(aux));
+    if (data === "undefined" || !data) setDatos(initValue);
+    else setDatos(JSON.parse(data));
   }, [nombreStorage]);
   return [datos, setDatos];
 }

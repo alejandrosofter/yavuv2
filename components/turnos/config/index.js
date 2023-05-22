@@ -39,104 +39,96 @@ export default function ConfigActividadad({}) {
           icono="fas fa-wrench"
         />
       </Typography>
-      <FormSubitemColeccion
-        registro={datos}
-        coleccion={coleccion}
-        datos={datos}
-        modelo={ModeloConfig}
-        valoresIniciales={valoresIniciales}
-        callbackSuccess={callbackSuccess}
-      >
-        <TabsFormik
-          label="Configs"
-          vistas={[
-            {
-              label: "impresion",
-              nro: 0,
-              vista: (
-                <Grid spacing={2} container>
-                  <Grid item md={3}>
-                    <Typography variant="caption" component="div" gutterBottom>
-                      Impresion Turno{" "}
-                    </Typography>
-                    <SelectPlantilla
-                      campo="impresionTurno"
-                      label="Impresion Turno"
-                    />
-                  </Grid>
-                  <Grid item md={3}>
-                    <Typography variant="caption" component="div" gutterBottom>
-                      Email Nuevo Turno{" "}
-                    </Typography>
-                    <SelectPlantilla campo="plantillaTurno" label="Plantilla" />
-                  </Grid>
-                  <Grid item md={3}>
-                    <Typography variant="caption" component="div" gutterBottom>
-                      Email Elimina Turno{" "}
-                    </Typography>
-                    <SelectPlantilla
-                      campo="plantillaElimina"
-                      label="Plantilla Elimina"
-                    />
-                  </Grid>
+
+      <TabsFormik
+        label="Configs"
+        vistas={[
+          {
+            label: "impresion",
+            nro: 0,
+            vista: (
+              <Grid spacing={2} container>
+                <Grid item md={3}>
+                  <Typography variant="caption" component="div" gutterBottom>
+                    Impresion Turno{" "}
+                  </Typography>
+                  <SelectPlantilla
+                    campo="impresionTurno"
+                    label="Impresion Turno"
+                  />
                 </Grid>
-              ),
-            },
-            {
-              label: "Tipo de Turnos",
-              nro: 1,
-              vista: (
-                <DataGridFormikItems
-                  label="Tipo de Turnos"
-                  Modelo={ModeloConfig}
-                  FormularioItem={FormItem}
-                  campo="tipoTurnos"
-                  columns={[
-                    { field: "nombre", headerName: "Nombre", width: 350 },
-                    { field: "duracion", headerName: "Duracion", width: 80 },
-                  ]}
-                />
-              ),
-            },
-            {
-              label: "Categoria de Turnos",
-              nro: 2,
-              vista: (
-                <DataGridFormikItems
-                  label="Categoria de Turnos"
-                  Modelo={ModeloConfig}
-                  FormularioItem={FormCategoria}
-                  campo="categoriaTurnos"
-                  columns={[
-                    { field: "nombre", headerName: "Nombre", width: 350 },
-                    { field: "duracion", headerName: "Duracion", width: 80 },
-                  ]}
-                />
-              ),
-            },
-            {
-              label: "Notificaciones",
-              nro: 3,
-              vista: (
-                <Grid spacing={2} container>
-                  <Grid item md={3}>
-                    <Switch
-                      label="Notificar por Whatsapp"
-                      campo="whatsapp_notificar"
-                    />
-                  </Grid>
-                  <Grid item md={2}>
-                    <Input
-                      label="Dias antes del turno"
-                      campo="whatsapp_diasAntesTurno"
-                    />
-                  </Grid>
+                <Grid item md={3}>
+                  <Typography variant="caption" component="div" gutterBottom>
+                    Email Nuevo Turno{" "}
+                  </Typography>
+                  <SelectPlantilla campo="plantillaTurno" label="Plantilla" />
                 </Grid>
-              ),
-            },
-          ]}
-        />
-      </FormSubitemColeccion>
+                <Grid item md={3}>
+                  <Typography variant="caption" component="div" gutterBottom>
+                    Email Elimina Turno{" "}
+                  </Typography>
+                  <SelectPlantilla
+                    campo="plantillaElimina"
+                    label="Plantilla Elimina"
+                  />
+                </Grid>
+              </Grid>
+            ),
+          },
+          {
+            label: "Tipo de Turnos",
+            nro: 1,
+            vista: (
+              <DataGridFormikItems
+                label="Tipo de Turnos"
+                Modelo={ModeloConfig}
+                FormularioItem={FormItem}
+                campo="tipoTurnos"
+                columns={[
+                  { field: "nombre", headerName: "Nombre", width: 350 },
+                  { field: "duracion", headerName: "Duracion", width: 80 },
+                ]}
+              />
+            ),
+          },
+          {
+            label: "Categoria de Turnos",
+            nro: 2,
+            vista: (
+              <DataGridFormikItems
+                label="Categoria de Turnos"
+                Modelo={ModeloConfig}
+                FormularioItem={FormCategoria}
+                campo="categoriaTurnos"
+                columns={[
+                  { field: "nombre", headerName: "Nombre", width: 350 },
+                  { field: "duracion", headerName: "Duracion", width: 80 },
+                ]}
+              />
+            ),
+          },
+          {
+            label: "Notificaciones",
+            nro: 3,
+            vista: (
+              <Grid spacing={2} container>
+                <Grid item md={3}>
+                  <Switch
+                    label="Notificar por Whatsapp"
+                    campo="whatsapp_notificar"
+                  />
+                </Grid>
+                <Grid item md={2}>
+                  <Input
+                    label="Dias antes del turno"
+                    campo="whatsapp_diasAntesTurno"
+                  />
+                </Grid>
+              </Grid>
+            ),
+          },
+        ]}
+      />
     </Grid>
   );
 }

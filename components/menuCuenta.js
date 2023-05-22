@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Grid, Icon, Stack } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import MenuNotificaciones from "./notificaciones/menuNotificaciones";
+import Link from "next/link";
 
 const MenuUsuario = ({ auth }) => {
   const [anchorElNav, setAnchorElNav] = React.useState();
@@ -92,6 +93,19 @@ const MenuUsuario = ({ auth }) => {
             <Icon className="fas fa-sign-out-alt" />
             <Typography textAlign="center">Cerrar Sesion</Typography>
           </Stack>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setAnchorElNav(null);
+          }}
+          key={`configs`}
+        >
+          <Link href={`/configs`}>
+            <Stack direction="row" spacing={2}>
+              <Icon className="fas fa-cog" />
+              <Typography textAlign="center">Configs</Typography>
+            </Stack>
+          </Link>
         </MenuItem>
       </Menu>
     </Grid>

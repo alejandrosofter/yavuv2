@@ -20,20 +20,24 @@ export function FormAnteojo({
       </Grid>
       {values[`select_${campo}`] && (
         <>
-          <Grid item md={12}>
-            <InputOjo
-              label="Ojo Derecho"
-              values={values}
-              campo={`derecho_${campo}`}
-            />
-          </Grid>
-          <Grid item md={12}>
-            <InputOjo
-              label="Ojo Izquierdo"
-              values={values}
-              campo={`izquierdo_${campo}`}
-            />
-          </Grid>
+          {!values[`agregaAdicion_${campo}`] && (
+            <>
+              <Grid item md={12}>
+                <InputOjo
+                  label="Ojo Derecho"
+                  values={values}
+                  campo={`derecho_${campo}`}
+                />
+              </Grid>
+              <Grid item md={12}>
+                <InputOjo
+                  label="Ojo Izquierdo"
+                  values={values}
+                  campo={`izquierdo_${campo}`}
+                />
+              </Grid>
+            </>
+          )}
           <Grid item md={4}>
             <Switch label={`Agrega Adicion`} campo={`agregaAdicion_${campo}`} />
           </Grid>
