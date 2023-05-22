@@ -4,9 +4,8 @@ export function getIdUsuario() {
   const { cuenta, userInvitado } = UseUser();
   if (!cuenta) return null;
   if (cuenta.esCuentaPrincipal) return fuego.auth().currentUser?.uid;
-  if (userInvitado && userInvitado.length === 0)
-    return userInvitado[0].idUsuario;
-
+  if (userInvitado && userInvitado.length > 0) return userInvitado[0].idUsuario;
+  console.log(userInvitado);
   return null;
 }
 

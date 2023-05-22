@@ -89,6 +89,7 @@ export default function _FormGenerico({
         validateForm,
         isValidating,
       }) => {
+        console.log(values);
         return (
           <Grid sx={{ p: 2 }} container spacing={1}>
             <Grid item xs={12}>

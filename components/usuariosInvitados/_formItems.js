@@ -17,7 +17,7 @@ export default function _FormItemsUsuarios({ values, setFieldValue }) {
       return item.items;
     })
     .reduce((a, b) => a.concat(b), []);
-  console.log(mods);
+
   const cambiaMod = (valor, item) => {
     setFieldValue("nombreModulo", item.nombre);
     setFieldValue("icono", item.icono);
@@ -33,7 +33,7 @@ export default function _FormItemsUsuarios({ values, setFieldValue }) {
           lista={mods}
           campoLabel="label"
           campoId="id"
-          campo="idMod"
+          campo="idModulo"
         />
       </Grid>
       <Grid item md={2}>

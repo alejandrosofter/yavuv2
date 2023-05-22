@@ -20,7 +20,7 @@ export default function SlideSocios({ callBackCambia, seleccion }) {
     setAfter(seleccion ? Number(seleccion[campo]) : null);
   }, [seleccion]);
   const config = UseConfigModulo("socios");
-
+  console.log("config", config);
   const tipoSocios = config?.itemsTipoSocios ? config.itemsTipoSocios : [];
   const { data, error, update } = useCollection("socios", {
     where: [
