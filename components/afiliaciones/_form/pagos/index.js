@@ -5,11 +5,11 @@ import PersonalizarComprobante from "@components/cobros/_personalizarComprobante
 import { useState } from "react";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 
-export default function Modulo({ mod, setFieldValue, values }) {
+export default function Modulo({ setFieldValue, values }) {
   const [openPersonalizar, setOpenPersonalizar] = useState();
   const config = UseConfigModulo("afiliaciones");
   const { data: producto } = useDocument(
-    `productos/${config.productoCredencial}`
+    `productos/${config?.productoCredencial}`
   );
 
   const clickTraer = () => {
@@ -31,9 +31,9 @@ export default function Modulo({ mod, setFieldValue, values }) {
         deudas.push({
           id: `${tarjeta.id}-${new Date().getTime()}`,
           cantidad: 1,
-          label_idProducto: configTarjeta.label_productoCredencial,
+          label_idProducto: producto.nombre,
 
-          idProducto: configTarjeta.productoCredencial,
+          idProducto: producto.id,
           importe: Number(producto.importe),
           importeBonificacion: 0,
         });

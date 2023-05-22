@@ -7,14 +7,15 @@ import _FormItem from "@components/forms/subColeccion/_formItem";
 import ImageFormik from "@components/forms/imageFormik";
 import { fuego } from "@nandorojo/swr-firestore";
 import { getModUsuario } from "@helpers/db";
-export default function FormDocumentosSocio({ mod }) {
-  const modSocio = getModUsuario("socios", localStorage.getItem("usermod"));
-  if (!modSocio) return "Aguarde...";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
+export default function FormDocumentosSocio({}) {
+  const config = UseConfigModulo("socios");
+
   return (
     <Grid container>
       <Grid item md={2} spacing={2}>
         <ImageFormik
-          folder={`users/${fuego.auth().currentUser?.uid}/socios`}
+          folder={`users/${config.idUsuario}/socios`}
           label="Imagen"
           campo="imagen"
         />
@@ -23,7 +24,7 @@ export default function FormDocumentosSocio({ mod }) {
         <Grid item md={8}>
           <Select
             label="Tipo"
-            lista={modSocio.config.tiposDocumentacion}
+            lista={config.tiposDocumentacion}
             campoId="id"
             campoLabel="nombreTipoDocumentacion"
             campo="tipo"

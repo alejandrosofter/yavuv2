@@ -6,7 +6,7 @@ import {
   valoresInicialesDocumentacion,
 } from "@modelos/ModeloSocios";
 import { cols } from "@components/socios/documentos/index";
-export default function Modulo({ mod, setFieldValue, values }) {
+export default function Modulo({ setFieldValue, values }) {
   const field = "documentos";
   const label = "DOCUMENTOS";
   return (
@@ -21,7 +21,7 @@ export default function Modulo({ mod, setFieldValue, values }) {
       textoEditar={`Puedes cambiar las acciones del registro:`}
       textoAgregar={`Ingrese los datos del registro`}
       valoresIniciales={valoresInicialesDocumentacion}
-      form={<Form mod={mod} />}
+      form={<Form />}
       dataModulo={[]}
       columnas={cols}
     />

@@ -21,9 +21,9 @@ export default function SelectGrupos({
       maxWidth="sm"
       campoId="id"
       campoLabel={(item) =>
-        `${item.nombreGrupo.toUpperCase()} cupo (${
-          item.cantidadIntegrantes ? item.cantidadIntegrantes : 0
-        }/${item.cupo})`
+        `${item?.nombreGrupo?.toUpperCase()} cupo (${
+          item?.cantidadIntegrantes ? item?.cantidadIntegrantes : 0
+        }/${item?.cupo})`
       }
     />
   );
