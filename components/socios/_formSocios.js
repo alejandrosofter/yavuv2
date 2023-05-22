@@ -1,4 +1,4 @@
-import { Grid, Icon, IconButton, Stack } from "@mui/material";
+import { Grid, Icon, IconButton, Stack, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import Input from "@components/forms/input";
 
@@ -14,6 +14,7 @@ import SelectPlanEmpresa from "./planesEmpresa/select";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 export default function FormSocios({ field, setFieldValue, values, mod }) {
   const [tipoSocioSeleccion, setTipoSocioSeleccion] = useState(null);
+  const [ultimoSocio, setUltimoSocio] = useState(null);
   const config = UseConfigModulo("socios");
 
   const tipoSocios = config?.itemsTipoSocios ? config.itemsTipoSocios : [];
@@ -21,15 +22,17 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
     ? config.itemsCategoriaSocios
     : [];
   const setProximoNroSocio = (tipoSocio) => {
+    console.log(tipoSocio, config);
     fuego.db
       .collection("socios")
       .orderBy("nroSocio", "desc")
       .where("tipoSocio", "==", tipoSocio.id)
-      .where("idUsuario", "==", localStorage.getItem("usermod"))
+      .where("idUsuario", "==", config.idUsuario)
       .limit(1)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
+          setUltimoSocio(doc.data());
           setFieldValue(
             getFieldName(field, `nroSocio`),
             Number(doc.data().nroSocio) + 1
@@ -84,9 +87,17 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
   };
   return (
     <Grid sx={{ pt: 1, mb: 1 }} container rowSpacing={2} spacing={2}>
+      <Grid item md={12}>
+        {ultimoSocio && (
+          <Typography sx={{ color: "blue" }} variant="caption">
+            {" "}
+            {`ULTIMO SOCIO  ${ultimoSocio.apellido}  ${ultimoSocio.nombre} nro ${ultimoSocio.nroSocio}`}
+          </Typography>
+        )}
+      </Grid>
       <Grid item md={1}>
         <ImageFormik
-          folder={`users/${fuego.auth().currentUser?.uid}/socios`}
+          folder={`users/${config?.idUsuario}/socios`}
           label="Foto "
           campo={getFieldName(field, `foto`)}
         />

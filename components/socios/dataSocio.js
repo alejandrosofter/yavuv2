@@ -69,7 +69,7 @@ export default function DataSocio({ dataSocio, mod, callbackdelete }) {
         </Grid>
         <Grid item container spacing={1} md={12}>
           <Grid item md={8}>
-            <Link href={`/mod/${mod?.id}/editar/${dataSocio.id}`}>
+            <Link href={`/socios/${dataSocio.id}`}>
               <Button variant="outlined" size="small" color="primary">
                 <Icon
                   sx={{ mr: 1, fontSize: "small" }}

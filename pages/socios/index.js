@@ -9,10 +9,7 @@ export default function Modulo({ mod }) {
     label: "Socios",
     titulo: "SOCIOS",
     icon: "fas fa-users",
-    acciones: [
-      { label: "Socios", icono: "fas fa-home", url: "/socios" },
-      { label: "Config", icono: "fas fa-cog", url: "/socios/config" },
-    ],
+    acciones: [{ label: "Socios", icono: "fas fa-home", url: "/socios" }],
   });
   const guardarLocalStorage = (socio) => {
     localStorage.setItem("socioSeleccion", JSON.stringify(socio));
