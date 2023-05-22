@@ -13,7 +13,10 @@ export function UseStorage(nombreStorage, initValue) {
     console.log("data", data);
     //check aux is undefined
     if (data === "undefined" || !data) setDatos(initValue);
-    else setDatos(JSON.parse(data));
+    else {
+      if (typeof data === "object") return setDatos(JSON.parse(data));
+      setDatos(data);
+    }
   }, [nombreStorage]);
   return [datos, setDatos];
 }
