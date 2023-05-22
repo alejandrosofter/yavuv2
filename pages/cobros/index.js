@@ -11,6 +11,7 @@ import Form from "@components/cobros/_form";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 import { getWherePermiso } from "@hooks/useUser";
 import useLayout from "@hooks/useLayout";
+import { fuego } from "@nandorojo/swr-firestore";
 export default function Modulo({ parentData }) {
   const order = ["fecha_timestamp", "desc"];
   const config = UseConfigModulo("cobros");
