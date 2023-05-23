@@ -1,21 +1,13 @@
 import ColeccionTable from "@components/forms/coleccionTable";
 
 import { useState } from "react";
-import {
-  Backdrop,
-  Button,
-  Grid,
-  Icon,
-  IconButton,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, Icon, IconButton } from "@mui/material";
 import { fuego } from "@nandorojo/swr-firestore";
 import { ABMCollection_nuevo } from "./nuevo";
 import { ABMCollection_editar } from "./editar";
 import Dialogo from "../dialogo";
 import { QueryApi } from "@helpers/queryApi";
 import ColeccionTable2 from "../collectionTable2";
-import Titulos from "@components/titulos";
 import TitulosFormularios from "../tituloFormularios";
 
 export default function ABMColeccion2({

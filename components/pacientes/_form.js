@@ -1,23 +1,29 @@
 import { Grid, Stack } from "@mui/material";
 import Input from "@components/forms/input";
+import Switch from "@components/forms/switch";
 import WebcamFormik from "@components/forms/imageFormik";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import SelectObraSocial from "@components/obrasSociales/selectObraSocial";
 import { fuego } from "@nandorojo/swr-firestore";
 import InputTelefono from "@components/forms/inputTelefono";
-export default function Form({ mod, setFieldValue, values }) {
+export default function Form({ setFieldValue, values }) {
   return (
     <Grid container spacing={2}>
-      <Grid item md={2}>
-        <WebcamFormik
-          folder={`users/${fuego.auth().currentUser?.uid}/pacientes`}
-          label="Foto "
-          campo="foto"
-        />
+      <Grid item md={1}>
+        <Switch label="Foto" campo="foto" />
       </Grid>
-      <Grid md={10} spacing={2} item container>
+      {values.foto && (
         <Grid item md={2}>
-          <Input label="Nombre" campo="nombre" />
+          <WebcamFormik
+            folder={`users/${fuego.auth().currentUser?.uid}/pacientes`}
+            label="Foto "
+            campo="foto"
+          />
+        </Grid>
+      )}
+      <Grid md={values.foto ? 9 : 12} spacing={2} item container>
+        <Grid item md={2}>
+          <Input focus={true} label="Nombre" campo="nombre" />
         </Grid>
         <Grid item md={2}>
           <Input label="Apellido" campo="apellido" />
@@ -47,7 +53,7 @@ export default function Form({ mod, setFieldValue, values }) {
             campo="estado"
           />
         </Grid>
-        <Grid item md={12}>
+        <Grid item md={9}>
           <Input label="Detalle" campo="detalle" />
         </Grid>
       </Grid>

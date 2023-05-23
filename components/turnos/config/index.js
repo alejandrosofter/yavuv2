@@ -14,32 +14,8 @@ import SelectPlantilla from "@components/plantillas/selectPlantilla";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 import useLayout from "@hooks/useLayout";
 export default function ConfigActividadad({}) {
-  const coleccion = "modulos_config";
-  const datos = UseConfigModulo("turnos");
-  useLayout({
-    label: "Config Turnos",
-    titulo: "Turnos",
-    acciones: [
-      { label: "Turnos", icono: "fas fa-calendar", url: "/turnos" },
-      { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
-    ],
-  });
-
-  const valoresIniciales = () => {
-    return { nombre: "", tipo: "" };
-  };
-  const callbackSuccess = () => {};
-  if (!datos) return "";
   return (
     <Grid container>
-      <Typography variant="h4" component="div" gutterBottom>
-        <TitulosFormularios
-          titulo="CONFIGURACION"
-          subTitulo="de turnos"
-          icono="fas fa-wrench"
-        />
-      </Typography>
-
       <TabsFormik
         label="Configs"
         vistas={[

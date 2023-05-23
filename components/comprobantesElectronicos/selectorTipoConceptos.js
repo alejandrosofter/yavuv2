@@ -7,7 +7,7 @@ export default function SelectorTipoConceptos({
   callbackchange,
 }) {
   const config = UseConfigModulo("cobros");
-  const idUsuario = config.idUsuario;
+  const idUsuario = config?.idUsuario;
   const { data } = useCollection(
     `certificadosDigitales/${idUsuario}/tipoConceptos`
   );

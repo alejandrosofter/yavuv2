@@ -17,9 +17,8 @@ export default function MuestraImagen({
   const [loadingImage, setLoadingImage] = useState(false);
   const [imagenUrl, setImagenUrl] = useState();
   const mostrarImagen = async (path) => {
-    // ;
     setLoadingImage(true);
-    if (!path) return setLoadingImage(false);
+    if (!path || path === true) return setLoadingImage(false);
     if (path)
       await fuego
         .storage()

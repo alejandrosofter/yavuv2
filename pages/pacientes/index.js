@@ -6,15 +6,21 @@ import { getWherePermiso } from "@hooks/useUser";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPacientes";
 import Form from "@components/pacientes/_form";
+import { UseStorage } from "@hooks/useStorage";
 export default function Page(props) {
   const router = useRouter();
+
   useLayout({
     label: "Pacientes",
     titulo: "Pacientes",
     acciones: [
       { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
       { label: "Turnos", icono: "fas fa-calendar", url: "/turnos" },
-      { label: "Ficha", icono: "fas fa-id-card", url: "/pacientes/ficha" },
+      {
+        label: `FICHA`,
+        icono: "fas fa-id-card",
+        url: "/pacientes/ficha",
+      },
     ],
     components: (
       <>

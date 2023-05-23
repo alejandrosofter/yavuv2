@@ -4,11 +4,19 @@ export default function Input({
   campo,
   label,
   type,
+  focus,
   disabled,
   multiline,
   onChange,
+  style,
   rows,
 }) {
+  let component = TextField;
+  component.defaultProps = {
+    focused: focus,
+    autoFocus: focus,
+    style,
+  };
   return (
     <Field
       name={campo}
@@ -20,7 +28,7 @@ export default function Input({
       disabled={disabled}
       variant="outlined"
       label={label}
-      component={TextField}
+      component={component}
     />
   );
 }

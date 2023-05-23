@@ -8,7 +8,7 @@ export default function SelectorTipoDocumentos({
   callbackchange,
 }) {
   const config = UseConfigModulo("cobros");
-  const idUsuario = config.idUsuario;
+  const idUsuario = config?.idUsuario;
   const { data } = useCollection(
     `certificadosDigitales/${idUsuario}/tipoDocumentos`
   );
