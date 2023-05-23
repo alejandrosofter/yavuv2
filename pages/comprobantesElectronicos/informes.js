@@ -5,11 +5,14 @@ import { fuego, useCollection } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import FiltroInformeCobros from "@components/cobros/_filterInforme";
 import Dialogo from "@components/forms/dialogo";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 
-export default function InformesCobros({ mod }) {
+export default function InformesCobros({}) {
   const coleccion = "comprobantesElectronicos";
+  const config = UseConfigModulo("comprobantesElectronicos");
   const [dataConsulta, setDataConsulta] = useState();
   const { add } = useCollection(`descargas`);
+
   const [openDialogo, setOpenDialogo] = useState();
   const buscar = (values) => {
     const data = {
@@ -17,7 +20,7 @@ export default function InformesCobros({ mod }) {
       coleccion,
       titulo: "INFORME DE COMPROBANTES ELECTRONICOS",
       token: fuego.auth().currentUser.uid,
-      usermod: localStorage.getItem("usermod"),
+      usermod: config.idUsuario,
       tk: new Date().getTime(),
     };
     add(data).then((res) => {

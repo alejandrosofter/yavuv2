@@ -26,7 +26,6 @@ export default function Modulo({ mod }) {
         icono: "fas fa-money-check-alt",
         url: "/debitoAutomatico",
       },
-      { label: "Config", icono: "fas fa-cog", url: "/debitoAutomatico/config" },
     ],
   });
   const columns = [

@@ -11,6 +11,7 @@ import { addQueryApi, getModUsuario } from "@helpers/db";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 import { getWherePermiso } from "@hooks/useUser";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
+import useLayout from "@hooks/useLayout";
 // import { UsePlantilla2 } from "@components/plantillas/usePlantilla2";
 export default function Modulo({}) {
   const order = ["fecha", "desc"];
@@ -20,6 +21,23 @@ export default function Modulo({}) {
   const [dataImpresion, setDataImpresion] = useState();
   const [dataConsulta, setDataConsulta] = useState();
   const router = useRouter();
+  useLayout({
+    label: "Afiliaciones",
+    titulo: "AFILIACIONES",
+    icon: "fas fa-address-book",
+    acciones: [
+      {
+        label: "Afiliaciones",
+        icono: "fas fa-address-book",
+        url: "/afiliaciones",
+      },
+      {
+        label: "Informes",
+        icono: "fas fa-newspaper",
+        url: "/afiliaciones/informe",
+      },
+    ],
+  });
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,

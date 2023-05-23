@@ -15,7 +15,7 @@ import SelectFecha from "@components/forms/selectorFecha";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 export default function Form({ mod, setFieldValue, values }) {
   return (
-    <Grid sx={{ pt: 1, pb: 1 }} md={12} container rowSpacing={2} spacing={2}>
+    <Grid container spacing={1}>
       <Grid item md={2}>
         <SelectFecha label="Fecha Alta" campo="fecha" />
       </Grid>

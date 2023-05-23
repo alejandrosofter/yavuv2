@@ -64,11 +64,6 @@ export default function Page({}) {
         icono: "fas fa-file-invoice-dollar",
         url: "/cierresCaja",
       },
-      {
-        label: "Config",
-        icono: "fas fa-cog",
-        url: "/cierresCaja/config",
-      },
     ],
   });
   const order = ["fecha_timestamp", "desc"];

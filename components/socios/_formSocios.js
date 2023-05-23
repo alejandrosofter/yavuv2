@@ -86,7 +86,7 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
     });
   };
   return (
-    <Grid sx={{ pt: 1, mb: 1 }} container rowSpacing={2} spacing={2}>
+    <Grid container spacing={1}>
       <Grid item md={12}>
         {ultimoSocio && (
           <Typography sx={{ color: "blue" }} variant="caption">
@@ -107,7 +107,7 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
           {" "}
           <DataInfoPhoto fnCambia={agregarValoresImagen} />
         </Grid> */}
-        <Grid item md={2}>
+        <Grid item md={3}>
           <SelectEstaticFormik
             items={["ALTA", "BAJA", "SUSPENDIDO"]}
             label="ESTADO"
@@ -176,14 +176,14 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
           />
         </Grid>
 
-        <Grid item md={2}>
+        <Grid item md={3}>
           <SelectFecha
             callbackChange={cambiaFecha}
             label="Fecha Nacimiento "
             campo={getFieldName(field, `fechaNacimiento`)}
           />
         </Grid>
-        <Grid item md={1}>
+        <Grid item md={2}>
           <Input label="Edad" campo={getFieldName(field, `edad`)} />
         </Grid>
         <Grid item md={3}>
@@ -197,7 +197,7 @@ export default function FormSocios({ field, setFieldValue, values, mod }) {
           />
         </Grid>
 
-        <Grid item md={5}>
+        <Grid item md={4}>
           <Input label="Domicilio " campo={getFieldName(field, `domicilio`)} />
         </Grid>
 

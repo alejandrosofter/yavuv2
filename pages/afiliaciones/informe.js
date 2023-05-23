@@ -5,19 +5,22 @@ import { fuego, useCollection } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import FiltroInformeCobros from "@components/cobros/_filterInforme";
 import Dialogo from "@components/forms/dialogo";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 
 export default function InformesAfiliaciones({}) {
   const coleccion = "afiliaciones";
   const [dataConsulta, setDataConsulta] = useState();
+  const config = UseConfigModulo("afiliaciones");
   const { add } = useCollection(`descargas`);
   const [openDialogo, setOpenDialogo] = useState();
+
   const buscar = (values) => {
     const data = {
       ...values,
       coleccion,
       titulo: "INFORME DE AFILIACIONES",
       token: fuego.auth().currentUser.uid,
-      usermod: localStorage.getItem("usermod"),
+      usermod: config.idUsuario,
       tk: new Date().getTime(),
     };
     add(data).then((res) => {

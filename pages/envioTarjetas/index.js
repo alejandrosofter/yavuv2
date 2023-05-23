@@ -27,7 +27,6 @@ export default function Modulo({ mod, parentData }) {
         icono: "fas fa-credit-card",
         url: "/envioTarjetas",
       },
-      { label: "Config", icono: "fas fa-cog", url: "/envioTarjetas/config" },
     ],
   });
   const [open, setOpen] = useState(false);

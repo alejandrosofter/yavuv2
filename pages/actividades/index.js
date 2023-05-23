@@ -18,7 +18,6 @@ export default function Modulo({ mod }) {
         icono: "fas fa-dumbbell",
         url: "/actividades",
       },
-      { label: "Config", icono: "fas fa-cog", url: "/actividades/config" },
     ],
   });
   return (

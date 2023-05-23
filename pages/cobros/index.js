@@ -19,10 +19,7 @@ export default function Modulo({ parentData }) {
     label: "Cobros",
     titulo: "COBROS",
     icon: "fas fa-bill-dollar",
-    acciones: [
-      { label: "Cobros", icono: "fas fa-home", url: "/cobros" },
-      { label: "Config", icono: "fas fa-cog", url: "/cobros/config" },
-    ],
+    acciones: [{ label: "Cobros", icono: "fas fa-home", url: "/cobros" }],
   });
   const idPlantilla = config?.plantillaCobro;
   const plantillaEmail = config?.plantillaMail;

@@ -24,9 +24,9 @@ export default function Modulo({ mod, parentData = false }) {
         url: "/comprobantesElectronicos",
       },
       {
-        label: "Config",
-        icono: "fas fa-cog",
-        url: "/comprobantesElectronicos/config",
+        label: "Informes",
+        icono: "fas fa-newspaper",
+        url: "/comprobantesElectronicos/informes",
       },
     ],
   });
