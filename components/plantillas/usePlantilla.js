@@ -51,7 +51,15 @@ export function UsePlantilla({ id, data }) {
       if (!aString) return "";
       return `${aString}`.toFixed(2);
     });
-
+    Handlebars.registerHelper("printList", function (str, nuevoSeparador) {
+      const arr = str.split(",");
+      let aux = "";
+      arr.forEach((item) => {
+        aux += `${item}${nuevoSeparador}`;
+      });
+      //return html safe string
+      return new Handlebars.SafeString(aux);
+    });
     Handlebars.registerHelper("importe", function (importe) {
       return formatMoney(importe);
     });

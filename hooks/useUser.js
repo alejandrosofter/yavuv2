@@ -15,7 +15,6 @@ export function getPermiso(coleccion) {
 export function getWherePermiso(coleccion, esAdmin) {
   if (esAdmin) return ["idUsuario", "==", fuego?.auth().currentUser?.uid];
   const permiso = getPermiso(coleccion);
-  console.log(permiso);
   if (!permiso) return [];
   if (permiso.lectura === "o") {
     return [
