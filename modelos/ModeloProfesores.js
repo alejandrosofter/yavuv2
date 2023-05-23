@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export default function ModeloProfesores() {
   return yup.object().shape({
     nombre: yup.string().required(),
@@ -17,9 +18,6 @@ export function valoresIniciales() {
     apellido: "",
     dni: "",
     telefono: "",
-    usermod: fuego.auth().currentUser.uid,
-    idUsuario: localStorage.getItem("usermod")
-      ? localStorage.getItem("usermod")
-      : fuego.auth().currentUser.uid,
+    ...getSetPermiso("profesores"),
   };
 }

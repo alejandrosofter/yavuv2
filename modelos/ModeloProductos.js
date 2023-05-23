@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export function ModeloMovimientos() {
   return yup.object().shape({
     cantidad: yup.string().required(),
@@ -15,12 +16,7 @@ export function valoresInicialesMovimientos(preData) {
     fecha: new Date(),
     fecha_timestamp: new Date().getTime(),
     idProducto: preData ? preData.idProducto : "",
-    idUsuario: localStorage.getItem("usermod")
-      ? localStorage.getItem("usermod")
-      : fuego.auth().currentUser.uid,
-    usermod: localStorage.getItem("usermod")
-      ? fuego.auth().currentUser.uid
-      : null,
+    ...getSetPermiso("productos"),
   };
 }
 export default function Modelo() {

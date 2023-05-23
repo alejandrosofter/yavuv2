@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export default function ModeloSocios() {
   return yup.object().shape({
     nombre: yup.string().required("El NOMBRE del socio es necesario!"),
@@ -320,12 +321,7 @@ export function valoresMensualizado(preData) {
     fechaInicio: new Date(),
     fechaInicio_timestamp: new Date().getTime(),
     concepto: "",
-    idUsuario: localStorage.getItem("usermod")
-      ? localStorage.getItem("usermod")
-      : fuego.auth().currentUser.uid,
-    usermod: localStorage.getItem("usermod")
-      ? fuego.auth().currentUser.uid
-      : null,
+    ...getSetPermiso("socios"),
   };
 }
 export function ModeloMensualizado() {

@@ -10,12 +10,11 @@ export function UseStorage(nombreStorage, initValue) {
   }, [data]);
 
   useEffect(() => {
-    console.log("data", data);
-    //check aux is undefined
     if (data === "undefined" || !data) setDatos(initValue);
     else {
-      if (typeof data === "object") return setDatos(JSON.parse(data));
-      setDatos(data);
+      //if string data is object json
+      if (data[0] === "{") setDatos(JSON.parse(data));
+      else setDatos(data);
     }
   }, [nombreStorage]);
   return [datos, setDatos];

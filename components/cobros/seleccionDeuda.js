@@ -49,7 +49,7 @@ export default function Modulo({
   };
   const buscarDeuda = async (cliente) => {
     if (cliente) {
-      const arrSocios = await getWhereFamilares(cliente, cliente.objectID);
+      // const arrSocios = await getWhereFamilares(cliente, cliente.objectID);
       fuego.db
         .collection(`${coleccionClientes}/${cliente.objectID}/deudas`)
 

@@ -88,12 +88,6 @@ const MenuUsuario = ({ auth }) => {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem key={`salir`} onClick={clickSalir}>
-          <Stack direction="row" spacing={2}>
-            <Icon className="fas fa-sign-out-alt" />
-            <Typography textAlign="center">Cerrar Sesion</Typography>
-          </Stack>
-        </MenuItem>
         <MenuItem
           onClick={() => {
             setAnchorElNav(null);
@@ -106,6 +100,12 @@ const MenuUsuario = ({ auth }) => {
               <Typography textAlign="center">Configs</Typography>
             </Stack>
           </Link>
+        </MenuItem>
+        <MenuItem key={`salir`} onClick={clickSalir}>
+          <Stack direction="row" spacing={2}>
+            <Icon className="fas fa-sign-out-alt" />
+            <Typography textAlign="center">Cerrar Sesion</Typography>
+          </Stack>
         </MenuItem>
       </Menu>
     </Grid>

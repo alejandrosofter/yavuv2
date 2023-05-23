@@ -2,6 +2,7 @@ import * as yup from "yup";
 import { valoresIniciales as initSocio } from "./ModeloSocios";
 import { fuego } from "@nandorojo/swr-firestore";
 import ModeloSocios from "./ModeloSocios";
+import { getSetPermiso } from "@hooks/useUser";
 export default function ModeloAfiliados() {
   return yup.object().shape({
     socio: ModeloSocios(),
@@ -23,11 +24,6 @@ export function valoresIniciales(data) {
       comprobante_tipoConcepto: data ? data.comprobante_tipoConcepto : "",
       tipoComprobanteNoFiscal: data ? data.tipoComprobanteNoFiscal : "",
     },
-    idUsuario: localStorage.getItem("usermod")
-      ? localStorage.getItem("usermod")
-      : fuego.auth().currentUser.uid,
-    usermod: localStorage.getItem("usermod")
-      ? fuego.auth().currentUser.uid
-      : null,
+    ...getSetPermiso("afiliaciones"),
   };
 }

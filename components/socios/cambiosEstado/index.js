@@ -14,6 +14,7 @@ import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import ImpresionDialog from "@components/forms/impresion";
 import { localstorageParser } from "@helpers/arrays";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
+import { getWherePermiso } from "@hooks/useUser";
 export default function CambiosEstadoSocio({ data }) {
   const order = ["fechaInicio"];
   const subColeccion = "cambiosEstado";
@@ -79,6 +80,7 @@ export default function CambiosEstadoSocio({ data }) {
           icono={icono}
           maxWidth={"md"}
           rowsPerPage={100}
+          where={getWherePermiso(`socios/${data?.id}/${subColeccion}`)}
           hidePaginador={true}
           Modelo={ModeloCambioEstado}
           valoresIniciales={valoresInicialesCambioEstado}

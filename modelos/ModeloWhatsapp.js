@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export function ModeloWhatsappMensaje() {
   return yup.object().shape({
     mensaje: yup.string().required(),
@@ -21,9 +22,6 @@ export function valoresInicialesWhatsappMensaje() {
     fecha_timestamp: new Date().getTime(),
     nro: "",
     estado: "PENDIENTE",
-    usermod: fuego.auth().currentUser.uid,
-    idUsuario: localStorage.getItem("usermod")
-      ? localStorage.getItem("usermod")
-      : fuego.auth().currentUser.uid,
+    ...getSetPermiso("whatsapp"),
   };
 }

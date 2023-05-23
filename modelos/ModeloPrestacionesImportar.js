@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export default function Modelo() {
   return yup.object().shape({
     // obraSocial: yup.string().required(),
@@ -13,6 +14,6 @@ export function valoresIniciales() {
     fecha_timestamp: new Date().getTime(),
     estado: "PENDIENTE",
     obraSocial: "",
-    idUsuario: fuego.auth().currentUser.uid,
+    ...getSetPermiso("prestacionesImportar"),
   };
 }

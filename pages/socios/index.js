@@ -5,12 +5,17 @@ import { UseStorage } from "@hooks/useStorage";
 import useLayout from "@hooks/useLayout";
 import BuscadorSociosInput from "@components/socios/_buscador";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 export default function Modulo({ mod }) {
   const [seleccion, setSeleccion] = UseStorage("socioSeleccion");
   const router = useRouter();
+  useEffect(() => {
+    if (seleccion) router.push(`/socios/ficha/${seleccion.objectID}`);
+  }, [seleccion]);
+
   const cambiasSocio = (item) => {
     setSeleccion(item);
-    console.log(item);
+    localStorage.setItem("socioSeleccion", JSON.stringify(item));
     router.push(`/socios/ficha/${item.objectID}`);
   };
   useLayout({
@@ -19,6 +24,7 @@ export default function Modulo({ mod }) {
     icon: "fas fa-users",
     acciones: [
       { label: "Socios", icono: "fas fa-home", url: "/socios" },
+      { label: "Informes", icono: "fas fa-newspaper", url: "/socios/informes" },
       { label: "Ficha", icono: "fas fa-address-card", url: "/socios/ficha" },
     ],
     components: (
@@ -27,16 +33,7 @@ export default function Modulo({ mod }) {
       </Grid>
     ),
   });
-  const guardarLocalStorage = (socio) => {
-    localStorage.setItem("socioSeleccion", JSON.stringify(socio));
-  };
-  const cambiaSocio = (item) => {
-    setSeleccion(item);
-    guardarLocalStorage(item);
-  };
-  const deleteSocio = () => {
-    cambiaSocio(null);
-  };
+
   return (
     <Grid container>
       <Grid item md={12}>

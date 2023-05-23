@@ -10,6 +10,7 @@ import {
 } from "@modelos/ModeloSocios";
 import MuestraImagen from "@components/forms/muestraImagen";
 import MuestraImagenDialog from "@components/forms/muestraImagenDialog";
+import { getWherePermiso } from "@hooks/useUser";
 export const cols = [
   {
     field: "fechaVto",
@@ -49,6 +50,7 @@ export default function DocumentacionSocio({ data, mod }) {
         <ABMColeccion
           acciones={acciones}
           coleccion={`socios/${data?.id}/${subColeccion}`}
+          where={getWherePermiso(`socios/${data?.id}/${subColeccion}`)}
           columns={cols}
           order={order}
           labelNuevo="Agregar documentacion"

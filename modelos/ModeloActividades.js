@@ -1,3 +1,4 @@
+import { getSetPermiso } from "@hooks/useUser";
 import { fuego } from "@nandorojo/swr-firestore";
 import * as yup from "yup";
 
@@ -37,12 +38,7 @@ export function valoresIniciales() {
     estado: "ACTIVA",
     icono: "",
     acciones: [],
-    idUsuario: localStorage.getItem("usermod")
-      ? localStorage.getItem("usermod")
-      : fuego.auth().currentUser.uid,
-    usermod: localStorage.getItem("usermod")
-      ? fuego.auth().currentUser.uid
-      : null,
+    ...getSetPermiso("actividades"),
   };
 }
 ///////////////////////////////

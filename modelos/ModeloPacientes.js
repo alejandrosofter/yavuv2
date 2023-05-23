@@ -1,6 +1,7 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
 import axios from "axios";
+import { getSetPermiso } from "@hooks/useUser";
 export default function Modelo() {
   return yup.object().shape({
     nombre: yup.string().required(),
@@ -61,6 +62,6 @@ export function valoresIniciales() {
     dni: "",
     obraSocial: "",
     detalle: "",
-    idUsuario: fuego.auth().currentUser.uid,
+    ...getSetPermiso("pacientes"),
   };
 }

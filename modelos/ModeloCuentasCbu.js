@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export function ModeloTipoCuenta() {
   return yup.object().shape({
     nombre: yup.string().required(),
@@ -25,7 +26,7 @@ export function valoresIniciales(preData) {
   return {
     ...preData,
     titular: "",
-    idUsuario: fuego.auth().currentUser.uid,
+    ...getSetPermiso("cuentasCbu"),
   };
 }
 function validarCuenta(cuenta) {

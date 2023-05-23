@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export default function Modelo() {
   return yup.object().shape({
     consultorio: yup.string().required("El consultorio es requerido"),
@@ -17,7 +18,7 @@ export function valoresIniciales(data) {
     notificar: true,
     emailNotifica: "",
     fecha: new Date(),
-    idUsuario: fuego.auth().currentUser.uid,
+    ...getSetPermiso("turnos"),
   };
   return { ...valores, ...data };
 }

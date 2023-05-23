@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export default function ModeloCuentas() {
   return yup.object().shape({
     razonSocial: yup.string(),
@@ -15,6 +16,6 @@ export function valoresIniciales() {
     email: "",
     plan: "",
     telefono: "",
-    idUsuario: fuego.auth().currentUser.uid,
+    ...getSetPermiso("cuentas"),
   };
 }

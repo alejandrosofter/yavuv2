@@ -55,7 +55,7 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-export default function TabsSocio({ dataSocio, mod, auth }) {
+export default function TabsSocio({ dataSocio }) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -152,7 +152,7 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
       </Grid>
       <Grid item md={11}>
         <TabPanel value={value} index={0}>
-          <EstadoCuentaSocio mod={mod} data={dataSocio} />
+          <EstadoCuentaSocio data={dataSocio} />
         </TabPanel>
         {/* 
         <TabPanel value={value} index={1}>
@@ -160,10 +160,10 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
         </TabPanel> */}
 
         <TabPanel value={value} index={1}>
-          <TarjetasSocio mod={mod} data={dataSocio} />
+          <TarjetasSocio data={dataSocio} />
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <DocumentacionSocio mod={mod} data={dataSocio} />
+          <DocumentacionSocio data={dataSocio} />
         </TabPanel>
         {/* <TabPanel value={value} index={5}>
           <FamiliaresSocio mod={mod} data={dataSocio} />
@@ -172,13 +172,13 @@ export default function TabsSocio({ dataSocio, mod, auth }) {
           <PromocionesSocio mod={mod} auth={auth} data={dataSocio} />
         </TabPanel> */}
         <TabPanel value={value} index={3}>
-          <CambiosEstadoSocio mod={mod} data={dataSocio} />
+          <CambiosEstadoSocio data={dataSocio} />
         </TabPanel>
         <TabPanel value={value} index={4}>
-          <Mensualizado mod={mod} data={dataSocio} />
+          <Mensualizado data={dataSocio} />
         </TabPanel>
         <TabPanel value={value} index={5}>
-          <DeudasSocios_grid mod={mod} data={dataSocio} />
+          <DeudasSocios_grid data={dataSocio} />
         </TabPanel>
       </Grid>
     </Grid>

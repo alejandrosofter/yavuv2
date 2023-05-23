@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export default function Modelo() {
   return yup.object().shape({
     // fechaVto: yup.date().required(),
@@ -20,11 +21,6 @@ export function valoresIniciales() {
     pedido: "",
     certificado: "",
     estado: "PENDIENTE",
-    idUsuario: localStorage.getItem("usermod")
-      ? localStorage.getItem("usermod")
-      : fuego.auth().currentUser.uid,
-    usermod: localStorage.getItem("usermod")
-      ? fuego.auth().currentUser.uid
-      : null,
+    ...getSetPermiso("certificadosElectronicos"),
   };
 }

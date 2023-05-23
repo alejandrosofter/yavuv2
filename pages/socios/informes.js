@@ -5,12 +5,14 @@ import { fuego, useCollection } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import FiltroInformeCobros from "@components/cobros/_filterInforme";
 import Dialogo from "@components/forms/dialogo";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 
-export default function InformesCobros({ mod }) {
+export default function Page({}) {
   const coleccion = "socios";
   const [dataConsulta, setDataConsulta] = useState();
   const [openDialogo, setOpenDialogo] = useState();
   const { add } = useCollection(`descargas`);
+  const config = UseConfigModulo("socios");
   const listarSocios = (values) => {
     // setDataConsulta({
     //   url: "/api/colecciones/informes",
@@ -20,7 +22,7 @@ export default function InformesCobros({ mod }) {
       coleccion,
       token: fuego.auth().currentUser.uid,
       titulo: "INFORME DE SOCIOS",
-      usermod: localStorage.getItem("usermod"),
+      usermod: config?.idUsuario,
       tk: new Date().getTime(),
     };
     add(data).then((res) => {
@@ -44,7 +46,7 @@ export default function InformesCobros({ mod }) {
       coleccion: "cambiosEstado",
       titulo: "INFORME ESTADOS SOCIOS",
       token: fuego.auth().currentUser.uid,
-      usermod: localStorage.getItem("usermod"),
+      usermod: config?.idUsuario,
       tk: new Date().getTime(),
     };
     add(data).then((res) => {
@@ -65,16 +67,16 @@ export default function InformesCobros({ mod }) {
           subTitulo="de socios"
         />
       </Grid>
-      <Grid item md={9}></Grid>
-      <Grid item md={3}>
-        <Grid item md={10}>
-          <Button variant="contained" onClick={() => listarSocios({})}>
-            {" "}
-            <Icon sx={{ mr: 2 }} className="fas fa-scroll" /> Listado TOTAL de
-            SOCIOS
-          </Button>
-        </Grid>
-
+      <Grid item md={4}>
+        <Typography variant="h6" gutterBottom component="div">
+          EXCEL TODOS LOS SOCIOS
+        </Typography>
+        <Button variant="contained" onClick={() => listarSocios({})}>
+          {" "}
+          <Icon sx={{ mr: 2 }} className="fas fa-scroll" /> Descargar
+        </Button>
+      </Grid>
+      <Grid item md={4}>
         <Grid item md={12}>
           <Typography variant="h6" gutterBottom component="div">
             ALTAS/BAJAS (cambios estado)

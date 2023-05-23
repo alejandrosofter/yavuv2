@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export default function ModeloComprobantesElectronicos() {
   return yup.object().shape({
     // fecha: yup.date().required("Fecha es requerida"),
@@ -27,12 +28,7 @@ export function valoresIniciales() {
     razonSocial: "",
     domicilio: "",
     idEntidad: "",
-    idUsuario: localStorage.getItem("usermod")
-      ? localStorage.getItem("usermod")
-      : fuego.auth().currentUser.uid,
-    usermod: localStorage.getItem("usermod")
-      ? fuego.auth().currentUser.uid
-      : null,
+    ...getSetPermiso("comprobantesElectronicos"),
   };
 }
 /////////////////////////

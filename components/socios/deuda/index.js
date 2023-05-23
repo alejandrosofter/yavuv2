@@ -13,6 +13,7 @@ import { UsePlantilla } from "@components/plantillas/usePlantilla";
 
 import { QueryApi } from "@helpers/queryApi";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
+import { getWherePermiso } from "@hooks/useUser";
 
 export const cols = [
   {
@@ -124,11 +125,7 @@ export default function DeudasSocios_grid({ data, mod }) {
           columns={cols}
           rowsPerPage={100}
           hidePaginador={true}
-          where={[
-            parentData
-              ? ["idUsuario", "==", localStorage.getItem("usermod")]
-              : ["usermod", "==", fuego.auth().currentUser?.uid],
-          ]}
+          where={getWherePermiso(`socios/${data?.id}/${subColeccion}`)}
           labelNuevo="Agregar deuda manual"
           preData={{
             idSocio: data?.id,

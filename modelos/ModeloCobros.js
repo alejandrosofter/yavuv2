@@ -2,6 +2,7 @@ import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
 import { contador, contador2, contadorMoney } from "@helpers/arrays";
 import moment from "moment";
+import { getSetPermiso } from "@hooks/useUser";
 export default function ModeloCobros() {
   return yup.object().shape({
     cliente: yup.string().required("Debes seleccionar el socio!"),
@@ -74,12 +75,7 @@ export function valoresIniciales(data) {
     estado: "CANCELADA",
     fecha: new Date(),
     fecha_timestamp: new Date().getTime(),
-    idUsuario: localStorage.getItem("usermod")
-      ? localStorage.getItem("usermod")
-      : fuego.auth().currentUser.uid,
-    usermod: localStorage.getItem("usermod")
-      ? fuego.auth().currentUser?.uid
-      : null,
+    ...getSetPermiso("cobros"),
   };
 }
 export function ModeloItems() {

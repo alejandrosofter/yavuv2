@@ -1,6 +1,7 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
 import moment from "moment";
+import { getSetPermiso } from "@hooks/useUser";
 export default function ModeloGeneracionDeuda() {
   return yup.object().shape({
     detalle: yup.string(),
@@ -46,10 +47,11 @@ export function valoresIniciales() {
     estado: "PENDIENTE",
     conjunto: "",
     calculoImporte: "",
-    idUsuario: fuego.auth().currentUser.uid,
+
     conjunto: "",
     fnDetalleExtra: "",
     fnLabelElemento: "",
+    ...getSetPermiso("generacionDeudas"),
   };
 }
 

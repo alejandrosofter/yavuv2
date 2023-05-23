@@ -15,6 +15,7 @@ import { getFechaString } from "@helpers/dates";
 import UseCuenta from "@components/cuentas/useCuenta";
 import { QueryApi } from "@helpers/queryApi";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
+import { getWherePermiso } from "@hooks/useUser";
 export const cols = [
   {
     field: "fecha",
@@ -114,6 +115,7 @@ export default function TarjetasSocio({ data }) {
       <Grid item xs={12}>
         <ABMColeccion
           coleccion={`socios/${data?.id}/${subColeccion}`}
+          where={getWherePermiso(`socios/${data?.id}/${subColeccion}`)}
           columns={cols}
           order={order}
           rowsPerPage={100}

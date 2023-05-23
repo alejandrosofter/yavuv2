@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { fuego } from "@nandorojo/swr-firestore";
+import { getSetPermiso } from "@hooks/useUser";
 export default function Modelo() {
   return yup.object().shape({
     estado: yup.string().required(),
@@ -9,9 +10,7 @@ export function valoresIniciales() {
   return {
     estado: "PENDIENTE",
     fecha: new Date(),
-    idUsuario: localStorage.getItem("usermod")
-      ? localStorage.getItem("usermod")
-      : fuego.auth().currentUser.uid,
+    ...getSetPermiso("envioTartejas"),
   };
 }
 //////////////////

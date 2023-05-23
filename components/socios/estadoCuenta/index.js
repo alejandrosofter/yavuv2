@@ -18,6 +18,7 @@ import ABMColeccion from "@components/forms/ABMcollection";
 import Form from "./_form";
 import { useState } from "react";
 import NuevaDeuda from "../movimientosCuenta/nuevo";
+import { getWherePermiso } from "@hooks/useUser";
 const getColorDebito = (estado) => {
   let color = "";
   if (estado === "PENDIENTE") color = "#2a2121de";
@@ -92,11 +93,7 @@ export default function EstadoCuentaSocio({ data, mod }) {
       },
     },
   ];
-  const where = [
-    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid
-      ? ["idUsuario", "==", localStorage.getItem("usermod")]
-      : ["usermod", "==", fuego.auth().currentUser?.uid],
-  ];
+
   return (
     <Grid container>
       {/* <Grid item xs={10}></Grid> */}
@@ -111,7 +108,7 @@ export default function EstadoCuentaSocio({ data, mod }) {
           coleccion={`socios/${data?.id}/${subColeccion}`}
           columns={cols}
           orderBy={order}
-          where={where}
+          where={getWherePermiso(`socios/${data?.id}/${subColeccion}`)}
           maxWidth={"md"}
           preData={{}}
           labelNuevo="agregar estado"
