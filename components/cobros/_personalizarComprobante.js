@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getFieldName } from "@helpers/forms";
 import Switch from "@components/forms/switch";
 import SelectPuntoVenta from "@components/comprobantesElectronicos/selectorPuntoVenta";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 export default function PersonalizarComprobante({
   setFieldValue,
   field,
@@ -16,10 +17,10 @@ export default function PersonalizarComprobante({
   callbackchange,
 }) {
   const [open, setOpen] = useState();
-
+  const config = UseConfigModulo("cobros");
   useEffect(() => {
-    loadValoresStorage();
-  }, []);
+    if (config) loadValoresStorage(config);
+  }, [config]);
   const cambiaPuntoVenta = (item) => {
     localStorage.setItem("comprobante_puntoVenta", item.value);
   };
@@ -29,57 +30,36 @@ export default function PersonalizarComprobante({
       "comprobante_razonSocial",
       values.comprobante_razonSocial
     );
-    localStorage.setItem(
-      "comprobante_nroDocumento",
-      values.comprobante_nroDocumento
-    );
-    localStorage.setItem("comprobante_domicilio", values.comprobante_domicilio);
-    localStorage.setItem(
-      "comprobante_tipoCliente",
-      values.comprobante_tipoCliente
-    );
-    localStorage.setItem(
-      "comprobante_tipoDocumento",
-      values.comprobante_tipoDocumento
-    );
-    localStorage.setItem(
-      "comprobante_tipoConcepto",
-      values.comprobante_tipoConcepto
-    );
-    localStorage.setItem(
-      "comprobante_puntoVenta",
-      values.comprobante_puntoVenta
-    );
     if (callbackchange) callbackchange();
   };
-  const loadValoresStorage = () => {
+  const loadValoresStorage = (config) => {
     setFieldValue(
       getFieldName(field, "esFiscal"),
       localStorage.getItem("esFiscal")
     );
     setFieldValue(
       getFieldName(field, "comprobante_razonSocial"),
-      localStorage.getItem("comprobante_razonSocial")
+      config["comprobante_razonSocial"]
     );
     setFieldValue(
       getFieldName(field, "comprobante_nroDocumento"),
-      localStorage.getItem("comprobante_nroDocumento")
+      config["comprobante_nroDocumento"]
     );
     setFieldValue(
       getFieldName(field, "comprobante_domicilio"),
-      localStorage.getItem("comprobante_domicilio")
+      config["comprobante_domicilio"]
     );
     setFieldValue(
       getFieldName(field, "comprobante_tipoCliente"),
-      localStorage.getItem("comprobante_tipoCliente")
+      config["comprobante_tipoCliente"]
     );
     setFieldValue(
       getFieldName(field, "comprobante_tipoDocumento"),
-      localStorage.getItem("comprobante_tipoDocumento")
+      config["comprobante_tipoDocumento"]
     );
     setFieldValue(
       getFieldName(field, "comprobante_tipoConcepto"),
-      localStorage.getItem("comprobante_tipoConcepto")
+      config["comprobante_tipoConcepto"]
     );
     setFieldValue(
       getFieldName(field, "comprobante_puntoVenta"),
@@ -120,21 +100,18 @@ export default function PersonalizarComprobante({
           </Grid>
           <Grid item md={6}>
             <Input
-              onChange={guardaValoresStorage}
               campo={getFieldName(field, "comprobante_razonSocial")}
               label="Razon Social"
             />
           </Grid>
           <Grid item md={2}>
             <Input
-              onChange={guardaValoresStorage}
               campo={getFieldName(field, "comprobante_nroDocumento")}
               label="Nro Doc."
             />
           </Grid>
           <Grid item md={4}>
             <Input
-              onChange={guardaValoresStorage}
               campo={getFieldName(field, "comprobante_domicilio")}
               label="Domicilio"
             />
@@ -142,29 +119,26 @@ export default function PersonalizarComprobante({
 
           <Grid item md={4}>
             <SelectorTipoCliente
-              callbackchange={guardaValoresStorage}
               campo={getFieldName(field, "comprobante_tipoCliente")}
             />
           </Grid>
 
           <Grid item md={3}>
             <SelectorTipoDocumentos
-              callbackchange={guardaValoresStorage}
               campo={getFieldName(field, "comprobante_tipoDocumento")}
             />
           </Grid>
 
           <Grid item md={4}>
             <SelectorTipoConceptos
-              callbackchange={guardaValoresStorage}
               campo={getFieldName(field, "comprobante_tipoConcepto")}
             />
           </Grid>
           <Grid item md={5}>
             <SelectPuntoVenta
-              callbackchange={guardaValoresStorage}
               campo={getFieldName(field, "comprobante_puntoVenta")}
               label="Punto Venta"
+              callbackchange={cambiaPuntoVenta}
             />
           </Grid>
         </Grid>
