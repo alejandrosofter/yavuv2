@@ -1,15 +1,14 @@
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import Select from "@components/forms/select2Formik";
+import { UseConfigModulo } from "@helpers/useConfigModulo";
 export default function SelectTipoComprobantes({
   label,
   campo,
   callbackchange,
 }) {
-  const idUsuario = localStorage.getItem("usermod")
-    ? localStorage.getItem("usermod")
-    : fuego.auth().currentUser.uid;
+  const config = UseConfigModulo("cobros");
   const { data } = useCollection(
-    `certificadosDigitales/${idUsuario}/tipoComprobantes`
+    `certificadosDigitales/${config?.idUsuario}/tipoComprobantes`
   );
   if (!data) return "";
   return (

@@ -10,6 +10,7 @@ import { getFieldName } from "@helpers/forms";
 import Switch from "@components/forms/switch";
 import SelectPuntoVenta from "@components/comprobantesElectronicos/selectorPuntoVenta";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
+
 export default function PersonalizarComprobante({
   setFieldValue,
   field,
@@ -36,6 +37,10 @@ export default function PersonalizarComprobante({
     setFieldValue(
       getFieldName(field, "esFiscal"),
       localStorage.getItem("esFiscal")
+    );
+    setFieldValue(
+      getFieldName(field, "comprobante_tipoComprobante"),
+      config["comprobante_tipoComprobante"]
     );
     setFieldValue(
       getFieldName(field, "comprobante_razonSocial"),
@@ -122,7 +127,9 @@ export default function PersonalizarComprobante({
               campo={getFieldName(field, "comprobante_tipoCliente")}
             />
           </Grid>
-
+          <Grid item md={5}>
+            <SelectTipoComprobante campo="comprobante_tipoComprobante" />
+          </Grid>
           <Grid item md={3}>
             <SelectorTipoDocumentos
               campo={getFieldName(field, "comprobante_tipoDocumento")}

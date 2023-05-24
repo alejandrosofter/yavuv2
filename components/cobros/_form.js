@@ -1,17 +1,11 @@
-import { Button, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import SelectFecha from "@components/forms/selectorFecha";
-
-import Input from "@components/forms/input";
-
-import Switch from "@components/forms/switch";
-
 import { useEffect, useState } from "react";
 
 import SeleccionDeuda from "./seleccionDeuda";
 import ItemsCobro from "./_items";
 import SelectFormikAlgolia from "@components/forms/selectAlgoliaFormik";
 import PersonalizarComprobante from "./_personalizarComprobante";
-import SelectSocioSimple from "@components/socios/selectSocioSimple";
 import { capitalize } from "@helpers/Strings";
 import NuevoCliente from "@components/clientes/nuevo";
 import DataNotificacionCliente from "./notificacionCliente";

@@ -45,7 +45,8 @@ export function contadorMoney(arr, campo = "importe") {
     const bonifica = Number(
       item.importeBonificacion ? item.importeBonificacion : 0
     );
-    total += Number(item[campo]) - bonifica;
+    const cantidad = item.cantidad ? Number(item.cantidad) : 1;
+    total += Number(item[campo]) * cantidad - bonifica;
   });
   return formatMoney(total);
 }
