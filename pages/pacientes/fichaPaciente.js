@@ -109,9 +109,17 @@ export function TurnosPaciente({ paciente, callbackchange }) {
       width: 300,
       // renderCell: (params) => getFechaString(params.value, "DD/MM/YYYY HH:mm"),
     },
+    {
+      field: "label_paciente",
+      headerName: "paciente",
+      width: 300,
+      // renderCell: (params) => getFechaString(params.value, "DD/MM/YYYY HH:mm"),
+    },
   ];
   const order = ["fecha", "desc"];
-
+  const where = [getWherePermiso("turnos")].concat([
+    ["paciente", "==", paciente.id],
+  ]);
   const acciones = [
     {
       esFuncion: true,
@@ -136,7 +144,7 @@ export function TurnosPaciente({ paciente, callbackchange }) {
             acciones={acciones}
             coleccion={`turnos`}
             columns={columns}
-            where={getWherePermiso("turnos")}
+            where={where}
             labelNuevo="nueva"
             preData={{}}
             order={order}
@@ -279,11 +287,7 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
           callbackSuccessNew={callbackNuevaReceta}
           coleccion={`pacientes/${paciente.id}/recetas`}
           columns={columns}
-          where={[
-            parentData
-              ? ["idUsuario", "==", localStorage.getItem("usermod")]
-              : ["usermod", "==", fuego.auth().currentUser?.uid],
-          ]}
+          where={getWherePermiso(`pacientes/${paciente.id}/recetas`)}
           labelNuevo="nueva receta"
           dataForm={{ paciente }}
           preData={{ paciente }}
