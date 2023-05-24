@@ -12,6 +12,7 @@ import { UseConfigModulo } from "@helpers/useConfigModulo";
 import { getWherePermiso } from "@hooks/useUser";
 import useLayout from "@hooks/useLayout";
 import { fuego } from "@nandorojo/swr-firestore";
+import MenuCajaDiaria from "@components/cobros/menuCajaDiaria";
 export default function Modulo({ parentData }) {
   const order = ["fecha_timestamp", "desc"];
   const config = UseConfigModulo("cobros");
@@ -20,6 +21,7 @@ export default function Modulo({ parentData }) {
     titulo: "COBROS",
     icon: "fas fa-bill-dollar",
     acciones: [{ label: "Cobros", icono: "fas fa-home", url: "/cobros" }],
+    components: <MenuCajaDiaria />,
   });
   const idPlantilla = config?.plantillaCobro;
   const plantillaEmail = config?.plantillaMail;

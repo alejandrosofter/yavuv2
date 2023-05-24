@@ -8,24 +8,24 @@ import {
 } from "@helpers/arrays";
 import { getFechaString, getFechasWhere } from "@helpers/dates";
 import { formatMoney } from "@helpers/numbers";
+import { getSetPermiso, getWherePermiso } from "@hooks/useUser";
 import { Drawer, Grid, Icon, Typography } from "@mui/material";
 import { fuego, useCollection } from "@nandorojo/swr-firestore";
 import * as React from "react";
-export default function CajaDelDia({ open, setOpen, parentData }) {
+export default function CajaDelDia({ open, setOpen }) {
   const [fecha, setFecha] = React.useState(new Date());
+
   const close = () => {
     setOpen(false);
   };
   const [fechaDesde, fechaHasta] = getFechasWhere(fecha);
-
+  const where = [
+    ["fecha_timestamp", ">=", fechaDesde.getTime()],
+    ["fecha_timestamp", "<=", fechaHasta.getTime()],
+  ].concat(getWherePermiso("cobros"));
+  console.log(where);
   const { data, error } = useCollection("cobros", {
-    where: [
-      ["fecha_timestamp", ">=", fechaDesde.getTime()],
-      ["fecha_timestamp", "<=", fechaHasta.getTime()],
-      parentData
-        ? ["idUsuario", "==", localStorage.getItem("usermod")]
-        : ["usermod", "==", fuego.auth().currentUser?.uid],
-    ],
+    where,
     orderBy: ["fecha_timestamp", "desc"],
     listen: true,
   });
