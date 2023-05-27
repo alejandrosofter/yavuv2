@@ -15,12 +15,14 @@ import { formatMoney } from "@helpers/numbers";
 import { quitarValoresNull } from "@helpers/objects";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 import Form from "./_form";
+import { getWherePermiso } from "@hooks/useUser";
+import BajaGeneracionDeuda from "./baja";
+import SuspenderGeneracionDeuda from "./suspender";
 export default function GenerarDeudaInscriptos({
   open,
   setOpen,
   actividad,
   grupo,
-  parentData,
 }) {
   const config = UseConfigModulo("actividades");
   const idPlantilla = config?.plantillaAsistencias;
@@ -30,7 +32,8 @@ export default function GenerarDeudaInscriptos({
   const tableInstanceRef = useRef();
 
   const refData = useRef([]);
-
+  const [openSuspender, setOpenSuspender] = useState(false);
+  const [openBaja, setOpenBaja] = useState(false);
   const [openNuevoMovimiento, setOpenNuevoMovimiento] = useState(false);
 
   const [dataSeleccion, setDataSeleccion] = useState();
@@ -124,18 +127,17 @@ export default function GenerarDeudaInscriptos({
     },
   ];
   const acciones = [
-    {
-      esFuncion: true,
-      icono: "fas fa-refresh",
-      label: "Baja de Mensualizacion",
-
-      fn: (data) => {
-        setDataConsulta({
-          url: "/api/menusalizaciones/bajaMenusal",
-          data,
-        });
-      },
-    },
+    // {
+    //   esFuncion: true,
+    //   icono: "fas fa-refresh",
+    //   label: "Baja de Mensualizacion",
+    //   fn: (data) => {
+    //     setDataConsulta({
+    //       url: "/api/menusalizaciones/bajaMenusal",
+    //       data,
+    //     });
+    //   },
+    // },
   ];
   const selectParaGenerar = () => {
     tableInstanceRef.current?.resetRowSelection();
@@ -179,6 +181,17 @@ export default function GenerarDeudaInscriptos({
     setOpenMovimientos(true);
     tableInstanceRef.current?.resetRowSelection();
   };
+  const where = getWherePermiso("actividades").concat([
+    ["estado", "!=", "BAJA DEFINITIVA"],
+  ]);
+  const suspender = () => {
+    setDataSeleccion(getItemsSeleccion());
+    setOpenSuspender(true);
+  };
+  const baja = () => {
+    setDataSeleccion(getItemsSeleccion());
+    setOpenBaja(true);
+  };
   return (
     <DialogContenido
       fullWidth={true}
@@ -205,27 +218,41 @@ export default function GenerarDeudaInscriptos({
             refData={refData}
             acciones={acciones}
             maxWidth={"md"}
-            // dataExternal={dataExternal}
-            where={[
-              parentData
-                ? ["idUsuario", "==", localStorage.getItem("usermod")]
-                : ["usermod", "==", fuego.auth().currentUser?.uid],
-              //estado distinto de BAJA DEFINITIVA
-              ["estado", "!=", "BAJA DEFINITIVA"],
-            ]}
+            where={where}
             gridOptions={{
               renderTopToolbarCustomActions: () => (
-                <Grid container>
-                  <Button onClick={selectParaGenerar}>
+                <Grid spacing={3} sx={{ p: 2 }} container>
+                  <Button title="Seleccionar" onClick={selectParaGenerar}>
                     <Icon sx={{ mr: 1 }} className="fas fa-clipboard-check" />{" "}
-                    Seleccion auto
                   </Button>
-                  <Button variant="contained" onClick={selectNuevo}>
+                  <Button
+                    title="Registro de Movimientos"
+                    onClick={() => setOpenMovimientos(true)}
+                  >
+                    <Icon sx={{ mr: 1 }} className="fas fa-archive" />{" "}
+                  </Button>
+                  <Button
+                    sx={{ backgroundColor: "green", mr: 2 }}
+                    variant="contained"
+                    onClick={selectNuevo}
+                  >
                     <Icon sx={{ mr: 1 }} className="fas fa-money-check" />{" "}
                     GENERAR DEUDA
                   </Button>
-                  <Button onClick={() => setOpenMovimientos(true)}>
-                    <Icon sx={{ mr: 1 }} className="fas fa-archive" />{" "}
+                  <Button
+                    sx={{ backgroundColor: "orange", mr: 2 }}
+                    variant="contained"
+                    onClick={suspender}
+                  >
+                    <Icon sx={{ mr: 1 }} className="fas fa-money-check" />{" "}
+                    SUSPENDER
+                  </Button>
+                  <Button
+                    sx={{ backgroundColor: "red", mr: 2 }}
+                    variant="contained"
+                    onClick={() => baja}
+                  >
+                    <Icon sx={{ mr: 1 }} className="fas fa-money-check" /> BAJA
                   </Button>
                 </Grid>
               ),
@@ -270,8 +297,6 @@ export default function GenerarDeudaInscriptos({
               // getRowId: (row) => row.id,
             }}
             order={order}
-            // callbackclick={callbackclick}
-            icono={"fas fa-users"}
             Modelo={ModeloMensualizado}
             valoresIniciales={valoresMensualizado}
             preData={{
@@ -285,7 +310,8 @@ export default function GenerarDeudaInscriptos({
               showSelectSocio: true,
             }}
             labelNuevo="Agregar Integrante"
-            titulo={`PREDEUDA`}
+            titulo={`INTEGRANTES`}
+            subTitulo={"del grupo"}
             Form={Form}
           />
         </Grid>
@@ -294,6 +320,16 @@ export default function GenerarDeudaInscriptos({
           setOpenDrawer={setOpenMovimientos}
           grupo={grupo}
           actividad={actividad}
+        />
+        <BajaGeneracionDeuda
+          data={dataSeleccion}
+          open={openBaja}
+          setOpen={setOpenBaja}
+        />
+        <SuspenderGeneracionDeuda
+          open={openSuspender}
+          data={dataSeleccion}
+          setOpen={setOpenSuspender}
         />
         <NuevoMovimientoGeneracionDeuda
           open={openNuevoMovimiento}

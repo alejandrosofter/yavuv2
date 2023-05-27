@@ -104,6 +104,7 @@ export default function ListaGrupos({ actividad, callbackchange, mod }) {
             acciones={acciones}
             order={order}
             rowsPerPage={100}
+            maxWidth={"md"}
             hidePaginador={true}
             callbackclick={callbackclick}
             icono={"fas fa-users"}

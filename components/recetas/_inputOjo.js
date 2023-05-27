@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, Icon, Typography } from "@mui/material";
 import SelectOpcionesAnteojos from "./selectOpcionesAnteojos";
 import Input from "@components/forms/input";
 import Switch from "@components/forms/switch";

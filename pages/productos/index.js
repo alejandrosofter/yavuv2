@@ -6,6 +6,7 @@ import Modelo, { valoresIniciales } from "@modelos/ModeloProductos";
 import Form from "components/productos/_form";
 import useLayout from "@hooks/useLayout";
 import { getWherePermiso } from "@hooks/useUser";
+import { Icon, Tooltip } from "@mui/material";
 export default function Modulo({ mod, parentData }) {
   const [openMovimientos, setOpenMovimientos] = useState(false);
   const [seleccion, setSeleccion] = useState();
@@ -24,6 +25,32 @@ export default function Modulo({ mod, parentData }) {
     ],
   });
   const columns = [
+    {
+      accessorKey: "esActividad",
+      header: "",
+      size: 12,
+      Cell: ({ cell }) =>
+        cell.getValue() ? (
+          <Tooltip title={`Es una actividad deportiva`}>
+            <Icon class="fas fa-futbol" />
+          </Tooltip>
+        ) : (
+          ""
+        ),
+    },
+    {
+      accessorKey: "esSocial",
+      header: "",
+      size: 12,
+      Cell: ({ cell }) =>
+        cell.getValue() ? (
+          <Tooltip title={`Es una cuota social`}>
+            <Icon class="fas fa-user" />
+          </Tooltip>
+        ) : (
+          ""
+        ),
+    },
     {
       accessorKey: "cantidad",
       header: "Cant.",

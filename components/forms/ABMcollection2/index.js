@@ -24,7 +24,7 @@ export default function ABMColeccion2({
   limit,
   label,
   maxWidth,
-  subTitulo,
+  subTitulo = "de usuario",
   dataForm,
   orderBy,
   hideNew,
@@ -109,7 +109,7 @@ export default function ABMColeccion2({
       <Grid item md={9}>
         <TitulosFormularios
           titulo={titulo}
-          subTitulo="de usuario"
+          subTitulo={subTitulo}
           icono={icono}
         />
       </Grid>

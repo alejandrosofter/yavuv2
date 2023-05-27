@@ -29,7 +29,7 @@ export const getValor = (params, campo, ojo, lejosCerca, postchar = "") => {
 export function getDetalleLente(params, lejosCerca, label = "") {
   if (!params.row) params.row = params;
   if (!params.row[`select_${lejosCerca}`]) return "";
-
+  if (lejosCerca === "ambos") return getDataOjo(params, "ambos", lejosCerca);
   const derecho = getDataOjo(params, "derecho", lejosCerca);
   const izquierdo = getDataOjo(params, "izquierdo", lejosCerca);
   return !params.row[`select_cerca`]
@@ -48,6 +48,7 @@ export function getDataOjo(params, ojo, lejosCerca, label) {
   if (!params.row) params.row = params;
   if (params.row[`esNeutro_${ojo}_${lejosCerca}`])
     return `${label ? label : ""}  NEUTRO`;
+
   return `${label ? label : ""}  ${getValor(
     params,
     `esfera`,

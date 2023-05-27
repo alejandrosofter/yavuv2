@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, Icon, Typography } from "@mui/material";
 import InputOjo from "./_inputOjo";
 import Switch from "@components/forms/switch";
 import SelectOpcionesAnteojos from "./selectOpcionesAnteojos";
@@ -15,12 +15,21 @@ export function FormAnteojo({
         <Switch
           sx={{ fontSize: 15 }}
           campo={`select_${campo}`}
-          label={<Typography variant="h6">{label}</Typography>}
+          label={
+            <Typography variant="h6">
+              <Icon className="fas fa-eye" /> {label}
+            </Typography>
+          }
         />
       </Grid>
+      <Switch
+        sx={{ fontSize: 15 }}
+        campo={`selectAmbos_${campo}`}
+        label={`Ambos Ojos`}
+      />
       {values[`select_${campo}`] && (
         <>
-          {!values[`agregaAdicion_${campo}`] && (
+          {!values[`selectAmbos_${campo}`] && (
             <>
               <Grid item md={12}>
                 <InputOjo
@@ -38,17 +47,32 @@ export function FormAnteojo({
               </Grid>
             </>
           )}
-          <Grid item md={4}>
-            <Switch label={`Agrega Adicion`} campo={`agregaAdicion_${campo}`} />
-          </Grid>
-          {values[`agregaAdicion_${campo}`] && (
+
+          {values[`selectAmbos_${campo}`] && (
             <>
-              <Grid item md={2}>
-                <Input label="Adicion" campo={`adicion_${campo}`} />
+              <Grid item md={12}>
+                <InputOjo
+                  label="Ambos Ojos"
+                  values={values}
+                  campo={`ambos_${campo}`}
+                />
               </Grid>
-              <Grid item md={2}>
-                <Input label="Esf." campo={`esfera_${campo}`} />
+              <Grid item md={4}>
+                <Switch
+                  label={`Agrega Adicion`}
+                  campo={`agregaAdicion_${campo}`}
+                />
               </Grid>
+              {values[`agregaAdicion_${campo}`] && (
+                <>
+                  <Grid item md={2}>
+                    <Input label="Adicion" campo={`adicion_${campo}`} />
+                  </Grid>
+                  <Grid item md={2}>
+                    <Input label="Esf." campo={`esfera_${campo}`} />
+                  </Grid>
+                </>
+              )}
             </>
           )}
         </>

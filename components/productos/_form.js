@@ -1,9 +1,8 @@
-import { Grid, Stack } from "@mui/material";
-import CheckboxForm from "@components//forms/checkbox";
+import { Grid, Stack, Typography } from "@mui/material";
 import Input from "@components/forms/input";
+import Switch from "@components/forms/switch";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import SelectCentroCosto from "@components/centroCostos/select";
 import SelectCategoriaProducto from "./categoriaProducto";
 export default function Form({ mod, setFieldValue, values }) {
   const { data: centrosCosto } = useCollection("centroCostos", {
@@ -21,7 +20,7 @@ export default function Form({ mod, setFieldValue, values }) {
           spacing={2}
         >
           <Grid item xs={2}>
-            <CheckboxForm label="Es Servicio?" campo="esServicio" />
+            <Switch label="Es Servicio?" campo="esServicio" />
           </Grid>
 
           <Grid item md={2}>
@@ -51,9 +50,18 @@ export default function Form({ mod, setFieldValue, values }) {
             <SelectCategoriaProducto />
           </Grid>
           <Grid item xs={2}>
-            <CheckboxForm label="Es Gravado " campo="esGravado" />
+            <Switch label="Es Gravado " campo="esGravado" />
           </Grid>
-          <Grid item md={12}>
+          <Grid item xs={2}>
+            <Switch label="Es Cuota Social " campo="esSocial" />
+          </Grid>
+          <Grid item xs={2}>
+            <Switch label="Es Actividad " campo="esActividad" />
+            <Typography variant="caption" color="text.secondary">
+              Importante para enviar mensualizacion a su actividad
+            </Typography>
+          </Grid>
+          <Grid item md={10}>
             <Input label="Detalle" campo="detalle" />
           </Grid>
         </Grid>
