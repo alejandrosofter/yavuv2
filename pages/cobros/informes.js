@@ -6,6 +6,7 @@ import { fuego, useCollection, useDocument } from "@nandorojo/swr-firestore";
 import { useState } from "react";
 import FiltroInformeCobros from "@components/cobros/_filterInforme";
 import useLayout from "@hooks/useLayout";
+import MenuCajaDiaria from "@components/cobros/menuCajaDiaria";
 
 export default function InformesCobros({}) {
   useLayout({
