@@ -4,9 +4,20 @@ import { QueryApi } from "@helpers/queryApi";
 import { Grid } from "@mui/material";
 import { fuego, useCollection, useDocument } from "@nandorojo/swr-firestore";
 import { useState } from "react";
-import FiltroInformeCobros from "./_filterInforme";
+import FiltroInformeCobros from "@components/cobros/_filterInforme";
+import useLayout from "@hooks/useLayout";
 
-export default function InformesCobros({ mod }) {
+export default function InformesCobros({}) {
+  useLayout({
+    label: "Cobros",
+    titulo: "COBROS",
+    icon: "fas fa-bill-dollar",
+    acciones: [
+      { label: "Cobros", icono: "fas fa-home", url: "/cobros" },
+      { label: "Informes", icono: "fas fa-newspaper", url: "/cobros/informes" },
+    ],
+    components: <MenuCajaDiaria />,
+  });
   const { add } = useCollection(`descargas`);
   const coleccion = "cobros";
   const [dataConsulta, setDataConsulta] = useState();

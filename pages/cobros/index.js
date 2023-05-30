@@ -20,7 +20,10 @@ export default function Modulo({ parentData }) {
     label: "Cobros",
     titulo: "COBROS",
     icon: "fas fa-bill-dollar",
-    acciones: [{ label: "Cobros", icono: "fas fa-home", url: "/cobros" }],
+    acciones: [
+      { label: "Cobros", icono: "fas fa-home", url: "/cobros" },
+      { label: "Informes", icono: "fas fa-newspaper", url: "/cobros/informes" },
+    ],
     components: <MenuCajaDiaria />,
   });
   const idPlantilla = config?.plantillaCobro;
