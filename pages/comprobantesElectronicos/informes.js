@@ -6,6 +6,7 @@ import { useState } from "react";
 import FiltroInformeCobros from "@components/cobros/_filterInforme";
 import Dialogo from "@components/forms/dialogo";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
+import { getSetPermiso } from "@hooks/useUser";
 
 export default function InformesCobros({}) {
   const coleccion = "comprobantesElectronicos";
@@ -14,13 +15,14 @@ export default function InformesCobros({}) {
   const { add } = useCollection(`descargas`);
 
   const [openDialogo, setOpenDialogo] = useState();
+  const permisos = getSetPermiso("comprobantesElectronicos");
   const buscar = (values) => {
     const data = {
       ...values,
+      ...permisos,
+      token: permisos.usermod,
       coleccion,
       titulo: "INFORME DE COMPROBANTES ELECTRONICOS",
-      token: fuego.auth().currentUser.uid,
-      usermod: config.idUsuario,
       tk: new Date().getTime(),
     };
     add(data).then((res) => {

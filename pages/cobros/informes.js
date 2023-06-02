@@ -7,6 +7,7 @@ import { useState } from "react";
 import FiltroInformeCobros from "@components/cobros/_filterInforme";
 import useLayout from "@hooks/useLayout";
 import MenuCajaDiaria from "@components/cobros/menuCajaDiaria";
+import { getSetPermiso } from "@hooks/useUser";
 
 export default function InformesCobros({}) {
   useLayout({
@@ -20,16 +21,17 @@ export default function InformesCobros({}) {
     components: <MenuCajaDiaria />,
   });
   const { add } = useCollection(`descargas`);
+  const permisos = getSetPermiso("cobros");
   const coleccion = "cobros";
   const [dataConsulta, setDataConsulta] = useState();
   const [openDialogo, setOpenDialogo] = useState();
   const buscar = (values) => {
     const data = {
       ...values,
+      ...permisos,
+      token: permisos.usermod,
       coleccion,
-      token: fuego.auth().currentUser.uid,
       titulo: "INFORME DE COBROS",
-      usermod: localStorage.getItem("usermod"),
       tk: new Date().getTime(),
     };
     add(data).then((res) => {

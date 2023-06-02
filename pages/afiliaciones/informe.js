@@ -6,6 +6,7 @@ import { useState } from "react";
 import FiltroInformeCobros from "@components/cobros/_filterInforme";
 import Dialogo from "@components/forms/dialogo";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
+import { getSetPermiso } from "@hooks/useUser";
 
 export default function InformesAfiliaciones({}) {
   const coleccion = "afiliaciones";
@@ -13,14 +14,14 @@ export default function InformesAfiliaciones({}) {
   const config = UseConfigModulo("afiliaciones");
   const { add } = useCollection(`descargas`);
   const [openDialogo, setOpenDialogo] = useState();
-
+  const permisos = getSetPermiso("afiliaciones");
   const buscar = (values) => {
     const data = {
       ...values,
+      ...permisos,
+      token: permisos.usermod,
       coleccion,
       titulo: "INFORME DE AFILIACIONES",
-      token: fuego.auth().currentUser.uid,
-      usermod: config.idUsuario,
       tk: new Date().getTime(),
     };
     add(data).then((res) => {

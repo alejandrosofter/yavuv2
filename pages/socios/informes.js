@@ -6,6 +6,7 @@ import { useState } from "react";
 import FiltroInformeCobros from "@components/cobros/_filterInforme";
 import Dialogo from "@components/forms/dialogo";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
+import { getSetPermiso } from "@hooks/useUser";
 
 export default function Page({}) {
   const coleccion = "socios";
@@ -13,6 +14,7 @@ export default function Page({}) {
   const [openDialogo, setOpenDialogo] = useState();
   const { add } = useCollection(`descargas`);
   const config = UseConfigModulo("socios");
+  const permisos = getSetPermiso("socios");
   const listarSocios = (values) => {
     // setDataConsulta({
     //   url: "/api/colecciones/informes",
@@ -22,7 +24,6 @@ export default function Page({}) {
       coleccion,
       token: fuego.auth().currentUser.uid,
       titulo: "INFORME DE SOCIOS",
-      usermod: config?.idUsuario,
       tk: new Date().getTime(),
     };
     add(data).then((res) => {
@@ -41,12 +42,14 @@ export default function Page({}) {
     //     tk: new Date().getTime(),
     //   },
     // });
+
     const data = {
       ...values,
+      ...permisos,
+      token: permisos.usermod,
       coleccion: "cambiosEstado",
       titulo: "INFORME ESTADOS SOCIOS",
-      token: fuego.auth().currentUser.uid,
-      usermod: config?.idUsuario,
+
       tk: new Date().getTime(),
     };
     add(data).then((res) => {
