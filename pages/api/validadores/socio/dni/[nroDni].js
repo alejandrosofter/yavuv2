@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     { campo: "dni", op: "==", valor: nroDni },
     { campo: "estado", op: "==", valor: "ALTA" },
   ]);
-  console.log(data);
+
   if (!data || data.length === 0) res.status(200).json({});
   else res.status(200).json(data[0]);
 }

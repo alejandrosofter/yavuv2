@@ -16,7 +16,9 @@ export default function NuevoGenerico2({
   children,
   icono,
 }) {
-  const { add, error } = useCollection(coleccion);
+  const { add, error } = useCollection(coleccion, {
+    listen: true,
+  });
 
   if (error) return error;
   return (
@@ -35,6 +37,7 @@ export default function NuevoGenerico2({
         callbackSuccess={callbackSuccess}
         fnUpdate={add}
         modelo={modelo}
+        coleccion={coleccion}
         valoresIniciales={valoresIniciales}
       >
         {children}

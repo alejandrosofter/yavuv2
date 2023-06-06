@@ -9,8 +9,6 @@ export default async function handler(req, res) {
     },
     { campo: "idUsuario", valor: idUsuario },
   ]);
-  const data = results.length > 0 ? results[0] : null;
 
-  if (!data) res.status(200).json(null);
-  else res.status(200).json(data);
+  res.status(200).json(results);
 }

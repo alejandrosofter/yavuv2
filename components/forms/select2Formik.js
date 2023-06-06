@@ -12,6 +12,7 @@ const SelectFormik = ({
   campoLabel,
   campoId,
   callbackchange,
+  defaultValue,
   extraData,
   multiple,
 }) => {
@@ -107,12 +108,23 @@ const SelectFormik = ({
                 }}
                 id={`${campo}`}
                 // defaultValue={props.form.values[campo]}
+                // defaultValue={
+                //   props.form.values
+                //     ? datos.filter(
+                //         (option) => option.value === props.form.values[campo]
+                //       )[0]
+                //     : null
+                // }
                 defaultValue={
-                  props.form.values
-                    ? datos.filter(
-                        (option) => option.value === props.form.values[campo]
-                      )[0]
-                    : null
+                  defaultValue
+                    ? {
+                        label:
+                          typeof campoLabel === "function"
+                            ? campoLabel(defaultValue)
+                            : defaultValue[campoLabel],
+                        value: defaultValue[campoId],
+                      }
+                    : valor
                 }
                 label={`${label}`}
                 isClearable={true}

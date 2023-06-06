@@ -16,9 +16,9 @@ export function ABMCollection_nuevo({
   subTitulo,
   dataForm,
 }) {
-  const cb = (data) => {
+  const cb = (data, id) => {
     setOpen(false);
-    if (callbackSuccess) callbackSuccess(data);
+    if (callbackSuccess) callbackSuccess(data, id);
   };
   return (
     <DialogContenido

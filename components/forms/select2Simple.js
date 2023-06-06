@@ -56,9 +56,13 @@ export default function Select2Simple({
       // defaultValue={props.form.values[campo]}
       defaultValue={
         defaultValue
-          ? lista.map((item) =>
-              item[campoId] === defaultValue ? item : null
-            )[0]
+          ? {
+              label:
+                typeof campoLabel === "function"
+                  ? campoLabel(defaultValue)
+                  : defaultValue[campoLabel],
+              value: defaultValue[campoId],
+            }
           : value
       }
       label={`${label}`}

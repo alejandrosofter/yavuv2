@@ -5,6 +5,7 @@ export default function SelectEstaticFormik({
   campo,
   disabled,
   items,
+  campoLabel = "nombre",
   callbackchange,
 }) {
   return (
@@ -13,7 +14,7 @@ export default function SelectEstaticFormik({
       callbackchange={callbackchange}
       label={label}
       lista={items && items.map((item) => ({ nombre: item, id: item }))}
-      campoLabel={"nombre"}
+      campoLabel={campoLabel}
       campoId="id"
       campo={campo}
     />

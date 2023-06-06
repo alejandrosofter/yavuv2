@@ -32,11 +32,16 @@ import TabsFormik from "@components/forms/tab";
 import { getWherePermiso } from "@hooks/useUser";
 export function DataPaciente({ paciente }) {
   const [showMensajeCheck, setShowMensajeCheck] = useState();
+  const [openQuitar, setOpenQuitar] = useState(false);
   const checkPaciente = () => {
     setShowMensajeCheck(true);
     addQueryApi("verificacionPaciente", {
       ...paciente,
     });
+  };
+  const quitarPaciente = () => {
+    setOpenQuitar(false);
+    fuego.db.collection("pacientes").doc(paciente.id).delete();
   };
   const { data: obraSocial } = useDocument(
     `obrasSociales/${paciente.obraSocial}`,
@@ -53,6 +58,13 @@ export function DataPaciente({ paciente }) {
         titulo="AGUARDE ... VALIDANDO PACIENTE"
         detalle="Se enviaron los datos del paciente a la obra social, aguarde y en las notifiaciones se le informará cuando la obra social haya validado los datos del paciente."
       />
+      <Dialogo
+        open={openQuitar}
+        setOpen={setOpenQuitar}
+        callbackAcepta={quitarPaciente}
+        titulo="Esta por eliminar este paciente.. "
+        detalle="Al eliminar no quedaran datos!"
+      />
       <Grid item md={1}>
         <MuestraImagen border={3} w={70} h={70} pathImagen={paciente.foto} />
       </Grid>
@@ -63,8 +75,13 @@ export function DataPaciente({ paciente }) {
             {` ${capitalize(paciente.nombre)}`}
           </Typography>
         </Grid>
+        <Grid item md={2}>
+          <Button onClick={() => setOpenQuitar(true)} variant="outlined">
+            <Icon className="fas fa-trash" /> eliminar
+          </Button>
+        </Grid>
         {obraSocial?.tieneValidacionWeb && (
-          <Grid item md={4}>
+          <Grid item md={2}>
             <Button onClick={checkPaciente} variant="outlined">
               validar {obraSocial?.tipoValidacion}
             </Button>

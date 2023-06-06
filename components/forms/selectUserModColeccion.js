@@ -16,12 +16,13 @@ export default function SelectUserModColeccion({
   addWhere,
   extraData,
   callbackchange,
+  callbackSuccessNew,
   Form,
   icono,
   Modelo,
   sx,
   valoresIniciales,
-  parentData,
+  listen = true,
   maxWidth,
   limit,
   esForm = true,
@@ -38,7 +39,7 @@ export default function SelectUserModColeccion({
 
   const { data } = useCollection(coleccion, {
     limit,
-    listen: true,
+    listen,
     where: where,
   });
   const clickEditar = () => {
@@ -54,6 +55,7 @@ export default function SelectUserModColeccion({
   const callbackSuccess = (valor, item) => {
     setOpenNuevo(false);
     setOpenEditar(false);
+    if (callbackSuccessNew) callbackSuccessNew(valor, item);
   };
 
   if (!data) return "";

@@ -1,14 +1,10 @@
-import { LoadingButton } from "@mui/lab";
 import { Alert, Backdrop, Button, CircularProgress, Grid } from "@mui/material";
 import { Form, Formik, useFormikContext } from "formik";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import React from "react";
-import ErrorsForm from "../components/forms/errorForms";
-import { esVacio } from "../helpers/objectos";
-import ImpresionDialog from "@components/forms/impresion";
+import { fuego } from "@nandorojo/swr-firestore";
 import ShowErrors from "./showErrors";
-import { cleanseUndefined } from "@helpers/objects";
 
 export default function _FormGenerico({
   preData,
@@ -46,22 +42,31 @@ export default function _FormGenerico({
     setLoad(true);
     if (fnUpdate) {
       const data = quitarValoresNull(values);
-      fnUpdate(data)
-        .then(async (res) => {
-          if (callbackSuccess) {
-            await callbackSuccess(values, res);
-          } else {
-            router.back({ shallow: true });
-          }
-          setLoad(false);
-        })
-        .catch((error) => {
-          setLoad(false);
-          throw new Error(error);
-        })
-        .finally(() => {
-          setLoad(false);
-        });
+      if (isNew) {
+        const id = await fuego.db.collection(coleccion).add(data);
+        if (callbackSuccess) {
+          await callbackSuccess(values, id);
+        } else {
+          router.back({ shallow: true });
+        }
+        setLoad(false);
+      } else
+        fnUpdate(data)
+          .then(async (res, op) => {
+            if (callbackSuccess) {
+              await callbackSuccess(values, res);
+            } else {
+              router.back({ shallow: true });
+            }
+            setLoad(false);
+          })
+          .catch((error) => {
+            setLoad(false);
+            throw new Error(error);
+          })
+          .finally(() => {
+            setLoad(false);
+          });
     } else {
       setLoad(false);
     }
@@ -89,7 +94,6 @@ export default function _FormGenerico({
         validateForm,
         isValidating,
       }) => {
-        console.log(values);
         return (
           <Grid sx={{ p: 2 }} container spacing={1}>
             <Grid item xs={12}>

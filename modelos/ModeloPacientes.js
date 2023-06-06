@@ -16,13 +16,14 @@ export default function Modelo() {
           const { data } = await axios.post(`/api/validadores/paciente/dni`, {
             params: testContext.parent,
           });
-          if (!data) return true;
+          if (data && data.length === 0) return true;
+          // if (!data) return true;
 
-          if (Number(testContext.parent.dni) === Number(data?.dni)) return true;
+          if (testContext.parent.id === data[0]?.id) return true;
 
           return testContext.createError({
-            message: `Paciente ya registrado ${data.apellido.toUpperCase()} ${data.nombre.toUpperCase()} (${
-              data.dni
+            message: `Paciente ya registrado ${data[0].apellido.toUpperCase()} ${data[0].nombre.toUpperCase()} (${
+              data[0].dni
             }) registrado!`,
           });
 
@@ -63,5 +64,22 @@ export function valoresIniciales() {
     obraSocial: "",
     detalle: "",
     ...getSetPermiso("pacientes"),
+  };
+}
+//MODELO OS PACIENTE
+export function ModeloOsPaciente() {
+  return yup.object().shape({
+    nroAfiliado: yup.string().required(),
+    esDefault: yup.boolean(),
+    nroCredencial: yup.string(),
+    obrasSocial: yup.string(),
+  });
+}
+export function valoresInicialesOs() {
+  return {
+    esDefault: false,
+    nroAfiliado: "",
+    nroCredencial: "",
+    obrasSocial: "",
   };
 }

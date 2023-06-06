@@ -23,9 +23,12 @@ const InfoPaciente = ({ label, campo, lista, campoLabel, campoId }) => {
             valor: props.field.value,
           });
           if (!dataPaciente) return "";
+          const os = dataPaciente?.obrasSociales?.find(
+            (item) => item.esPrimaria
+          );
           return (
             <Tooltip
-              title={`Tel. ${dataPaciente.telefono} - DNI ${dataPaciente.dni} - Obra social ${dataPaciente.label_obraSocial}`}
+              title={`Tel. ${dataPaciente.telefono} - DNI ${dataPaciente.dni} - Obra social ${os?.label_obraSocial}`}
             >
               <Icon className="fas fa-info" />
             </Tooltip>

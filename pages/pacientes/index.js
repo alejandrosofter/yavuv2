@@ -32,6 +32,11 @@ export default function Page(props) {
             }
           }}
           sx={{ fontColor: "black" }}
+          callbackSuccessNew={(data, item) => {
+            console.log(data, item);
+            // localStorage.setItem("pacienteSeleccion", JSON.stringify(item));
+            // router.push(`/pacientes/ficha/${item.id}`);
+          }}
           esForm={false}
         />
       </>
@@ -85,7 +90,13 @@ export default function Page(props) {
       // },
     },
   ];
-
+  const onCreateSuccess = (data, res) => {
+    localStorage.setItem(
+      "pacienteSeleccion",
+      JSON.stringify({ ...data, id: res.id })
+    );
+    router.push(`/pacientes/ficha/${res.id}`);
+  };
   return (
     <ABMColeccion2
       coleccion={`pacientes`}
@@ -95,6 +106,7 @@ export default function Page(props) {
       maxWidth="md"
       rowsPerPage={100}
       hidePaginador={true}
+      callbackSuccessNew={onCreateSuccess}
       where={getWherePermiso("pacientes")}
       Modelo={Modelo}
       valoresIniciales={valoresIniciales}

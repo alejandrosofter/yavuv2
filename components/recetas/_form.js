@@ -21,6 +21,7 @@ import {
   valoresInicialesIndicacion,
   ModeloIndicacion,
 } from "@modelos/ModeloRecetas";
+import SelectOsPaciente from "./selectOs";
 export const getValor = (params, campo, ojo, lejosCerca, postchar = "") => {
   const aux = params.row[`${campo}_${ojo}_${lejosCerca}`];
   if (aux) return `${aux} ${postchar}`;
@@ -64,22 +65,31 @@ export function getDataOjo(params, ojo, lejosCerca, label) {
     `° cil`
   )}  `;
 }
+
 export default function Form({ mod, setFieldValue, values, paciente }) {
   return (
     <Grid container spacing={2}>
-      <Grid item md={2}>
-        <SelectFecha label="Fecha" campo="fecha" />
-      </Grid>
-      <Grid item md={2}>
-        <SelectFecha label="Fecha Receta" campo="fechaReceta" />
+      <Grid item md={3}>
+        <SelectFecha label="Fecha Registro" campo="fecha" />
       </Grid>
       <Grid item md={3}>
+        <SelectFecha label="Fecha Receta" campo="fechaReceta" />
+      </Grid>
+      <Grid item md={4}>
         <SelectEstaticFormik
           items={["MEDICAMENTO", "PRESTACION", "INDICACION", "ANTEOJOS"]}
           label="Tipo Receta"
           campo="tipo"
         />
       </Grid>
+      <Grid item md={3}>
+        <Switch label="Consulta Particular" campo="esParticular" />
+      </Grid>
+      {!values.esParticular && (
+        <Grid item md={4}>
+          <SelectOsPaciente values={values} paciente={paciente} />
+        </Grid>
+      )}
       {values.tipo == "MEDICAMENTO" && (
         <>
           <Grid item md={3}>
