@@ -67,6 +67,10 @@ export function getDataOjo(params, ojo, lejosCerca, label) {
 }
 
 export default function Form({ mod, setFieldValue, values, paciente }) {
+  const cambiaOs = (value, item) => {
+    if (!item) return;
+    setFieldValue("obraSocialSeleccion", item);
+  };
   return (
     <Grid container spacing={2}>
       <Grid item md={3}>
@@ -87,7 +91,11 @@ export default function Form({ mod, setFieldValue, values, paciente }) {
       </Grid>
       {!values.esParticular && (
         <Grid item md={4}>
-          <SelectOsPaciente values={values} paciente={paciente} />
+          <SelectOsPaciente
+            values={values}
+            callbackchange={cambiaOs}
+            paciente={paciente}
+          />
         </Grid>
       )}
       {values.tipo == "MEDICAMENTO" && (
