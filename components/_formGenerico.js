@@ -42,7 +42,7 @@ export default function _FormGenerico({
     setLoad(true);
     if (fnUpdate) {
       const data = quitarValoresNull(values);
-      if (isNew) {
+      if (isNew && coleccion) {
         const id = await fuego.db.collection(coleccion).add(data);
         if (callbackSuccess) {
           await callbackSuccess(values, id);

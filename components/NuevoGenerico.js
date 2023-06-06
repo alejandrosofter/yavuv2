@@ -29,6 +29,7 @@ export default function NuevoGenerico({
       <_FormGenerico
         preData={preData}
         callbackSuccess={callbackSuccess}
+        coleccion={coleccion}
         fnUpdate={add}
         modelo={modelo}
         isNew={true}
