@@ -11,6 +11,6 @@ export function valoresIniciales() {
   return {
     ref: "",
     data: {},
-    ...getSetPermiso("configs"),
+    ...getSetPermiso("modulos_config"),
   };
 }

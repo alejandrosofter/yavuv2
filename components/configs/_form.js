@@ -6,7 +6,14 @@ export default function FormClientes({ setFieldValue, values }) {
   const Form = dynamic(() => import(`../${values.ref}/config/`), {
     ssr: false,
   });
-  if (!values.ref) return "";
+  // if (!values.ref) return "";
 
-  return <Form values={values} setFieldValue={setFieldValue} />;
+  return (
+    <Grid container spacing={2}>
+      <Grid>
+        <Input label="Ref" campo={"ref"} />
+      </Grid>
+      <Form values={values} setFieldValue={setFieldValue} />
+    </Grid>
+  );
 }

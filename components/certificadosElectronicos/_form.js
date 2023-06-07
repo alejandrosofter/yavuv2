@@ -20,15 +20,11 @@ export default function FormCertificadosElectronicos({ values }) {
         <Input label="Punto Venta" campo="nroPuntoVenta" />
       </Grid>
       <Grid item md={6}>
-        {values.estado === "PEDIDO GENERADO" && (
-          <UploadAnyFormik
-            folder={`certificadosElectronicos/${
-              fuego.auth().currentUser?.uid
-            }/`}
-            label="Certificado"
-            campo="certificado"
-          />
-        )}
+        <UploadAnyFormik
+          folder={`certificadosElectronicos/${fuego.auth().currentUser?.uid}/`}
+          label="Certificado"
+          campo="certificado"
+        />
       </Grid>
     </Grid>
   );

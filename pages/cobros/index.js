@@ -143,6 +143,12 @@ export default function Modulo({ parentData }) {
       },
     },
   ];
+  const onCreate = (newData, id) => {
+    const data = { ...newData, id };
+    setOpenImpresion(true);
+    setSocioCobro(data);
+    setDataImpresion(data);
+  };
   return (
     <Grid container>
       <ABMColeccion
@@ -188,6 +194,7 @@ export default function Modulo({ parentData }) {
         orderBy={order}
         Modelo={Modelo}
         valoresIniciales={valoresIniciales}
+        callbackSuccessNew={onCreate}
         dataForm={{}}
         titulo={`COBROS`}
         Form={Form}
