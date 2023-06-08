@@ -22,6 +22,7 @@ import {
   ModeloIndicacion,
 } from "@modelos/ModeloRecetas";
 import SelectOsPaciente from "./selectOs";
+import { useEffect } from "react";
 export const getValor = (params, campo, ojo, lejosCerca, postchar = "") => {
   const aux = params.row[`${campo}_${ojo}_${lejosCerca}`];
   if (aux) return `${aux} ${postchar}`;
@@ -71,6 +72,7 @@ export default function Form({ mod, setFieldValue, values, paciente }) {
     if (!item) return;
     setFieldValue("obraSocialSeleccion", item);
   };
+  useEffect(() => {}, [values.obraSocial]);
   return (
     <Grid container spacing={2}>
       <Grid item md={3}>
@@ -92,8 +94,8 @@ export default function Form({ mod, setFieldValue, values, paciente }) {
       {!values.esParticular && (
         <Grid item md={4}>
           <SelectOsPaciente
+            setFieldValue={setFieldValue}
             values={values}
-            callbackchange={cambiaOs}
             paciente={paciente}
           />
         </Grid>
@@ -199,7 +201,7 @@ export default function Form({ mod, setFieldValue, values, paciente }) {
         <Grid item md={12}>
           <DataGridFormikItems
             label=""
-            preData={{ obraSocial: values.obraSocial }}
+            preData={{ obraSocial: values.valores_idOsPaciente }}
             Modelo={ModeloPrestaciones}
             valoresIniciales={valoresInicialesPrestaciones}
             FormularioItem={FormPrestaciones}

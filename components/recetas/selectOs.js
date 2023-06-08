@@ -1,7 +1,7 @@
 import SelectFormik from "@components/forms/select2Formik";
 import { useEffect } from "react";
 
-export default function SelectOsPaciente({ values, paciente, callbackchange }) {
+export default function SelectOsPaciente({ setFieldValue, values, paciente }) {
   const data = paciente?.obrasSociales;
   const campo = "idOsPaciente";
   const label = "Obra Social Paciente";
@@ -11,8 +11,15 @@ export default function SelectOsPaciente({ values, paciente, callbackchange }) {
     ? null
     : paciente?.obrasSociales?.find((item) => item.esPrimaria);
   useEffect(() => {
-    if (callbackchange) callbackchange(defOs, defOs);
-  }, [defOs]);
+    if (!values[campo]) return;
+    const item = data?.find((item) => item.id === values[campo]);
+
+    setFieldValue(`valores_${campo}`, item);
+  }, [values[campo]]);
+  const callbackchange = (values, item) => {
+    setFieldValue(`valores_${campo}`, item);
+  };
+
   return (
     <SelectFormik
       callbackchange={callbackchange}

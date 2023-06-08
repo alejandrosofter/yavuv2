@@ -11,9 +11,13 @@ export default function FormPrestaciones({
   values,
   obraSocial,
 }) {
-  const { data: refObraSocial } = useDocument(`obrasSociales/${obraSocial}`, {
-    listen: true,
-  });
+  console.log(`obraSocial`, obraSocial);
+  const { data: refObraSocial } = useDocument(
+    `obrasSociales/${obraSocial?.obraSocial}`,
+    {
+      listen: true,
+    }
+  );
   const cambiaPrestacion = (valor, item) => {
     if (item) {
       setFieldValue("codigo", `${item.codigoInterno}`);
@@ -38,7 +42,7 @@ export default function FormPrestaciones({
         )}
         <SelectPrestaciones
           callbackchange={cambiaPrestacion}
-          obraSocial={obraSocial}
+          obraSocial={obraSocial?.obraSocial}
         />
       </Grid>
       <Grid item md={12}>

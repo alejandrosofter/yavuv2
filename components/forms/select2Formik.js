@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ErrorMessage, Field } from "formik";
+import { ErrorMessage, Field, useFormikContext } from "formik";
 
 import { FormControl, Typography } from "@mui/material";
 import Select2 from "react-select";
@@ -17,6 +17,13 @@ const SelectFormik = ({
   multiple,
 }) => {
   const [valor, setValor] = useState();
+  const { setFieldValue } = useFormikContext();
+  useEffect(() => {
+    if (defaultValue) {
+      setFieldValue(campo, defaultValue[campoId]);
+    }
+  }, [defaultValue]);
+
   if (!lista) return "cargando";
   const datos = lista.map((item) => {
     return {
