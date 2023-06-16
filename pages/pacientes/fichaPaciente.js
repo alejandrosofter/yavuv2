@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { fuego, useDocument } from "@nandorojo/swr-firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModeloRecetas, {
   valoresIniciales as valoresInicialesRecetas,
 } from "@modelos/ModeloRecetas";
@@ -189,10 +189,10 @@ export function TurnosPaciente({ paciente, callbackchange }) {
     </Grid>
   );
 }
-export function ListaRecetas({ callbackchange, paciente, mod }) {
+export function ListaRecetas({ callbackchange, paciente }) {
   const [seleccion, setSeleccion] = useState(null);
   const config = UseConfigModulo("pacientes");
-
+  console.log(paciente);
   const idPlantilla = config?.plantillaRecetas;
   const [dataImpresion, setDataImpresion] = useState();
 
@@ -249,13 +249,6 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
       renderCell: (params) => renderCellExpandData(params, getDetalleReceta),
     },
   ];
-  const setIndicaciones = (indicaciones) => {
-    let aux = indicaciones;
-    for (let i = 0; i < aux.length; i++)
-      aux[i].detalle = aux[i].detalle.replace(/\n/g, "<br>");
-
-    return aux;
-  };
   const acciones = [
     {
       esFuncion: true,
@@ -274,7 +267,7 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
         // if (row.label_tipo === "INDICACION")
         //   row.indicaciones = setIndicaciones(row.indicaciones);
         setSeleccion(row);
-
+        console.log("paciente ", paciente);
         setDataImpresion({ ...row, paciente });
         setOpenImpresion(true);
       },
@@ -290,8 +283,7 @@ export function ListaRecetas({ callbackchange, paciente, mod }) {
       },
     },
   ];
-  const parentData =
-    localStorage.getItem("usermod") === fuego.auth().currentUser?.uid;
+
   const callbackNuevaReceta = (data) => {
     setDataImpresion({ ...data, paciente });
     setOpenImpresion(true);

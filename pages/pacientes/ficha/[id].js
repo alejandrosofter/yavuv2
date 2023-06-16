@@ -36,6 +36,8 @@ export default function FichaPaciente({}) {
     ),
   });
   const { id } = router.query;
+  console.log(`id`, id);
+
   const {
     data: paciente,
     isLoading,
@@ -46,6 +48,7 @@ export default function FichaPaciente({}) {
 
   if (!paciente) return "Seleccione un Paciente!";
   if (!paciente.exists) return "El paciente no existe";
+
   return (
     <Grid container spacing={2}>
       <Grid item md={12}>

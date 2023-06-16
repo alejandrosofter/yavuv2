@@ -1,6 +1,6 @@
 import ColeccionTable from "@components/forms/coleccionTable";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Backdrop,
   Button,
@@ -67,15 +67,19 @@ export default function ABMColeccion({
       label: "",
     },
   ];
+  useEffect(() => {
+    if (acciones) {
+      setAcctions(accionesABM.concat(acciones));
+    }
+  }, [acciones]);
   const [seleccion, setSeleccion] = useState(null);
   const [openEditar, setOpenEditar] = useState(false);
 
   const [openNuevo, setOpenNuevo] = useState(false);
   const [dataConsulta, setDataConsulta] = useState();
   const [openConfirma, setOpenConfirma] = useState(false);
-  const [accions, setAcctions] = useState(
-    accionesABM.concat(acciones ? acciones : [])
-  );
+  const [accions, setAcctions] = useState([]);
+
   const confirma = () => {
     quitarDocumento(seleccion).then(() => {
       setOpenConfirma(false);
