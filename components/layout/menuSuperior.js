@@ -18,16 +18,11 @@ export default function MainMenuSuperior({
   auth,
   acciones,
   components,
-  buscador,
   drawerWidth,
   theme,
 }) {
   if (!auth.id) return "";
-  const { data: dataBuscador } = useCollection(buscador?.coleccion, {
-    limit: buscador?.limit ? buscador?.limit : 1000,
-    listen: true,
-    where: buscador?.where,
-  });
+
   return (
     <AppBar
       //   sx={{ display: auth.id ? `si` : `none` }}
@@ -63,20 +58,7 @@ export default function MainMenuSuperior({
         </Link> */}
         <MenuAccionesBarra acciones={acciones} sx={{ mr: 4 }} />
         {components}
-        {buscador && (
-          <Grid item md={buscador?.size ? buscador.size : 4}>
-            <Select2Simple
-              sx={buscador.sx}
-              callbackchange={buscador.fn}
-              extraData={buscador.extraData}
-              campo={buscador.campo}
-              label={buscador.label}
-              lista={dataBuscador}
-              campoId={buscador.campoId}
-              campoLabel={buscador.campoLabel}
-            />
-          </Grid>
-        )}
+
         <MenuCuenta auth={auth} />
       </Toolbar>
     </AppBar>
