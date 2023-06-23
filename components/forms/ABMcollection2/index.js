@@ -11,6 +11,7 @@ import ColeccionTable2 from "../collectionTable2";
 import TitulosFormularios from "../tituloFormularios";
 
 export default function ABMColeccion2({
+  initialState,
   valoresIniciales,
   dataExternal,
   hidePaginador,
@@ -151,6 +152,7 @@ export default function ABMColeccion2({
           refData={refData}
           callbackclick={callbackclick}
           columns={columns}
+          initialState={initialState}
           orderBy={orderBy}
           onSelectionModelChange={onSelectionModelChange}
           getRowClassName={getRowClassName}

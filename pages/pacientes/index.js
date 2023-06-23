@@ -7,6 +7,7 @@ import ABMColeccion2 from "@components/forms/ABMcollection2";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPacientes";
 import Form from "@components/pacientes/_form";
 import { UseStorage } from "@hooks/useStorage";
+import Link from "next/link";
 export default function Page(props) {
   const router = useRouter();
 
@@ -24,7 +25,7 @@ export default function Page(props) {
     ],
     components: (
       <>
-        <SelectPaciente
+        {/* <SelectPaciente
           callbackchange={(select, item) => {
             if (item) {
               localStorage.setItem("pacienteSeleccion", JSON.stringify(item));
@@ -38,7 +39,7 @@ export default function Page(props) {
             // router.push(`/pacientes/ficha/${item.id}`);
           }}
           esForm={false}
-        />
+        /> */}
       </>
     ),
   });
@@ -55,7 +56,11 @@ export default function Page(props) {
       accessorKey: "apellido",
       header: "Apellido",
       size: 150,
-      // Cell: ({ cell }) => getFechaString(cell.getValue()),
+      Cell: ({ cell }) => (
+        <Link href={`/pacientes/ficha/${cell.row.original.id}`}>
+          {cell.getValue()}
+        </Link>
+      ),
     },
     {
       accessorKey: "dni",
@@ -101,11 +106,13 @@ export default function Page(props) {
     <ABMColeccion2
       coleccion={`pacientes`}
       columns={columns}
+      initialState={{ showColumnFilters: true }}
       acciones={acciones}
       order={["apellido", "asc"]}
       maxWidth="md"
       rowsPerPage={100}
       hidePaginador={true}
+      labelNuevo={"nuevo paciente"}
       callbackSuccessNew={onCreateSuccess}
       where={getWherePermiso("pacientes")}
       Modelo={Modelo}

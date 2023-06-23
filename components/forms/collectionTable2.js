@@ -9,6 +9,7 @@ export function ColeccionTable({
   where,
   columns,
   dataExternal,
+  initialState,
   orderBy,
   refData,
   gridOptions,
@@ -95,7 +96,7 @@ export function ColeccionTable({
         enableRowActions
         enableStickyHeader
         // globalFilterFn="contains"
-        // initialState={{ showGlobalFilter: false, showColumnFilters: true }}
+        initialState={initialState}
         positionGlobalFilter="left"
         enableGlobalFilter={false}
         enableColumnResizing
@@ -205,7 +206,7 @@ export default function ColeccionTable2({
       orderBy={orderBy}
       enableRowSelection
       filterFns
-      initialState
+      initialState={initialState}
       // limit={10}
       acciones={acciones}
       callbackchangedata={callbackchangedata}
