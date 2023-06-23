@@ -1,7 +1,7 @@
 import { Button, Grid, Icon, Typography } from "@mui/material";
 import { fuego, useDocument } from "@nandorojo/swr-firestore";
 import Form from "@components/website/_form";
-export default function home() {
+export default function Home() {
   const { data: sitio, set } = useDocument(
     `website/${fuego.auth().currentUser?.uid}`,
     { listen: true }
