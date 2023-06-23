@@ -23,6 +23,8 @@ export default function Layout({
   dataLayout = {
     titulo: "",
     acciones: [],
+    components2: [],
+    components: <></>,
     label: "",
     icono: "",
   },
@@ -104,6 +106,7 @@ export default function Layout({
         auth={auth}
         open={open}
         setOpen={setOpen}
+        buscador={dataLayout.buscador}
         acciones={dataLayout.acciones}
         components={dataLayout.components}
         titulo={dataLayout.titulo}

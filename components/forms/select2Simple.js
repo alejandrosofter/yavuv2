@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Select2 from "react-select";
 import { getItemArray } from "@helpers/arrays";
 export default function Select2Simple({
@@ -13,15 +13,21 @@ export default function Select2Simple({
   campoLabel,
 }) {
   const [valor, setValor] = useState(value);
-
+  const [datos, setDatos] = useState([]);
+  useEffect(() => {
+    const aux = lista?.map((item) => {
+      return {
+        label:
+          typeof campoLabel === "function"
+            ? campoLabel(item)
+            : item[campoLabel],
+        value: item[campoId],
+      };
+    });
+    setDatos(aux);
+  }, [lista]);
   if (!lista) return "cargando";
-  const datos = lista.map((item) => {
-    return {
-      label:
-        typeof campoLabel === "function" ? campoLabel(item) : item[campoLabel],
-      value: item[campoId],
-    };
-  });
+
   const handleChange = (item) => {
     if (multiple) {
       setValor(item);

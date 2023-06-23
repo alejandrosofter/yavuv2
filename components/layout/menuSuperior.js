@@ -9,16 +9,25 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import { LinkMenu } from "./linkMenu";
+import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
+import Select2Simple from "@components/forms/select2Simple";
+import { useCollection } from "@nandorojo/swr-firestore";
 export default function MainMenuSuperior({
   open = false,
   handleDrawerOpen,
   auth,
   acciones,
   components,
+  buscador,
   drawerWidth,
   theme,
 }) {
   if (!auth.id) return "";
+  const { data: dataBuscador } = useCollection(buscador?.coleccion, {
+    limit: buscador?.limit ? buscador?.limit : 1000,
+    listen: true,
+    where: buscador?.where,
+  });
   return (
     <AppBar
       //   sx={{ display: auth.id ? `si` : `none` }}
@@ -54,6 +63,20 @@ export default function MainMenuSuperior({
         </Link> */}
         <MenuAccionesBarra acciones={acciones} sx={{ mr: 4 }} />
         {components}
+        {buscador && (
+          <Grid item md={buscador?.size ? buscador.size : 4}>
+            <Select2Simple
+              sx={buscador.sx}
+              callbackchange={buscador.fn}
+              extraData={buscador.extraData}
+              campo={buscador.campo}
+              label={buscador.label}
+              lista={dataBuscador}
+              campoId={buscador.campoId}
+              campoLabel={buscador.campoLabel}
+            />
+          </Grid>
+        )}
         <MenuCuenta auth={auth} />
       </Toolbar>
     </AppBar>

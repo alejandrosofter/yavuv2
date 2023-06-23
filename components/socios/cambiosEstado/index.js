@@ -61,9 +61,10 @@ export default function CambiosEstadoSocio({ data }) {
       esFuncion: true,
       icono: "fas fa-share-alt",
       label: "Compartir",
-      fn: (row) => {
+      fn: async (row) => {
         const socio = localstorageParser("socioSeleccion");
-        setDataImpresion({ ...row, socio });
+        const refSocio = await fuego.db.doc(`socios/${socio.objectID}`).get();
+        setDataImpresion({ ...row, socio, dataSocio: refSocio.data() });
         setOpenImpresion(true);
       },
     },
@@ -94,6 +95,7 @@ export default function CambiosEstadoSocio({ data }) {
         setOpen={setOpenImpresion}
         open={openImpresion}
         asunto="ESTADO SOCIO "
+        emailDefault={dataImpresion?.dataSocio?.email}
         data={dataImpresion}
         plantilla={plantilla}
         nombrePlantillaEmail="emailAfiliacion"

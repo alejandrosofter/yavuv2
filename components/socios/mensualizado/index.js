@@ -143,7 +143,13 @@ export default function CuentaSocio({ data }) {
           .collection(`cuentasCbu`)
           .doc(row.idCuentaCbu)
           .get();
-        setDataImpresion({ ...row, socio, cuentaCbu: cuentaCbu.data() });
+        const refSocio = await fuego.db.doc(`socios/${socio.objectID}`).get();
+        setDataImpresion({
+          ...row,
+          socio,
+          cuentaCbu: cuentaCbu.data(),
+          dataSocio: refSocio.data(),
+        });
         setOpenImpresion(true);
       },
     },
@@ -199,7 +205,7 @@ export default function CuentaSocio({ data }) {
         asunto="MENSUALIZACION "
         data={dataImpresion}
         plantilla={plantilla}
-        emailDefault={dataImpresion?.socio?.email}
+        emailDefault={dataImpresion?.dataSocio?.email}
         nombrePlantillaEmail="emailAfiliacion"
         attachments={[{ filename: "AFILIACION.pdf", data: plantilla }]}
       />

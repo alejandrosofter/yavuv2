@@ -27,20 +27,19 @@ export default function FichaPaciente({}) {
       { label: "Turnos", icono: "fas fa-calendar", url: "/turnos" },
       { label: "Ficha", icono: "fas fa-id-card", url: "/pacientes/ficha" },
     ],
-    components: (
-      <>
-        <SelectPaciente
-          callbackchange={(select, item) => {
-            if (item) {
-              localStorage.setItem("pacienteSeleccion", JSON.stringify(item));
-              router.push(`/pacientes/ficha/${item.id}`);
-            }
-          }}
-          sx={{ fontColor: "black" }}
-          esForm={false}
-        />
-      </>
-    ),
+
+    // <>
+    //   <SelectPaciente
+    //     callbackchange={(select, item) => {
+    //       if (item) {
+    //         localStorage.setItem("pacienteSeleccion", JSON.stringify(item));
+    //         router.push(`/pacientes/ficha/${item.id}`);
+    //       }
+    //     }}
+    //     sx={{ fontColor: "black" }}
+    //     esForm={false}
+    //   />
+    // </>
   });
   const { id } = router.query;
   console.log(`id`, id);
