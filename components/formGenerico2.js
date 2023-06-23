@@ -8,15 +8,10 @@ import ErrorsForm from "@components/forms/errorForms";
 import { esVacio } from "@helpers/objectos";
 
 export default function FormGenerico2({
-  preData,
-  callbackSuccess,
   dataForm,
   validationSchema,
   initialValues,
   children,
-  validateOnChange,
-  validateOnBlur,
-  validateOnMount,
   onSubmit,
   conValidacion,
 }) {

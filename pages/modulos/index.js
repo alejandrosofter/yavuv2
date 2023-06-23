@@ -1,4 +1,4 @@
-import ABMColeccion from "@components/forms/ABMcollection";
+import ABMColeccion from "@components/forms/ABMcollection2";
 import TitulosFormularios from "@components/forms/tituloFormularios";
 import Modelo, { valoresIniciales } from "@modelos/ModeloModulos";
 import { Icon, Typography, Grid, Stack } from "@mui/material";
@@ -7,28 +7,33 @@ import Form from "@components/modulos/_form";
 export default function Modulo({ mod }) {
   const columns = [
     {
-      field: "icono",
-      headerName: "Modulo",
-      width: 250,
-      renderCell: (params) => {
+      accessorKey: "label",
+      header: "Modulo",
+      size: 250,
+      Cell: ({ cell }) => {
         return (
           <Stack spacing={1} direction="row">
-            <Icon size="small" className={params.formattedValue} />
-            <Typography variant="h5"> {`${params.row.label}`}</Typography>
+            <Icon size="small" className={cell.row.original.icono} />
+            <Typography variant="h5"> {`${cell.getValue()}`}</Typography>
           </Stack>
         );
       },
     },
     {
-      field: "acciones",
-      headerName: "Acciones",
-      width: 480,
-      renderCell: (params) =>
-        params.value ? params.value.map((item) => item.label).join(", ") : "",
+      accessorKey: "acciones",
+      header: "Acciones",
+      size: 480,
+      Cell: ({ cell }) =>
+        cell.getValue()
+          ? cell
+              .getValue()
+              .map((item) => item.label)
+              .join(", ")
+          : "",
     },
   ];
-  const order = ["nombre", "asc"];
-  const parentData = true;
+  const order = ["label", "asc"];
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -39,10 +44,11 @@ export default function Modulo({ mod }) {
         <ABMColeccion
           coleccion={`modulos`}
           columns={columns}
+          acciones={[]}
           where={[["idUsuario", "==", fuego.auth().currentUser?.uid]]}
           labelNuevo="nueva"
           preData={{}}
-          order={order}
+          orderBy={order}
           maxWidth={"lg"}
           // callbackclick={callbackclick}
           icono={"fas fa-"}

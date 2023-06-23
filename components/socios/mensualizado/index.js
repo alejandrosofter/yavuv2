@@ -137,10 +137,13 @@ export default function CuentaSocio({ data }) {
       esFuncion: true,
       icono: "fas fa-share-alt",
       label: "Compartir",
-      fn: (row) => {
+      fn: async (row) => {
         const socio = JSON.parse(localStorage.getItem("socioSeleccion"));
-
-        setDataImpresion({ ...row, socio });
+        const cuentaCbu = await fuego.db
+          .collection(`cuentasCbu`)
+          .doc(row.idCuentaCbu)
+          .get();
+        setDataImpresion({ ...row, socio, cuentaCbu: cuentaCbu.data() });
         setOpenImpresion(true);
       },
     },

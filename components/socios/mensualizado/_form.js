@@ -57,11 +57,14 @@ export default function FormMensualizado({
 
     setFieldValue(`cbu`, item.cbu);
     setFieldValue(`titular`, item.titular);
+    setFieldValue(`dniTitular`, item.dniTitular);
+    setFieldValue(`tipo`, item.tipo);
     setFieldValue(`nroCuenta`, item.nroCuenta);
     setFieldValue(`tipoCuenta`, item.tipoCuenta);
     setFieldValue(`label_tipoCuenta`, item.label_tipoCuenta);
   };
   const cambiaCuenta = (item) => {
+    console.log(`cambia cuenta`);
     if (item) setItemsCuenta(item);
   };
   const cambiaTipoPeriodo = (value, item) => {

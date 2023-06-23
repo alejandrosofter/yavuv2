@@ -9,6 +9,7 @@ import {
   getDetalleAnteojo,
   getDetalleLente,
 } from "@components/recetas/_form";
+import { calcularCuil } from "@helpers/Strings";
 
 export function UsePlantilla({ id, data }) {
   const { data: dataTemplate } = useDocument(`plantillas/${id}`);
@@ -65,6 +66,10 @@ export function UsePlantilla({ id, data }) {
     });
     Handlebars.registerHelper("detalleAnteojos", function (data) {
       return getDetalleAnteojo(data, true);
+    });
+    Handlebars.registerHelper("calcularCuil", function (tipo, dni) {
+      console.log(tipo, dni);
+      return calcularCuil(tipo, dni);
     });
     Handlebars.registerHelper(
       "detalleLente",
