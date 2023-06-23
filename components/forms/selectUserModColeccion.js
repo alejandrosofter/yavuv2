@@ -42,6 +42,7 @@ export default function SelectUserModColeccion({
     listen,
     where: where,
   });
+  console.log(data);
   const clickEditar = () => {
     setOpenEditar(true);
   };

@@ -1,4 +1,4 @@
-import { useDocument } from "@nandorojo/swr-firestore";
+import { fuego, useCollection, useDocument } from "@nandorojo/swr-firestore";
 import { useRouter } from "next/router";
 import {
   DataPaciente,
@@ -9,9 +9,16 @@ import { Grid } from "@mui/material";
 import TabsFormik from "@components/forms/tab";
 import useLayout from "@hooks/useLayout";
 import SelectPaciente from "@components/pacientes/selectPaciente";
+import SelectSimple from "@components/forms/select2Simple";
+import { getWherePermiso } from "@hooks/useUser";
 
 export default function FichaPaciente({}) {
   const router = useRouter();
+  // const { data } = useCollection("pacientes", {
+  //   listen: true,
+  //   where: getWherePermiso("pacientes"),
+  // });
+
   useLayout({
     label: "Pacientes",
     titulo: "Pacientes",

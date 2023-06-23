@@ -13,6 +13,7 @@ export default function Select2Simple({
   campoLabel,
 }) {
   const [valor, setValor] = useState(value);
+
   if (!lista) return "cargando";
   const datos = lista.map((item) => {
     return {
