@@ -300,8 +300,13 @@ export function ListaRecetas({ callbackchange, paciente }) {
     },
   ];
 
-  const callbackNuevaReceta = (data) => {
-    setDataImpresion({ ...data, paciente });
+  const callbackNuevaReceta = async (data) => {
+    const valores_idOsPaciente = await fuego.db
+      .collection(`pacientes/${paciente.id}/obrasSociales`)
+      .doc(paciente.obraSocial)
+      .get()
+      .then((doc) => doc.data());
+    setDataImpresion({ ...data, valores_idOsPaciente, paciente });
     setOpenImpresion(true);
   };
   return (

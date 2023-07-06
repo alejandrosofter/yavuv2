@@ -76,6 +76,7 @@ export function valoresInicialesMedicamentos() {
     fecha: new Date(),
     idMedicamento: "",
     cantidad: 1,
+    detalle: "",
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,

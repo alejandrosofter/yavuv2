@@ -26,6 +26,7 @@ export default function FormMedicamentos({ mod, setFieldValue, values }) {
       setFieldValue("nombreGenerico", `${item.nombreGenerico}`);
       setFieldValue("laboratorio", `${item.laboratorio}`);
       setFieldValue("idMedicamento", `${item.id}`);
+      setFieldValue("label_idMedicamento", `${item.nombre}`);
     }
   };
   const cambiaPosologia = (valor, item) => {
