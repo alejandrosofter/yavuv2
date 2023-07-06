@@ -91,15 +91,6 @@ export default function Form({ mod, setFieldValue, values, paciente }) {
       <Grid item md={3}>
         <Switch label="Consulta Particular" campo="esParticular" />
       </Grid>
-      {!values.esParticular && (
-        <Grid item md={4}>
-          <SelectOsPaciente
-            setFieldValue={setFieldValue}
-            values={values}
-            paciente={paciente}
-          />
-        </Grid>
-      )}
       {values.tipo == "MEDICAMENTO" && (
         <>
           <Grid item md={3}>

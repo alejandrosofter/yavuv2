@@ -30,9 +30,11 @@ import NuevaReceta from "@components/recetas/nuevaReceta";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 import TabsFormik from "@components/forms/tab";
 import { getWherePermiso } from "@hooks/useUser";
+import EditarPaciente from "@components/pacientes/editar";
 export function DataPaciente({ paciente }) {
   const [showMensajeCheck, setShowMensajeCheck] = useState();
   const [openQuitar, setOpenQuitar] = useState(false);
+  const [openEditar, setOpenEditar] = useState(false);
   const checkPaciente = () => {
     setShowMensajeCheck(true);
     addQueryApi("verificacionPaciente", {
@@ -80,6 +82,11 @@ export function DataPaciente({ paciente }) {
             <Icon className="fas fa-trash" /> eliminar
           </Button>
         </Grid>
+        <Grid item md={2}>
+          <Button onClick={() => setOpenEditar(true)} variant="outlined">
+            <Icon className="fas fa-pencil" /> editar perfil
+          </Button>
+        </Grid>
         {obraSocial?.tieneValidacionWeb && (
           <Grid item md={2}>
             <Button onClick={checkPaciente} variant="outlined">
@@ -95,6 +102,11 @@ export function DataPaciente({ paciente }) {
           </Typography>
         </Grid>
       </Grid>
+      <EditarPaciente
+        idPaciente={paciente.id}
+        open={openEditar}
+        setOpen={setOpenEditar}
+      />
     </Grid>
   );
 }
@@ -192,7 +204,6 @@ export function TurnosPaciente({ paciente, callbackchange }) {
 export function ListaRecetas({ callbackchange, paciente }) {
   const [seleccion, setSeleccion] = useState(null);
   const config = UseConfigModulo("pacientes");
-  console.log(paciente);
   const idPlantilla = config?.plantillaRecetas;
   const [dataImpresion, setDataImpresion] = useState();
 
@@ -266,9 +277,14 @@ export function ListaRecetas({ callbackchange, paciente }) {
       fn: async (row) => {
         // if (row.label_tipo === "INDICACION")
         //   row.indicaciones = setIndicaciones(row.indicaciones);
+        const valores_idOsPaciente = await fuego.db
+          .collection(`pacientes/${paciente.id}/obrasSociales`)
+          .doc(paciente.obraSocial)
+          .get()
+          .then((doc) => doc.data());
+
         setSeleccion(row);
-        console.log("paciente ", paciente);
-        setDataImpresion({ ...row, paciente });
+        setDataImpresion({ ...row, valores_idOsPaciente, paciente });
         setOpenImpresion(true);
       },
     },

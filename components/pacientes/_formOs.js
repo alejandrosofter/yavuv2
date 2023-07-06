@@ -6,9 +6,6 @@ export default function FormOs() {
   return (
     <Grid container spacing={2}>
       <Grid item md={3}>
-        <Switch campo="esPrimaria" label="Es Primaria" />
-      </Grid>
-      <Grid item md={3}>
         <Input label="Nro Afiliado" campo="nroAfiliado" />
       </Grid>
       <Grid item md={3}>
