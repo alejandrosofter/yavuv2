@@ -93,7 +93,7 @@ export function getCuilCuit(document_number, gender) {
       document_number = "0".concat(document_number);
     } else {
       // Muestro un error en caso de no serlo.
-      throw "El numero de document_number ingresado no es correcto.";
+      return "El numero de dni ingresado no es correcto.";
     }
   }
 
