@@ -160,3 +160,8 @@ export function getCuilCuit(document_number, gender) {
   const cuil_cuit = `${AB}${document_number}${C}`;
   return cuil_cuit;
 }
+export function limpiarHTML(cadenaHTML) {
+  var temporal = document.createElement("div");
+  temporal.innerHTML = cadenaHTML;
+  return temporal.textContent.replace(/<[^>]+>/g, "");
+}

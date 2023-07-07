@@ -27,14 +27,7 @@ export default function FormIndicaciones({
         <SelectIndicacion callbackchange={cambiaIndicacion} />
       </Grid>
       <Grid item md={12}>
-        <RichEditorFormik
-          toolbar="bold italic | alignleft aligncenter 
-          alignright alignjustify "
-          height={300}
-          menubar={false}
-          label="Detalle"
-          campo="detalle"
-        />
+        <Input label="Detalle" multiline={true} rows={10} campo="detalle" />
       </Grid>
     </Grid>
   );
