@@ -12,6 +12,7 @@ import { UseConfigModulo } from "@helpers/useConfigModulo";
 import { getWherePermiso } from "@hooks/useUser";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
 import useLayout from "@hooks/useLayout";
+import { fuego } from "@nandorojo/swr-firestore";
 // import { UsePlantilla2 } from "@components/plantillas/usePlantilla2";
 export default function Modulo({}) {
   const order = ["fecha", "desc"];
@@ -20,6 +21,17 @@ export default function Modulo({}) {
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const [dataConsulta, setDataConsulta] = useState();
+  const getDataImpresion = async (data) => {
+    var mensualizado = [];
+    for (let i = 0; i < data.mensualizado.length; i++) {
+      const cbu = await fuego.db
+        .collection("cuentasCbu")
+        .doc(data.mensualizado[i].idCuentaCbu)
+        .get();
+      mensualizado.push({ ...data.mensualizado[i], cuentaCbu: cbu.data() });
+    }
+    return { ...data, mensualizado };
+  };
   const router = useRouter();
   useLayout({
     label: "Afiliaciones",
@@ -89,9 +101,11 @@ export default function Modulo({}) {
       icono: "fas fa-share-alt",
       label: "Compartir",
 
-      fn: (data) => {
+      fn: async (data) => {
+        const aux = await getDataImpresion(data);
+        console.log(`aux`, aux);
         setOpenImpresion(true);
-        setDataImpresion(data);
+        setDataImpresion(aux);
       },
     },
   ];
