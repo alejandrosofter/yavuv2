@@ -4,7 +4,7 @@ import Switch from "@components/forms/switch";
 import { useState } from "react";
 import SelectTipoCuenta from "./selectTipoCuenta";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
-import { calcularCuil } from "@helpers/Strings";
+import { calcularCuil, getCuilCuit } from "@helpers/Strings";
 export default function Form({ mod, setFieldValue, values }) {
   return (
     <Grid>
@@ -34,7 +34,7 @@ export default function Form({ mod, setFieldValue, values }) {
           </Grid>
           <Grid item md={4}>
             <Typography variant="caption">
-              CUIL: {calcularCuil(values.tipo, values.dniTitular)}
+              CUIL: {getCuilCuit(values.tipo, values.dniTitular)}
             </Typography>
           </Grid>
 
