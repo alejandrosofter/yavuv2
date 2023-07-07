@@ -34,7 +34,7 @@ export default function Form({ mod, setFieldValue, values }) {
           </Grid>
           <Grid item md={4}>
             <Typography variant="caption">
-              CUIL: {getCuilCuit(values.tipo, values.dniTitular)}
+              CUIL: {getCuilCuit(values.dniTitular, values.tipo)}
             </Typography>
           </Grid>
 

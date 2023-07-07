@@ -88,6 +88,8 @@ export function getCuilCuit(document_number, gender) {
    * Verifico que el document_number tenga exactamente ocho numeros y que
    * la cadena no contenga letras.
    */
+  if (!document_number) return "";
+  if (!gender) return "";
   if (document_number.length != 8 || isNaN(document_number)) {
     if (document_number.length == 7 && !isNaN(document_number)) {
       document_number = "0".concat(document_number);
