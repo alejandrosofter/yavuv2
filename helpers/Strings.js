@@ -37,10 +37,10 @@ export function calcularCuil(tipo, dni) {
   // Calcular el número de CUIL
   let cuilStr = "";
 
-  if (tipo === "empresa") {
+  if (tipo === "EMPRESA") {
     cuilStr = "30" + dni.toString();
   } else {
-    let generoNum = tipo === "masculino" ? 20 : 27;
+    let generoNum = tipo === "MASCULINO" ? 20 : 27;
     cuilStr = generoNum.toString() + dni.toString();
   }
 
