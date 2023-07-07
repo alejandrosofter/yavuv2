@@ -196,7 +196,7 @@ export default function Form({ setFieldValue, values, paciente }) {
         <Grid item md={12}>
           <DataGridFormikItems
             label=""
-            preData={{ obraSocial: values.valores_idOsPaciente }}
+            preData={{ paciente }}
             Modelo={ModeloPrestaciones}
             valoresIniciales={valoresInicialesPrestaciones}
             FormularioItem={FormPrestaciones}
