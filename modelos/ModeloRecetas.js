@@ -18,6 +18,7 @@ export function valoresIniciales({ paciente, receta }) {
     fechaDiagnostico_timestamp: new Date().getTime(),
     tipo: "MEDICAMENTO",
     idPaciente: paciente ? paciente.id : "",
+    esParticular: paciente ? paciente.esParticular : false,
     label_obraSocial: paciente ? paciente.label_obraSocial : "",
     obraSocial: paciente ? paciente.obraSocial : "",
     ...getSetPermiso("recetas"),

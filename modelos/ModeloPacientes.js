@@ -32,7 +32,11 @@ export default function Modelo() {
       ),
     email: yup.string(),
     telefono: yup.string(),
-    obraSocial: yup.string(),
+    obraSocial: yup.string().when("esParticular", {
+      is: (val) => val === false,
+      then: yup.string().required("Debes ingresar una obra social!"),
+      otherwise: yup.string(),
+    }),
     detalle: yup.string(),
     estado: yup.string(),
     nroAfiliado: yup.string(),

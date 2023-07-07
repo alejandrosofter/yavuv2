@@ -20,11 +20,13 @@ export default function SelectOsPaciente({
         `label_${campo ? campo : "osPaciente"}`,
         item.label_obraSocial
       );
-      setFieldValue("obraSocialSeleccion", item);
       if (callbackchange) callbackchange(item);
     }
   };
+
   return (
+    //ES UN CHOTAZO, tengo que hacer un google function para que cuando se cree le asigne
+    // el id del paciente al que pertenece
     <SelectUserModColeccion
       coleccion={`pacientes/${idPaciente}/obrasSociales`}
       Modelo={ModeloOsPaciente}

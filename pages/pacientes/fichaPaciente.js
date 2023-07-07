@@ -328,7 +328,6 @@ export function ListaRecetas({ callbackchange, paciente }) {
           icono={"fas fa-"}
           Modelo={ModeloRecetas}
           valoresIniciales={valoresInicialesRecetas}
-          // dataForm={{ mod }}
           titulo={`RECETAS`}
           Form={FormRecetas}
         />

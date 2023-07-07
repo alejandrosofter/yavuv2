@@ -1,4 +1,4 @@
-import { Grid, Stack } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import Input from "@components/forms/input";
 import Switch from "@components/forms/switch";
 import WebcamFormik from "@components/forms/imageFormik";
@@ -11,7 +11,7 @@ import TabsFormik from "@components/forms/tab";
 import ItemsModulo from "@components/forms/itemsModulo";
 import SelectOsPaciente from "@components/pacientes/selectOsPaciente";
 export default function Form({ setFieldValue, values }) {
-  const campoItems = "obrasSociales";
+  console.log(values);
   return (
     <Grid container spacing={2}>
       <Grid item md={1}>
@@ -36,26 +36,36 @@ export default function Form({ setFieldValue, values }) {
         <Grid item md={2}>
           <Input label="D.N.I" campo="dni" />
         </Grid>
-        <Grid item md={6}>
-          <SelectOsPaciente
-            idPaciente={values.id}
-            values={values}
-            setFieldValue={setFieldValue}
-            campo="obraSocial"
-            label="O.S Principal"
-          />
+        <Grid item md={2}>
+          <Switch label="Es Particular?" campo="esParticualar" />
         </Grid>
-
-        <Grid sx={{ pr: 1 }} item md={3}>
+        {!values.esParticular && values.exists && (
+          <Grid item md={6}>
+            <SelectOsPaciente
+              idPaciente={values.id ? values.id : ""}
+              values={values}
+              setFieldValue={setFieldValue}
+              campo="obraSocial"
+              label="O.S Principal"
+            />
+          </Grid>
+        )}
+        {!values.exists && (
+          <Grid item md={12}>
+            <Typography variant="h6">Obra Social</Typography>
+            <FormOs />
+          </Grid>
+        )}
+        <Grid sx={{ pr: 3 }} item md={3}>
           <InputTelefono label="Teléfono" campo="telefono" />
         </Grid>
-        <Grid item md={2}>
+        {/* <Grid item md={2}>
           <SelectEstaticFormik
             items={["ACTIVO", "INACTIVO"]}
             label="Estado"
             campo="estado"
           />
-        </Grid>
+        </Grid> */}
         <Grid item md={3}>
           <Input label="Email" campo="email" />
         </Grid>

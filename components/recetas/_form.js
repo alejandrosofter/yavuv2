@@ -67,12 +67,16 @@ export function getDataOjo(params, ojo, lejosCerca, label) {
   )}  `;
 }
 
-export default function Form({ mod, setFieldValue, values, paciente }) {
+export default function Form({ setFieldValue, values, paciente }) {
   const cambiaOs = (value, item) => {
     if (!item) return;
     setFieldValue("obraSocialSeleccion", item);
   };
-  useEffect(() => {}, [values.obraSocial]);
+  useEffect(() => {
+    // console.log(paciente);
+    // setFieldValue("esParticular", paciente.esParticular);
+  }, []);
+
   return (
     <Grid container spacing={2}>
       <Grid item md={3}>
