@@ -23,7 +23,7 @@ export default function Modulo({}) {
   const [dataConsulta, setDataConsulta] = useState();
   const getDataImpresion = async (data) => {
     var mensualizado = [];
-    for (let i = 0; i < data.mensualizado.length; i++) {
+    for (let i = 0; i < data.mensualizado?.length; i++) {
       const cbu = await fuego.db
         .collection("cuentasCbu")
         .doc(data.mensualizado[i].idCuentaCbu)

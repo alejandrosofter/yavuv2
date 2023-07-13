@@ -277,14 +277,22 @@ export function ListaRecetas({ callbackchange, paciente }) {
       fn: async (row) => {
         // if (row.label_tipo === "INDICACION")
         //   row.indicaciones = setIndicaciones(row.indicaciones);
-        const valores_idOsPaciente = await fuego.db
-          .collection(`pacientes/${paciente.id}/obrasSociales`)
-          .doc(paciente.obraSocial)
-          .get()
-          .then((doc) => doc.data());
+        console.log(paciente);
+        const valores_idOsPaciente = !paciente?.esParticular
+          ? await fuego.db
+              .collection(`pacientes/${paciente.id}/obrasSociales`)
+              .doc(paciente.obraSocial)
+              .get()
+              .then((doc) => doc.data())
+          : {};
 
         setSeleccion(row);
-        setDataImpresion({ ...row, valores_idOsPaciente, paciente });
+        setDataImpresion({
+          ...row,
+          esParticular: paciente.esParticular,
+          valores_idOsPaciente,
+          paciente,
+        });
         setOpenImpresion(true);
       },
     },

@@ -30,13 +30,10 @@ export const getValor = (params, campo, ojo, lejosCerca, postchar = "") => {
 };
 export function getDetalleLente(params, lejosCerca, label = "") {
   if (!params.row) params.row = params;
-  if (!params.row[`select_${lejosCerca}`]) return "";
   if (lejosCerca === "ambos") return getDataOjo(params, "ambos", lejosCerca);
   const derecho = getDataOjo(params, "derecho", lejosCerca);
   const izquierdo = getDataOjo(params, "izquierdo", lejosCerca);
-  return !params.row[`select_cerca`]
-    ? ``
-    : `${label} OD:${derecho} | OI:${izquierdo} | `;
+  return `${label} OD:${derecho} | OI:${izquierdo} | `;
 }
 export function getDetalleAnteojo(params, esData) {
   if (esData) params = { row: params };

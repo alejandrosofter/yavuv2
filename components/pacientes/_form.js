@@ -37,7 +37,7 @@ export default function Form({ setFieldValue, values }) {
           <Input label="D.N.I" campo="dni" />
         </Grid>
         <Grid item md={2}>
-          <Switch label="Es Particular?" campo="esParticualar" />
+          <Switch label="Es Particular?" campo="esParticular" />
         </Grid>
         {!values.esParticular && values.exists && (
           <Grid item md={6}>
