@@ -64,6 +64,17 @@ export function UsePlantilla({ id, data }) {
     Handlebars.registerHelper("importe", function (importe) {
       return formatMoney(importe);
     });
+    Handlebars.registerHelper("str", function (str) {
+      console.log(str);
+      //imprimo los saltos de pagina
+      const arr = str.split("\n");
+      let aux = "";
+      arr.forEach((item) => {
+        aux += `${item}<br>`;
+      });
+      //return html safe string
+      return new Handlebars.SafeString(aux);
+    });
     Handlebars.registerHelper("detalleAnteojos", function (data) {
       return getDetalleAnteojo(data, true);
     });

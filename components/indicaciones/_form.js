@@ -15,7 +15,7 @@ export default function Form({ setFieldValue, values }) {
           {`{{paciente.domicilio}}`},{`{{paciente.telefono}}`},
           {`{{paciente.email}}`}
         </Typography>
-        <Input label="Detalle" multiline={true} rows={10} campo="detalle" />
+        <RichEditorFormik label="Detalle" toolbar="" campo="detalle" />
       </Grid>
     </Grid>
   );

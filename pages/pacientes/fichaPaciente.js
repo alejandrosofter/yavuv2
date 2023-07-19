@@ -277,7 +277,7 @@ export function ListaRecetas({ callbackchange, paciente }) {
       fn: async (row) => {
         // if (row.label_tipo === "INDICACION")
         //   row.indicaciones = setIndicaciones(row.indicaciones);
-        console.log(paciente);
+        let rowAux = row;
         const valores_idOsPaciente = !paciente?.esParticular
           ? await fuego.db
               .collection(`pacientes/${paciente.id}/obrasSociales`)

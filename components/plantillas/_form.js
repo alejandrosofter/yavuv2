@@ -2,7 +2,8 @@ import TabsFormik from "@components/forms/tab";
 import { Grid, Stack } from "@mui/material";
 import Input from "@components/forms/input";
 import RichEditor from "@components/forms/richEditorFormik";
-export default function Form({ mod, setFieldValue, values }) {
+export default function Form({ setFieldValue, values }) {
+  console.log(values);
   return (
     <Grid>
       <Stack>

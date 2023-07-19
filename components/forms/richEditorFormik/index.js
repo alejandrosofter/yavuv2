@@ -31,14 +31,20 @@ removeformat | image`,
       <Field label={label} name={campo} id={campo}>
         {(props) => {
           const handleChange = (e) => {
-            setData(e.target.getContent());
-            props.form.setFieldValue(campo, e.target.getContent());
-            if (callbackchange) callbackchange(e.target.getContent());
+            const newData = e;
+            setData(newData);
+
+            // editorRef.current.setContent(newData);
+          };
+          const focusOut = (e) => {
+            props.form.setFieldValue(campo, data);
+            if (callbackchange) callbackchange(data);
           };
           //gputhj5znmo5xfj4sk36ytr94jire1ti7tvaagar85gp9w4g anterior
           return (
             <Editor
-              // onEditorChange={handleChange}
+              onFocusOut={focusOut}
+              onEditorChange={handleChange}
               apiKey="ps2ht0ubd3w760etwlhfkf8jzy8xaotakj2fsoguxjhelpbm"
               onInit={(evt, editor) => {
                 setTimeout(() => {
