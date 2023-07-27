@@ -14,6 +14,7 @@ import randomId from "random-id";
 import Icon from "@mui/material/Icon";
 import { Formik, Form } from "formik";
 import Alert from "@mui/material/Alert";
+import { IconButton } from "@mui/material";
 
 export default function ItemsModulo_agregar({
   labelBtnAgregar,
@@ -60,7 +61,21 @@ export default function ItemsModulo_agregar({
         open={open}
         onClose={handleClose}
       >
-        <DialogTitle>{`NUEVO ${nombreModulo}`}</DialogTitle>
+        <DialogTitle>
+          {`NUEVO ${nombreModulo}`}
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <Icon className="fas fa-times" />
+          </IconButton>
+        </DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ pb: 3 }}>
             {`${textoAgregar ? textoAgregar : ""}`}

@@ -2,7 +2,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Button, Grid, Icon } from "@mui/material";
+import { Button, Grid, Icon, IconButton } from "@mui/material";
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import Alert from "@mui/material/Alert";
@@ -15,10 +15,10 @@ export default function ItemsModulo_editar({
   valoresIniciales,
   modelo,
   abierto,
+  setOpen,
   dataModulo,
   form,
 }) {
-  const [open, setOpen] = useState(false);
   const errores = (errs) => {
     for (const [key, value] of Object.entries(errs)) {
       return <Alert severity="error">{value}</Alert>; // "a 5", "b 7", "c 9"
@@ -37,7 +37,21 @@ export default function ItemsModulo_editar({
   return (
     <Grid sx={{ my: 3 }} md={12} item xs={9}>
       <Dialog fullWidth={fullWidth} maxWidth={maxWidth} open={abierto}>
-        <DialogTitle>{`EDITAR ${nombreModulo}`}</DialogTitle>
+        <DialogTitle>
+          {`EDITAR ${nombreModulo}`}
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <Icon className="fas fa-times" />
+          </IconButton>
+        </DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ pb: 3 }}>
             {` ${textoEditar ? textoEditar : ""}`}

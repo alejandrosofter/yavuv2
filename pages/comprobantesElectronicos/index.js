@@ -8,7 +8,7 @@ import { useState } from "react";
 import Modelo, {
   valoresIniciales,
 } from "@modelos/ModeloComprobantesElectronicos";
-import Form from "@components/cobros/_form";
+import Form from "@components/comprobantesElectronicos/_form";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 import useLayout from "@hooks/useLayout";
 import { getWherePermiso } from "@hooks/useUser";
@@ -152,7 +152,7 @@ export default function Modulo({ mod, parentData = false }) {
       <ABMColeccion
         coleccion={`comprobantesElectronicos`}
         columns={columns}
-        hideNew={true}
+        hideNew={false}
         acciones={fnAcciones}
         orderBy={["fecha_timestamp", "desc"]}
         limit={10}

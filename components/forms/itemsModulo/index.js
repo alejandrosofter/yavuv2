@@ -213,6 +213,7 @@ export default function ItemsModulo({
               textoEditar={textoEditar}
               nombreModulo={nombreModulo}
               abierto={editarVisible}
+              setOpen={setEditarVisible}
               valoresIniciales={dataSelecciona}
               dataModulo={dataModulo}
               modelo={modelo}
