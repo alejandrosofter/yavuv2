@@ -71,6 +71,7 @@ export default function ColeccionTable({
         shallow: true,
       });
   };
+
   const setInitial = () => {
     if (!localStorage.getItem(`id_table_state_${coleccion}`)) return;
     setLoading(true);
@@ -104,6 +105,7 @@ export default function ColeccionTable({
   }, [data]);
   useEffect(() => {
     const aux = columns;
+
     const actions = (params) => {
       let arr = [];
       if (acciones)

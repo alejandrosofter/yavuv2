@@ -63,9 +63,6 @@ export default function ABMColeccion({
         setOpenConfirma(true);
       },
     },
-    {
-      label: "",
-    },
   ];
   useEffect(() => {
     if (acciones) {
