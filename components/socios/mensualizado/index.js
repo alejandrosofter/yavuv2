@@ -18,10 +18,10 @@ export default function CambiosEstadoSocio({ data }) {
   const order = ["fechaInicio"];
   const subColeccion = "mensualizado";
   const icono = "fas fa-dumbbell";
-  const titulo = `CAMBIOS DE ESTADO SOCIO `;
+  const titulo = `MENSUALIZACIONES`;
   const [seleccion, setSeleccion] = useState(null);
   const config = UseConfigModulo("socios");
-  const idPlantilla = config?.plantillaCambioEstado;
+  const idPlantilla = config?.plantillaMensualizacion;
   const [openImpresion, setOpenImpresion] = useState(false);
   const [dataImpresion, setDataImpresion] = useState();
   const [plantilla, setPlantilla] = UsePlantilla({
