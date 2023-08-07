@@ -40,7 +40,7 @@ export default function ItemsModulo({
   hideAgregar,
 }) {
   useEffect(() => {
-    let aux = columnas;
+    let aux = columnas ? columnas : [];
     aux.push({
       field: "actions",
       type: "actions",
