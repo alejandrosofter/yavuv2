@@ -98,9 +98,9 @@ export default function CalendarioTurnos({ onChange, fechaBusca }) {
   };
   return (
     <Stack>
-      <Typography variant="h6" gutterBottom>
+      {/* <Typography variant="h6" gutterBottom>
         Calendario de turnos
-      </Typography>
+      </Typography> */}
       <DatePicker
         locale={esp_ar}
         mapDays={mapDays}

@@ -69,7 +69,7 @@ export default function Modulo({ mod, callbackSuccess }) {
         <SelectConsultorios
           valorInicial={consultorio}
           callbackchange={(item) => setConsultorio(item)}
-        />{" "}
+        />
       </Grid>
       <Grid item md={12}>
         {" "}

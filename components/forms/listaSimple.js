@@ -16,10 +16,11 @@ export default function ListaSimple({
   ComponentSecondaryAction,
 }) {
   if (!items) return "Cargando...";
-  // const [opens, setOpens] = React.useState([]);
+
   return (
     <List sx={{ width: "100%", bgcolor: "background.paper" }}>
       {items.map((value) => {
+        console.log(value);
         return (
           <div key={value[campoId]}>
             <ListItem

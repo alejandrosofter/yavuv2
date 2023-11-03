@@ -281,7 +281,7 @@ export async function findWhereArray(colection, arrWhere) {
 export async function findWhere(coleccion, whereArr, soloUno) {
   var query = Firestore().collection(coleccion);
   whereArr.map((w) => {
-    query.where(w.campo, "==", w.valor);
+    query.where(w.campo, w.condition ? w.condicion : "==", w.valor);
   });
   const res = await query.get();
   var sal = [];
@@ -303,6 +303,7 @@ export async function findByField(coleccion, { campo, valor }) {
   });
   return sal;
 }
+
 export async function update(coleccion, params, campoId = "id") {
   return await Firestore().collection(coleccion).doc(params.id).update(params);
 }

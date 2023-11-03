@@ -7,6 +7,7 @@ import DateObject from "react-date-object";
 import CalendarioTurnos from "./calendarioTurnos";
 import NavegadorConsultorios from "./navegadorConsultorios";
 import { UseStorage } from "@hooks/useStorage";
+import TareasWhatsapp from "./tareasWhatsapp";
 export default function ListadoConsultorios({ mod }) {
   const { data } = useCollection("consultorios", {
     where: ["idUsuario", "==", fuego.auth().currentUser?.uid],
@@ -20,6 +21,7 @@ export default function ListadoConsultorios({ mod }) {
   return (
     <Grid spacing={2} container>
       <Grid md={2} item>
+        <TareasWhatsapp fechaBusca={fechaBusca} />
         <CalendarioTurnos fechaBusca={fechaBusca} onChange={handleChange} />
       </Grid>
       <Grid md={10} item>

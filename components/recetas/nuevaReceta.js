@@ -27,7 +27,13 @@ export default function NuevaReceta({
         valoresIniciales={valoresIniciales}
         icono={"fas fa-users"}
         preData={{
-          receta: { ...receta, fecha: new Date(), fechaReceta: new Date() },
+          receta: {
+            ...receta,
+            fecha: new Date(),
+            fecha_timestamp: new Date().getTime(),
+            fechaReceta_timestamp: new Date().getTime(),
+            fechaReceta: new Date(),
+          },
         }}
         coleccion={`pacientes/${paciente?.id}/recetas`}
         label={"Nueva Receta"}
