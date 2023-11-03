@@ -102,7 +102,7 @@ export default function TareasWhatsapp({ fechaBusca }) {
       // },
     },
   ];
-  console.log(`dataItems`, dataItems);
+
   return (
     <Grid container>
       <Grid item xs={12}>
@@ -122,6 +122,13 @@ export default function TareasWhatsapp({ fechaBusca }) {
         }
       >
         <Grid container>
+          <Grid item xs={12}>
+            <Typography variant="caption">
+              {dataItems.length == 0
+                ? `No se realizo ninguna notificacion!`
+                : ``}
+            </Typography>
+          </Grid>
           <Grid item xs={12}>
             <ListaSimple
               items={dataItems}
