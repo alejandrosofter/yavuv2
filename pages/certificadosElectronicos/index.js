@@ -51,6 +51,7 @@ export default function ListadoCertificadosElectronicos({
 
       fn: (data) => {
         //download file url
+        console.log(data);
         if (data.filePedido) window.open(data.filePedido.url, "_blank");
       },
     },
