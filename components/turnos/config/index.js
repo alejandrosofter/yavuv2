@@ -48,6 +48,15 @@ export default function ConfigActividadad({}) {
                     label="Plantilla Elimina"
                   />
                 </Grid>
+                <Grid item md={3}>
+                  <Typography variant="caption" component="div" gutterBottom>
+                    Confirmar Turno{" "}
+                  </Typography>
+                  <SelectPlantilla
+                    campo="plantillaConfirmaTurno"
+                    label="Confirmar Turno"
+                  />
+                </Grid>
               </Grid>
             ),
           },
@@ -91,14 +100,11 @@ export default function ConfigActividadad({}) {
                 <Grid item md={3}>
                   <Switch
                     label="Notificar por Whatsapp"
-                    campo="whatsapp_notificar"
+                    campo="whatsapp_notificarGral"
                   />
                 </Grid>
                 <Grid item md={2}>
-                  <Input
-                    label="Dias antes del turno"
-                    campo="whatsapp_diasAntesTurno"
-                  />
+                  <Input label="Nro Tel" campo="whatsapp_nro" />
                 </Grid>
               </Grid>
             ),

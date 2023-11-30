@@ -20,7 +20,6 @@ export default function ListaSimple({
   return (
     <List sx={{ width: "100%", bgcolor: "background.paper" }}>
       {items.map((value) => {
-        console.log(value);
         return (
           <div key={value[campoId]}>
             <ListItem

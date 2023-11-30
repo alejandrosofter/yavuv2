@@ -28,95 +28,51 @@ import Dialogo from "@components/forms/dialogo";
 export default function TareasWhatsapp({ fechaBusca }) {
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
-  const [dataTareas, setDataTarea] = useState([]);
-  const [dataItems, setDataItems] = useState([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    if (fechaBusca) search(fechaBusca);
-  }, [fechaBusca]);
-  useEffect(() => {
-    searchItems();
-  }, [dataTareas]);
-  const searchItems = () => {
-    for (let i = 0; i < dataTareas.length; i++) {
-      setLoading(true);
-      fuego.db
-        .collection(`tareas/${dataTareas[i].id}/items`)
-        .get()
-        .then((querySnapshot) => {
-          setLoading(false);
-          let data = [];
-          console.log(`size ${querySnapshot.size}`);
-          querySnapshot.forEach((doc) => {
-            data.push({ ...doc.data(), id: doc.id });
-          });
 
-          setDataItems(data);
-        });
-    }
-  };
+  const [mensajes, setMensajes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const idUsuario = fuego.auth().currentUser?.uid;
+  const fechaDesde = moment(new Date(fechaBusca)).startOf("day").toDate();
+  const fechaHasta = moment(fechaDesde).add(1, "days").toDate();
+  const { data, error } = useCollection(`whatsapps`, {
+    listen: true,
+    where: [
+      ["timestampTurno", ">=", fechaDesde.getTime() / 1000],
+      ["timestampTurno", "<=", fechaHasta.getTime() / 1000],
+      ["idUsuario", "==", idUsuario],
+    ],
+  });
+  console.log(
+    data,
+    error,
+    fechaDesde.getTime() / 1000,
+    fechaHasta.getTime() / 1000,
+    idUsuario
+  );
   const getIcono = (data) => {
-    if (data?.estaConfirmado) {
+    if (data?.estado == "ENVIADO") {
       return (
         <Icon
-          title="Turno CONFIRMADO por paciente whatsapp"
+          title="Mensaje Enviado"
           sx={{ color: "green" }}
           className="fas fa-check-circle"
         />
       );
     }
-    if (data?.estaSuspendido)
-      return (
-        <Icon
-          title="Turno en SUSPENDIDO para confirmar/suspender"
-          sx={{ color: "red" }}
-          className="fas fa-times-circle"
-        />
-      );
-    //return time wait icon
     return (
       <Icon
-        title="Turno en ESPERA por paciente whatsapp"
+        title="PENDIENTE"
         sx={{ color: "gray" }}
         className="fas fa-hourglass-half"
       />
     );
-  };
-  const search = (fechaBusca) => {
-    //search in database firebase
-    const fechaDesde = moment(new Date(fechaBusca)).startOf("day");
-    const fechaHasta = moment(fechaDesde).add(1, "days");
-    setDataItems([]);
-
-    const idUsuario = fuego.auth().currentUser?.uid;
-    if (!idUsuario) return;
-    fuego.db
-      .collection("tareas")
-      .where("idUsuario", "==", idUsuario)
-      .where("fechaBusca", ">=", fechaDesde.toDate())
-      .where("fechaBusca", "<=", fechaHasta.toDate())
-      .get()
-      .then((querySnapshot) => {
-        let data = [];
-        console.log(`size tarea ${querySnapshot.size}`);
-        querySnapshot.forEach((doc) => {
-          data.push({ ...doc.data(), id: doc.id });
-        });
-        setDataTarea(data);
-      });
-  };
-  const closeDrop = () => {
-    setLoading(false);
   };
   const notificar = () => {
     setLoading(true);
     addQueryApi("notificarTurnos", { fechaBusca: fechaBusca })
       .then((data) => {
         setLoading(false);
-        setTimeout(() => {
-          search(fechaBusca);
-          setOpen(false);
-        }, 3000);
+        setOpen(false);
       })
       .catch((error) => {
         console.log(`error`, error);
@@ -133,12 +89,14 @@ export default function TareasWhatsapp({ fechaBusca }) {
       // },
     },
   ];
-
+  const closeDrop = () => {
+    setLoading(false);
+  };
   return (
     <Grid container>
       <Grid item xs={12}>
         <Button onClick={() => setOpen(true)}>
-          <WhatsAppIcon /> Notificaciones ({dataItems.length})
+          <WhatsAppIcon /> Notificaciones ({data && data.length})
         </Button>
       </Grid>
       <DialogContenido
@@ -148,9 +106,9 @@ export default function TareasWhatsapp({ fechaBusca }) {
         setOpen={setOpen}
         titulo={
           <Stack spacing={1} direction="row">
-            <Button title="Refrescar" onClick={() => search(fechaBusca)}>
+            {/* <Button title="Refrescar" onClick={() => search(fechaBusca)}>
               <Icon className="fas fa-refresh" />{" "}
-            </Button>
+            </Button> */}
             <Typography variant="h4">
               <WhatsAppIcon /> Notificaciones
             </Typography>
@@ -164,25 +122,32 @@ export default function TareasWhatsapp({ fechaBusca }) {
         <Grid container>
           <Grid item xs={12}>
             <Typography variant="caption">
-              {dataItems.length == 0
+              {data && data.length == 0
                 ? `No se realizo ninguna notificacion!`
                 : ``}
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <ListaSimple
-              items={dataItems}
+              items={data}
               fnRender={(item) => (
                 <>
                   <Typography variant="h6">
-                    {getIcono(item)} {item.data?.turno?.label_paciente}{" "}
+                    <WhatsAppIcon
+                      sx={{ color: item.fechaCompletada ? "green" : "grey" }}
+                    />{" "}
+                    {item.nroTelefono}{" "}
                   </Typography>
                   <Typography variant="caption">
-                    {item.data.mensaje}{" "}
+                    <b>
+                      {item.fechaCompletada
+                        ? `Completado el ${getFechaString(
+                            item.fechaCompletada
+                          )}`
+                        : "Pendiente"}{" "}
+                    </b>
                   </Typography>
-                  <Typography>
-                    <WhatsAppIcon /> {item.nroTelefono}{" "}
-                  </Typography>
+                  <Typography variant="caption">{item.mensaje} </Typography>
                 </>
               )}
             />
