@@ -13,7 +13,106 @@ import { UseConfigModulo } from "@helpers/useConfigModulo";
 import { getWherePermiso } from "@hooks/useUser";
 import { formatMoney } from "@helpers/numbers";
 import { renderCellExpandData } from "@components/forms/datagrid/renderCellExpand";
+export const cols = [
+  {
+    field: "agregarActividad",
+    headerName: "",
+    width: 12,
+    renderCell: (params) =>
+      params.value ? (
+        <Tooltip title={`Enviado a modulo actividades`}>
+          <Icon class="fas fa-futbol" />
+        </Tooltip>
+      ) : (
+        ""
+      ),
+  },
+  {
+    field: "esPorDebitoAutomatico",
+    headerName: "",
+    width: 15,
+    renderCell: (params) =>
+      params.value ? (
+        <Tooltip title={`Es por Débito automático`}>
+          <Icon class="fas fa-credit-card" />
+        </Tooltip>
+      ) : (
+        ""
+      ),
+  },
 
+  {
+    field: "estado",
+    headerName: "",
+    width: 0,
+    renderCell: (params) => {
+      switch (params.value) {
+        case "BAJA (ultimo mes)":
+          return (
+            <Icon
+              title={`Mensualizacion de BAJA con ultimo mes`}
+              className="fas fa-dot-circle"
+              sx={{ color: "yellow" }}
+            />
+          );
+        case "BAJA DEFINITIVA":
+          return (
+            <Icon
+              title={`Mensualizacion de BAJA`}
+              className="fas fa-dot-circle"
+              sx={{ color: "yellow" }}
+            />
+          );
+
+        case "ALTA":
+          return (
+            <Icon
+              title={`Mensualizacion ACTIVA`}
+              className="fas fa-dot-circle"
+              sx={{ color: "green" }}
+            />
+          );
+        case "SUSPENDIDA":
+          return (
+            <Icon
+              title={`Mensualizacion SUSPENDIDA`}
+              className="fas fa-dot-circle"
+              sx={{ color: "orange" }}
+            />
+          );
+      }
+    },
+  },
+  {
+    field: "fechaInicio",
+    headerName: "Prox.Cuota",
+    width: 125,
+    type: "date",
+    renderCell: (params) => getFechaString(params.value),
+  },
+
+  {
+    field: "label_idProducto",
+    headerName: "Producto",
+    width: 190,
+    renderCell: (params) =>
+      renderCellExpandData(params, (row) => `${row.label_idProducto}`),
+  },
+  {
+    field: "idProducto_importe",
+    headerName: "$ Importe",
+    width: 110,
+    renderCell: (params) => formatMoney(params.value),
+  },
+
+  // {
+  //   field: "label_tipoPeriodo",
+  //   headerName: "Tipo Periodo",
+  //   width: 160,
+  //   renderCell: (params) =>
+  //     renderCellExpandData(params, (row) => `${row.label_tipoPeriodo}`),
+  // },
+];
 export default function CambiosEstadoSocio({ data }) {
   const order = ["fechaInicio"];
   const subColeccion = "mensualizado";
@@ -61,106 +160,7 @@ export default function CambiosEstadoSocio({ data }) {
       },
     },
   ];
-  const cols = [
-    {
-      field: "agregarActividad",
-      headerName: "",
-      width: 12,
-      renderCell: (params) =>
-        params.value ? (
-          <Tooltip title={`Enviado a modulo actividades`}>
-            <Icon class="fas fa-futbol" />
-          </Tooltip>
-        ) : (
-          ""
-        ),
-    },
-    {
-      field: "esPorDebitoAutomatico",
-      headerName: "",
-      width: 15,
-      renderCell: (params) =>
-        params.value ? (
-          <Tooltip title={`Es por Débito automático`}>
-            <Icon class="fas fa-credit-card" />
-          </Tooltip>
-        ) : (
-          ""
-        ),
-    },
 
-    {
-      field: "estado",
-      headerName: "",
-      width: 0,
-      renderCell: (params) => {
-        switch (params.value) {
-          case "BAJA (ultimo mes)":
-            return (
-              <Icon
-                title={`Mensualizacion de BAJA con ultimo mes`}
-                className="fas fa-dot-circle"
-                sx={{ color: "yellow" }}
-              />
-            );
-          case "BAJA DEFINITIVA":
-            return (
-              <Icon
-                title={`Mensualizacion de BAJA`}
-                className="fas fa-dot-circle"
-                sx={{ color: "yellow" }}
-              />
-            );
-
-          case "ALTA":
-            return (
-              <Icon
-                title={`Mensualizacion ACTIVA`}
-                className="fas fa-dot-circle"
-                sx={{ color: "green" }}
-              />
-            );
-          case "SUSPENDIDA":
-            return (
-              <Icon
-                title={`Mensualizacion SUSPENDIDA`}
-                className="fas fa-dot-circle"
-                sx={{ color: "orange" }}
-              />
-            );
-        }
-      },
-    },
-    {
-      field: "fechaInicio",
-      headerName: "Prox.Cuota",
-      width: 125,
-      type: "date",
-      renderCell: (params) => getFechaString(params.value),
-    },
-
-    {
-      field: "label_idProducto",
-      headerName: "Producto",
-      width: 190,
-      renderCell: (params) =>
-        renderCellExpandData(params, (row) => `${row.label_idProducto}`),
-    },
-    {
-      field: "idProducto_importe",
-      headerName: "$ Importe",
-      width: 110,
-      renderCell: (params) => formatMoney(params.value),
-    },
-
-    // {
-    //   field: "label_tipoPeriodo",
-    //   headerName: "Tipo Periodo",
-    //   width: 160,
-    //   renderCell: (params) =>
-    //     renderCellExpandData(params, (row) => `${row.label_tipoPeriodo}`),
-    // },
-  ];
   return (
     <Grid container>
       <Grid item xs={12}>

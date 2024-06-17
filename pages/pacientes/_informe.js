@@ -12,7 +12,7 @@ import { getFechaString } from "@helpers/dates";
 import Link from "next/link";
 import { getDetalleReceta } from "./fichaPaciente";
 
-export function InformePacientes({}) {
+export default function InformePacientes({}) {
   const [dataPacientes, setDataPacientes] = useState([]);
   const [filtro, setFiltro] = useState({
     where: ["idUsuario", "==", fuego.auth().currentUser?.uid],

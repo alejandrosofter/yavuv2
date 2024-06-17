@@ -9,7 +9,7 @@ import Modelo, { valoresIniciales } from "@modelos/ModeloPacientes";
 import Form from "@components/pacientes/_form";
 import { UseStorage } from "@hooks/useStorage";
 import Link from "next/link";
-import { InformePacientes } from "./_informe";
+import InformePacientes from "./_informe";
 export function menuPacientes() {
   const ISSERVER = typeof window === "undefined";
   const idPaciente = !ISSERVER
