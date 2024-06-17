@@ -2,21 +2,18 @@ import ListadoConsultorios from "@components/turnos/listadoConsultorios";
 
 import { Grid } from "@mui/material";
 import useLayout from "@hooks/useLayout";
+import { menuPacientes } from "@pages/pacientes/informes";
 
 export default function Page(props) {
+  const ISSERVER = typeof window === "undefined";
+
+  const idPaciente = !ISSERVER
+    ? localStorage.getItem("pacienteSeleccionId")
+    : null;
   useLayout({
     label: "Turnos",
     titulo: "TURNOS",
-    acciones: [
-      { label: "Turnos", icono: "fas fa-calendar", url: "/turnos" },
-      { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
-      {
-        label: "Consultorios",
-        icono: "fas fa-house-medical",
-        url: "/consultorios",
-      },
-      { label: "Ficha", icono: "fas fa-id-card", url: "/pacientes/ficha" },
-    ],
+    acciones: menuPacientes(),
   });
   return (
     <Grid container>

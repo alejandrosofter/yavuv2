@@ -1,5 +1,5 @@
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
-import Select2 from "@components/forms/select2Formik";
+import Select2 from "@components/forms/select2Formik2";
 import SelectSimple from "@components/forms/select2Simple";
 import { IconButton, Grid } from "@mui/material";
 import { useState } from "react";
@@ -8,7 +8,7 @@ import DialogFormEditar from "./dialogFormEditar";
 import { getWherePermiso } from "@hooks/useUser";
 import DialogContenido from "./dialogContenido";
 import Dialogo from "./dialogo";
-export default function SelectUserModColeccion({
+export default function SelectUserModColeccion2({
   multiple,
   label,
   campoId,
@@ -27,6 +27,7 @@ export default function SelectUserModColeccion({
   listen = true,
   maxWidth,
   limit,
+  defaultValue,
   esForm = true,
   allData = false,
   hideABM = false,
@@ -81,6 +82,7 @@ export default function SelectUserModColeccion({
             multiple={multiple}
             campo={campo}
             label={label}
+            defaultValue={defaultValue}
             lista={data}
             campoId={campoId}
             campoLabel={campoLabel}

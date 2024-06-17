@@ -20,6 +20,7 @@ export function valoresIniciales(data) {
     fecha: new Date(),
     ...getSetPermiso("turnos"),
   };
+
   return { ...valores, ...data };
 }
 export function ModeloHorarios() {

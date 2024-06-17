@@ -10,8 +10,8 @@ import InputTelefono from "@components/forms/inputTelefono";
 import TabsFormik from "@components/forms/tab";
 import ItemsModulo from "@components/forms/itemsModulo";
 import SelectOsPaciente from "@components/pacientes/selectOsPaciente";
+import SelectFecha from "@components/forms/selectorFecha";
 export default function Form({ setFieldValue, values }) {
-  console.log(values);
   return (
     <Grid container spacing={2}>
       <Grid item md={1}>
@@ -32,6 +32,13 @@ export default function Form({ setFieldValue, values }) {
         </Grid>
         <Grid item md={2}>
           <Input label="Apellido" campo="apellido" />
+        </Grid>
+        <Grid item md={3}>
+          <SelectFecha
+            // callbackChange={cambiaFecha}
+            label="Fecha Nacimiento "
+            campo={`fechaNacimiento`}
+          />
         </Grid>
         <Grid item md={2}>
           <Input label="D.N.I" campo="dni" />

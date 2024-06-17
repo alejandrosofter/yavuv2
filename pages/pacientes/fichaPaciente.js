@@ -1,5 +1,6 @@
 import MuestraImagen from "@components/forms/muestraImagen";
 import { capitalize } from "@helpers/Strings";
+import parse from "html-react-parser";
 import {
   Grid,
   Icon,
@@ -201,32 +202,37 @@ export function TurnosPaciente({ paciente, callbackchange }) {
     </Grid>
   );
 }
+
+export const getDetalleReceta = (receta) => {
+  let detalle = "";
+
+  receta.medicamentos?.forEach((medicamento) => {
+    detalle += ` ${medicamento.label_idMedicamento},`;
+  });
+  receta.diagnosticos?.forEach((diagnostico) => {
+    detalle += ` ${diagnostico.label_idDiagnostico}:${diagnostico.detalle},`;
+  });
+  receta.indicaciones?.forEach((indicacion) => {
+    detalle += ` ${indicacion.label_idIndicacion},`;
+  });
+
+  receta.estudios?.forEach((estudio) => {
+    detalle += ` ${estudio.label_idEstudio},`;
+  });
+  receta.prestaciones?.forEach((prestacion) => {
+    detalle += ` ${prestacion.label_idPrestacion},`;
+  });
+  receta.anteojos?.forEach((anteojo) => {
+    detalle += ` ${getDetalleAnteojo(anteojo, true)},`;
+  });
+  return parse(detalle);
+};
 export function ListaRecetas({ callbackchange, paciente }) {
   const [seleccion, setSeleccion] = useState(null);
   const config = UseConfigModulo("pacientes");
   const idPlantilla = config?.plantillaRecetas;
   const [dataImpresion, setDataImpresion] = useState();
 
-  const getDetalleReceta = (receta) => {
-    let detalle = "";
-    receta.medicamentos?.forEach((medicamento) => {
-      detalle += ` ${medicamento.label_idMedicamento},`;
-    });
-    receta.indicaciones?.forEach((indicacion) => {
-      detalle += ` ${indicacion.label_idIndicacion},`;
-    });
-
-    receta.estudios?.forEach((estudio) => {
-      detalle += ` ${estudio.label_idEstudio},`;
-    });
-    receta.prestaciones?.forEach((prestacion) => {
-      detalle += ` ${prestacion.label_idPrestacion},`;
-    });
-    receta.anteojos?.forEach((anteojo) => {
-      detalle += ` ${getDetalleAnteojo(anteojo, true)},`;
-    });
-    return detalle;
-  };
   const [plantilla, setPlantilla] = UsePlantilla({
     id: idPlantilla,
     data: dataImpresion,

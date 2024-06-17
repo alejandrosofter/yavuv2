@@ -62,6 +62,7 @@ const ConsultorioTurnos = ({
         nombreConsultorio: consultorio.nombre,
         direccionConsultorio: consultorio.direccion,
         telefonoConsultorio: consultorio.telefono,
+        paciente: `${localStorage.getItem("pacienteSeleccionId")}`,
       };
       setPredata(aux);
       setOpenNuevoTurno(true);

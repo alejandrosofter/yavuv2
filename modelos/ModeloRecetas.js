@@ -86,6 +86,27 @@ export function valoresInicialesMedicamentos() {
       : null,
   };
 }
+////////////////////////?DIAGNOSTICO
+
+export function ModeloDiagnostico() {
+  return yup.object().shape({
+    fecha: yup.string().required(),
+    detalle: yup.string().required("Selecciona un detalle"),
+  });
+}
+export function valoresInicialesDiagnostico() {
+  return {
+    fecha: new Date(),
+    cantidad: 1,
+    detalle: "",
+    idUsuario: localStorage.getItem("usermod")
+      ? localStorage.getItem("usermod")
+      : fuego.auth().currentUser.uid,
+    usermod: localStorage.getItem("usermod")
+      ? fuego.auth().currentUser.uid
+      : null,
+  };
+}
 ////////////////////////?PRESTACIONES
 
 export function ModeloPrestaciones() {

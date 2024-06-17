@@ -2,6 +2,7 @@ import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPacientes";
 import Form from "@components/pacientes/_form";
 import { useRouter } from "next/router";
+import SelectUserModColeccion2 from "@components/forms/selectModColecion2";
 export default function SelectPaciente({
   multiple,
   label,
@@ -19,7 +20,7 @@ export default function SelectPaciente({
     }
   };
   return (
-    <SelectUserModColeccion
+    <SelectUserModColeccion2
       coleccion={"pacientes"}
       Modelo={Modelo}
       sx={sx}

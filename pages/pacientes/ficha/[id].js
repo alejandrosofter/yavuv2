@@ -11,22 +11,23 @@ import useLayout from "@hooks/useLayout";
 import SelectPaciente from "@components/pacientes/selectPaciente";
 import SelectSimple from "@components/forms/select2Simple";
 import { getWherePermiso } from "@hooks/useUser";
-
+import { useEffect } from "react";
+import { menuPacientes } from "../informes";
 export default function FichaPaciente({}) {
   const router = useRouter();
   // const { data } = useCollection("pacientes", {
   //   listen: true,
   //   where: getWherePermiso("pacientes"),
   // });
+  const ISSERVER = typeof window === "undefined";
 
+  const idPaciente = !ISSERVER
+    ? localStorage.getItem("pacienteSeleccionId")
+    : null;
   useLayout({
     label: "Pacientes",
     titulo: "Pacientes",
-    acciones: [
-      { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
-      { label: "Turnos", icono: "fas fa-calendar", url: "/turnos" },
-      { label: "Ficha", icono: "fas fa-id-card", url: "/pacientes/ficha" },
-    ],
+    acciones: menuPacientes(),
 
     // <>
     //   <SelectPaciente
@@ -42,7 +43,9 @@ export default function FichaPaciente({}) {
     // </>
   });
   const { id } = router.query;
-  console.log(`id`, id);
+  useEffect(() => {
+    localStorage.setItem("pacienteSeleccionId", id);
+  });
 
   const {
     data: paciente,

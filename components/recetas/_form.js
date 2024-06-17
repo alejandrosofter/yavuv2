@@ -8,6 +8,7 @@ import FormMedicamentos from "./_formMedicamentos";
 import FormEstudios from "./_formEstudios";
 import FormPrestaciones from "./_formPrestaciones";
 import FormIndicaciones from "./_formIndicaciones";
+import parse from "html-react-parser";
 import FormAnteojos from "./_formAnteojos";
 import {
   ModeloEstudios,
@@ -20,9 +21,13 @@ import {
   valoresInicialesPrestaciones,
   valoresInicialesIndicacion,
   ModeloIndicacion,
+  ModeloDiagnostico,
+  valoresInicialesDiagnostico,
 } from "@modelos/ModeloRecetas";
 import SelectOsPaciente from "./selectOs";
 import { useEffect } from "react";
+import FormDiagnostico from "./_formDiagnostico";
+
 export const getValor = (params, campo, ojo, lejosCerca, postchar = "") => {
   const aux = params.row[`${campo}_${ojo}_${lejosCerca}`];
   if (aux) return `${aux} ${postchar}`;
@@ -71,8 +76,13 @@ export default function Form({ setFieldValue, values, paciente }) {
   };
   useEffect(() => {
     // console.log(paciente);
-    // setFieldValue("esParticular", paciente.esParticular);
-  }, []);
+    setFieldValue("paciente", {
+      id: paciente.id,
+      nombre: paciente.nombre,
+      apellido: paciente.apellido,
+      dni: paciente.dni,
+    });
+  }, [paciente]);
 
   return (
     <Grid container spacing={2}>
@@ -84,7 +94,13 @@ export default function Form({ setFieldValue, values, paciente }) {
       </Grid>
       <Grid item md={4}>
         <SelectEstaticFormik
-          items={["MEDICAMENTO", "PRESTACION", "INDICACION", "ANTEOJOS"]}
+          items={[
+            "MEDICAMENTO",
+            "PRESTACION",
+            "INDICACION",
+            "ANTEOJOS",
+            "DIAGNOSTICO",
+          ]}
           label="Tipo Receta"
           campo="tipo"
         />
@@ -92,6 +108,35 @@ export default function Form({ setFieldValue, values, paciente }) {
       <Grid item md={3}>
         <Switch label="Consulta Particular" campo="esParticular" />
       </Grid>
+      {values.tipo == "DIAGNOSTICO" && (
+        <>
+          <Grid item md={12}>
+            <DataGridFormikItems
+              label="Diagnosticos"
+              Modelo={ModeloDiagnostico}
+              valoresIniciales={valoresInicialesDiagnostico}
+              FormularioItem={FormDiagnostico}
+              campo="diagnosticos"
+              columns={[
+                {
+                  field: "label_idDiagnostico",
+
+                  headerName: "Diagnostico",
+                  width: 100,
+                },
+                {
+                  field: "detalle",
+                  renderCell: (params) => {
+                    return parse(params.value);
+                  },
+                  headerName: "Detalle",
+                  width: 500,
+                },
+              ]}
+            />
+          </Grid>
+        </>
+      )}
       {values.tipo == "MEDICAMENTO" && (
         <>
           <Grid item md={3}>
