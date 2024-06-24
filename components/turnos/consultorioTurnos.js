@@ -56,6 +56,8 @@ const ConsultorioTurnos = ({
       setPredata(item.turnoOcupado);
       setOpenUpdateTurno(true);
     } else {
+      const paciente = JSON.parse(localStorage.getItem("pacienteSeleccion"));
+      console.log(paciente);
       const aux = {
         fechaTurno: moment(item.value.seconds * 1000).toDate(),
         consultorio: consultorio.id,
@@ -63,6 +65,7 @@ const ConsultorioTurnos = ({
         direccionConsultorio: consultorio.direccion,
         telefonoConsultorio: consultorio.telefono,
         paciente: `${localStorage.getItem("pacienteSeleccionId")}`,
+        label_paciente: `${paciente.nombre} ${paciente.apellido} ${paciente.dni}`,
       };
       setPredata(aux);
       setOpenNuevoTurno(true);

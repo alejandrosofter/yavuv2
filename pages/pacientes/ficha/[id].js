@@ -43,9 +43,6 @@ export default function FichaPaciente({}) {
     // </>
   });
   const { id } = router.query;
-  useEffect(() => {
-    localStorage.setItem("pacienteSeleccionId", id);
-  });
 
   const {
     data: paciente,
@@ -54,7 +51,10 @@ export default function FichaPaciente({}) {
   } = useDocument(`pacientes/${id}`, {
     listen: true,
   });
-
+  useEffect(() => {
+    localStorage.setItem("pacienteSeleccionId", id);
+    localStorage.setItem("pacienteSeleccion", JSON.stringify(paciente));
+  }, [id, paciente]);
   if (!paciente) return "Seleccione un Paciente!";
   if (!paciente.exists) return "El paciente no existe";
 

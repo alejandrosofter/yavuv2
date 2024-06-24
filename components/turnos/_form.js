@@ -56,7 +56,7 @@ export default function Form({ setFieldValue, values, callbackElimina }) {
     if (callbackElimina) callbackElimina(res);
   };
   const cambiaPaciente = (valor, item) => {
-    setFieldValue("emailNotifica", item.email);
+    setFieldValue("emailNotifica", item?.email);
   };
   return (
     <Grid container>
