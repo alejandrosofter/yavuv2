@@ -76,12 +76,13 @@ export default function Form({ setFieldValue, values, paciente }) {
   };
   useEffect(() => {
     // console.log(paciente);
-    setFieldValue("paciente", {
-      id: paciente.id,
-      nombre: paciente.nombre,
-      apellido: paciente.apellido,
-      dni: paciente.dni,
-    });
+    if (paciente)
+      setFieldValue("paciente", {
+        id: paciente.id,
+        nombre: paciente.nombre,
+        apellido: paciente.apellido,
+        dni: paciente.dni,
+      });
   }, [paciente]);
 
   return (
