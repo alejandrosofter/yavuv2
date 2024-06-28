@@ -20,11 +20,13 @@ export default function InformesCobros({}) {
     const data = {
       ...values,
       ...permisos,
-      token: permisos.usermod,
+      token: permisos.idUsuario,
+      usermod: fuego.auth().currentUser?.uid,
       coleccion,
       titulo: "INFORME DE COMPROBANTES ELECTRONICOS",
       tk: new Date().getTime(),
     };
+    console.log(data);
     add(data).then((res) => {
       setOpenDialogo(true);
     });

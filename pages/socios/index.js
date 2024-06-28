@@ -6,6 +6,10 @@ import useLayout from "@hooks/useLayout";
 import BuscadorSociosInput from "@components/socios/_buscador";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import ABMColeccion2 from "@components/forms/ABMcollection2";
+import { getWherePermiso } from "@hooks/useUser";
+import ModeloSocios, { valoresIniciales } from "@modelos/ModeloSocios";
+import FormSocios from "@components/socios/_formSocios";
 export default function Modulo({ mod }) {
   const [seleccion, setSeleccion] = UseStorage("socioSeleccion");
   const router = useRouter();
@@ -33,12 +37,25 @@ export default function Modulo({ mod }) {
       </Grid>
     ),
   });
+  const order = "razonSocial";
 
-  return (
-    <Grid container>
-      <Grid item md={12}>
-        <Typography variant="h4">SOCIOS</Typography>
-      </Grid>
-    </Grid>
-  );
+  const acciones = [
+    // {
+    //   esFuncion: true,
+    //   icono: "fas fa-business-time",
+    //   label: "Movimientos",
+    //   fn: (row) => {
+    //     setSeleccion(row);
+    //     setOpenMovimientos(true);
+    //   },
+    // },
+  ];
+  const columns = [
+    {
+      accessorKey: "apellido",
+      header: "Apellido",
+      size: 150,
+    },
+  ];
+  return "Socios";
 }

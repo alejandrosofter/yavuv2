@@ -6,6 +6,7 @@ export default function UseUser() {
 }
 export function getPermiso(coleccion) {
   const { permisos, cuenta } = useContext(Context);
+
   for (let i = 0; i < permisos?.length; i++) {
     if (permisos[i]?.coleccion == coleccion) {
       return permisos[i];
@@ -28,6 +29,7 @@ export function getWherePermiso(coleccion, esAdmin) {
 }
 export function getSetPermiso(coleccion) {
   const permiso = getPermiso(coleccion);
+
   if (!permiso) return new Error("No tiene permisos para esta colección");
   return {
     idUsuario: permiso.idUsuario
