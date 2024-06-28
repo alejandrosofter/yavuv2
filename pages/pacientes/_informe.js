@@ -1,4 +1,4 @@
-import { IconButton, Stack, Icon, Grid } from "@mui/material";
+import { IconButton, Stack, Icon, Grid, Box, Button } from "@mui/material";
 import {
   useCollection,
   fuego,
@@ -11,7 +11,9 @@ import { ColeccionTable } from "@components/forms/collectionTable2";
 import { getFechaString } from "@helpers/dates";
 import Link from "next/link";
 import { getDetalleReceta } from "./fichaPaciente";
-
+import { FileDownload } from "@mui/icons-material";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 export default function InformePacientes({}) {
   const [dataPacientes, setDataPacientes] = useState([]);
   const [filtro, setFiltro] = useState({
@@ -90,7 +92,12 @@ export default function InformePacientes({}) {
       accessorKey: "tipo",
       header: "Tipo Receta",
       filterVariant: "select",
-      filterSelectOptions: ["MEDICAMENTO", "INDICACION", "ANTEOJOS"],
+      filterSelectOptions: [
+        "MEDICAMENTO",
+        "INDICACION",
+        "ANTEOJOS",
+        "DIAGNOSTICO",
+      ],
       size: 50,
     },
 
@@ -120,6 +127,9 @@ export default function InformePacientes({}) {
           return true;
         return false;
       },
+      dataCell: ({ cell }) => {
+        return `${cell.row.original.paciente?.apellido}, ${cell.row.original.paciente?.nombre}`;
+      },
       Cell: ({ cell }) => {
         return (
           <Link href={`/pacientes/ficha/${cell.row.original.paciente?.id}`}>
@@ -142,7 +152,26 @@ export default function InformePacientes({}) {
       },
     },
   ];
+  const handleExportRows = (rows) => {
+    const doc = new jsPDF();
+    const tableData = rows.map((row) =>
+      columns.map((col) =>
+        col.dataCell
+          ? col.dataCell({ cell: { row } })
+          : col.Cell
+          ? col.Cell({ cell: { row } })
+          : row.original[col.accessorKey]
+      )
+    );
+    const tableHeaders = columns.map((c) => c.header);
 
+    autoTable(doc, {
+      head: [tableHeaders],
+      body: tableData,
+    });
+
+    doc.save("dataPacientes.pdf");
+  };
   if (error) return `${error}`;
   return (
     <Stack>
@@ -156,6 +185,29 @@ export default function InformePacientes({}) {
         <ColeccionTable
           dataExternal={dataPacientes}
           columns={columns}
+          gridOptions={{
+            renderTopToolbarCustomActions: ({ table }) => (
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: "16px",
+                  padding: "8px",
+                  flexWrap: "wrap",
+                }}
+              >
+                <Button
+                  disabled={table.getRowModel().rows.length === 0}
+                  //export all rows as seen on the screen (respects pagination, sorting, filtering, etc.)
+                  onClick={() =>
+                    handleExportRows(table.getPrePaginationRowModel().rows)
+                  }
+                  startIcon={<FileDownload />}
+                >
+                  Exportar
+                </Button>
+              </Box>
+            ),
+          }}
           initialState={{ showColumnFilters: true }}
           acciones={acciones}
         />

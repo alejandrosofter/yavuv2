@@ -210,7 +210,7 @@ export const getDetalleReceta = (receta) => {
     detalle += ` ${medicamento.label_idMedicamento},`;
   });
   receta.diagnosticos?.forEach((diagnostico) => {
-    detalle += ` ${diagnostico.label_idDiagnostico}:${diagnostico.detalle},`;
+    detalle += ` ${diagnostico.label_idDiagnostico},`;
   });
   receta.indicaciones?.forEach((indicacion) => {
     detalle += ` ${indicacion.label_idIndicacion},`;

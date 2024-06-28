@@ -123,15 +123,6 @@ export default function Form({ setFieldValue, values, paciente }) {
                   field: "label_idDiagnostico",
 
                   headerName: "Diagnostico",
-                  width: 100,
-                },
-                {
-                  field: "detalle",
-                  renderCell: (params) => {
-                    return parse(params.value);
-                  },
-                  headerName: "Detalle",
-                  width: 500,
                 },
               ]}
             />

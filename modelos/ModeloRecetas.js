@@ -91,7 +91,7 @@ export function valoresInicialesMedicamentos() {
 export function ModeloDiagnostico() {
   return yup.object().shape({
     fecha: yup.string().required(),
-    detalle: yup.string().required("Selecciona un detalle"),
+    // detalle: yup.string().required("Selecciona un detalle"),
   });
 }
 export function valoresInicialesDiagnostico() {

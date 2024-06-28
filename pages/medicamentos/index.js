@@ -1,11 +1,12 @@
-import DialogContenido from "@components/forms/dialogContenido";
-import NuevoGenerico from "@components/NuevoGenerico2";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import Modelo, { valoresIniciales } from "@modelos/ModeloMedicamentos";
 
 import Form from "@components/medicamentos/_form";
 import ABMColeccion2 from "@components/forms/ABMcollection2";
 import { getWherePermiso } from "@hooks/useUser";
-import { Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import { FileDownload } from "@mui/icons-material";
 
 export default function PageMedicamentos({ open, setOpen, onSelect }) {
   const callbackSuccess = (data) => {
@@ -53,6 +54,27 @@ export default function PageMedicamentos({ open, setOpen, onSelect }) {
     //   },
     // },
   ];
+
+  const handleExportRows = (rows) => {
+    const doc = new jsPDF();
+    const tableData = rows.map((row) =>
+      columns.map((col) =>
+        col.dataCell
+          ? col.dataCell({ cell: { row } })
+          : col.Cell
+          ? col.Cell({ cell: { row } })
+          : row.original[col.accessorKey]
+      )
+    );
+    const tableHeaders = columns.map((c) => c.header);
+
+    autoTable(doc, {
+      head: [tableHeaders],
+      body: tableData,
+    });
+
+    doc.save("medicamentos.pdf");
+  };
   const onCreateSuccess = (data, res) => {};
   return (
     <Grid container>
@@ -63,6 +85,29 @@ export default function PageMedicamentos({ open, setOpen, onSelect }) {
         acciones={acciones}
         order={["nombre", "asc"]}
         maxWidth="md"
+        gridOptions={{
+          renderTopToolbarCustomActions: ({ table }) => (
+            <Box
+              sx={{
+                display: "flex",
+                gap: "16px",
+                padding: "8px",
+                flexWrap: "wrap",
+              }}
+            >
+              <Button
+                disabled={table.getRowModel().rows.length === 0}
+                //export all rows as seen on the screen (respects pagination, sorting, filtering, etc.)
+                onClick={() =>
+                  handleExportRows(table.getPrePaginationRowModel().rows)
+                }
+                startIcon={<FileDownload />}
+              >
+                Exportar
+              </Button>
+            </Box>
+          ),
+        }}
         rowsPerPage={100}
         hidePaginador={true}
         labelNuevo={"nuevo medicamento"}

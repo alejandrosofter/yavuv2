@@ -25,12 +25,6 @@ export default function FormDiagnostico({ setFieldValue, values, paciente }) {
         <SelectDiagnostico
           callbackchange={(valor, item) => setSeleccion(item)}
         />
-        <Button onClick={() => onChange()}>
-          <Icon className="fas fa-level-down-alt" /> Cargar Modelo
-        </Button>
-      </Grid>
-      <Grid item md={12}>
-        <RichEditorFormik toolbar="" label="Detalle" campo="detalle" />
       </Grid>
     </Grid>
   );

@@ -12,6 +12,9 @@ export default function InputOjo({ label, campo, values }) {
       <Grid item md={3}>
         <Switch label={"Es Neutro?"} campo={`esNeutro_${campo}`} />
       </Grid>
+      <Grid item md={3}>
+        <Switch label={"Sin cambio"} campo={`sinCambio_${campo}`} />
+      </Grid>
 
       {!values[`esNeutro_${campo}`] && (
         <Grid item spacing={1} md={9} container>
