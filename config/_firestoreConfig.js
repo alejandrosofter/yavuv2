@@ -1,6 +1,6 @@
 export default function FirestoreConfig() {
   return {
-    apiKey: "AIzaSyB62mkucXq-58k_THxaSOAfM3YJ3QnVtFc",
+    apiKey: process.env.FIREBASE_API_KEY,
     authDomain: "yavu-98cac.firebaseapp.com",
     databaseURL: "https://yavu-98cac-default-rtdb.firebaseio.com",
     projectId: "yavu-98cac",
