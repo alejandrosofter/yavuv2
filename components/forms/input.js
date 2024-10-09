@@ -10,6 +10,7 @@ export default function Input({
   onChange,
   style,
   rows,
+  hide = false,
 }) {
   let component = TextField;
   component.defaultProps = {
@@ -24,6 +25,7 @@ export default function Input({
       type={type}
       onKeyUp={onChange}
       multiline={multiline}
+      hide={hide}
       rows={rows}
       disabled={disabled}
       variant="outlined"

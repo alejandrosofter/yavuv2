@@ -12,7 +12,9 @@
       overflow: hidden;
     z-index: 1;
   }
-  
+  .lectorQr{
+    color:"red"
+  }
   .heading .aclaracion .logo .logoEmpresa .heading .subtitle, .foto, img, .datos{
     position: absolute;
   }

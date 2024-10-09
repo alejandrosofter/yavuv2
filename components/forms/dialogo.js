@@ -16,6 +16,7 @@ export default function Dialogo({
   open = false,
   setOpen,
   titulo,
+  maxWidth = "sm",
   detalle,
   callbackAcepta,
 }) {
@@ -28,6 +29,7 @@ export default function Dialogo({
   };
   return (
     <Dialog
+      maxWidth={maxWidth}
       open={open}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
@@ -52,6 +54,7 @@ export default function Dialogo({
           {detalle}
         </DialogContentText>
       </DialogContent>
+
       <DialogActions>
         <Button onClick={handleClose}>Cancelar</Button>
         <Button onClick={handleCloseAccept} autoFocus>
