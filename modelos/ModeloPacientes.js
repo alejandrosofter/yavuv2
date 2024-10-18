@@ -66,6 +66,7 @@ export function valoresIniciales() {
     telefono: "",
     dni: "",
     obraSocial: "",
+    nroAfiliado: "",
     detalle: "",
     ...getSetPermiso("pacientes"),
   };

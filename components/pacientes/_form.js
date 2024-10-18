@@ -37,12 +37,21 @@ export default function Form({ setFieldValue, values }) {
     if (changeOsQr) {
       const os = findOs(changeOsQr);
       console.log(os);
-      if (!os) return;
+      if (!os) {
+        //ENTONCES ES NUEVO PACIENTE
+
+        // setFieldValue("obraSocial", dataQr.obraSocial);
+        // setFieldValue("label_obraSocial", dataQr.label_obraSocial);
+        // setChangeOsQr(false);
+
+        return;
+      }
       setFieldValue("obraSocial", os.id);
       setFieldValue("label_obraSocial", os.obraSocial);
       setChangeOsQr(false);
     }
   }, [changeOsQr]);
+  console.log(values);
   const getField = (dataParsed, field, isNumber) => {
     const CAMPOS_NOMBRES = ["apellidoNombre", "NombreAfiliado"];
     const CAMPOS_CREDENCIAL = ["credencial", "NumeroAfiliado", "contrato"];
@@ -171,6 +180,12 @@ export default function Form({ setFieldValue, values }) {
 
   const updateOs = (data) => {
     const obraSocial = findOs(data);
+    if (!values.id) {
+      console.log(`aun no esta cargado el paciente`);
+      setFieldValue("obraSocial", data.obraSocial);
+      setFieldValue("label_obraSocial", data.label_obraSocial);
+      return;
+    }
     console.log(`actualizando OS!`);
     if (obraSocial) {
       update(`pacientes/${values.id}/obrasSociales/${obraSocial.id}`, {
