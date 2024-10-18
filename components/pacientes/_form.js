@@ -43,9 +43,9 @@ export default function Form({ setFieldValue, values }) {
       setChangeOsQr(false);
     }
   }, [changeOsQr]);
-  const getField = (dataParsed, field) => {
+  const getField = (dataParsed, field, isNumber) => {
     const CAMPOS_NOMBRES = ["apellidoNombre", "NombreAfiliado"];
-    const CAMPOS_CREDENCIAL = ["credencial", "NumeroAfiliado"];
+    const CAMPOS_CREDENCIAL = ["credencial", "NumeroAfiliado", "contrato"];
     const CAMPOS_DNI = ["nro", "documento"];
     const CAMPOS_PLAN = ["plan"];
 
@@ -87,34 +87,67 @@ export default function Form({ setFieldValue, values }) {
       case "dni":
         // Loop sobre los campos relacionados con DNI
         for (let key of CAMPOS_DNI) {
-          if (dataParsed[key]) return dataParsed[key];
+          if (dataParsed[key])
+            return isNumber ? parseInt(dataParsed[key] ?? 0) : dataParsed[key];
         }
         break;
 
       default:
-        return null; // Si el campo no es reconocido, devuelve null
+        return ""; // Si el campo no es reconocido, devuelve null
     }
 
-    return null; // Si no se encuentra el campo, devuelve null
+    return ""; // Si no se encuentra el campo, devuelve null
   };
+  function checkGaleno(cadena) {
+    if (!cadena.includes("galeno")) return cadena;
+    // Dividimos la URL por "/"
+    const partes = cadena.split("/");
 
+    // Obtenemos los datos de interés
+    const apellidoNombre = decodeURIComponent(
+      partes[5].replace("%20", " ").replace(",", "")
+    );
+    const credencial = partes[6];
+    const colorPlan = partes[7];
+    const codigoPlan = partes[8];
+    const estado = partes[9];
+
+    // Creamos el objeto JSON
+    const datos = {
+      apellidoNombre,
+      credencial,
+      colorPlan: colorPlan,
+      plan: codigoPlan,
+      estado: estado,
+      dni: 0,
+    };
+
+    return JSON.stringify(datos);
+  }
+  const checkCadena = (cadena) => {
+    let aux = checkGaleno(cadena);
+    return aux.trim();
+  };
   const setDataFields = (qrValue) => {
     try {
-      const dataParsed = JSON.parse(qrValue.trim());
+      const cadena = checkCadena(qrValue);
+      const dataParsed = JSON.parse(cadena);
 
       const apellido = getField(dataParsed, "apellido");
       const nombre = getField(dataParsed, "nombre");
-      const dni = parseInt(getField(dataParsed, "dni", true));
+      const dni = getField(dataParsed, "dni", true);
       const nroAfiliado = getField(dataParsed, "nroAfiliado");
       const plan = getField(dataParsed, "plan");
-      setDataQr({
+      const data = {
         apellido,
         nombre,
         dni,
         nroAfiliado,
         plan,
         tipo: "PACIENTE",
-      });
+      };
+      console.log(data);
+      setDataQr(data);
       setOpen(true);
     } catch (e) {
       console.log(e);
