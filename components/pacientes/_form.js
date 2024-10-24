@@ -139,6 +139,7 @@ export default function Form({ setFieldValue, values }) {
   };
   const parseCadenaLector = (cadena) => {
     //chequeo si cadena tien la letra ñ
+    console.log(`parseCadenaLector`, cadena);
     if (!cadena.includes("ñ")) return cadena;
 
     // Paso 1: Reemplazar 'ñ' por ':' para formato clave-valor
