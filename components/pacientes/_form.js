@@ -138,32 +138,34 @@ export default function Form({ setFieldValue, values }) {
     return aux.trim();
   };
   const parseCadenaLector = (cadena) => {
-    //chequeo si cadena tien la letra ñ
     console.log(`parseCadenaLector`, cadena);
+    // Chequeo si la cadena tiene la letra 'ñ'
     if (!cadena.includes("ñ")) return cadena;
 
     // Paso 1: Reemplazar 'ñ' por ':' para formato clave-valor
     cadena = cadena.replace(/ñ/g, ":");
-
+    cadena = cadena.replace("¨", "");
     // Paso 2: Reemplazar '[' por comillas dobles '"'
-    cadena = cadena.replace(/\[/g, '"');
+    cadena = cadena.replace(/\[/g, '"').replace(/\]/g, '"');
 
     // Paso 3: Reemplazar comillas simples por comillas dobles
-    cadena = cadena.replace(/'/g, '"');
+    cadena = cadena.replace(/'/g, "");
 
     // Paso 4: Añadir comas donde corresponde para JSON válido
-    cadena = cadena.replace(/\*,/g, "],");
+    cadena = cadena.replace(/", "/g, '", "'); // Aseguramos que los valores estén separados por comas
+    cadena = cadena.replace(/":"/g, '": "'); // Aseguramos que después de ':' haya un espacio antes del valor
 
-    // Paso 5: Añadir los corchetes y llaves correctos
-    cadena = "{" + cadena + "}";
+    // Paso 5: Eliminar el asterisco al final si existe
+    cadena = cadena.replace(/\*$/, ""); // Eliminar el último asterisco
 
-    // Paso 6: Eliminar el último asterisco
-    cadena = cadena.replace("*", "");
+    // Paso 6: Añadir llaves para que sea un objeto JSON válido
+    cadena = `{${cadena}}`;
 
     // Verificar si es JSON válido
     try {
-      JSON.parse(cadena); // solo para chequear q esta ok
-      return cadena;
+      console.log("Cadena JSON:", cadena); // Para ver la cadena resultante
+      const jsonObj = JSON.parse(cadena); // Solo para chequear que está bien
+      return cadena; // Retorna el objeto JSON
     } catch (error) {
       console.error("Error al parsear JSON:", error);
     }
