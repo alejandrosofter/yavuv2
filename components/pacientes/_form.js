@@ -137,8 +137,39 @@ export default function Form({ setFieldValue, values }) {
     let aux = checkGaleno(cadena);
     return aux.trim();
   };
-  const setDataFields = (qrValue) => {
+  const parseCadenaLector = (cadena) => {
+    //chequeo si cadena tien la letra ñ
+    if (!cadena.includes("ñ")) return cadena;
+
+    // Paso 1: Reemplazar 'ñ' por ':' para formato clave-valor
+    cadena = cadena.replace(/ñ/g, ":");
+
+    // Paso 2: Reemplazar '[' por comillas dobles '"'
+    cadena = cadena.replace(/\[/g, '"');
+
+    // Paso 3: Reemplazar comillas simples por comillas dobles
+    cadena = cadena.replace(/'/g, '"');
+
+    // Paso 4: Añadir comas donde corresponde para JSON válido
+    cadena = cadena.replace(/\*,/g, "],");
+
+    // Paso 5: Añadir los corchetes y llaves correctos
+    cadena = "{" + cadena + "}";
+
+    // Paso 6: Eliminar el último asterisco
+    cadena = cadena.replace("*", "");
+
+    // Verificar si es JSON válido
     try {
+      JSON.parse(cadena); // solo para chequear q esta ok
+      return cadena;
+    } catch (error) {
+      console.error("Error al parsear JSON:", error);
+    }
+  };
+  const setDataFields = (cadenaLector) => {
+    try {
+      const qrValue = parseCadenaLector(cadenaLector);
       const cadena = checkCadena(qrValue);
       const dataParsed = JSON.parse(cadena);
 
