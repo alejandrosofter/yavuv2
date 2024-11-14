@@ -51,7 +51,14 @@ export default function Form({ setFieldValue, values }) {
       setChangeOsQr(false);
     }
   }, [changeOsQr]);
-  console.log(values);
+  const checkOsde = (dataParsed) => {
+    return (
+      dataParsed["plan"].includes("210") ||
+      dataParsed["plan"].includes("310") ||
+      dataParsed["plan"].includes("450") ||
+      dataParsed["plan"].includes("410")
+    );
+  };
   const getField = (dataParsed, field, isNumber) => {
     const CAMPOS_NOMBRES = ["apellidoNombre", "NombreAfiliado"];
     const CAMPOS_CREDENCIAL = ["credencial", "NumeroAfiliado", "contrato"];
@@ -77,7 +84,9 @@ export default function Form({ setFieldValue, values }) {
         // Loop sobre los campos relacionados con nombres
         for (let key of CAMPOS_NOMBRES) {
           if (dataParsed[key]) {
+            const esOsde = checkOsde(dataParsed);
             const nombreApellido = dataParsed[key].trim().split(/\s+/);
+            if (esOsde) return nombreApellido[0];
             return nombreApellido.slice(1).join(" "); // Devuelve el nombre (excluye el primer elemento que es el apellido)
           }
         }
@@ -87,7 +96,9 @@ export default function Form({ setFieldValue, values }) {
         // Loop sobre los campos relacionados con nombres
         for (let key of CAMPOS_NOMBRES) {
           if (dataParsed[key]) {
+            const esOsde = checkOsde(dataParsed);
             const nombreApellido = dataParsed[key].trim().split(/\s+/);
+            if (esOsde) return nombreApellido[nombreApellido.length - 1];
             return nombreApellido[0]; // Devuelve el apellido (primer elemento)
           }
         }
@@ -109,28 +120,42 @@ export default function Form({ setFieldValue, values }) {
   };
   function checkGaleno(cadena) {
     if (!cadena.includes("galeno")) return cadena;
-    // Dividimos la URL por "/"
-    const partes = cadena.split("/");
 
+    // Primero, decodificamos la cadena completa para manejar caracteres especiales
+    const urlDecodificada = decodeURIComponent(cadena);
+
+    // Dividimos la URL por el carácter '-'
+    const partes = urlDecodificada.split("-");
+    console.log(urlDecodificada, partes);
+    // Verificamos que tengamos suficientes partes para procesar
+    if (partes.length < 9) {
+      console.error("La URL no tiene el formato esperado.");
+      return cadena;
+    }
     // Obtenemos los datos de interés
-    const apellidoNombre = decodeURIComponent(
-      partes[5].replace("%20", " ").replace(",", "")
-    );
-    const credencial = partes[6];
-    const colorPlan = partes[7];
-    const codigoPlan = partes[8];
-    const estado = partes[9];
+    let apellidoNombre = partes[1].replace(",", " "); // Reemplazamos la coma por un espacio
+    let credencial = partes[2];
+    let colorPlan = partes[3];
+    let codigoPlan = partes[4];
+    let estado = partes[5];
+    if (cadena.includes("Ñ")) {
+      apellidoNombre = partes[5].replace(",", " "); // Reemplazamos la coma por un espacio
+      credencial = partes[6];
+      colorPlan = partes[7];
+      codigoPlan = partes[8];
+    }
 
     // Creamos el objeto JSON
     const datos = {
       apellidoNombre,
       credencial,
-      colorPlan: colorPlan,
+      colorPlan,
       plan: codigoPlan,
-      estado: estado,
-      dni: 0,
+      estado,
+      dni: 0, // Por el momento no estamos extrayendo el DNI de la URL
     };
 
+    // Retornamos el objeto como un string JSON
     return JSON.stringify(datos);
   }
   const checkCadena = (cadena) => {
@@ -140,10 +165,11 @@ export default function Form({ setFieldValue, values }) {
   const parseCadenaLector = (cadena) => {
     console.log(`parseCadenaLector`, cadena);
     // Chequeo si la cadena tiene la letra 'ñ'
-    if (!cadena.includes("ñ")) return cadena;
+    if (!cadena.includes("¨")) return cadena;
 
     // Paso 1: Reemplazar 'ñ' por ':' para formato clave-valor
     cadena = cadena.replace(/ñ/g, ":");
+    cadena = cadena.replace(/Ñ/g, ":");
     cadena = cadena.replace("¨", "");
     // Paso 2: Reemplazar '[' por comillas dobles '"'
     cadena = cadena.replace(/\[/g, '"').replace(/\]/g, '"');
