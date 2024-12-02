@@ -2,6 +2,7 @@ import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import { useCollection, fuego } from "@nandorojo/swr-firestore";
 import Modelo, { valoresIniciales } from "@modelos/ModeloPrestaciones";
 import Form from "@components/prestaciones/_form";
+import { formatMoney } from "@helpers/numbers";
 export default function SelectPrestaciones({
   multiple,
   label,
@@ -23,7 +24,9 @@ export default function SelectPrestaciones({
       icono="fas fa-medical"
       maxWidth="md"
       campoId="id"
-      campoLabel={(item) => `${item.nombre} - ${item.codigoInterno}`}
+      campoLabel={(item) =>
+        `${item.codigoInterno} (${formatMoney(item.importe)}): ${item.nombre} `
+      }
     />
   );
 }

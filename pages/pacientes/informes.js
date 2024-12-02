@@ -34,6 +34,11 @@ export function menuPacientes() {
       icono: "fas fa-id-card",
       url: `/pacientes/ficha/${idPaciente}`,
     },
+    {
+      label: `facturacion`,
+      icono: "fas fa-file-invoice-dollar",
+      url: `/facturacion`,
+    },
   ];
 }
 export default function Page(props) {

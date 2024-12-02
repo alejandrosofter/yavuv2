@@ -38,6 +38,12 @@ export default function PrestacionesListado({
         }`,
     },
     {
+      field: "importePrevio",
+      headerName: "Importe Previo",
+      width: 120,
+      renderCell: (params) => formatMoney(params.value),
+    },
+    {
       field: "importe",
       headerName: "Importe",
       width: 120,

@@ -7,6 +7,7 @@ import FormAccionesWeb from "./_formAccionesWeb";
 import Switch from "@components/forms/switch";
 import TabsFormik from "@components/forms/tab";
 import SelectRutinasWebObraSocial from "./selectRutinaWeb";
+import SelectEnteFacturador from "@components/entesFacturadores/selectEnteFacturador";
 export default function Form({ mod, setFieldValue, values }) {
   return (
     <TabsFormik
@@ -20,7 +21,19 @@ export default function Form({ mod, setFieldValue, values }) {
               <Grid item md={4}>
                 <Input label="Nombre" campo="nombre" />
               </Grid>
+              <Grid item md={2}>
+                <Input label="Codigo" campo="codigo" />
+              </Grid>
 
+              <Grid item md={4}>
+                <SelectEnteFacturador
+                  label={"Ente Facturador"}
+                  campo="enteFacturador"
+                />
+              </Grid>
+              <Grid item md={10}>
+                <Input label="Link Prestaciones" campo="linkPrestaciones" />
+              </Grid>
               <Grid item md={2}>
                 <SelectEstaticFormik
                   items={["ACTIVA", "INACTIVA"]}
@@ -28,6 +41,7 @@ export default function Form({ mod, setFieldValue, values }) {
                   campo="estado"
                 />
               </Grid>
+
               <Grid item md={2}>
                 <Switch label="Validacion WEB" campo="tieneValidacionWeb" />
               </Grid>

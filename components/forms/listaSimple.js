@@ -21,7 +21,7 @@ export default function ListaSimple({
     <List sx={{ width: "100%", bgcolor: "background.paper" }}>
       {items.map((value) => {
         return (
-          <div key={value[campoId]}>
+          <div key={`item_${value[campoId]}`}>
             <ListItem
               disableGutters
               secondaryAction={

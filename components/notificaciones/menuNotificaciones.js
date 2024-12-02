@@ -30,8 +30,7 @@ export default function MenuNotificaciones({ parentData }) {
     listen: true,
     orderBy: ["fecha_timestamp", "desc"],
   });
-  console.log(`USER MOD!! ${localStorage.getItem("usermod")}`);
-  console.log(`IDUSUARIO!! ${fuego.auth().currentUser?.uid}`);
+
   const clickSalir = () => {};
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

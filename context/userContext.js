@@ -17,7 +17,7 @@ export const UserContext = ({
   const { data: dataCuenta } = useCollection("cuentas", {
     where: ["idUsuarioFirestore", "==", usuario?.id],
   });
-  console.log(usuario, "usuario");
+
   const { data: userInvitado } = useCollection("usuariosInvitados", {
     where: ["email", "==", fuego.auth().currentUser?.email],
   });

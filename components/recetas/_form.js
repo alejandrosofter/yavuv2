@@ -10,6 +10,7 @@ import FormPrestaciones from "./_formPrestaciones";
 import FormIndicaciones from "./_formIndicaciones";
 import parse from "html-react-parser";
 import FormAnteojos from "./_formAnteojos";
+import { fuego, update, useCollection } from "@nandorojo/swr-firestore";
 import {
   ModeloEstudios,
   ModeloAnteojos,
@@ -27,6 +28,7 @@ import {
 import SelectOsPaciente from "./selectOs";
 import { useEffect } from "react";
 import FormDiagnostico from "./_formDiagnostico";
+import { AutorizacionesPendientes } from "./autorizacionesPendientes";
 
 export const getValor = (params, campo, ojo, lejosCerca, postchar = "") => {
   const aux = params.row[`${campo}_${ojo}_${lejosCerca}`];
@@ -75,7 +77,6 @@ export default function Form({ setFieldValue, values, paciente }) {
     setFieldValue("obraSocialSeleccion", item);
   };
   useEffect(() => {
-    // console.log(paciente);
     if (paciente)
       setFieldValue("paciente", {
         id: paciente.id,
@@ -84,6 +85,20 @@ export default function Form({ setFieldValue, values, paciente }) {
         dni: paciente.dni,
       });
   }, [paciente]);
+  const changeStateAutorizacion = (item, estado) => {
+    if (!item) return;
+    update(`recetasAutorizacion/${item.id}`, { estado });
+  };
+  const onAccept = (item) => {
+    let prestaciones = values.prestaciones ? [...values.prestaciones] : [];
+
+    prestaciones.push(item);
+    setFieldValue("prestaciones", prestaciones);
+    changeStateAutorizacion(item, "ACEPTADO");
+  };
+  const onCancel = (item) => {
+    changeStateAutorizacion(item, "CANCELADO");
+  };
 
   return (
     <Grid container spacing={2}>
@@ -93,7 +108,7 @@ export default function Form({ setFieldValue, values, paciente }) {
       <Grid item md={3}>
         <SelectFecha label="Fecha Receta" campo="fechaReceta" />
       </Grid>
-      <Grid item md={4}>
+      <Grid item md={3}>
         <SelectEstaticFormik
           items={[
             "MEDICAMENTO",
@@ -109,6 +124,7 @@ export default function Form({ setFieldValue, values, paciente }) {
       <Grid item md={3}>
         <Switch label="Consulta Particular" campo="esParticular" />
       </Grid>
+
       {values.tipo == "DIAGNOSTICO" && (
         <>
           <Grid item md={12}>
@@ -228,6 +244,12 @@ export default function Form({ setFieldValue, values, paciente }) {
       )}
       {values.tipo == "PRESTACION" && (
         <Grid item md={12}>
+          <AutorizacionesPendientes
+            paciente={paciente}
+            onAccept={onAccept}
+            onCancel={onCancel}
+          />
+
           <DataGridFormikItems
             label=""
             preData={{ paciente }}
@@ -242,15 +264,26 @@ export default function Form({ setFieldValue, values, paciente }) {
                 width: 80,
               },
               {
-                field: "nombre",
+                field: "label_idPrestacion",
                 headerName: "Prestacion",
                 width: 450,
+                renderCell: (params) => {
+                  return params.value ? parse(params.value) : "";
+                },
               },
               {
-                field: "detalle",
-                headerName: "Detalle",
-                width: 150,
+                field: "label_sendTo",
+                headerName: "Enviar a ...",
+                width: 200,
+                // renderCell: (params) => {
+                //   return params.value ? "Si" : "No";
+                // },
               },
+              // {
+              //   field: "detalle",
+              //   headerName: "Detalle",
+              //   width: 150,
+              // },
             ]}
           />
         </Grid>

@@ -40,6 +40,11 @@ export default function Modulo({ parentData }) {
       size: 390,
     },
     {
+      accessorKey: "importeAnterior",
+      header: "$ Importe Anterior",
+      size: 120,
+    },
+    {
       accessorKey: "importe",
       header: "$ Importe",
       size: 120,

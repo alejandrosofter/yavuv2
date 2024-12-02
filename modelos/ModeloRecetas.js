@@ -113,6 +113,9 @@ export function ModeloPrestaciones() {
   return yup.object().shape({
     idPrestacion: yup.string().required("Selecciona una prestacion!"),
     cantidad: yup.number().required("Cantidad?"),
+    sendTo: yup
+      .string()
+      .required("Debes seleccionar si lo facturas o lo autorizas!!"),
   });
 }
 export function valoresInicialesPrestaciones() {

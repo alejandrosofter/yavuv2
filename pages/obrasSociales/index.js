@@ -34,14 +34,19 @@ export default function Modulo({ mod }) {
       size: 390,
     },
     {
+      accessorKey: "codigo",
+      header: "Cod.",
+      size: 80,
+    },
+    {
       accessorKey: "lastUpdateNomencladores",
       header: "Ultima Actualizacion Presta.",
       size: 160,
       Cell: ({ cell }) => getFechaString(cell.getValue()),
     },
     {
-      accessorKey: "tipoValidacion",
-      header: "Validacion...",
+      accessorKey: "label_enteFacturador",
+      header: "Ente Facturador",
       size: 120,
     },
     {

@@ -8,7 +8,6 @@ import SelectOsPaciente from "./selectOs";
 import SelectObraSocial from "@components/obrasSociales/selectObraSocial";
 import { useEffect, useState } from "react";
 import Switch from "@components/forms/switch";
-import RadioButtons from "@components/forms/radioButtons";
 
 export default function FormPrestaciones({
   mod,
@@ -57,10 +56,7 @@ export default function FormPrestaciones({
         "nombre",
         `${item.nombreCorto ? item.nombreCorto : item.nombre}`
       );
-      setFieldValue(
-        "cantidad",
-        `${item.cantidad ? item.cantidad.replace(/\D/g, "") : 1}`
-      );
+      setFieldValue("cantidad", `${item.cantidad ? item.cantidad : 1}`);
       setFieldValue("importe", `${item.importe ? item.importe : 0}`);
     }
   };
@@ -75,19 +71,10 @@ export default function FormPrestaciones({
       <Grid item md={2}>
         <Input label="Cantidad" campo="cantidad" />
       </Grid>
-      <Grid item md={3}>
-        <RadioButtons
-          options={[
-            { id: "facturar", label: "Facturar" },
-            { id: "autorizar", label: "Autorizar" },
-          ]}
-          row={true}
-          // defaultValue={"facturar"}
-          label="Enviar a ..."
-          campo="sendTo"
-        />
+      <Grid item md={2}>
+        <Switch label="Es Facturable?" campo="facturable" />
       </Grid>
-      <Grid item md={12}>
+      <Grid item md={8}>
         {values.obraSocial && (
           <>
             <Typography variant="caption" sx={{ mt: 1, mb: 1 }}>
@@ -108,11 +95,7 @@ export default function FormPrestaciones({
           </>
         )}
       </Grid>
-      {/* <Grid item md={3}>
-        <Switch label="Para Facturar" campo="facturable" />
-      </Grid> */}
-
-      <Grid item md={6}>
+      <Grid item md={12}>
         <Input label="Detalle" campo="detalle" />
       </Grid>
     </Grid>
