@@ -4,7 +4,7 @@ import SelectFecha from "@components/forms/selectorFecha";
 import SelectPrestaciones from "@components/prestaciones/selectPrestacion";
 import { getFechaString } from "@helpers/dates";
 import { useCollection, useDocument } from "@nandorojo/swr-firestore";
-import SelectOsPaciente from "./selectOs";
+
 import SelectObraSocial from "@components/obrasSociales/selectObraSocial";
 import { useEffect, useState } from "react";
 import Switch from "@components/forms/switch";
