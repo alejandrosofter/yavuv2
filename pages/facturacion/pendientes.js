@@ -6,7 +6,7 @@ import { LockOpen, LockOpenOutlined } from "@mui/icons-material";
 import { Button, Grid, Stack, Typography } from "@mui/material";
 import { useCollection } from "@nandorojo/swr-firestore";
 import { useEffect, useState } from "react";
-export function FacturacionPendiente({
+export default function FacturacionPendiente({
   data,
   clickItem,
   onCerrar,

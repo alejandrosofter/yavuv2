@@ -2,7 +2,7 @@ import DialogContenido from "@components/forms/dialogContenido";
 import FormFacturacion from "./_form";
 import { update } from "@nandorojo/swr-firestore";
 
-export function EditFacturacionItem({ data, open, setOpen, onEdit }) {
+export default function EditFacturacionItem({ data, open, setOpen, onEdit }) {
   const onAccept = (data) => {
     console.log(data);
     delete data.__snapshot;

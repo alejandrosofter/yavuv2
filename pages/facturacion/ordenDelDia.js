@@ -4,7 +4,7 @@ import { useCollection } from "@nandorojo/swr-firestore";
 import DatePicker from "react-multi-date-picker";
 import Icon from "react-multi-date-picker/components/icon";
 import { useState } from "react";
-export function OrdenDelDia() {
+export default function OrdenDelDia() {
   const [desdeDate, setDesdeDate] = useState(
     new Date(new Date().setHours(0, 0, 0, 0)).getTime()
   );
