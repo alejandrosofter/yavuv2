@@ -4,11 +4,11 @@ import useLayout from "@hooks/useLayout";
 import { Backdrop, CircularProgress, Grid, Typography } from "@mui/material";
 import AcordeonForm from "@components/forms/acordeon";
 import { useCollection, useCollectionGroup } from "@nandorojo/swr-firestore";
-import { FacturacionPendiente } from "./pendientes";
+import FacturacionPendiente from "@components/facturadorPacientes/pendientes";
 import { groupBy } from "@helpers/arrays";
 import { formatMoney } from "@helpers/numbers";
-import ListadoFacturacionOs from "./listado";
-import { OrdenDelDia } from "./ordenDelDia";
+import ListadoFacturacionOs from "@components/facturadorPacientes/listado";
+import OrdenDelDia from "@components/facturadorPacientes/ordenDelDia";
 
 import ConfirmDialog from "@components/forms/confirmDialog";
 import { QueryApi } from "@helpers/queryApi";

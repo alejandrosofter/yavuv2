@@ -14,7 +14,7 @@ import {
 import { formatMoney } from "@helpers/numbers";
 import ConfirmDialog from "@components/forms/confirmDialog";
 import { deleteDocument } from "@nandorojo/swr-firestore";
-import { EditFacturacionItem } from "./edit";
+import EditFacturacionItem from "./edit";
 export default function ListadoFacturacionOs({
   dataSelect,
   changeData,

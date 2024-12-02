@@ -2,7 +2,7 @@ import { getFechaString } from "@helpers/dates";
 import { QueryApi } from "@helpers/queryApi";
 import { useState } from "react";
 import Modelo, { valoresIniciales } from "@modelos/ModeloLiquidaciones";
-import Form from "./_form";
+import Form from "@components/facturadorPacientes/_formLiquidaciones";
 import ABMColeccion from "@components/forms/ABMcollection";
 import useLayout from "@hooks/useLayout";
 import { formatMoney } from "@helpers/numbers";

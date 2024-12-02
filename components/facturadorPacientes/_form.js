@@ -1,4 +1,4 @@
-import { Grid, Stack, Typography } from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import Input from "@components/forms/input";
 import SelectFecha from "@components/forms/selectorFecha";
 import SelectPrestaciones from "@components/prestaciones/selectPrestacion";
@@ -8,95 +8,49 @@ import { useCollection, useDocument } from "@nandorojo/swr-firestore";
 import SelectObraSocial from "@components/obrasSociales/selectObraSocial";
 import { useEffect, useState } from "react";
 import Switch from "@components/forms/switch";
+import RadioButtons from "@components/forms/radioButtons";
+import { Form, Formik, useFormikContext } from "formik";
+import Select2Simple from "@components/forms/select2Simple";
+import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 
-export default function FormPrestaciones({
-  mod,
-  setFieldValue,
-  values,
-  paciente,
-}) {
-  const [obraSocialSeleccion, setObraSocialSeleccion] = useState({});
-  const [alertas, setAlertas] = useState("");
-  const { data: refObraSocialPaciente } = useDocument(
-    `pacientes/${paciente?.id}/obrasSociales/${paciente?.obraSocial}`,
-    {
-      listen: true,
-    }
+export default function FormFacturacion({ initialValues, onAccept }) {
+  return (
+    <Formik initialValues={initialValues}>
+      <Form onSubmit={(values) => console.log(values)}>
+        <_Form onAccept={onAccept} />
+      </Form>
+    </Formik>
   );
-  const { data: codigosFacturados } = useCollection(`recetasFacturacion`, {
-    where: [
-      ["idPaciente", "==", paciente.id],
-      ["obraSocial", "==", obraSocialSeleccion.id],
-      ["codigo", "==", values.codigo],
-      ["estado", "==", "FACTURADO"],
-    ],
-    listen: true,
-  });
-  useEffect(() => {
-    if (codigosFacturados?.length > 0) {
-      console.log(`codigosFacturados`, codigosFacturados);
-      let alerta = "";
-      codigosFacturados.map((item) => {
-        alerta += `${getFechaString(item.fecha)}, `;
-      });
-      setAlertas(alerta);
-    } else setAlertas("");
-  }, [codigosFacturados]);
-
-  useEffect(() => {
-    if (refObraSocialPaciente?.exists) {
-      console.log(`refObraSocialPaciente`, refObraSocialPaciente);
-      setFieldValue("obraSocial", refObraSocialPaciente.obraSocial);
-    }
-  }, [refObraSocialPaciente]);
-  const cambiaPrestacion = (valor, item) => {
-    if (item) {
-      setFieldValue("codigo", `${item.codigoInterno}`);
-      setFieldValue(
-        "nombre",
-        `${item.nombreCorto ? item.nombreCorto : item.nombre}`
-      );
-      setFieldValue("cantidad", `${item.cantidad ? item.cantidad : 1}`);
-      setFieldValue("importe", `${item.importe ? item.importe : 0}`);
-    }
-  };
-  const cambiaOs = (valor, item) => {
-    if (item) setObraSocialSeleccion(item);
+}
+export function _Form({ onAccept }) {
+  const { values, setFieldValue } = useFormikContext();
+  const clickAccept = (e) => {
+    if (onAccept) onAccept(values);
   };
   return (
     <Grid container spacing={2}>
-      <Grid item md={6}>
-        <SelectObraSocial callbackchange={cambiaOs} />
-      </Grid>
+      {/* <Grid item md={2}></Grid> */}
       <Grid item md={2}>
         <Input label="Cantidad" campo="cantidad" />
       </Grid>
       <Grid item md={2}>
-        <Switch label="Es Facturable?" campo="facturable" />
+        <Input label="Codigo" campo="codigo" />
       </Grid>
-      <Grid item md={8}>
-        {values.obraSocial && (
-          <>
-            <Typography variant="caption" sx={{ mt: 1, mb: 1 }}>
-              ULTIMA ACTUALIZACION NOMENCLADOR:{" "}
-              {getFechaString(obraSocialSeleccion.lastUpdateNomencladores)}
-            </Typography>
-          </>
-        )}
-        <SelectPrestaciones
-          callbackchange={cambiaPrestacion}
-          obraSocial={values.obraSocial}
+      <Grid item md={2}>
+        <Input label="Importe" campo="importe" />
+      </Grid>
+
+      <Grid item md={5}>
+        <SelectEstaticFormik
+          items={["PENDIENTE", "ACEPTADO", "CANCELADO"]}
+          label="Estado"
+          campo="estado"
         />
-        {alertas != "" && (
-          <>
-            <Typography variant="caption" sx={{ mt: 1, mb: 1, color: "red" }}>
-              ULTIMAS FACTURACIONES: {alertas}
-            </Typography>
-          </>
-        )}
       </Grid>
       <Grid item md={12}>
-        <Input label="Detalle" campo="detalle" />
+        <Button variant="contained" fullWidth onClick={clickAccept}>
+          Aceptar
+        </Button>
       </Grid>
     </Grid>
   );

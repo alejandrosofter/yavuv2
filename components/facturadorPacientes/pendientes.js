@@ -49,7 +49,7 @@ export default function FacturacionPendiente({
           <Button
             size="small"
             variant="outlined"
-            onClick={onCerrar.bind(this, data, idEnteFacturador)}
+            onClick={onCerrar?.bind(this, data, idEnteFacturador)}
           >
             <LockOpenOutlined />{" "}
             <Typography variant=" caption">cerrar facturacion </Typography>
