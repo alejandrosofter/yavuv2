@@ -86,7 +86,7 @@ export default function Modulo({ mod }) {
       label: "Imprimir",
       fn: (row) => {
         const data = groupBy(row.items, (item) => item.obraSocial, true);
-        const fecha = `${row.mes} de ${row.ano}`;
+
         let items = [];
         let idEnteFacturador = null;
         for (let key in data) {
@@ -96,7 +96,7 @@ export default function Modulo({ mod }) {
             itemsCodigo,
             label_obraSocial: data[key][0]?.label_obraSocial,
             config,
-            fecha,
+            periodo: row.periodo,
           });
           idEnteFacturador = data[key][0]?.idEnteFacturador;
         }
