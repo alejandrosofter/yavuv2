@@ -35,6 +35,7 @@ export default function Modulo({}) {
     const newData = {
       fecha: new Date(),
       cantidadItems: selectCerrar?.item?.length,
+
       idEnteFacturador: selectCerrar?.idEnteFacturador,
       label_idEnteFacturador: selectCerrar?.item[0]?.label_idEnteFacturador,
       items: selectCerrar?.item.map((item) => {

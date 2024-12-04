@@ -15,6 +15,9 @@ export default function Form({ mod, setFieldValue, values }) {
       <Grid item md={3}>
         <Input label="Cantidad Items" campo="cantidadItems" />
       </Grid>
+      <Grid item md={3}>
+        <Input label="Periodo" campo="periodo" />
+      </Grid>
 
       <Grid item md={3}>
         <Input label="Importe Total" campo="importeTotal" />

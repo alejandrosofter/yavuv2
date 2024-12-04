@@ -11,6 +11,7 @@ import { UseConfigModulo } from "@helpers/useConfigModulo";
 import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { useCollection, fuego, useDocument } from "@nandorojo/swr-firestore";
 import Dialogo from "@components/forms/dialogo";
+import { groupBy } from "@helpers/arrays";
 export default function Modulo({ mod }) {
   const order = ["fecha", "desc"];
   const [dataImpresion, setDataImpresion] = useState(null);
@@ -46,6 +47,7 @@ export default function Modulo({ mod }) {
     id: enteFacturador?.plantillaLiquidaciones,
     data: dataImpresion,
   });
+
   useLayout({
     label: "Facturacion",
     titulo: "FACTURACION",
@@ -63,14 +65,46 @@ export default function Modulo({ mod }) {
       { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
     ],
   });
+  const getObjectCodigos = (items) => {
+    const itemsCodigo = groupBy(items, (item) => item.codigo, true);
+    let array = [];
+    for (let key in itemsCodigo) {
+      array.push({
+        codigo: key,
+        items: itemsCodigo[key],
+        cantidad: itemsCodigo[key].reduce((a, b) => a + Number(b.cantidad), 0),
+        nombre: itemsCodigo[key][0]?.nombre,
+        importe: formatMoney(itemsCodigo[key][0]?.importe),
+      });
+    }
+    return array;
+  };
   const acciones = [
     {
       esFuncion: true,
       icono: "fas fa-print",
       label: "Imprimir",
       fn: (row) => {
-        setDataImpresion(row);
-        setOpenImpresion(true);
+        const data = groupBy(row.items, (item) => item.obraSocial, true);
+        const fecha = `${row.mes} de ${row.ano}`;
+        let items = [];
+        let idEnteFacturador = null;
+        for (let key in data) {
+          const itemsCodigo = getObjectCodigos(data[key]);
+          items.push({
+            obraSocial: key,
+            itemsCodigo,
+            label_obraSocial: data[key][0]?.label_obraSocial,
+            config,
+            fecha,
+          });
+          idEnteFacturador = data[key][0]?.idEnteFacturador;
+        }
+        console.log({ items, idEnteFacturador });
+        setDataImpresion({ items, idEnteFacturador, periodo: row.periodo });
+        setTimeout(() => {
+          setOpenImpresion(true);
+        }, 1500);
       },
     },
     {
@@ -89,6 +123,11 @@ export default function Modulo({ mod }) {
       headerName: "Fecha",
       width: 90,
       renderCell: (params) => getFechaString(params.value ? params.value : ""),
+    },
+    {
+      field: "periodo",
+      headerName: "Periodo",
+      width: 120,
     },
     {
       field: "cantidadItems",
