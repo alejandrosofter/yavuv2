@@ -1,7 +1,7 @@
 import { groupBy } from "@helpers/arrays";
 import { getFechaString } from "@helpers/dates";
 import { formatMoney } from "@helpers/numbers";
-import { Grid, Tooltip } from "@mui/material";
+import { Grid, Tooltip, Typography } from "@mui/material";
 import { useDocument } from "@nandorojo/swr-firestore";
 import MaterialReactTable from "material-react-table";
 import { useRouter } from "next/router";
@@ -9,7 +9,9 @@ import { useEffect, useMemo, useState } from "react";
 export default function Page(params) {
   const router = useRouter();
   const [dataGroup, setDataGroup] = useState([]);
-  const { data } = useDocument(`recetasLiquidaciones/${router.query.id}`);
+  const { data, error } = useDocument(
+    `recetasLiquidaciones/${router.query.id}`
+  );
   //   console.log(data);
   //   useEffect(() => {
   //     if (!data || !data.items) {
@@ -83,6 +85,12 @@ export default function Page(params) {
     ],
     []
   );
+  if (!data || error)
+    return (
+      <Typography variant="h6">
+        No se encontró la liquidación o items en la liquidacion
+      </Typography>
+    );
   return (
     <Grid container>
       <Grid item md={12}>
@@ -122,7 +130,7 @@ export default function Page(params) {
           //     </MenuItem>,
           //   ]}
           columns={columns}
-          data={data.items}
+          data={data?.items}
         />
       </Grid>
     </Grid>
