@@ -12,16 +12,17 @@ import OrdenDelDia from "@components/facturadorPacientes/ordenDelDia";
 
 import ConfirmDialog from "@components/forms/confirmDialog";
 import { QueryApi } from "@helpers/queryApi";
+import { CerrarFacturacionDialog } from "@components/facturadorPacientes/cerrarFacturacion";
 
 export default function Modulo({}) {
   const order = ["fecha", "desc"];
   const [dataConsulta, setDataConsulta] = useState();
   const [dataSelect, setDataSelect] = useState([]);
   const [openConfirmCerrar, setConfirmCerrar] = useState(false);
-  const [loading, setLoading] = useState(false);
+
   const [osSelect, setOsSelect] = useState();
   const [selectCerrar, setSelectCerrar] = useState();
-  const { add } = useCollection(`recetasLiquidaciones`);
+
   const { data } = useCollection("recetasFacturacion", {
     where: [["estado", "==", "PENDIENTE"]],
     listen: true,
@@ -30,26 +31,7 @@ export default function Modulo({}) {
     setSelectCerrar({ item, idEnteFacturador });
     setConfirmCerrar(true);
   };
-  const confirmCerrar = () => {
-    setLoading(true);
-    const newData = {
-      fecha: new Date(),
-      cantidadItems: selectCerrar?.item?.length,
 
-      idEnteFacturador: selectCerrar?.idEnteFacturador,
-      label_idEnteFacturador: selectCerrar?.item[0]?.label_idEnteFacturador,
-      items: selectCerrar?.item.map((item) => {
-        delete item.__snapshot;
-        delete item.usermod;
-        return item;
-      }),
-    };
-    console.log(newData);
-    add(newData).then(() => {
-      setLoading(false);
-      setConfirmCerrar(false);
-    });
-  };
   const clickItem = (item) => {
     if (!item) {
       console.log(`no hay item`);
@@ -113,8 +95,8 @@ export default function Modulo({}) {
     }
   }, [data]);
   useLayout({
-    label: "Facturacion",
-    titulo: "FACTURACION",
+    label: "Facturacion Pendiente",
+    titulo: "FACTURACION Pendiente",
     acciones: [
       {
         label: `facturacion`,
@@ -150,19 +132,18 @@ export default function Modulo({}) {
       <Grid item xs={2}>
         <OrdenDelDia />
       </Grid>
-      <ConfirmDialog
+      <CerrarFacturacionDialog
+        open={openConfirmCerrar}
+        setOpen={setConfirmCerrar}
+        data={selectCerrar}
+      />
+      {/* <ConfirmDialog
         open={openConfirmCerrar}
         setOpen={setConfirmCerrar}
         titulo="Cerrar receta"
         mensaje="¿Desea cerrar este Ente Facturador?"
         callbacksuccess={confirmCerrar}
-      />
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1000 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      /> */}
     </Grid>
   );
 }

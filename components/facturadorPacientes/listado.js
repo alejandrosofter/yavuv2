@@ -61,6 +61,11 @@ export default function ListadoFacturacionOs({
         size: 135,
         accessorFn: (row) =>
           `${row.paciente?.apellido}, ${row.paciente?.nombre}`,
+        Cell: ({ cell }) => (
+          <Tooltip title={cell.row.original.nroAfiliado}>
+            <span>{`${cell.row.original.paciente?.apellido}, ${cell.row.original.paciente?.nombre}`}</span>
+          </Tooltip>
+        ),
       },
 
       {
@@ -74,7 +79,12 @@ export default function ListadoFacturacionOs({
           </Tooltip>
         ),
       },
-
+      {
+        accessorKey: "cantidad",
+        header: "Cant.",
+        size: 60,
+        // accessorFn: (row) => `${formatMoney(row.importe)}`,
+      },
       {
         accessorKey: "importe",
         header: "Importe",

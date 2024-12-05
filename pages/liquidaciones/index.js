@@ -12,12 +12,14 @@ import { UsePlantilla } from "@components/plantillas/usePlantilla";
 import { useCollection, fuego, useDocument } from "@nandorojo/swr-firestore";
 import Dialogo from "@components/forms/dialogo";
 import { groupBy } from "@helpers/arrays";
+import { useRouter } from "next/router";
 export default function Modulo({ mod }) {
   const order = ["fecha", "desc"];
   const [dataImpresion, setDataImpresion] = useState(null);
   const [openImpresion, setOpenImpresion] = useState();
   const [openDialogo, setOpenDialogo] = useState(false);
   const config = UseConfigModulo("pacientes");
+  const router = useRouter();
   const { data: enteFacturador } = useDocument(
     `/entesFacturadores/${dataImpresion?.idEnteFacturador}`,
 
@@ -49,8 +51,8 @@ export default function Modulo({ mod }) {
   });
 
   useLayout({
-    label: "Facturacion",
-    titulo: "FACTURACION",
+    label: "Facturacion Pendiente",
+    titulo: "FACTURACION pendiente",
     acciones: [
       {
         label: `facturacion`,
@@ -116,11 +118,25 @@ export default function Modulo({ mod }) {
         listarLiquidacion(row);
       },
     },
+    {
+      esFuncion: true,
+      icono: "fas fa-info-circle",
+      label: "Ver Detalle",
+      fn: (row) => {
+        router.push(`/liquidaciones/${row.id}`);
+      },
+    },
   ];
   const columns = [
     {
       field: "fecha",
       headerName: "Fecha",
+      width: 90,
+      renderCell: (params) => getFechaString(params.value ? params.value : ""),
+    },
+    {
+      field: "hastaFecha",
+      headerName: "Facturar hasta",
       width: 90,
       renderCell: (params) => getFechaString(params.value ? params.value : ""),
     },

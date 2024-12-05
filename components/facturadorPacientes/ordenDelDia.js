@@ -3,7 +3,9 @@ import { Grid, Stack, Typography } from "@mui/material";
 import { useCollection } from "@nandorojo/swr-firestore";
 import DatePicker from "react-multi-date-picker";
 import Icon from "react-multi-date-picker/components/icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { groupBy } from "@helpers/arrays";
+import { formatMoney } from "@helpers/numbers";
 export default function OrdenDelDia() {
   const [desdeDate, setDesdeDate] = useState(
     new Date(new Date().setHours(0, 0, 0, 0)).getTime()
@@ -12,6 +14,9 @@ export default function OrdenDelDia() {
     new Date(new Date().setHours(23, 59, 59, 999)).getTime()
   );
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [totalImporte, setTotalImporte] = useState(0);
+  const [groupByObraSocial, setGroupByObraSocial] = useState([]);
+
   const { data, error } = useCollection("recetasFacturacion", {
     where: [
       ["fecha_timestamp", ">=", desdeDate],
@@ -21,9 +26,35 @@ export default function OrdenDelDia() {
 
     listen: true,
   });
-  //   useEffect(() => {
+  useEffect(() => {
+    if (!data || !data.length || error || data.length === 0) {
+      setTotalImporte(0);
+      setGroupByObraSocial([]);
+      return;
+    }
+    setTotalImporte(
+      data?.reduce((total, item) => total + Number(item.importe), 0)
+    );
+    const dataGroup = groupBy(data, (item) => item.obraSocial, true);
+    let arr = [];
+    for (let key in dataGroup) {
+      arr.push({
+        obraSocial: key,
+        label_obraSocial: dataGroup[key][0].label_obraSocial,
+        cantidadItems: dataGroup[key].length,
+        cantidad: dataGroup[key].reduce(
+          (total, item) => total + Number(item.cantidad),
+          0
+        ),
+        importeTotal: dataGroup[key].reduce(
+          (total, item) => total + Number(item.importe),
+          0
+        ),
+      });
+    }
+    setGroupByObraSocial(arr);
+  }, [data]);
 
-  //   },)
   const changeDate = (newDate) => {
     setSelectedDate(date);
 
@@ -81,6 +112,31 @@ export default function OrdenDelDia() {
             </Typography>
           </Stack>
         ))}
+      </Grid>
+      <Grid item md={12}>
+        {groupByObraSocial?.map((item, index) => (
+          <Stack direction="row" spacing={2} key={item.id}>
+            <Typography
+              sx={{ fontWeight: 900 }}
+              variant="caption"
+              display="block"
+            >
+              {`${item.label_obraSocial} (${item.cantidad})`}
+            </Typography>
+            <Typography
+              sx={{ fontWeight: 350 }}
+              variant="caption"
+              display="block"
+            >
+              {`${formatMoney(item.importeTotal)} `}
+            </Typography>
+          </Stack>
+        ))}
+      </Grid>
+      <Grid item md={12}>
+        <Typography sx={{ fontWeight: 900 }} variant="h6">
+          TOTAL {formatMoney(totalImporte)}
+        </Typography>
       </Grid>
     </Grid>
   );
