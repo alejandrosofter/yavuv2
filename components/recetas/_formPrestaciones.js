@@ -69,25 +69,10 @@ export default function FormPrestaciones({
   };
   return (
     <Grid container spacing={2}>
-      <Grid item md={6}>
+      <Grid item md={4}>
         <SelectObraSocial callbackchange={cambiaOs} />
       </Grid>
-      <Grid item md={2}>
-        <Input label="Cantidad" campo="cantidad" />
-      </Grid>
-      <Grid item md={3}>
-        <RadioButtons
-          options={[
-            { id: "facturar", label: "Facturar" },
-            { id: "autorizar", label: "Autorizar" },
-          ]}
-          row={true}
-          // defaultValue={"facturar"}
-          label="Enviar a ..."
-          campo="sendTo"
-        />
-      </Grid>
-      <Grid item md={12}>
+      <Grid item md={8}>
         {values.obraSocial && (
           <>
             <Typography variant="caption" sx={{ mt: 1, mb: 1 }}>
@@ -108,11 +93,30 @@ export default function FormPrestaciones({
           </>
         )}
       </Grid>
+      <Grid item md={2}>
+        <Input label="Cantidad" campo="cantidad" />
+      </Grid>
+      <Grid item md={2}>
+        <Input label="Importe" campo="importe" />
+      </Grid>
+      <Grid item md={3}>
+        <RadioButtons
+          options={[
+            { id: "facturar", label: "Facturar" },
+            { id: "autorizar", label: "Autorizar" },
+          ]}
+          row={true}
+          // defaultValue={"facturar"}
+          label="Enviar a ..."
+          campo="sendTo"
+        />
+      </Grid>
+
       {/* <Grid item md={3}>
         <Switch label="Para Facturar" campo="facturable" />
       </Grid> */}
 
-      <Grid item md={6}>
+      <Grid item md={5}>
         <Input label="Detalle" campo="detalle" />
       </Grid>
     </Grid>

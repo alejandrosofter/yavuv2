@@ -93,7 +93,18 @@ export default function Form({ setFieldValue, values, paciente }) {
     let prestaciones = values.prestaciones ? [...values.prestaciones] : [];
 
     prestaciones.push(item);
-    setFieldValue("prestaciones", prestaciones);
+    setFieldValue(
+      "prestaciones",
+      prestaciones.map((item) => {
+        delete item.__snapshot;
+        delete item.usermod;
+        return {
+          ...item,
+          sendTo: "facturar",
+          label_sendTo: "Facturar",
+        };
+      })
+    );
     changeStateAutorizacion(item, "ACEPTADO");
   };
   const onCancel = (item) => {
