@@ -52,21 +52,27 @@ export default function FormPrestaciones({
   }, [refObraSocialPaciente]);
   const cambiaPrestacion = (valor, item) => {
     if (item) {
+      const cantidad = item.cantidad ? item.cantidad.replace(/\D/g, "") : 1;
+      const importeUnitario = item.importe ? item.importe : 0;
       setFieldValue("codigo", `${item.codigoInterno}`);
       setFieldValue(
         "nombre",
         `${item.nombreCorto ? item.nombreCorto : item.nombre}`
       );
-      setFieldValue(
-        "cantidad",
-        `${item.cantidad ? item.cantidad.replace(/\D/g, "") : 1}`
-      );
-      setFieldValue("importe", `${item.importe ? item.importe : 0}`);
+      setFieldValue("cantidad", `${cantidad}`);
+      setFieldValue("importe", `${(importeUnitario * cantidad).toFixed(2)}`);
+      setFieldValue("importeUnitario", `${importeUnitario}`);
     }
   };
   const cambiaOs = (valor, item) => {
     if (item) setObraSocialSeleccion(item);
   };
+  const cambiaCantidad = (e) => {
+    const cant = Number(e.target.value);
+
+    setFieldValue("importe", cant * values.importeUnitario);
+  };
+
   return (
     <Grid container spacing={2}>
       <Grid item md={4}>
@@ -94,7 +100,7 @@ export default function FormPrestaciones({
         )}
       </Grid>
       <Grid item md={2}>
-        <Input label="Cantidad" campo="cantidad" />
+        <Input onChange={cambiaCantidad} label="Cantidad" campo="cantidad" />
       </Grid>
       <Grid item md={2}>
         <Input label="Importe" campo="importe" />
