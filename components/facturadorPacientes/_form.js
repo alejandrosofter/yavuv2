@@ -24,14 +24,24 @@ export default function FormFacturacion({ initialValues, onAccept }) {
 }
 export function _Form({ onAccept }) {
   const { values, setFieldValue } = useFormikContext();
+
   const clickAccept = (e) => {
     if (onAccept) onAccept(values);
   };
+  const cambiaCantidad = (e) => {
+    const cant = Number(e.target.value);
+
+    setFieldValue(
+      "importe",
+      cant * values.prestaciones.find((p) => p.id === values.id)?.importe
+    );
+  };
+
   return (
     <Grid container spacing={2}>
       {/* <Grid item md={2}></Grid> */}
       <Grid item md={2}>
-        <Input label="Cantidad" campo="cantidad" />
+        <Input onChange={cambiaCantidad} label="Cantidad" campo="cantidad" />
       </Grid>
       <Grid item md={2}>
         <Input label="Codigo" campo="codigo" />
