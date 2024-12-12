@@ -67,6 +67,7 @@ export default function Modulo({}) {
         aux.push({
           id: key,
           idEnteFacturador,
+          importe,
           titulo:
             !key || key == "undefined"
               ? `Sin ente facturador (${value.length}) $ ${formatMoney(
@@ -111,6 +112,7 @@ export default function Modulo({}) {
       { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
     ],
   });
+  // console.log(dataConsulta);
   return (
     <Grid container sx={{ p: 2 }} rowSpacing={2} spacing={2}>
       <Grid item xs={3}>
@@ -121,6 +123,17 @@ export default function Modulo({}) {
           </Typography>
         </Grid>
         <AcordeonForm data={dataConsulta} />
+        <Grid item md={12}>
+          <Typography
+            sx={{ p: 4, color: "red", fontWeight: "bold" }}
+            variant="h6"
+          >
+            $ TOTAL PENDIENTE{" "}
+            {formatMoney(
+              dataConsulta?.reduce((n, p) => n + Number(p.importe), 0)
+            )}
+          </Typography>
+        </Grid>
       </Grid>
       <Grid item xs={7}>
         <ListadoFacturacionOs

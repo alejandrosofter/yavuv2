@@ -125,6 +125,7 @@ export function valoresInicialesPrestaciones() {
     idEstudio: "",
     importe: "0",
     cantidad: 1,
+    volver: true,
     idUsuario: localStorage.getItem("usermod")
       ? localStorage.getItem("usermod")
       : fuego.auth().currentUser.uid,

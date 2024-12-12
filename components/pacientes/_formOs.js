@@ -14,6 +14,9 @@ export default function FormOs() {
       <Grid item md={4}>
         <SelectObraSocial />
       </Grid>
+      {/* <Grid item md={3}>
+        <Switch label="Default" campo="default" />
+      </Grid> */}
     </Grid>
   );
 }

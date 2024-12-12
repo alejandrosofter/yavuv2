@@ -16,7 +16,9 @@ const DataGridFormikItems = ({
   preData,
   mod,
   maxWidth = "md",
+  onCreate,
   hideAgregar,
+  triggerOpen = { state: false, timestamp: 0 },
 }) => {
   return (
     <FormControl fullWidth>
@@ -27,8 +29,10 @@ const DataGridFormikItems = ({
               <ItemsModulo
                 setFieldValue={props.form.setFieldValue}
                 titulo={label}
+                triggerOpen={triggerOpen}
                 hideAgregar={hideAgregar}
                 icono={icono}
+                onCreate={onCreate}
                 campo={campo}
                 data={props.form.values[campo] ? props.form.values[campo] : []}
                 modelo={Modelo}

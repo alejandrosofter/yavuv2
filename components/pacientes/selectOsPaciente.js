@@ -43,7 +43,11 @@ export default function SelectOsPaciente({
       icono="fas fa-user"
       maxWidth="md"
       campoId="id"
-      campoLabel={(item) => `${item.label_obraSocial} - ${item.nroAfiliado} `}
+      campoLabel={(item) =>
+        `${item.label_obraSocial} - ${item.nroAfiliado} ${
+          item.default ? "(default)" : ""
+        } `
+      }
       esForm={esForm}
     />
   );

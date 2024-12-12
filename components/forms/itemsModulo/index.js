@@ -22,6 +22,8 @@ export default function ItemsModulo({
   accionesExtra = () => [],
   dataExtra,
   fnAddData,
+  triggerOpen,
+  onCreate,
   fullWidth,
   icono,
   titulo,
@@ -142,6 +144,7 @@ export default function ItemsModulo({
 
             setFieldValue(campo, nuevoArray);
             setEditarVisible(false);
+            onCreate && onCreate(valores);
             if (fnCambia) fnCambia(nuevoArray);
           }
         };
@@ -175,6 +178,7 @@ export default function ItemsModulo({
                   maxWidth={maxWidth}
                   textoAgregar={textoAgregar}
                   nombreModulo={nombreModulo}
+                  triggerOpen={triggerOpen}
                   valoresIniciales={valoresIniciales}
                   dataModulo={dataModulo}
                   modelo={modelo}

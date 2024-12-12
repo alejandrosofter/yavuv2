@@ -18,7 +18,7 @@ export default function FormPrestaciones({
 }) {
   const [obraSocialSeleccion, setObraSocialSeleccion] = useState({});
   const [alertas, setAlertas] = useState("");
-  const { data: refObraSocialPaciente } = useDocument(
+  const { data: refObraSocialPaciente, update } = useDocument(
     `pacientes/${paciente?.id}/obrasSociales/${paciente?.obraSocial}`,
     {
       listen: true,
@@ -65,7 +65,12 @@ export default function FormPrestaciones({
     }
   };
   const cambiaOs = (valor, item) => {
-    if (item) setObraSocialSeleccion(item);
+    if (item) {
+      setObraSocialSeleccion(item);
+      update({
+        obraSocial: item.id,
+      });
+    }
   };
   const cambiaCantidad = (e) => {
     const cant = Number(e.target.value);
@@ -118,12 +123,11 @@ export default function FormPrestaciones({
         />
       </Grid>
 
-      {/* <Grid item md={3}>
-        <Switch label="Para Facturar" campo="facturable" />
-      </Grid> */}
-
       <Grid item md={5}>
         <Input label="Detalle" campo="detalle" />
+      </Grid>
+      <Grid item md={3}>
+        <Switch label="Volver a Facturar" campo="volver" />
       </Grid>
     </Grid>
   );

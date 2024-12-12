@@ -26,7 +26,7 @@ import {
   valoresInicialesDiagnostico,
 } from "@modelos/ModeloRecetas";
 import SelectOsPaciente from "./selectOs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FormDiagnostico from "./_formDiagnostico";
 import { AutorizacionesPendientes } from "./autorizacionesPendientes";
 
@@ -72,6 +72,12 @@ export function getDataOjo(params, ojo, lejosCerca, label) {
 }
 
 export default function Form({ setFieldValue, values, paciente }) {
+  const [triggerOpenPrestaciones, setTriggerOpenPrestaciones] = useState({
+    state: false,
+  });
+  const [valesInicialesPrestacion, setValesInicialesPrestacion] = useState(
+    valoresInicialesPrestaciones
+  );
   const cambiaOs = (value, item) => {
     if (!item) return;
     setFieldValue("obraSocialSeleccion", item);
@@ -109,6 +115,24 @@ export default function Form({ setFieldValue, values, paciente }) {
   };
   const onCancel = (item) => {
     changeStateAutorizacion(item, "CANCELADO");
+  };
+  const onCreatePrestacion = (item) => {
+    if (item && item.volver) {
+      setValesInicialesPrestacion({
+        ...valoresInicialesPrestaciones,
+        sendTo: item.sendTo,
+        importe: "0",
+        cantidad: 1,
+        label_sendTo: item.label_sendTo,
+        volver: item.volver,
+      });
+      setTimeout(() => {
+        setTriggerOpenPrestaciones({
+          state: true,
+          timestamp: new Date().getTime(),
+        });
+      }, 1000);
+    }
   };
 
   return (
@@ -263,9 +287,11 @@ export default function Form({ setFieldValue, values, paciente }) {
 
           <DataGridFormikItems
             label=""
+            onCreate={onCreatePrestacion}
             preData={{ paciente }}
+            triggerOpen={triggerOpenPrestaciones}
             Modelo={ModeloPrestaciones}
-            valoresIniciales={valoresInicialesPrestaciones}
+            valoresIniciales={valesInicialesPrestacion}
             FormularioItem={FormPrestaciones}
             campo="prestaciones"
             columns={[

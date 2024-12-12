@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import Input from "@components/forms/input";
 import Button from "@mui/material/Button";
@@ -26,9 +26,13 @@ export default function ItemsModulo_agregar({
   valoresIniciales,
   modelo,
   form,
+  triggerOpen,
   dataModulo,
 }) {
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    setOpen(triggerOpen.state);
+  }, [triggerOpen]);
   const errores = (errs) => {
     for (const [key, value] of Object.entries(errs)) {
       return <Alert severity="error">{value}</Alert>; // "a 5", "b 7", "c 9"
