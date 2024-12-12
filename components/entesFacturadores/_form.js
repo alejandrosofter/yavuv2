@@ -3,7 +3,8 @@ import { Grid, Stack, Typography } from "@mui/material";
 import Input from "@components/forms/input";
 import SelectEstaticFormik from "@components/forms/selectEstaticFormik";
 import SelectPlantilla from "@components/plantillas/selectPlantilla";
-
+import ColorPicker from "react-pick-color";
+import ColorPickerFormik from "@components/forms/colorPickerForm";
 export default function Form({ mod, setFieldValue, values }) {
   return (
     <Grid>
@@ -34,6 +35,9 @@ export default function Form({ mod, setFieldValue, values }) {
               campo="plantillaLiquidaciones"
               label="Plantilla Liquidaciones"
             />
+          </Grid>
+          <Grid item md={7}>
+            <ColorPickerFormik label="Color" campo="color" />
           </Grid>
 
           <Grid item md={2}>

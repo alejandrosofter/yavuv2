@@ -15,7 +15,10 @@ export default function AcordeonForm({ data }) {
             // aria-controls="panel1a-content"
             // id="panel1a-header"
           >
-            <Typography sx={{ fontWeight: "bold" }} variant="overline">
+            <Typography
+              sx={{ fontWeight: "bold", color: item.color }}
+              variant="overline"
+            >
               {item.titulo}
             </Typography>
           </AccordionSummary>

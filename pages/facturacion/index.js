@@ -40,6 +40,7 @@ export default function Modulo({}) {
     setOsSelect(item);
     reloadOs(item);
   };
+  console.log(data);
   const reloadOs = (item) => {
     const data = item?.valores ? item?.valores : [];
     setDataSelect(data.sort((a, b) => b.fecha_timestamp - a.fecha_timestamp));
@@ -64,9 +65,11 @@ export default function Modulo({}) {
           value[0] && value[0].idEnteFacturador
             ? value[0].idEnteFacturador
             : null;
+        const color = value[0] && value[0].color ? value[0].color : null;
         aux.push({
           id: key,
           idEnteFacturador,
+          color,
           importe,
           titulo:
             !key || key == "undefined"

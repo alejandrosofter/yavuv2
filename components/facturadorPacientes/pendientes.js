@@ -61,9 +61,11 @@ export default function FacturacionPendiente({
           items={dataOs}
           label="Obras Sociales"
           onClick={clickItem}
-          fnRender={(item) =>
-            `${item.nombre} (${item.cantidad}) ${formatMoney(item.importe)}`
-          }
+          fnRender={(item) => (
+            <Typography color={item.color} variant="body">
+              {`${item.nombre} (${item.cantidad}) ${formatMoney(item.importe)}`}
+            </Typography>
+          )}
         />
       </Grid>
     </Grid>

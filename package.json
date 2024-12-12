@@ -79,6 +79,7 @@
     "react-instantsearch-dom": "^6.30.0",
     "react-multi-date-picker": "^3.3.0",
     "react-pdf-html": "^1.1.8",
+    "react-pick-color": "^2.0.0",
     "react-qr-code": "^2.0.8",
     "react-select": "^5.2.2",
     "react-swipeable-views": "^0.14.0",
