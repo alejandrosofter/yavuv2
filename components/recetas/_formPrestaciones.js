@@ -127,7 +127,7 @@ export default function FormPrestaciones({
         <Input label="Detalle" campo="detalle" />
       </Grid>
       <Grid item md={3}>
-        <Switch label="Volver a Facturar" campo="volver" />
+        <Switch label="Volver a crear" campo="volver" />
       </Grid>
     </Grid>
   );
