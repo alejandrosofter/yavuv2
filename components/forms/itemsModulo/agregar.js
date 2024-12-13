@@ -31,7 +31,7 @@ export default function ItemsModulo_agregar({
 }) {
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    setOpen(triggerOpen.state);
+    setOpen(triggerOpen?.state);
   }, [triggerOpen]);
   const errores = (errs) => {
     for (const [key, value] of Object.entries(errs)) {
