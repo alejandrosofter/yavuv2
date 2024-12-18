@@ -108,6 +108,8 @@ export default function Form({ setFieldValue, values, paciente }) {
           ...item,
           sendTo: "facturar",
           label_sendTo: "Facturar",
+          fecha: new Date(),
+          fecha_timestamp: new Date().getTime(),
         };
       })
     );

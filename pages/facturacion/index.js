@@ -60,7 +60,10 @@ export default function Modulo({}) {
       let aux = [];
 
       for (const [key, value] of Object.entries(group)) {
-        const importe = value.reduce((n, p) => n + Number(p.importe), 0);
+        const importe = value.reduce(
+          (n, p) => n + Number(p.importe ? p.importe : 0),
+          0
+        );
         const idEnteFacturador =
           value[0] && value[0].idEnteFacturador
             ? value[0].idEnteFacturador
@@ -115,7 +118,7 @@ export default function Modulo({}) {
       { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
     ],
   });
-  // console.log(dataConsulta);
+  console.log(dataConsulta);
   return (
     <Grid container sx={{ p: 2 }} rowSpacing={2} spacing={2}>
       <Grid item xs={3}>
@@ -131,9 +134,12 @@ export default function Modulo({}) {
             sx={{ p: 4, color: "red", fontWeight: "bold" }}
             variant="h6"
           >
-            $ TOTAL PENDIENTE{" "}
+            TOTAL PENDIENTE{" "}
             {formatMoney(
-              dataConsulta?.reduce((n, p) => n + Number(p.importe), 0)
+              dataConsulta?.reduce(
+                (n, p) => n + Number(p.importe ? p.importe : 0),
+                0
+              )
             )}
           </Typography>
         </Grid>
