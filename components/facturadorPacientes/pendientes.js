@@ -30,7 +30,7 @@ export default function FacturacionPendiente({
           id: `ID_${item[0]}`,
           cantidad: item[1].length,
           valores: item[1],
-          importe: item[1].reduce((n, p) => n + Number(p.importe), 0),
+          importe: item[1].reduce((n, p) => n + Number(p.importe ?? 0), 0),
         }))
       );
     }

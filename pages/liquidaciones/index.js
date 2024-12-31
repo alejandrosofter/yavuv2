@@ -13,6 +13,8 @@ import { useCollection, fuego, useDocument } from "@nandorojo/swr-firestore";
 import Dialogo from "@components/forms/dialogo";
 import { groupBy } from "@helpers/arrays";
 import { useRouter } from "next/router";
+import { check } from "sha";
+import { addQueryApi } from "@helpers/db";
 export default function Modulo({ mod }) {
   const order = ["fecha", "desc"];
   const [dataImpresion, setDataImpresion] = useState(null);
@@ -28,7 +30,9 @@ export default function Modulo({ mod }) {
     }
   );
   const { add } = useCollection(`descargas`);
-
+  const checkValores = (row) => {
+    addQueryApi(`chquearValoresLiquidacion`, { ...row });
+  };
   const listarLiquidacion = (values) => {
     const data = {
       coleccion: `recetasLiquidaciones`,
@@ -120,6 +124,14 @@ export default function Modulo({ mod }) {
     },
     {
       esFuncion: true,
+      icono: "fas fa-check",
+      label: "Chequear Valores",
+      fn: (row) => {
+        checkValores(row);
+      },
+    },
+    {
+      esFuncion: true,
       icono: "fas fa-info-circle",
       label: "Ver Detalle",
       fn: (row) => {
@@ -153,6 +165,11 @@ export default function Modulo({ mod }) {
     {
       field: "label_idEnteFacturador",
       headerName: "Ente Facturador",
+      width: 180,
+    },
+    {
+      field: "observaciones",
+      headerName: "Observaciones",
       width: 320,
     },
     {

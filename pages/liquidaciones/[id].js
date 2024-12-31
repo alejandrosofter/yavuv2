@@ -77,6 +77,12 @@ export default function Page(params) {
         accessorFn: (row) => `${formatMoney(row.importe)}`,
       },
       {
+        accessorKey: "observaciones",
+        header: "Observaciones",
+        size: 150,
+        accessorFn: (row) => `${row.observaciones}`,
+      },
+      {
         accessorKey: "estado",
         header: "Estado",
         size: 80,

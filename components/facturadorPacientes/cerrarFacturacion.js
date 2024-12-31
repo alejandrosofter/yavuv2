@@ -5,6 +5,7 @@ import { getFechaString } from "@helpers/dates";
 import { Backdrop, Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
+import Input from "@components/forms/input";
 import Typography from "@mui/material/Typography";
 import { useCollection } from "@nandorojo/swr-firestore";
 import { useEffect, useState } from "react";
@@ -67,7 +68,7 @@ export function CerrarFacturacionDialog({ open, setOpen, data }) {
             Cierre de Facturacion
           </Typography>
         </Grid>
-        <Grid item md={12}>
+        <Grid item md={5}>
           <SelectorFechaSimple
             label="Fecha Tope de Facturacion"
             callbackChange={cambiaFecha}
@@ -82,6 +83,9 @@ export function CerrarFacturacionDialog({ open, setOpen, data }) {
             {cantidadFacturada} facturas pendientes
           </Typography>
         </Grid>
+        {/* <Grid item md={7}>
+          <Input label="Periodo" campo="periodo" />
+        </Grid> */}
         <Grid item md={12}>
           <Button fullWidth variant="contained" onClick={confirmCerrar}>
             Aceptar
