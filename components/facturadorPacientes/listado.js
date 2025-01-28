@@ -1,11 +1,18 @@
 import MaterialReactTable from "material-react-table";
 import { getFechaString } from "@helpers/dates";
-import { Delete, Edit } from "@mui/icons-material";
+import {
+  BiotechRounded,
+  Check,
+  Close,
+  Delete,
+  Edit,
+} from "@mui/icons-material";
 import { useEffect, useMemo, useState } from "react";
 
 import {
   Button,
   Grid,
+  IconButton,
   ListItemIcon,
   MenuItem,
   Tooltip,
@@ -13,12 +20,13 @@ import {
 } from "@mui/material";
 import { formatMoney } from "@helpers/numbers";
 import ConfirmDialog from "@components/forms/confirmDialog";
-import { deleteDocument } from "@nandorojo/swr-firestore";
+import { deleteDocument, set } from "@nandorojo/swr-firestore";
 import EditFacturacionItem from "./edit";
 export default function ListadoFacturacionOs({
   dataSelect,
   changeData,
   osSelect,
+  refresh,
 }) {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -32,14 +40,28 @@ export default function ListadoFacturacionOs({
       if (changeData) changeData(select, osSelect);
     });
   };
-  const onEdit = (data) => {
-    const newData = dataSelect.map((item) => {
-      if (item.id === data.id) {
-        item = data;
-      }
-      return item;
+  const onClickCheck = (itemCheck, checked) => {
+    delete itemCheck.__snapshot;
+    const newData = { ...itemCheck, checked };
+
+    set(`/recetasFacturacion/${itemCheck.id}`, newData);
+    // .then(() => {
+    //   console.log(`finish update`);
+    //   if (refresh) refresh();
+    // });
+  };
+  const onEdit = (itemData) => {
+    // const newData = dataSelect.map((item) => {
+    //   if (item.id === itemData.id) {
+    //     item = itemData;
+    //   }
+    //   return item;
+    // });
+    delete itemData.__snapshot;
+    set(`/recetasFacturacion/${itemData.id}`, newData).then(() => {
+      if (refresh) refresh();
     });
-    setData(newData);
+    // setData(newData);
   };
   useEffect(() => {
     setData(dataSelect);
@@ -92,11 +114,29 @@ export default function ListadoFacturacionOs({
         accessorFn: (row) => `${formatMoney(row.importe)}`,
       },
       {
-        accessorKey: "estado",
-        header: "Estado",
-        size: 80,
-        accessorFn: (row) => `${row.estado}`,
+        accessorKey: "checked",
+        header: "Check",
+        size: 60,
+        Cell: ({ cell }) => (
+          <IconButton
+            onClick={onClickCheck.bind(
+              this,
+              cell.row.original,
+              !cell.row.original.checked
+            )}
+            title={`Chequeado`}
+          >
+            {cell.row.original.checked ? <Check /> : <Close />}
+          </IconButton>
+        ),
+        // accessorFn: (row) => `${formatMoney(row.importe)}`,
       },
+      // {
+      //   accessorKey: "estado",
+      //   header: "Estado",
+      //   size: 80,
+      //   accessorFn: (row) => `${row.estado}`,
+      // },
     ],
     []
   );

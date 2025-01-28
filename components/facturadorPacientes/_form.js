@@ -46,16 +46,12 @@ export function _Form({ onAccept }) {
       <Grid item md={2}>
         <Input label="Codigo" campo="codigo" />
       </Grid>
-      <Grid item md={2}>
+      <Grid item md={3}>
         <Input label="Importe" campo="importe" />
       </Grid>
 
-      <Grid item md={5}>
-        <SelectEstaticFormik
-          items={["PENDIENTE", "ACEPTADO", "CANCELADO"]}
-          label="Estado"
-          campo="estado"
-        />
+      <Grid item md={12}>
+        <Input label="Observaciones" campo="observaciones" />
       </Grid>
       <Grid item md={12}>
         <Button variant="contained" fullWidth onClick={clickAccept}>

@@ -22,7 +22,7 @@ export default function Modulo({}) {
 
   const [osSelect, setOsSelect] = useState();
   const [selectCerrar, setSelectCerrar] = useState();
-
+  const [refreshVal, setRefreshVal] = useState(0);
   const { data } = useCollection("recetasFacturacion", {
     where: [["estado", "==", "PENDIENTE"]],
     listen: true,
@@ -31,7 +31,12 @@ export default function Modulo({}) {
     setSelectCerrar({ item, idEnteFacturador });
     setConfirmCerrar(true);
   };
-
+  const refresh = () => {
+    setTimeout(() => {
+      console.log(`refrescanbdo`, osSelect);
+      clickItem(osSelect);
+    }, 1000);
+  };
   const clickItem = (item) => {
     if (!item) {
       console.log(`no hay item`);
@@ -100,7 +105,7 @@ export default function Modulo({}) {
       //     setDataConsulta(aux);
       //   }
     }
-  }, [data]);
+  }, [data, refreshVal]);
   useLayout({
     label: "Facturacion Pendiente",
     titulo: "FACTURACION Pendiente",
@@ -149,6 +154,7 @@ export default function Modulo({}) {
           osSelect={osSelect}
           changeData={changeData}
           dataSelect={dataSelect}
+          refresh={refresh}
         />
       </Grid>
       <Grid item xs={2}>

@@ -12,6 +12,7 @@ import { LinkMenu } from "./linkMenu";
 import SelectUserModColeccion from "@components/forms/selectUserModColeccion";
 import Select2Simple from "@components/forms/select2Simple";
 import { useCollection } from "@nandorojo/swr-firestore";
+import MenuWsap from "@components/whatsapp/MenuWsap";
 export default function MainMenuSuperior({
   open = false,
   handleDrawerOpen,
@@ -58,7 +59,7 @@ export default function MainMenuSuperior({
         </Link> */}
         <MenuAccionesBarra acciones={acciones} sx={{ mr: 4 }} />
         {components}
-
+        <MenuWsap />
         <MenuCuenta auth={auth} />
       </Toolbar>
     </AppBar>

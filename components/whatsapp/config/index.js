@@ -13,28 +13,46 @@ import TitulosFormularios from "@components/forms/tituloFormularios";
 import SelectPlantilla from "@components/plantillas/selectPlantilla";
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 import useLayout from "@hooks/useLayout";
-export default function ConfigWhatsapp({}) {
+export default function ConfigWsap({}) {
   return (
     <Grid container>
       <TabsFormik
         label="Configs"
         vistas={[
           {
-            label: "Mensajes",
-            nro: 3,
+            label: "server",
+            nro: 0,
             vista: (
               <Grid spacing={2} container>
                 <Grid item md={3}>
-                  <Switch
-                    label="Notificar por Whatsapp"
-                    campo="whatsapp_notificar"
-                  />
+                  <Typography variant="caption" component="div" gutterBottom>
+                    ACTIVO
+                  </Typography>
+                  <Switch label="Esta Activo" campo="activo" />
                 </Grid>
-                <Grid item md={2}>
-                  <Input
-                    label="Dias antes del turno"
-                    campo="whatsapp_diasAntesTurno"
-                  />
+                <Grid item md={3}>
+                  <Typography variant="caption" component="div" gutterBottom>
+                    URL HOST
+                  </Typography>
+                  <Input label="Host" campo="hosting" />
+                </Grid>
+                <Grid item md={3}>
+                  <Typography variant="caption" component="div" gutterBottom>
+                    User
+                  </Typography>
+                  <Input label="Usuario" campo="user" />
+                </Grid>
+                <Grid item md={3}>
+                  <Typography variant="caption" component="div" gutterBottom>
+                    Token
+                  </Typography>
+                  <Input label="Token" campo="token" />
+                </Grid>
+                <Grid item md={3}>
+                  <Typography variant="caption" component="div" gutterBottom>
+                    Id BOT
+                  </Typography>
+                  <Input label="ID BOT" campo="idBot" />
                 </Grid>
               </Grid>
             ),
