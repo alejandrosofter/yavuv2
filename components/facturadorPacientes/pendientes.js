@@ -11,6 +11,7 @@ export default function FacturacionPendiente({
   clickItem,
   onCerrar,
   idEnteFacturador,
+  hideCerrar,
 }) {
   //   const order = ["fecha", "desc"];
   const [dataOs, setDataOs] = useState([]);
@@ -38,24 +39,26 @@ export default function FacturacionPendiente({
 
   return (
     <Grid container spacing={0}>
-      <Grid sx={{ p: 0, m: 0 }} item md={12}>
-        <Stack
-          direction={"row"}
-          sx={{
-            justifyContent: "flex-end",
-            alignItems: "center",
-          }}
-        >
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={onCerrar?.bind(this, data, idEnteFacturador)}
+      {!hideCerrar && (
+        <Grid sx={{ p: 0, m: 0 }} item md={12}>
+          <Stack
+            direction={"row"}
+            sx={{
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
           >
-            <LockOpenOutlined />{" "}
-            <Typography variant=" caption">cerrar facturacion </Typography>
-          </Button>
-        </Stack>
-      </Grid>
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={onCerrar?.bind(this, data, idEnteFacturador)}
+            >
+              <LockOpenOutlined />{" "}
+              <Typography variant=" caption">cerrar facturacion </Typography>
+            </Button>
+          </Stack>
+        </Grid>
+      )}
       <Grid item md={12}>
         <ListaSimple
           items={dataOs}

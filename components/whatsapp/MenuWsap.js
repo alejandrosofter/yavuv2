@@ -3,19 +3,23 @@ import { Grid, IconButton, Tooltip, Typography } from "@mui/material";
 
 import { UseConfigModulo } from "@helpers/useConfigModulo";
 import { useState, useEffect } from "react";
-import axios from "axios";
+
 import * as React from "react";
 import Menu from "@mui/material/Menu";
-
-const MenuWsap = ({}) => {
+import axios from "axios";
+const MenuWsap = () => {
+  const config = UseConfigModulo("whatsapp");
+  if (!config) return "";
+  if (!config.activo) return "";
+  return <DataWsap config={config} />;
+};
+export default MenuWsap;
+function DataWsap({ config }) {
   const [anchorElNav, setAnchorElNav] = React.useState();
   const [anchorElUser, setAnchorElUser] = React.useState();
-  const config = UseConfigModulo("whatsapp");
+
   const [dataWsap, setDataWsap] = useState();
   useEffect(() => {
-    console.log(`${config?.hosting}bots/${config?.idBot}/status`);
-    if (!config) return;
-    if (!config?.hosting) return;
     if (config)
       axios
         .get(`${config?.hosting}bots/${config?.idBot}/status`, {
@@ -28,8 +32,6 @@ const MenuWsap = ({}) => {
           setDataWsap(res.data);
         });
   }, [config]);
-  if (!config) return "";
-  if (!config.activo) return "";
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -41,7 +43,6 @@ const MenuWsap = ({}) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  if (!dataWsap) return "";
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Grid
@@ -89,5 +90,4 @@ const MenuWsap = ({}) => {
       </Menu>
     </Grid>
   );
-};
-export default MenuWsap;
+}

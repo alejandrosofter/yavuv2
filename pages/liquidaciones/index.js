@@ -68,6 +68,11 @@ export default function Modulo({ mod }) {
         icono: "fas fa-money-check",
         url: "/liquidaciones",
       },
+      {
+        label: "Reportes",
+        icono: "fas fa-receipt",
+        url: "/reporte",
+      },
       { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
     ],
   });

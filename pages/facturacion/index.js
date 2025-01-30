@@ -15,44 +15,58 @@ import { QueryApi } from "@helpers/queryApi";
 import { CerrarFacturacionDialog } from "@components/facturadorPacientes/cerrarFacturacion";
 
 export default function Modulo({}) {
-  const order = ["fecha", "desc"];
-  const [dataConsulta, setDataConsulta] = useState();
-  const [dataSelect, setDataSelect] = useState([]);
-  const [openConfirmCerrar, setConfirmCerrar] = useState(false);
-
-  const [osSelect, setOsSelect] = useState();
-  const [selectCerrar, setSelectCerrar] = useState();
-  const [refreshVal, setRefreshVal] = useState(0);
   const { data } = useCollection("recetasFacturacion", {
     where: [["estado", "==", "PENDIENTE"]],
     listen: true,
   });
-  const onCerrar = (item, idEnteFacturador) => {
-    setSelectCerrar({ item, idEnteFacturador });
-    setConfirmCerrar(true);
-  };
-  const refresh = () => {
-    setTimeout(() => {
-      console.log(`refrescanbdo`, osSelect);
-      clickItem(osSelect);
-    }, 1000);
-  };
-  const clickItem = (item) => {
-    if (!item) {
-      console.log(`no hay item`);
-      return;
-    }
-    setOsSelect(item);
-    reloadOs(item);
-  };
-  console.log(data);
-  const reloadOs = (item) => {
-    const data = item?.valores ? item?.valores : [];
-    setDataSelect(data.sort((a, b) => b.fecha_timestamp - a.fecha_timestamp));
-  };
-  const changeData = (dataDelete, dataOsSElect) => {
-    // reloadOs(osSelect);
-  };
+  useLayout({
+    label: "Facturacion Pendiente",
+    titulo: "FACTURACION Pendiente",
+    acciones: [
+      {
+        label: `facturacion`,
+        icono: "fas fa-file-invoice-dollar",
+        url: `/facturacion`,
+      },
+      {
+        label: "Liquidaciones",
+        icono: "fas fa-money-check",
+        url: "/liquidaciones",
+      },
+      {
+        label: "Reportes",
+        icono: "fas fa-receipt",
+        url: "/reporte",
+      },
+      { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
+    ],
+  });
+
+  return (
+    <Grid container>
+      <Grid item xs={12}>
+        <Typography sx={{ fontWeight: "bold" }} variant="h4">
+          FACTURACION{" "}
+          <Typography variant="caption">ENTES FACTURADORES</Typography>
+        </Typography>
+      </Grid>
+      <DataviewFacturacion data={data} />
+    </Grid>
+  );
+}
+export function DataviewFacturacion({
+  data,
+  hideCerrar,
+  hideOrden,
+  titleItems,
+}) {
+  const [dataSelect, setDataSelect] = useState([]);
+  const [openConfirmCerrar, setConfirmCerrar] = useState(false);
+  const [dataConsulta, setDataConsulta] = useState();
+  const [osSelect, setOsSelect] = useState();
+  const [selectCerrar, setSelectCerrar] = useState();
+  const [refreshVal, setRefreshVal] = useState(0);
+
   useEffect(() => {
     if (data) {
       let group = groupBy(
@@ -89,6 +103,7 @@ export default function Modulo({}) {
             <FacturacionPendiente
               clickItem={clickItem}
               onCerrar={onCerrar}
+              hideCerrar={hideCerrar}
               idEnteFacturador={idEnteFacturador}
               data={value}
             />
@@ -106,50 +121,55 @@ export default function Modulo({}) {
       //   }
     }
   }, [data, refreshVal]);
-  useLayout({
-    label: "Facturacion Pendiente",
-    titulo: "FACTURACION Pendiente",
-    acciones: [
-      {
-        label: `facturacion`,
-        icono: "fas fa-file-invoice-dollar",
-        url: `/facturacion`,
-      },
-      {
-        label: "Liquidaciones",
-        icono: "fas fa-money-check",
-        url: "/liquidaciones",
-      },
-      { label: "Pacientes", icono: "fas fa-user", url: "/pacientes" },
-    ],
-  });
-  console.log(dataConsulta);
+  const onCerrar = (item, idEnteFacturador) => {
+    setSelectCerrar({ item, idEnteFacturador });
+    setConfirmCerrar(true);
+  };
+  const refresh = () => {
+    setTimeout(() => {
+      console.log(`refrescanbdo`, osSelect);
+      clickItem(osSelect);
+    }, 1000);
+  };
+  const clickItem = (item) => {
+    if (!item) {
+      console.log(`no hay item`);
+      return;
+    }
+    setOsSelect(item);
+    reloadOs(item);
+  };
+
+  const reloadOs = (item) => {
+    const data = item?.valores ? item?.valores : [];
+    setDataSelect(data.sort((a, b) => b.fecha_timestamp - a.fecha_timestamp));
+  };
+  const changeData = (dataDelete, dataOsSElect) => {
+    // reloadOs(osSelect);
+  };
   return (
-    <Grid container sx={{ p: 2 }} rowSpacing={2} spacing={2}>
+    <Grid container sx={{ p: 2 }}>
       <Grid item xs={3}>
-        <Grid item xs={12}>
-          <Typography sx={{ fontWeight: "bold" }} variant="h4">
-            FACTURACION{" "}
-            <Typography variant="caption">ENTES FACTURADORES</Typography>
-          </Typography>
-        </Grid>
         <AcordeonForm data={dataConsulta} />
-        <Grid item md={12}>
-          <Typography
-            sx={{ p: 4, color: "red", fontWeight: "bold" }}
-            variant="h6"
-          >
-            TOTAL PENDIENTE{" "}
-            {formatMoney(
-              dataConsulta?.reduce(
-                (n, p) => n + Number(p.importe ? p.importe : 0),
-                0
-              )
-            )}
-          </Typography>
-        </Grid>
+        {!hideOrden && (
+          <Grid item md={12}>
+            <Typography
+              sx={{ p: 4, color: "red", fontWeight: "bold" }}
+              variant="h6"
+            >
+              TOTAL PENDIENTE
+              {formatMoney(
+                dataConsulta?.reduce(
+                  (n, p) => n + Number(p.importe ? p.importe : 0),
+                  0
+                )
+              )}
+            </Typography>
+          </Grid>
+        )}
       </Grid>
-      <Grid item xs={7}>
+      <Grid item xs={7 + (hideCerrar ? 2 : 0)}>
+        {titleItems}
         <ListadoFacturacionOs
           osSelect={osSelect}
           changeData={changeData}
@@ -157,14 +177,19 @@ export default function Modulo({}) {
           refresh={refresh}
         />
       </Grid>
-      <Grid item xs={2}>
-        <OrdenDelDia />
-      </Grid>
-      <CerrarFacturacionDialog
-        open={openConfirmCerrar}
-        setOpen={setConfirmCerrar}
-        data={selectCerrar}
-      />
+      {!hideOrden && (
+        <Grid item xs={2}>
+          <OrdenDelDia />
+        </Grid>
+      )}
+      {!hideCerrar && (
+        <CerrarFacturacionDialog
+          open={openConfirmCerrar}
+          setOpen={setConfirmCerrar}
+          data={selectCerrar}
+        />
+      )}
+
       {/* <ConfirmDialog
         open={openConfirmCerrar}
         setOpen={setConfirmCerrar}

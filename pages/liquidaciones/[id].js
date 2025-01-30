@@ -219,19 +219,18 @@ export function DetalleOsLiquidacion({ data, changeData }) {
           </Button>
         </Stack>
       </Grid> */}
-      <Grid item md={3}>
+      <Grid item md={2}>
+        <Typography variant="h6">{`O.S `}</Typography>
         <ListaSimple
           items={dataOs}
           label="LISTADO O.S"
           onClick={clickItem}
           fnRender={(item) => (
-            <Stack direction={"row"} spacing={1}>
+            <Stack direction={"column"} spacing={1}>
               <Typography color={item.color} variant="h6">
-                {`${item.nombre}  `}
+                {`${item.nombre} (${item.cantidad}) `}
               </Typography>
-              <Typography color={item.color} variant="caption">
-                {`(${item.cantidad})`}
-              </Typography>
+
               <Typography color={item.color} variant="body">
                 {`${formatMoney(item.importe)}`}
               </Typography>
@@ -239,7 +238,7 @@ export function DetalleOsLiquidacion({ data, changeData }) {
           )}
         />
       </Grid>
-      <Grid item md={9}>
+      <Grid item md={10}>
         <Typography variant="h4">{selected?.nombre}</Typography>
         <ItemsObraSocial changeData={changeData} data={selected?.valores} />
       </Grid>
@@ -320,12 +319,6 @@ export function ItemsObraSocial({ data, changeData }) {
         header: "Observaciones",
         size: 150,
         accessorFn: (row) => `${row.observaciones}`,
-      },
-      {
-        accessorKey: "estado",
-        header: "Estado",
-        size: 80,
-        accessorFn: (row) => `${row.estado}`,
       },
     ],
     []
