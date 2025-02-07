@@ -58,7 +58,8 @@ export function DataviewFacturacion({
   data,
   hideCerrar,
   hideOrden,
-  titleItems,
+  hideCheck,
+  subTitle,
 }) {
   const [dataSelect, setDataSelect] = useState([]);
   const [openConfirmCerrar, setConfirmCerrar] = useState(false);
@@ -67,6 +68,19 @@ export function DataviewFacturacion({
   const [selectCerrar, setSelectCerrar] = useState();
   const [refreshVal, setRefreshVal] = useState(0);
 
+  const getDataOs = (data) => {
+    if (data) {
+      const dataGroup = groupBy(data, (item) => item.label_obraSocial, true);
+      const arrGroup = Object.entries(dataGroup);
+      return arrGroup.map((item) => ({
+        nombre: item[0],
+        id: `ID_${item[0]}`,
+        cantidad: item[1].length,
+        valores: item[1],
+        importe: item[1].reduce((n, p) => n + Number(p.importe ?? 0), 0),
+      }));
+    }
+  };
   useEffect(() => {
     if (data) {
       let group = groupBy(
@@ -88,6 +102,12 @@ export function DataviewFacturacion({
             ? value[0].idEnteFacturador
             : null;
         const color = value[0] && value[0].color ? value[0].color : null;
+        const dataOs = getDataOs(value);
+        const newOsSelect = dataOs.find((item) => item.id == osSelect?.id);
+        if (newOsSelect) {
+          setOsSelect(newOsSelect);
+          setDataSelect(newOsSelect.valores);
+        }
         aux.push({
           id: key,
           idEnteFacturador,
@@ -106,6 +126,7 @@ export function DataviewFacturacion({
               hideCerrar={hideCerrar}
               idEnteFacturador={idEnteFacturador}
               data={value}
+              dataOs={dataOs}
             />
           ),
         });
@@ -120,22 +141,23 @@ export function DataviewFacturacion({
       //     setDataConsulta(aux);
       //   }
     }
-  }, [data, refreshVal]);
+  }, [data]);
   const onCerrar = (item, idEnteFacturador) => {
     setSelectCerrar({ item, idEnteFacturador });
     setConfirmCerrar(true);
   };
-  const refresh = () => {
-    setTimeout(() => {
-      console.log(`refrescanbdo`, osSelect);
-      clickItem(osSelect);
-    }, 1000);
+  const clickCheck = (item) => {
+    autorefresh();
+  };
+  const autorefresh = () => {
+    console.log(osSelect);
   };
   const clickItem = (item) => {
     if (!item) {
       console.log(`no hay item`);
       return;
     }
+    console.log(`click OSSS!`, item);
     setOsSelect(item);
     reloadOs(item);
   };
@@ -147,6 +169,7 @@ export function DataviewFacturacion({
   const changeData = (dataDelete, dataOsSElect) => {
     // reloadOs(osSelect);
   };
+
   return (
     <Grid container sx={{ p: 2 }}>
       <Grid item xs={3}>
@@ -169,12 +192,12 @@ export function DataviewFacturacion({
         )}
       </Grid>
       <Grid item xs={7 + (hideCerrar ? 2 : 0)}>
-        {titleItems}
         <ListadoFacturacionOs
           osSelect={osSelect}
-          changeData={changeData}
           dataSelect={dataSelect}
-          refresh={refresh}
+          hideCheck={hideCheck}
+          clickCheck={clickCheck}
+          subTitle={subTitle}
         />
       </Grid>
       {!hideOrden && (

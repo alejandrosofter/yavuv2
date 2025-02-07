@@ -100,22 +100,29 @@ export default function Modulo({ mod }) {
 
         let items = [];
         let idEnteFacturador = null;
-        for (let key in data) {
-          const itemsCodigo = getObjectCodigos(data[key]);
-          items.push({
-            obraSocial: key,
-            itemsCodigo,
-            label_obraSocial: data[key][0]?.label_obraSocial,
-            config,
-            periodo: row.periodo,
-          });
-          idEnteFacturador = data[key][0]?.idEnteFacturador;
+        for (let key2 in data) {
+          const dataGravado = groupBy(
+            data[key2],
+            (item) => (item.gravado ? "Gravado" : "No Gravado"),
+            true
+          );
+          for (let key in dataGravado) {
+            const itemsCodigo = getObjectCodigos(dataGravado[key]);
+            items.push({
+              obraSocial: key2,
+              gravado: key,
+              itemsCodigo,
+              label_obraSocial: dataGravado[key][0]?.label_obraSocial,
+              config,
+              periodo: row.periodo,
+            });
+            idEnteFacturador = dataGravado[key][0]?.idEnteFacturador;
+          }
         }
-        console.log({ items, idEnteFacturador });
+        console.log("ITEMS", items);
+
         setDataImpresion({ items, idEnteFacturador, periodo: row.periodo });
-        setTimeout(() => {
-          setOpenImpresion(true);
-        }, 1500);
+        setOpenImpresion(true);
       },
     },
     {

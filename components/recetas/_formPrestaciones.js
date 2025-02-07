@@ -110,6 +110,7 @@ export default function FormPrestaciones({
       <Grid item md={2}>
         <Input label="Importe" campo="importe" />
       </Grid>
+
       <Grid item md={3}>
         <RadioButtons
           options={[
@@ -126,6 +127,23 @@ export default function FormPrestaciones({
       <Grid item md={5}>
         <Input label="Detalle" campo="detalle" />
       </Grid>
+      <Grid item md={5}>
+        <RadioButtons
+          options={[
+            { id: "No Gravado", label: "No Gravado" },
+            { id: "Gravado", label: "Gravado" },
+          ]}
+          row={true}
+          defaultValue={"No Gravado"}
+          label="Gravado"
+          campo="gravado"
+        />
+      </Grid>
+      {(values.gravado == "Gravado" || values.gravado == "No Gravado") && (
+        <Grid item md={3}>
+          <Switch label="Es por Evweb" campo="porEvweb" />
+        </Grid>
+      )}
       <Grid item md={3}>
         <Switch label="Volver a crear" campo="volver" />
       </Grid>

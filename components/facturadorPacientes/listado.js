@@ -6,8 +6,9 @@ import {
   Close,
   Delete,
   Edit,
+  Print,
 } from "@mui/icons-material";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 
 import {
   Button,
@@ -15,6 +16,7 @@ import {
   IconButton,
   ListItemIcon,
   MenuItem,
+  Stack,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -24,20 +26,31 @@ import { deleteDocument, set } from "@nandorojo/swr-firestore";
 import EditFacturacionItem from "./edit";
 export default function ListadoFacturacionOs({
   dataSelect,
-  changeData,
   osSelect,
-  refresh,
+  clickCheck,
+  hideCheck,
+  subTitle,
 }) {
+  const tableRef = useRef();
+  const [pagination, setPagination] = useState(true);
+
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [select, setSelect] = useState({});
   const [data, setData] = useState(dataSelect);
+
+  const handlePrint = () => {
+    setPagination(false); // Desactiva paginación antes de imprimir
+
+    setTimeout(() => {
+      window.print();
+
+      setPagination(true); // Reactiva paginación después de imprimir
+    }, 500);
+  };
   const callbackAcepta = () => {
     deleteDocument(`/recetasFacturacion/${select.id}`).then(() => {
       setOpenConfirm(false);
-      const newData = data.filter((item) => item.id !== select.id);
-      setData(newData);
-      if (changeData) changeData(select, osSelect);
     });
   };
   const onClickCheck = (itemCheck, checked) => {
@@ -45,27 +58,16 @@ export default function ListadoFacturacionOs({
     const newData = { ...itemCheck, checked };
 
     set(`/recetasFacturacion/${itemCheck.id}`, newData);
-    // .then(() => {
-    //   console.log(`finish update`);
-    //   if (refresh) refresh();
-    // });
+    if (clickCheck) clickCheck(osSelect);
   };
   const onEdit = (itemData) => {
-    // const newData = dataSelect.map((item) => {
-    //   if (item.id === itemData.id) {
-    //     item = itemData;
-    //   }
-    //   return item;
-    // });
-    delete itemData.__snapshot;
-    set(`/recetasFacturacion/${itemData.id}`, newData).then(() => {
-      if (refresh) refresh();
-    });
-    // setData(newData);
+    console.log(`EDITOOO`);
+    return;
   };
   useEffect(() => {
     setData(dataSelect);
   }, [dataSelect]);
+
   const columns = useMemo(
     () => [
       {
@@ -116,6 +118,9 @@ export default function ListadoFacturacionOs({
       {
         accessorKey: "checked",
         header: "Check",
+        id: "checked",
+        enableHiding: true, // disable hiding for this column
+        columnVisibility: false,
         size: 60,
         Cell: ({ cell }) => (
           <IconButton
@@ -143,44 +148,96 @@ export default function ListadoFacturacionOs({
 
   return (
     <Grid container spacing={2}>
+      <Button onClick={handlePrint} className="mb-4">
+        <Print /> imprimir
+      </Button>
+      <style>{`
+        @media print {
+          body * {
+            visibility: hidden;
+            
+          }
+          .print-area, .print-area * {
+            visibility: visible;
+          }
+          .print-area {
+      
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            width: 100%;
+          }
+        }
+      `}</style>
       <Grid item md={12}>
-        <MaterialReactTable
-          enableRowActions
-          // enableRowSelection
-          positionActionsColumn="last"
-          renderRowActionMenuItems={({ closeMenu, row }) => [
-            <MenuItem
-              key={0}
-              onClick={() => {
-                setSelect(row.original);
-                closeMenu();
-                setOpenEdit(true);
-              }}
-              sx={{ m: 0 }}
-            >
-              <ListItemIcon>
-                <Edit />
-              </ListItemIcon>
-              Editar
-            </MenuItem>,
-            <MenuItem
-              key={1}
-              onClick={() => {
-                setOpenConfirm(true);
-                setSelect(row.original);
-                closeMenu();
-              }}
-              sx={{ m: 0 }}
-            >
-              <ListItemIcon>
-                <Delete />
-              </ListItemIcon>
-              Quitar
-            </MenuItem>,
-          ]}
-          columns={columns}
-          data={data}
-        />
+        <div ref={tableRef} className="print-area">
+          {osSelect && (
+            <Stack>
+              <Stack direction="row" spacing={3}>
+                <Typography variant="h4">PRACTICAS</Typography>
+                <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                  {`${osSelect.nombre}`}
+                </Typography>
+              </Stack>
+              {subTitle && (
+                <Typography variant="body1">{`${subTitle}`}</Typography>
+              )}
+            </Stack>
+          )}
+
+          <MaterialReactTable
+            enableRowActions={true}
+            enablePagination={pagination}
+            // enableRowSelection
+            enableHiding={true}
+            initialState={{
+              columnVisibility: {
+                checked: !hideCheck,
+              },
+            }}
+            positionActionsColumn="last"
+            renderRowActionMenuItems={({ closeMenu, row }) => [
+              <MenuItem
+                key={0}
+                onClick={() => {
+                  setSelect(row.original);
+                  closeMenu();
+                  setOpenEdit(true);
+                }}
+                sx={{ m: 0 }}
+              >
+                <ListItemIcon>
+                  <Edit />
+                </ListItemIcon>
+                Editar
+              </MenuItem>,
+              <MenuItem
+                key={1}
+                onClick={() => {
+                  setOpenConfirm(true);
+                  setSelect(row.original);
+                  closeMenu();
+                }}
+                sx={{ m: 0 }}
+              >
+                <ListItemIcon>
+                  <Delete />
+                </ListItemIcon>
+                Quitar
+              </MenuItem>,
+            ]}
+            columns={columns}
+            data={data}
+          />
+          {osSelect && (
+            <Stack direction="row" sx={{ p: 2 }} justifyContent="space-between">
+              <Typography variant="h6" className="mb-4"></Typography>
+              <Typography variant="h6" className="mb-4">
+                TOTAL {`${formatMoney(osSelect.importe)}`}
+              </Typography>
+            </Stack>
+          )}
+        </div>
         <EditFacturacionItem
           open={openEdit}
           setOpen={setOpenEdit}

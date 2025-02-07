@@ -299,21 +299,39 @@ export default function Form({ setFieldValue, values, paciente }) {
             columns={[
               {
                 field: "cantidad",
-                headerName: "Cantidad",
-                width: 80,
+                headerName: "Cant.",
+                width: 60,
               },
               {
                 field: "label_idPrestacion",
                 headerName: "Prestacion",
-                width: 450,
+                width: 430,
                 renderCell: (params) => {
                   return params.value ? parse(params.value) : "";
                 },
               },
               {
+                field: "gravado",
+                headerName: "Gravado",
+                width: 80,
+                renderCell: (params) => {
+                  return params.value
+                    ? `${params.value} ${params.porEvweb ? "(por Evweb)" : ""}`
+                    : "";
+                },
+              },
+              {
+                field: "porEvweb",
+                headerName: "EVweb",
+                width: 70,
+                renderCell: (params) => {
+                  return params.value ? "SI" : "NO";
+                },
+              },
+              {
                 field: "label_sendTo",
                 headerName: "Enviar a ...",
-                width: 200,
+                width: 80,
                 // renderCell: (params) => {
                 //   return params.value ? "Si" : "No";
                 // },

@@ -209,14 +209,11 @@ export default function Modulo({}) {
           <MedicalServices /> {`Entes Facuradores `}
         </Typography>
         <DataviewFacturacion
-          titleItems={
-            <Typography sx={{}} variant="h6">
-              <MedicationLiquid /> {`Paracticas realizadas `}
-            </Typography>
-          }
           data={dataItems?.items}
           hideCerrar={true}
+          hideCheck={true}
           hideOrden={true}
+          subTitle={`${dataItems?.monthLetras} - ${dataItems?.year}  `}
         />
       </Grid>
     </Grid>
