@@ -54,6 +54,12 @@ export default function ConfigWsap({}) {
                   </Typography>
                   <Input label="ID BOT" campo="idBot" />
                 </Grid>
+                <Grid item md={3}>
+                  <Typography variant="caption" component="div" gutterBottom>
+                    Url confirmacion turnos{" "}
+                  </Typography>
+                  <Input label="Url Confirmacion turno" campo="urlConfirm" />
+                </Grid>
               </Grid>
             ),
           },

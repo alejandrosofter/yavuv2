@@ -132,19 +132,29 @@ export default function TareasWhatsapp({ fechaBusca }) {
               items={data}
               fnRender={(item) => (
                 <>
-                  <Typography variant="h6">
+                  <Stack spacing={1} direction={"row"}>
                     <WhatsAppIcon
-                      sx={{ color: item.fechaCompletada ? "green" : "grey" }}
-                    />{" "}
-                    {item.nroTelefono}{" "}
-                  </Typography>
-                  <Typography variant="caption">
+                      sx={{
+                        color: item.estado == "ENVIADO" ? "green" : "grey",
+                      }}
+                    />
+                    <Typography variant="h6">
+                      {`${item.paciente.apellido} ${item.paciente.nombre}`}
+                    </Typography>
+                    <Typography variant="caption">
+                      {`${item.nroTelefono ? item.nroTelefono : "SIN NRO"}`}
+                    </Typography>
+                  </Stack>
+                  <Typography
+                    sx={{
+                      color: `${item.estado == "ENVIADO" ? "green" : "red"}`,
+                    }}
+                    variant="caption"
+                  >
                     <b>
-                      {item.fechaCompletada
-                        ? `Completado el ${getFechaString(
-                            item.fechaCompletada
-                          )}`
-                        : "Pendiente"}{" "}
+                      {item.estado == "ENVIADO"
+                        ? `Mensaje enviado!`
+                        : `No enviado`}
                     </b>
                   </Typography>
                   <Typography variant="caption">{item.mensaje} </Typography>

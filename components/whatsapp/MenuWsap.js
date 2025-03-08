@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import * as React from "react";
 import Menu from "@mui/material/Menu";
 import axios from "axios";
+import { QRCodeSVG } from "qrcode.react";
+
 const MenuWsap = () => {
   const config = UseConfigModulo("whatsapp");
   if (!config) return "";
@@ -19,18 +21,48 @@ function DataWsap({ config }) {
   const [anchorElUser, setAnchorElUser] = React.useState();
 
   const [dataWsap, setDataWsap] = useState();
+  const [qr, setQr] = useState();
+
+  const fetchWsapStatus = async () => {
+    const url = `${config?.hosting}bots/${config?.idBot}/`;
+    try {
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${config?.token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setDataWsap(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const fetchQr = async () => {
+    const url = `${config?.hosting}bots/${config?.idBot}/qr`;
+    try {
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${config?.token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      setQr(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    if (config)
-      axios
-        .get(`${config?.hosting}bots/${config?.idBot}/status`, {
-          headers: {
-            Authorization: `Bearer ${config?.token}`, // Agregar token como Bearer
-            "Content-Type": "application/json", // Si es necesario
-          },
-        })
-        .then((res) => {
-          setDataWsap(res.data);
-        });
+    if (!config) return;
+
+    // Hacer la primera llamada inmediatamente
+    fetchWsapStatus();
+    fetchQr();
+    // Configurar el intervalo de polling (cada 5 segundos)
+    const intervalId = setInterval(fetchWsapStatus, 5000);
+
+    // Limpiar el intervalo cuando el componente se desmonte
+    return () => clearInterval(intervalId);
   }, [config]);
 
   const handleOpenNavMenu = (event) => {
@@ -43,6 +75,7 @@ function DataWsap({ config }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  console.log(dataWsap, qr);
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Grid
@@ -57,7 +90,10 @@ function DataWsap({ config }) {
         <Tooltip title="Estado de Whatsapp">
           <IconButton onClick={handleOpenUserMenu}>
             <WhatsappSharp
-              sx={{ color: dataWsap == "connecting" ? "red" : "green" }}
+              sx={{
+                color:
+                  dataWsap?.status_session == "OK CONECTADO" ? "white" : "red",
+              }}
             />
           </IconButton>
         </Tooltip>
@@ -80,12 +116,19 @@ function DataWsap({ config }) {
         onClose={handleCloseUserMenu}
       >
         <Grid
-          sx={{ width: "250px", p: "5px" }}
+          sx={{ width: "350px", p: "5px" }}
           container
           justifyContent="center"
           alignItems="center"
         >
-          <Typography>{dataWsap}</Typography>
+          {qr ? (
+            <div
+              dangerouslySetInnerHTML={{ __html: qr }}
+              // style={{ width: "200px", height: "200px" }}
+            />
+          ) : (
+            <Typography>Ya estas conectado!</Typography>
+          )}
         </Grid>
       </Menu>
     </Grid>

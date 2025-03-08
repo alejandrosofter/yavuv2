@@ -46,7 +46,7 @@ export function CerrarFacturacionDialog({ open, setOpen, data }) {
           return item;
         })
         .filter((item) => {
-          return item.fechaReceta <= hastaFecha;
+          return item.fechaReceta.seconds <= hastaFecha.getTime() / 1000;
         }),
     };
     console.log(newData);

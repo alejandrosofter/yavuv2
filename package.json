@@ -64,6 +64,7 @@
     "nextjs-progressbar": "^0.0.13",
     "numeros_a_letras": "^1.0.7",
     "qrcode": "^1.5.1",
+    "qrcode.react": "^4.2.0",
     "qz-tray": "^2.2.1",
     "random-id": "^1.0.4",
     "react-apexcharts": "^1.4.0",
