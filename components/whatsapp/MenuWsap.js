@@ -123,13 +123,13 @@ function DataWsap({ config }) {
           justifyContent="center"
           alignItems="center"
         >
-          {qr && dataWsap?.status_session == "OK CONECTADO" ? (
+          {qr && dataWsap?.status_session != "OK CONECTADO" ? (
             <div
               dangerouslySetInnerHTML={{ __html: qr }}
               // style={{ width: "200px", height: "200px" }}
             />
           ) : (
-            <Typography>Ya estas conectado!</Typography>
+            <Typography>Ya esta conectado el sistema a WHATSAPP!</Typography>
           )}
         </Grid>
       </Menu>
