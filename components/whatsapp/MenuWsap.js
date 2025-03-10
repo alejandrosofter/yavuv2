@@ -25,6 +25,7 @@ function DataWsap({ config }) {
 
   const fetchWsapStatus = async () => {
     const url = `${config?.hosting}bots/${config?.idBot}/`;
+
     try {
       const res = await axios.get(url, {
         headers: {
@@ -33,8 +34,9 @@ function DataWsap({ config }) {
         },
       });
       setDataWsap(res.data);
+      await fetchQr();
     } catch (err) {
-      console.log(err);
+      console.log("Error fetching WhatsApp status:", err.message);
     }
   };
   const fetchQr = async () => {
@@ -57,7 +59,7 @@ function DataWsap({ config }) {
 
     // Hacer la primera llamada inmediatamente
     fetchWsapStatus();
-    fetchQr();
+
     // Configurar el intervalo de polling (cada 5 segundos)
     const intervalId = setInterval(fetchWsapStatus, 5000);
 
@@ -75,7 +77,7 @@ function DataWsap({ config }) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  console.log(dataWsap, qr);
+
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Grid
@@ -121,7 +123,7 @@ function DataWsap({ config }) {
           justifyContent="center"
           alignItems="center"
         >
-          {qr ? (
+          {qr && dataWsap?.status_session == "OK CONECTADO" ? (
             <div
               dangerouslySetInnerHTML={{ __html: qr }}
               // style={{ width: "200px", height: "200px" }}
