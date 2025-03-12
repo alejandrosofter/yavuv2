@@ -33,9 +33,13 @@ export default function OrdenDelDia() {
       return;
     }
     setTotalImporte(
-      data?.reduce((total, item) => total + Number(item.importe), 0)
+      data?.reduce(
+        (total, item) => total + Number(item.importe ? item.importe : 0),
+        0
+      )
     );
     const dataGroup = groupBy(data, (item) => item.obraSocial, true);
+    console.log(dataGroup);
     let arr = [];
     for (let key in dataGroup) {
       arr.push({
@@ -46,10 +50,12 @@ export default function OrdenDelDia() {
           (total, item) => total + Number(item.cantidad),
           0
         ),
-        importeTotal: dataGroup[key].reduce(
-          (total, item) => total + Number(item.importe),
-          0
-        ),
+        importeTotal: dataGroup[key].reduce((total, item) => {
+          if (item.label_obraSocial == "SEROS") console.log(item);
+          return (
+            total + Number(item.importe ? item.importe : 0) * item.cantidad
+          );
+        }, 0),
       });
     }
     setGroupByObraSocial(arr);

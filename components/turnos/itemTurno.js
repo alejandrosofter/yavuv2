@@ -1,7 +1,6 @@
 import { Icon, Stack, Typography } from "@mui/material";
 
 export default function ItemTurno({ item, consultorio }) {
-  console.log(item);
   const iconoConfirmado = (data) => {
     if (item.estado !== "OCUPADO") return <></>;
     if (data.turnoOcupado?.estaConfirmado) {

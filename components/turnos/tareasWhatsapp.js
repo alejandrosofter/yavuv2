@@ -25,30 +25,29 @@ import ListaSimple from "@components/forms/listaSimple";
 import { QueryApi } from "@helpers/queryApi";
 import { addQueryApi } from "@helpers/db";
 import Dialogo from "@components/forms/dialogo";
+import firebase from "firebase/app";
+
 export default function TareasWhatsapp({ fechaBusca }) {
   const [open, setOpen] = useState(false);
   const [openConfirm, setOpenConfirm] = useState(false);
+  const [openPendientes, setOpenPendientes] = useState(false);
 
   const [mensajes, setMensajes] = useState([]);
   const [loading, setLoading] = useState(false);
-  const idUsuario = fuego.auth().currentUser?.uid;
-  const fechaDesde = moment(new Date(fechaBusca)).startOf("day").toDate();
+
+  const fechaDesde = moment(fechaBusca).startOf("day").toDate();
+
   const fechaHasta = moment(fechaDesde).add(1, "days").toDate();
+
   const { data, error } = useCollection(`whatsapps`, {
     listen: true,
     where: [
-      ["timestampTurno", ">=", fechaDesde.getTime() / 1000],
-      ["timestampTurno", "<=", fechaHasta.getTime() / 1000],
-      ["idUsuario", "==", idUsuario],
+      ["fecha_timestamp", ">=", fechaDesde.getTime()],
+      ["fecha_timestamp", "<", fechaHasta.getTime()],
+      // ["idUsuario", "==", idUsuario],
     ],
   });
-  console.log(
-    data,
-    error,
-    fechaDesde.getTime() / 1000,
-    fechaHasta.getTime() / 1000,
-    idUsuario
-  );
+  console.log(moment(fechaBusca).startOf("day").toDate().getTime(), error);
   const getIcono = (data) => {
     if (data?.estado == "ENVIADO") {
       return (
@@ -67,12 +66,24 @@ export default function TareasWhatsapp({ fechaBusca }) {
       />
     );
   };
+  const clickPendientes = (e) => {};
   const notificar = () => {
     setLoading(true);
     addQueryApi("notificarTurnos", { fechaBusca: fechaBusca })
       .then((data) => {
         setLoading(false);
         setOpen(false);
+      })
+      .catch((error) => {
+        console.log(`error`, error);
+      });
+  };
+  const enviarPendientes = () => {
+    setLoading(true);
+    addQueryApi("enviarPendientes", { fechaBusca: fechaBusca })
+      .then((data) => {
+        setLoading(false);
+        setOpenPendientes(false);
       })
       .catch((error) => {
         console.log(`error`, error);
@@ -113,8 +124,14 @@ export default function TareasWhatsapp({ fechaBusca }) {
               <WhatsAppIcon /> Notificaciones
             </Typography>
             <Button onClick={() => setOpenConfirm(true)}>
-              <Icon className="fas fa-paper-plane" />
-              Notificacion Manual
+              <Icon sx={{ p: 1 }} className="fas fa-paper" />
+              Manual
+            </Button>
+            <Button onClick={clickPendientes}>
+              <Stack direction={"row"}>
+                <Icon className="fas fa-paper-plane" />
+                Enviar Pendientes
+              </Stack>
             </Button>
           </Stack>
         }
@@ -139,7 +156,7 @@ export default function TareasWhatsapp({ fechaBusca }) {
                       }}
                     />
                     <Typography variant="h6">
-                      {`${item.paciente.apellido} ${item.paciente.nombre}`}
+                      {`${item.paciente?.apellido} ${item.paciente?.nombre}`}
                     </Typography>
                     <Typography variant="caption">
                       {`${item.nroTelefono ? item.nroTelefono : "SIN NRO"}`}
@@ -151,11 +168,7 @@ export default function TareasWhatsapp({ fechaBusca }) {
                     }}
                     variant="caption"
                   >
-                    <b>
-                      {item.estado == "ENVIADO"
-                        ? `Mensaje enviado!`
-                        : `No enviado`}
-                    </b>
+                    <b>{`${item.estado}`}</b>
                   </Typography>
                   <Typography variant="caption">{item.mensaje} </Typography>
                 </>
@@ -170,6 +183,13 @@ export default function TareasWhatsapp({ fechaBusca }) {
         open={openConfirm}
         setOpen={setOpenConfirm}
         callbackAcepta={() => notificar()}
+      />
+      <Dialogo
+        titulo="Envio de Pendientes"
+        detalle={"Estas seguro de enviar los pendientes"}
+        open={openPendientes}
+        setOpen={setOpenPendientes}
+        callbackAcepta={() => enviarPendientes()}
       />
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
