@@ -66,7 +66,7 @@ export default function TareasWhatsapp({ fechaBusca }) {
       />
     );
   };
-  const clickPendientes = (e) => {};
+
   const notificar = () => {
     setLoading(true);
     addQueryApi("notificarTurnos", { fechaBusca: fechaBusca })
@@ -127,7 +127,7 @@ export default function TareasWhatsapp({ fechaBusca }) {
               <Icon sx={{ p: 1 }} className="fas fa-paper" />
               Manual
             </Button>
-            <Button onClick={clickPendientes}>
+            <Button onClick={enviarPendientes}>
               <Stack direction={"row"}>
                 <Icon className="fas fa-paper-plane" />
                 Enviar Pendientes
