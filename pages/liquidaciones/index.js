@@ -101,11 +101,7 @@ export default function Modulo({ mod }) {
         let items = [];
         let idEnteFacturador = null;
         for (let key2 in data) {
-          const dataGravado = groupBy(
-            data[key2],
-            (item) => (item.gravado ? "Gravado" : "No Gravado"),
-            true
-          );
+          const dataGravado = groupBy(data[key2], (item) => item.gravado, true);
           for (let key in dataGravado) {
             const itemsCodigo = getObjectCodigos(dataGravado[key]);
             items.push({
