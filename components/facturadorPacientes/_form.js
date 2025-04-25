@@ -58,6 +58,18 @@ export function _Form({ onAccept }) {
           Aceptar
         </Button>
       </Grid>
+      <Grid item md={5}>
+        <RadioButtons
+          options={[
+            { id: "No Gravado", label: "No Gravado" },
+            { id: "Gravado", label: "Gravado" },
+          ]}
+          row={true}
+          defaultValue={"No Gravado"}
+          label="Gravado"
+          campo="gravado"
+        />
+      </Grid>
     </Grid>
   );
 }

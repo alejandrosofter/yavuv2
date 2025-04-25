@@ -315,6 +315,11 @@ export function ItemsObraSocial({ data, changeData }) {
         accessorFn: (row) => `${formatMoney(row.importe)}`,
       },
       {
+        accessorKey: "gravado",
+        header: "Gravado",
+        size: 100,
+      },
+      {
         accessorKey: "observaciones",
         header: "Observaciones",
         size: 150,
