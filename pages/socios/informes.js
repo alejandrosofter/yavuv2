@@ -21,6 +21,7 @@ export default function Page({}) {
     //   data
     // });
     const data = {
+      ...permisos,
       coleccion,
       token: fuego.auth().currentUser.uid,
       titulo: "INFORME DE SOCIOS",
@@ -36,7 +37,9 @@ export default function Page({}) {
     //   data
     // });
     const data = {
+      ...permisos,
       coleccion: "sociosInaes",
+
       token: fuego.auth().currentUser.uid,
       titulo: "INFORME INAES",
       tk: new Date().getTime(),
