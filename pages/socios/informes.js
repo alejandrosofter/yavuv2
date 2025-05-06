@@ -30,6 +30,21 @@ export default function Page({}) {
       setOpenDialogo(true);
     });
   };
+  const listarInaes = (values) => {
+    // setDataConsulta({
+    //   url: "/api/colecciones/informes",
+    //   data
+    // });
+    const data = {
+      coleccion: "sociosInaes",
+      token: fuego.auth().currentUser.uid,
+      titulo: "INFORME INAES",
+      tk: new Date().getTime(),
+    };
+    add(data).then((res) => {
+      setOpenDialogo(true);
+    });
+  };
   const cambiosEstado = (values) => {
     // setDataConsulta({
     //   url: "/api/colecciones/informes",
@@ -80,6 +95,15 @@ export default function Page({}) {
         </Button>
       </Grid>
       <Grid item md={4}>
+        <Typography variant="h6" gutterBottom component="div">
+          EXCEL INAES
+        </Typography>
+        <Button variant="contained" onClick={() => listarInaes({})}>
+          {" "}
+          <Icon sx={{ mr: 2 }} className="fas fa-scroll" /> Descargar
+        </Button>
+      </Grid>
+      <Grid item md={8}>
         <Grid item md={12}>
           <Typography variant="h6" gutterBottom component="div">
             ALTAS/BAJAS (cambios estado)
