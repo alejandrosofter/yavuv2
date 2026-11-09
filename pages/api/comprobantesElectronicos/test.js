@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default async function handler(req, res) {
   const { idUsuario } = req.query;
-  const url = `${process.env.URL_FUNCTIONS}/comprobantesElectronicos_test?idUsuario=${idUsuario}`;
+  const url = `${process.env.URL_FUNCTIONS}/comprobantesElectronicos-test?idUsuario=${idUsuario}`;
 
   // const output = await (await fetch(url)).json();
   await axios

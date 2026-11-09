@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default async function handler(req, res) {
-  const url = `${process.env.URL_FUNCTIONS}/comprobantesElectronicos_asentar`;
+  const url = `${process.env.URL_FUNCTIONS}/comprobantesElectronicos-asentar`;
 
   // const output = await (await fetch(url)).json();
   await axios

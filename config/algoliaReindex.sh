@@ -1,6 +1,6 @@
 #!/bin/bash
 LOCATION=southamerica-east1\
-  PROJECT_ID=yavu-98cac\
+  PROJECT_ID=yavu2-ba118\
   ALGOLIA_APP_ID=YEIGHXO1BF\
   ALGOLIA_API_KEY=0e2670dbc0a23a0a5da70aef369d176b\
   ALGOLIA_INDEX_NAME=socios\
